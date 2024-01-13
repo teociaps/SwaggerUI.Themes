@@ -1,0 +1,33 @@
+<Project>
+
+  <Import Project=".\Common.props"/>
+
+  <!-- TODO: add version -->
+
+  <PropertyGroup>
+    <!--TODO: use script instead of <GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
+    <IsPackable>true</IsPackable>
+    <Authors>Matteo Ciapparelli</Authors>
+    <Copyright>Copyright © 2024 Matteo Ciapparelli</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/teociaps/AspNetCore.SwaggerUI.DarkTheme</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!--<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="LICENSE" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+</Project>
