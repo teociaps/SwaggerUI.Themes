@@ -1,16 +1,16 @@
 <Project>
 
-  <Import Project=".\Common.props"/>
-
-  <!-- TODO: add version -->
+  <Import Project="Common.props" />
+  <Import Project="Versioning.props" />
 
   <PropertyGroup>
     <!--TODO: use script instead of <GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
     <IsPackable>true</IsPackable>
-    <Authors>Matteo Ciapparelli</Authors>
+    <Authors>teociaps</Authors>
     <Copyright>Copyright © 2024 Matteo Ciapparelli</Copyright>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/teociaps/AspNetCore.SwaggerUI.DarkTheme</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/teociaps/AspNetCore.SwaggerUI.DarkTheme.git</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

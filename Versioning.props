@@ -1,0 +1,32 @@
+<Project>
+
+  <!-- TODO: enhance configuration for 'Official' version -->
+
+  <!-- Local Development -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <NowTicks>$([System.DateTime]::Now.Ticks)</NowTicks>
+    <TodayTicks>$([System.DateTime]::Today.Ticks)</TodayTicks>
+    <TicksSinceMidnight>$([MSBuild]::Subtract($(NowTicks), $(TodayTicks)))</TicksSinceMidnight>
+    <MinutesSinceMidnight>$([MSBuild]::Divide($(TicksSinceMidnight), 600000000))</MinutesSinceMidnight>
+    <Floored>$([System.Math]::Floor($(MinutesSinceMidnight)))</Floored>
+    <Today>$([System.DateTime]::Today.ToString("yyMMdd"))</Today>
+    <Revision>$(Today)-$(Floored)</Revision>
+    <MajorVersion>1</MajorVersion>
+    <MinorVersion>0</MinorVersion>
+    <PatchVersion>0</PatchVersion>
+    <VersionSuffix>-preview-$(Revision)</VersionSuffix>
+  </PropertyGroup>
+
+  <!-- Official Version -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <MajorVersion>1</MajorVersion>
+    <MinorVersion>0</MinorVersion>
+    <PatchVersion>0</PatchVersion>
+    <VersionSuffix>-preview</VersionSuffix>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
+  </PropertyGroup>
+
+</Project>
