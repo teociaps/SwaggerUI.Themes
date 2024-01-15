@@ -1,14 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework> <!-- TODO: add support for old frameworks -->
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-
   <Import Project="..\..\NuGet.props" />
 
   <PropertyGroup>
-    <PackageId>AspNetCore.SwaggerUI.DarkTheme</PackageId>
+    <PackageId>AspNetCore.SwaggerUI.Themes</PackageId>
     <Description>
       An extension library which extends the Swagger middleware to provide a dark theme for API documentation in ASP.NET Core applications.
     </Description>
@@ -16,5 +11,17 @@
       extension;aspnetcore;swagger;swagger-ui;dark-theme
     </PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\dark.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+  </ItemGroup>
 
 </Project>
