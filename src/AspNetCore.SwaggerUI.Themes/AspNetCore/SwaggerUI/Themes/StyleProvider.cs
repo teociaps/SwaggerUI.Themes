@@ -8,6 +8,8 @@ internal static class StyleProvider
 {
     private static readonly string _stylesNamespace = string.Concat(typeof(StyleProvider).Namespace, ".Styles.");
 
+    internal static readonly string StylePath = "/styles/";
+
     // TODO: internal const string CommonStyleFile = "common.css";
 
     internal static string GetResourceText(string fileName)
@@ -23,14 +25,15 @@ internal static class StyleProvider
         return reader.ReadToEnd();
     }
 
-    internal static void AddGetEndpoint(WebApplication app, string cssPath, string styleText)
+    internal static void AddGetEndpoint(WebApplication app, string fullStylePath, string styleText, string styleFormat)
     {
-        app.MapGet(cssPath, (HttpContext context) =>
+        app.MapGet(fullStylePath, (HttpContext context) =>
         {
+            // TODO: change cache time?
             context.Response.Headers.CacheControl = "public, max-age=3600";
             context.Response.Headers.Expires = DateTime.UtcNow.AddDays(2).ToString("R");
 
-            return Results.Content(styleText, "text/css"); // TODO: add different formats in the future
+            return Results.Content(styleText, $"text/{styleFormat}");
         })
         .ExcludeFromDescription();
     }

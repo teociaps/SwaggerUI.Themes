@@ -8,34 +8,36 @@ namespace Swashbuckle.AspNetCore.SwaggerUI;
 /// </summary>
 public static class StyleSwaggerUIBuilderExtensions
 {
-    private const string DarkStyleFile = "dark.css";
-
     /// <summary>
-    /// Register the SwaggerUI middleware using dark mode. You can override the behavior by
-    /// providing options.
+    /// Register the SwaggerUI middleware using the specified style. You can override the behavior
+    /// by providing options.
     /// </summary>
     /// <param name="app">The application builder instance.</param>
+    /// <param name="style">The style to apply.</param>
     /// <param name="options">The SwaggerUI options.</param>
-    public static IApplicationBuilder UseDarkSwaggerUI(this WebApplication app, SwaggerUIOptions options)
+    public static IApplicationBuilder UseSwaggerUI(this WebApplication app, Style style, SwaggerUIOptions options)
     {
-        ImportSwaggerStyle(app);
+        ImportSwaggerStyle(app, style);
 
-        SetDarkMode(options);
+        InjectStyle(style).Invoke(options);
         return app.UseSwaggerUI(options);
     }
 
     /// <summary>
-    /// Register the SwaggerUI middleware using dark mode with optional setup action for DI-injected options.
+    /// Register the SwaggerUI middleware using the specified style with optional setup action for
+    /// DI-injected options.
     /// </summary>
     /// <param name="app">The application builder instance.</param>
+    /// <param name="style">The style to apply.</param>
     /// <param name="setupAction">An action used to configure SwaggerUI options.</param>
-    public static IApplicationBuilder UseDarkSwaggerUI(
+    public static IApplicationBuilder UseSwaggerUI(
         this WebApplication app,
+        Style style,
         Action<SwaggerUIOptions> setupAction = null)
     {
-        ImportSwaggerStyle(app);
+        ImportSwaggerStyle(app, style);
 
-        var defaultSetupAction = SetDarkMode();
+        var defaultSetupAction = InjectStyle(style);
         if (setupAction is not null)
         {
             defaultSetupAction = options =>
@@ -48,25 +50,20 @@ public static class StyleSwaggerUIBuilderExtensions
         return app.UseSwaggerUI(defaultSetupAction);
     }
 
-    private static void ImportSwaggerStyle(WebApplication app)
+    private static void ImportSwaggerStyle(WebApplication app, Style style)
     {
-        string darkCss = StyleProvider.GetResourceText(DarkStyleFile);
+        string stylesheet = StyleProvider.GetResourceText(style.FileName);
 
-        StyleProvider.AddGetEndpoint(app, "/styles/dark.css", darkCss);
+        StyleProvider.AddGetEndpoint(app, ComposeFullStylePath(style), stylesheet, style.FormatText);
     }
 
-    private static void SetDarkMode(SwaggerUIOptions swaggerUiOptions)
+    private static Action<SwaggerUIOptions> InjectStyle(Style style)
     {
-        swaggerUiOptions.InjectDarkThemeStylesheet();
+        return x => x.InjectStylesheet(ComposeFullStylePath(style));
     }
 
-    private static Action<SwaggerUIOptions> SetDarkMode()
+    private static string ComposeFullStylePath(Style style)
     {
-        return x => x.InjectDarkThemeStylesheet();
-    }
-
-    private static void InjectDarkThemeStylesheet(this SwaggerUIOptions swaggerUiOptions)
-    {
-        swaggerUiOptions.InjectStylesheet("/styles/dark.css");
+        return StyleProvider.StylePath + style.FileName;
     }
 }
