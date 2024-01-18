@@ -1,0 +1,40 @@
+name: Pack
+
+on:
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
+
+jobs:
+  pack:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.x'
+
+    - name: Find Projects with IsPackable
+      id: find_projects
+      run: |
+        PACKABLE_PROJECTS=($(find . -type f -name "*.csproj" -exec grep -q '<IsPackable>true<\/IsPackable>' {} \; -print))
+        echo "::set-output name=PACKABLE_PROJECTS::${PACKABLE_PROJECTS[@]}"
+
+    - name: Pack
+      run: |
+        for project in "${{ steps.find_projects.outputs.PACKABLE_PROJECTS }}"; do
+          echo "Packing project: $project"
+          dotnet pack --configuration Release --no-build --output ${{github.workspace}}/artifacts $project
+        done
+
+    - name: Publish Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifacts
+        path: ${{github.workspace}}/artifacts
