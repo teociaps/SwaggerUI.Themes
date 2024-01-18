@@ -20,7 +20,7 @@ jobs:
       with:
         dotnet-version: '8.x'
 
-    - name: Build and Pack
+    - name: Build
       run: |
         dotnet restore
         dotnet build --configuration Release
