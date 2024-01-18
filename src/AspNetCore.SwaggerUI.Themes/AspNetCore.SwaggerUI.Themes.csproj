@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="14.0.2" />
   </ItemGroup>
 
 </Project>
