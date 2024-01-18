@@ -1,7 +1,7 @@
 ﻿using AspNetCore.SwaggerUI.Themes;
-using Microsoft.AspNetCore.Builder;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
-namespace Swashbuckle.AspNetCore.SwaggerUI;
+namespace Microsoft.AspNetCore.Builder;
 
 /// <summary>
 /// Extensions methods for <see cref="IApplicationBuilder"/>.
