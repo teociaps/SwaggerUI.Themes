@@ -34,7 +34,7 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 2. In your `Program.cs` file, add the style through the `Style` class as new parameter of `app.UseSwaggerUI()` method:
 
 	```csharp
-	using Swashbuckle.AspNetCore.SwaggerUI;
+	using AspNetCore.SwaggerUI.Themes;
 
 	...
 
@@ -52,7 +52,7 @@ TODO: write better, for old templates too (startup/program)
 Here's an example of how to integrate AspNetCore.SwaggerUI.Themes in your ASP.NET Core application:
 
 ```csharp
-using Swashbuckle.AspNetCore.SwaggerUI;
+using AspNetCore.SwaggerUI.Themes;
 ...
 
 // Add services to the container. Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
