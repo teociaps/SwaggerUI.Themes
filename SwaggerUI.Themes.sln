@@ -20,8 +20,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.SwaggerUI.Swashbuckl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B89F6FD2-68B6-4A70-A070-FF22FE42DDE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.SwaggerUI.NSwag", "samples\Sample.SwaggerUI.NSwag\Sample.SwaggerUI.NSwag.csproj", "{3C43DD03-857B-4312-9243-F7212FD01649}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,10 +34,6 @@ Global
 		{ED52DF52-839F-4DFE-ABDD-05C8F85D71BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED52DF52-839F-4DFE-ABDD-05C8F85D71BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED52DF52-839F-4DFE-ABDD-05C8F85D71BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C43DD03-857B-4312-9243-F7212FD01649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C43DD03-857B-4312-9243-F7212FD01649}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C43DD03-857B-4312-9243-F7212FD01649}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C43DD03-857B-4312-9243-F7212FD01649}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,7 +41,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5FC2CEDA-5475-4096-BDEC-1C9BFC933FB8} = {19896985-FCB0-4EA0-8E5F-FF3902AC13FC}
 		{ED52DF52-839F-4DFE-ABDD-05C8F85D71BC} = {FF08B180-6923-46E0-8426-99391CFB47CD}
-		{3C43DD03-857B-4312-9243-F7212FD01649} = {FF08B180-6923-46E0-8426-99391CFB47CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {660A434B-79DE-4C3F-892C-333338978C59}
