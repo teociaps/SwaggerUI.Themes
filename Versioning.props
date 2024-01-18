@@ -11,18 +11,18 @@
     <Floored>$([System.Math]::Floor($(MinutesSinceMidnight)))</Floored>
     <Today>$([System.DateTime]::Today.ToString("yyMMdd"))</Today>
     <Revision>$(Today)-$(Floored)</Revision>
-    <MajorVersion>1</MajorVersion>
-    <MinorVersion>0</MinorVersion>
+    <MajorVersion>0</MajorVersion>
+    <MinorVersion>1</MinorVersion>
     <PatchVersion>0</PatchVersion>
-    <VersionSuffix>-preview-$(Revision)</VersionSuffix>
+    <VersionSuffix>-$(Revision)</VersionSuffix>
   </PropertyGroup>
 
   <!-- Official Version -->
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <MajorVersion>1</MajorVersion>
-    <MinorVersion>0</MinorVersion>
+    <MajorVersion>0</MajorVersion>
+    <MinorVersion>1</MinorVersion>
     <PatchVersion>0</PatchVersion>
-    <VersionSuffix>-preview</VersionSuffix>
+    <VersionSuffix></VersionSuffix> <!-- used for preview -->
   </PropertyGroup>
 
   <PropertyGroup>

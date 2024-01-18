@@ -4,7 +4,7 @@
   <Import Project="Versioning.props" />
 
   <PropertyGroup>
-    <!--TODO: use script instead of <GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
+    <!--<GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
     <IsPackable>true</IsPackable>
     <Authors>teociaps</Authors>
     <Copyright>Copyright © 2024 Matteo Ciapparelli</Copyright>
