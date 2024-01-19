@@ -12,28 +12,23 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          .github
+          src
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.x'
 
-    - name: Find Projects with IsPackable
-      id: find_projects
-      run: |
-        PACKABLE_PROJECTS=($(find . -type f -name "*.csproj" -exec grep -q '<IsPackable>true<\/IsPackable>' {} \; -print))
-        echo "PACKABLE_PROJECTS=${PACKABLE_PROJECTS[*]}" >> $GITHUB_ENV
-
     - name: Pack
       run: |
-        for project in $PACKABLE_PROJECTS; do
-          echo "Packing project: $project"
-          dotnet pack --configuration Release --no-build --output ${{github.workspace}}/artifacts $project
-        done
+        dotnet pack --configuration Release --no-build --output ${{github.workspace}}/artifacts
 
     - name: Publish Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: artifacts
         path: ${{github.workspace}}/artifacts
