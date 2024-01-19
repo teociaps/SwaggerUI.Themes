@@ -23,11 +23,11 @@ jobs:
       id: find_projects
       run: |
         PACKABLE_PROJECTS=($(find . -type f -name "*.csproj" -exec grep -q '<IsPackable>true<\/IsPackable>' {} \; -print))
-        echo "{PACKABLE_PROJECTS}=${PACKABLE_PROJECTS[@]}" >> $GITHUB_OUTPUT
+        echo "PACKABLE_PROJECTS=${PACKABLE_PROJECTS[*]}" >> $GITHUB_ENV
 
     - name: Pack
       run: |
-        for project in "${{ steps.find_projects.outputs.PACKABLE_PROJECTS }}"; do
+        for project in $PACKABLE_PROJECTS; do
           echo "Packing project: $project"
           dotnet pack --configuration Release --no-build --output ${{github.workspace}}/artifacts $project
         done
