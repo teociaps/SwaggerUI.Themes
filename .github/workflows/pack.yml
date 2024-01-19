@@ -25,7 +25,7 @@ jobs:
 
     - name: Pack
       run: |
-        dotnet pack --configuration Release --no-build --output ${{github.workspace}}/artifacts
+        dotnet pack --configuration Release --output ${{github.workspace}}/artifacts
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4
