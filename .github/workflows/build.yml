@@ -6,6 +6,8 @@ on:
       - main
     tags:
       - 'v*.*.*'
+    paths-ignore:
+      - '**/*.md'
 
 jobs:
   build:
@@ -20,7 +22,10 @@ jobs:
       with:
         dotnet-version: '8.x'
 
+    - name: Restore
+      run: dotnet restore
+
     - name: Build
-      run: |
-        dotnet restore
-        dotnet build --configuration Release
+      run: dotnet build --no-restore --configuration Release
+
+    # TODO: add tests jobs
