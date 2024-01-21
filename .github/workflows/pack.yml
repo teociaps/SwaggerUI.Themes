@@ -22,6 +22,7 @@ jobs:
         sparse-checkout: |
           .github
           src
+          build
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
