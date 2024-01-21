@@ -4,6 +4,7 @@
 
   <!-- Local Development -->
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NowTicks>$([System.DateTime]::Now.Ticks)</NowTicks>
     <TodayTicks>$([System.DateTime]::Today.Ticks)</TodayTicks>
     <TicksSinceMidnight>$([MSBuild]::Subtract($(NowTicks), $(TodayTicks)))</TicksSinceMidnight>
