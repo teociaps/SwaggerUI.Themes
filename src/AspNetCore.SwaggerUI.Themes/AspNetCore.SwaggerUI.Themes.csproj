@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\NuGet.props" />
+  <Import Project="..\..\build\NuGet.props" />
 
   <PropertyGroup>
     <PackageId>AspNetCore.SwaggerUI.Themes</PackageId>

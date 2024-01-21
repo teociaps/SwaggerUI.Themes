@@ -9,11 +9,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{19896985-FCB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{FF08B180-6923-46E0-8426-99391CFB47CD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{9F3BA92D-50DB-4F90-BAAD-C574A5A5EA6E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{9F3BA92D-50DB-4F90-BAAD-C574A5A5EA6E}"
 	ProjectSection(SolutionItems) = preProject
-		Common.props = Common.props
-		NuGet.props = NuGet.props
-		Versioning.props = Versioning.props
+		build\Common.props = build\Common.props
+		build\icon.png = build\icon.png
+		build\NuGet.props = build\NuGet.props
+		build\Versioning.props = build\Versioning.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.SwaggerUI.Swashbuckle", "samples\Sample.SwaggerUI.Swashbuckle\Sample.SwaggerUI.Swashbuckle.csproj", "{ED52DF52-839F-4DFE-ABDD-05C8F85D71BC}"
