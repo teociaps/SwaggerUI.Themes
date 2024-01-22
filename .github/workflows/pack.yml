@@ -1,10 +1,9 @@
 name: Pack
 
 on:
-  workflow_run:
-    workflows: ["Build"]
+  release:
     types:
-      - completed
+      - published
 
 env:
     PROJECTS_PATH: 'src/*'
@@ -38,3 +37,7 @@ jobs:
       with:
         name: artifacts
         path: ${{ env.PACKAGE_OUTPUT }}
+
+    - name: Push to NuGet
+      run: |
+        dotnet nuget push ${{ env.PACKAGE_OUTPUT }}\*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s ${{ env.NUGET_SOURCE_URL }}
