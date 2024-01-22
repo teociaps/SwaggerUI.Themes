@@ -1,6 +1,8 @@
 # SwaggerUI.Themes
 
-TODO: add widgets like build status and nuget version
+[![Build](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml)
+
+TODO: add nuget version badge
 
 **AspNetCore.SwaggerUI.Themes** is a package that extends [Swashbuckle.AspNetCore.SwaggerUI](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) to provide new themes for Swagger documentation in ASP.NET Core applications.
 
@@ -12,7 +14,8 @@ TODO: add widgets like build status and nuget version
 
 ## Features
 
-- **New Themes:** Enhances the Swagger documentation interface with a modern themes, including dark theme.
+- **New Themes:** Enhances the Swagger documentation interface with a modern themes, including dark theme.	
+  Currently, only the _Dark_ style is available; additional styles will be introduced in the future.
 - **Seamless Integration:** Simply install the package and add the style parameter to the existing method used for SwaggerUI.
 
 ## Getting Started
@@ -40,14 +43,11 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 
 	app.UseSwaggerUI(Style.Dark);
 	```
-	
+
 	This code enables the chosen theme for Swagger UI in your application.
-
-
-NB: Only available style for now is the _Dark_ style. Other styles coming soon.
-
-TODO: write better, for old templates too (startup/program)
-
+	
+	> Please be aware that for projects utilizing the older style template with separate `Startup.cs` and `Program.cs` files, the following code should be configured within the `Configure` method of the `Startup` class.
+	
 ## Example
 Here's an example of how to integrate AspNetCore.SwaggerUI.Themes in your ASP.NET Core application:
 
@@ -75,9 +75,7 @@ app.UseSwaggerUI(Style.Dark, c =>
 
 That's it! Your Swagger UI will now have a sleek dark theme.
 
-TODO: info override theme
+> Please note that using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
 
 ## Contributing
 If you have any suggestions, bug reports, or contributions, feel free to open an issue or submit a pull request.
-
-TODO: write better
