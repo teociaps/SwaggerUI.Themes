@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>
-    <Authors>teociaps</Authors>
+    <Authors>Matteo Ciapparelli</Authors>
     <Copyright>Copyright © 2024 Matteo Ciapparelli</Copyright>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/teociaps/SwaggerUI.Themes</PackageProjectUrl>
@@ -16,7 +16,6 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <!--<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>-->
   </PropertyGroup>
 
   <ItemGroup>
