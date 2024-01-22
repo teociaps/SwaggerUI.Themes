@@ -40,4 +40,4 @@ jobs:
 
     - name: Push to NuGet
       run: |
-        dotnet nuget push ${{ env.PACKAGE_OUTPUT }}\*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s ${{ env.NUGET_SOURCE_URL }}
+        dotnet nuget push ${{ env.PACKAGE_OUTPUT }}/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s ${{ env.NUGET_SOURCE_URL }}
