@@ -1,0 +1,10 @@
+﻿/*
+    Test Style (Css)
+*/
+
+@charset "UTF-8";
+
+
+body::-webkit-scrollbar-thumb {
+    background-color: hsla(0, 0%, 65%, 0.259);
+}
