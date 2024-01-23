@@ -1,4 +1,8 @@
-﻿@charset "UTF-8";
+﻿/*
+    Dark Style (Css)
+*/
+
+@charset "UTF-8";
 
 *::-webkit-scrollbar {
     width: 16px;
