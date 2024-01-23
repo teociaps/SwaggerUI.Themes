@@ -2,7 +2,8 @@
 
 [![Build](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml)
 
-TODO: add nuget version badge
+![Static Badge](https://img.shields.io/badge/NuGet-v0.1.0-blue)
+
 
 **AspNetCore.SwaggerUI.Themes** is a package that extends [Swashbuckle.AspNetCore.SwaggerUI](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) to provide new themes for Swagger documentation in ASP.NET Core applications.
 
@@ -78,4 +79,4 @@ That's it! Your Swagger UI will now have a sleek dark theme.
 > Please note that using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
 
 ## Contributing
-If you have any suggestions, bug reports, or contributions, feel free to open an issue or submit a pull request.
+If you have any suggestions, bug reports, or contributions, feel free to open an [issue](https://github.com/teociaps/SwaggerUI.Themes/issues) or submit a [pull request](https://github.com/teociaps/SwaggerUI.Themes/pulls)
