@@ -5,10 +5,11 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="AspNetCore.SwaggerUI.Themes.Styles\style.css" />
+    <EmbeddedResource Include="Styles\style.css" />
   </ItemGroup>
 
   <ItemGroup>

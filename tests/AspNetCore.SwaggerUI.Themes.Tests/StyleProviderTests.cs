@@ -3,19 +3,16 @@ using static AspNetCore.SwaggerUI.Themes.StyleProvider;
 
 namespace AspNetCore.SwaggerUI.Themes.Tests;
 
-// List of style to test
-public class StyleTestData : IEnumerable<object[]>
+public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFactory<Program>>
 {
-    public IEnumerator<object[]> GetEnumerator()
+    private readonly StyleProviderWebApplicationFactory<Program> _styleProviderWebApplicationFactory;
+
+    public StyleProviderTests(StyleProviderWebApplicationFactory<Program> styleProviderWebApplicationFactory)
     {
-        yield return [Style.Dark];
+        _styleProviderWebApplicationFactory = styleProviderWebApplicationFactory;
+        _styleProviderWebApplicationFactory.CreateClient();
     }
 
-    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-}
-
-public class StyleProviderTests : StyleProviderWebApplicationFactory<Program>
-{
     [Theory]
     [ClassData(typeof(StyleTestData))]
     public void Should_Embed_And_Retrieve_Style_From_ExecutingAssembly(Style style)
@@ -52,7 +49,7 @@ public class StyleProviderTests : StyleProviderWebApplicationFactory<Program>
         var styleText = GetResourceText(style.FileName);
 
         // Act
-        var response = await Client.GetAsync(fullPath);
+        var response = await _styleProviderWebApplicationFactory.Client.GetAsync(fullPath);
 
         // Assert
         response.StatusCode.ShouldBe(System.Net.HttpStatusCode.OK);

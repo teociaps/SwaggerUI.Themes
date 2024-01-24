@@ -9,18 +9,18 @@ namespace AspNetCore.SwaggerUI.Themes.Tests;
 /// <typeparam name="TProgram">
 /// A type in the entry point assembly of the application. Typically the Program classes can be used.
 /// </typeparam>
-public abstract class StyleProviderWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>
+public class StyleProviderWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>
     where TProgram : class
 {
     /// <summary>
     /// HTTP client for executing tests.
     /// </summary>
-    protected HttpClient Client { get; set; }
+    public HttpClient Client { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StyleProviderWebApplicationFactory{TProgram}"/> class.
+    /// Creates an instance of <see cref="HttpClient "/> to be used during tests.
     /// </summary>
-    protected StyleProviderWebApplicationFactory()
+    public new void CreateClient()
     {
         Client = CreateClient(new WebApplicationFactoryClientOptions
         {
