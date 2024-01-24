@@ -1,11 +1,22 @@
+<span align="center">
+
 # SwaggerUI.Themes
 
-[![Build](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml)
+</span>
+<span style="display: flex; gap: 1rem; justify-content: center">
+
+[![Build](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg)](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml)
+
+[![Test](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml/badge.svg)](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml)
 
 ![Static Badge](https://img.shields.io/badge/NuGet-v0.1.0-blue)
 
+</span>
+<span align="center">
 
 **AspNetCore.SwaggerUI.Themes** is a package that extends [Swashbuckle.AspNetCore.SwaggerUI](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) to provide new themes for Swagger documentation in ASP.NET Core applications.
+
+</span>
 
 ## Introduction
 
@@ -47,7 +58,7 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 
 	This code enables the chosen theme for Swagger UI in your application.
 	
-	> Please be aware that for projects utilizing the older style template with separate `Startup.cs` and `Program.cs` files, the following code should be configured within the `Configure` method of the `Startup` class.
+	> Please be aware that for projects utilizing the older style template with separate `Startup.cs` and `Program.cs` files, the previously code should be configured within the `Configure` method of the `Startup` class.
 	
 ## Example
 Here's an example of how to integrate AspNetCore.SwaggerUI.Themes in your ASP.NET Core application:
