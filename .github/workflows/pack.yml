@@ -7,6 +7,7 @@ on:
 
 env:
     PROJECTS_PATH: 'src/*'
+    CONFIGURATION: 'Release'
     PACKAGE_OUTPUT: ${{ github.workspace }}/artifacts
     NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
 
@@ -30,7 +31,7 @@ jobs:
 
     - name: Pack
       run: |
-        dotnet pack ${{ env.PROJECTS_PATH }} --configuration Release --output ${{ env.PACKAGE_OUTPUT }}
+        dotnet pack ${{ env.PROJECTS_PATH }} --configuration ${{ env.CONFIGURATION }} --output ${{ env.PACKAGE_OUTPUT }}
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4

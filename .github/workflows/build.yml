@@ -10,6 +10,9 @@ on:
     paths-ignore:
       - '**/*.md'
 
+env:
+    CONFIGURATION: 'Release'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,6 +30,4 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release
-
-    # TODO: add tests jobs
+      run: dotnet build --no-restore --configuration ${{ env.CONFIGURATION }}
