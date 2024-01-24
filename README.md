@@ -3,15 +3,17 @@
 # SwaggerUI.Themes
 
 </span>
-<span style="display: flex; gap: 1rem; justify-content: center">
-
-[![Build](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg)](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml)
-
-[![Test](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml/badge.svg)](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml)
-
-![Static Badge](https://img.shields.io/badge/NuGet-v0.1.0-blue)
-
-</span>
+<p align="center">
+	<a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml">
+		<img alt="Build Passing" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg" />
+	</a>
+	<a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml">
+		<img alt="Tests Passing" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml/badge.svg" />
+	</a>
+	<a href="https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes/0.1.0">
+		<img alt="NuGet Version" src="https://img.shields.io/badge/NuGet-v0.1.0-blue">
+	</a>
+</p>
 <span align="center">
 
 **AspNetCore.SwaggerUI.Themes** is a package that extends [Swashbuckle.AspNetCore.SwaggerUI](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) to provide new themes for Swagger documentation in ASP.NET Core applications.
