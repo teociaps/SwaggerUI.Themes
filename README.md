@@ -4,13 +4,13 @@
 
 </span>
 <p align="center">
-	<a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml" style="text-decoration: none !important">
+	<a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml">
 		<img alt="Build Passing" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg" />
 	</a>
-	<a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml" style="text-decoration: none !important">
+	<a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml">
 		<img alt="Tests Passing" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml/badge.svg" />
 	</a>
-	<a href="https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes/0.1.0" style="text-decoration: none !important">
+	<a href="https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes/0.1.0">
 		<img alt="NuGet Version" src="https://img.shields.io/badge/NuGet-v0.1.0-blue">
 	</a>
 </p>
