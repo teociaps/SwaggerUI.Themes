@@ -24,4 +24,4 @@ jobs:
         dotnet-version: '8.x'
 
     - name: Test
-      run: dotnet test ${{ env.TEST_PROJECTS_PATH }} --configuration ${{ env.CONFIGURATION }} --no-build
+      run: dotnet test ${{ env.TEST_PROJECTS_PATH }} --configuration ${{ env.CONFIGURATION }}
