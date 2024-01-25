@@ -41,7 +41,11 @@ public sealed class Style
     /// <returns>The style name.</returns>
     public string GetStyleName()
     {
+    #if NET6_0_OR_GREATER
         return char.ToUpper(FileName[0]) + FileName[1..(FileName.LastIndexOf('.'))];
+    #else
+        return char.ToUpper(FileName[0]) + FileName.Substring(1, FileName.LastIndexOf('.'));
+    #endif
     }
 
     internal string FormatText => Format.ToString().ToLowerInvariant();
