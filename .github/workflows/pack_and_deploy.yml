@@ -1,10 +1,6 @@
 name: Pack and Deploy
 
 on:
-  workflow_run:
-    workflows: ["Test"]
-    types:
-      - completed
   release:
     types:
       - published
