@@ -1,6 +1,10 @@
 name: Pack and Deploy
 
 on:
+  workflow_run:
+    workflows: ["Test"]
+    types:
+      - completed
   release:
     types:
       - published
@@ -12,7 +16,7 @@ env:
     NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
 
 jobs:
-  pack:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,11 +40,6 @@ jobs:
       run: |
         dotnet pack ${{ env.PROJECTS_PATH }} --configuration ${{ env.CONFIGURATION }} --output ${{ env.PACKAGE_OUTPUT }}
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: pack
-
-    steps:
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4
       with:
