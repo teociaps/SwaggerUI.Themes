@@ -14,8 +14,8 @@
 	<a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml">
 		<img alt="Tests Passing" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml/badge.svg" />
 	</a>
-	<a href="https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes/0.1.0">
-		<img alt="NuGet Version" src="https://img.shields.io/badge/NuGet-v0.1.0-blue">
+	<a href="https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes">
+		<img alt="NuGet Version" src="https://img.shields.io/nuget/v/AspNetCore.SwaggerUI.Themes?logo=nuget&color=blue" />
 	</a>
 </p>
 <span align="center">
