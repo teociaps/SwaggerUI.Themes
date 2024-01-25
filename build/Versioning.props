@@ -13,7 +13,7 @@
     <Today>$([System.DateTime]::Today.ToString("yyMMdd"))</Today>
     <Revision>$(Today)-$(Floored)</Revision>
     <MajorVersion>0</MajorVersion>
-    <MinorVersion>1</MinorVersion>
+    <MinorVersion>2</MinorVersion>
     <PatchVersion>0</PatchVersion>
     <VersionSuffix>-$(Revision)</VersionSuffix>
   </PropertyGroup>
@@ -21,7 +21,7 @@
   <!-- Official Version -->
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <MajorVersion>0</MajorVersion>
-    <MinorVersion>1</MinorVersion>
+    <MinorVersion>2</MinorVersion>
     <PatchVersion>0</PatchVersion>
     <VersionSuffix></VersionSuffix> <!-- used for preview -->
   </PropertyGroup>

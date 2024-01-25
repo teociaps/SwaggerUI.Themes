@@ -1,10 +1,17 @@
 using AspNetCore.SwaggerUI.Themes;
+#if NET6_0 || NET7_0
+using Swashbuckle.AspNetCore.Annotations;
+#endif
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container. Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+#if NET7_0_OR_GREATER
 builder.Services.AddSwaggerGen();
+#else
+builder.Services.AddSwaggerGen(opts => opts.EnableAnnotations());
+#endif
 
 var app = builder.Build();
 
@@ -35,7 +42,13 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast")
+#if NET7_0_OR_GREATER
+.WithSummary("Summary")
+.WithDescription("Description Test")
 .WithOpenApi();
+#else
+.WithMetadata(new SwaggerOperationAttribute(summary: "Summary", description: "Description Test"));
+#endif
 
 app.Run();
 

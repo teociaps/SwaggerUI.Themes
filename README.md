@@ -1,10 +1,28 @@
+﻿<span align="center">
+
+<p>
+<img height="50" src="\build\icon.png" align="center">
+</p>
+
 # SwaggerUI.Themes
 
-[![Build](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml)
-
-TODO: add nuget version badge
+</span>
+<p align="center">
+	<a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml">
+		<img alt="Build Passing" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg" />
+	</a>
+	<a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml">
+		<img alt="Tests Passing" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml/badge.svg" />
+	</a>
+	<a href="https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes">
+		<img alt="NuGet Version" src="https://img.shields.io/nuget/v/AspNetCore.SwaggerUI.Themes?logo=nuget&color=blue" />
+	</a>
+</p>
+<span align="center">
 
 **AspNetCore.SwaggerUI.Themes** is a package that extends [Swashbuckle.AspNetCore.SwaggerUI](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) to provide new themes for Swagger documentation in ASP.NET Core applications.
+
+</span>
 
 ## Introduction
 
@@ -17,6 +35,28 @@ TODO: add nuget version badge
 - **New Themes:** Enhances the Swagger documentation interface with a modern themes, including dark theme.	
   Currently, only the _Dark_ style is available; additional styles will be introduced in the future.
 - **Seamless Integration:** Simply install the package and add the style parameter to the existing method used for SwaggerUI.
+
+
+## Supported .NET Versions
+
+| Version | Status        |
+| ------- | ------------- |
+| .NET 6  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+| .NET 7  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+| .NET 8  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+
+### Version History
+
+The table below provides a quick overview of **AspNetCore.SwaggerUI.Themes** versions and their compatibility with different .NET versions.
+
+| Library Version | .NET 6 | .NET 7 | .NET 8 |
+| --------------- | ------ | ------ | ------ |
+| 0.1.0           | ❌	   | ❌		| ✔		 |
+| 0.2.0           | ✔	   | ✔		| ✔		 |
+
+- ✔️ Supported: The library version is compatible with the respective .NET version.
+- ❌ Unsupported: The library version is not compatible with the respective .NET version.
+
 
 ## Getting Started
 
@@ -46,7 +86,7 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 
 	This code enables the chosen theme for Swagger UI in your application.
 	
-	> Please be aware that for projects utilizing the older style template with separate `Startup.cs` and `Program.cs` files, the following code should be configured within the `Configure` method of the `Startup` class.
+	> Please be aware that for projects utilizing the older style template with separate `Startup.cs` and `Program.cs` files, the previously code should be configured within the `Configure` method of the `Startup` class.
 	
 ## Example
 Here's an example of how to integrate AspNetCore.SwaggerUI.Themes in your ASP.NET Core application:
@@ -78,4 +118,4 @@ That's it! Your Swagger UI will now have a sleek dark theme.
 > Please note that using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
 
 ## Contributing
-If you have any suggestions, bug reports, or contributions, feel free to open an issue or submit a pull request.
+If you have any suggestions, bug reports, or contributions, feel free to open an [issue](https://github.com/teociaps/SwaggerUI.Themes/issues) or submit a [pull request](https://github.com/teociaps/SwaggerUI.Themes/pulls)

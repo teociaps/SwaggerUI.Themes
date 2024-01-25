@@ -18,7 +18,7 @@ internal static class StyleProvider
         var resource = string.Concat(_stylesNamespace, fileName);
 
         using var stream = currentAssembly.GetManifestResourceStream(resource)
-            ?? throw new FileNotFoundException("Can't find theme resource.");
+            ?? throw new FileNotFoundException($"Can't find {fileName} resource.");
 
         using var reader = new StreamReader(stream);
 

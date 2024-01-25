@@ -33,7 +33,20 @@ public sealed class Style
     /// Returns the file name and format as a string representation of the style.
     /// </summary>
     /// <returns>The file name and format associated with the style.</returns>
-    public override string ToString() => $"{FileName} ({Format})";
+    public override string ToString() => $"{GetStyleName()} Style ({Format})";
+
+    /// <summary>
+    /// Gets the name of the style without the file extension.
+    /// </summary>
+    /// <returns>The style name.</returns>
+    public string GetStyleName()
+    {
+    #if NET6_0_OR_GREATER
+        return char.ToUpper(FileName[0]) + FileName[1..(FileName.LastIndexOf('.'))];
+    #else
+        return char.ToUpper(FileName[0]) + FileName.Substring(1, FileName.LastIndexOf('.'));
+    #endif
+    }
 
     internal string FormatText => Format.ToString().ToLowerInvariant();
 

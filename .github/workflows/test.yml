@@ -1,20 +1,17 @@
-name: Build
+name: Test
 
 on:
-  push:
-    branches:
-      - main
-      - release
-    tags:
-      - 'v*.*.*'
-    paths-ignore:
-      - '**/*.md'
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
 
 env:
+    TEST_PROJECTS_PATH: 'tests/*'
     CONFIGURATION: 'Release'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,8 +26,5 @@ jobs:
           7.0.x
           8.0.x
 
-    - name: Restore
-      run: dotnet restore
-
-    - name: Build
-      run: dotnet build --no-restore --configuration ${{ env.CONFIGURATION }}
+    - name: Test
+      run: dotnet test ${{ env.TEST_PROJECTS_PATH }} --configuration ${{ env.CONFIGURATION }}
