@@ -1,4 +1,8 @@
-<span align="center">
+﻿<span align="center">
+
+<p>
+<img height="50" src="\build\icon.png" align="center">
+</p>
 
 # SwaggerUI.Themes
 
@@ -31,6 +35,28 @@
 - **New Themes:** Enhances the Swagger documentation interface with a modern themes, including dark theme.	
   Currently, only the _Dark_ style is available; additional styles will be introduced in the future.
 - **Seamless Integration:** Simply install the package and add the style parameter to the existing method used for SwaggerUI.
+
+
+## Supported .NET Versions
+
+| Version | Status        |
+| ------- | ------------- |
+| .NET 6  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+| .NET 7  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+| .NET 8  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+
+### Version History
+
+The table below provides a quick overview of **AspNetCore.SwaggerUI.Themes** versions and their compatibility with different .NET versions.
+
+| Library Version | .NET 6 | .NET 7 | .NET 8 |
+| --------------- | ------ | ------ | ------ |
+| 0.1.0           | ❌	   | ❌		| ✔		 |
+| 0.2.0           | ✔	   | ✔		| ✔		 |
+
+- ✔️ Supported: The library version is compatible with the respective .NET version.
+- ❌ Unsupported: The library version is not compatible with the respective .NET version.
+
 
 ## Getting Started
 
