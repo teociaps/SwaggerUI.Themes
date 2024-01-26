@@ -1,0 +1,45 @@
+name: 💡 Feature request
+description: Suggest a new feature/enhancement for this project.
+title: "[Feature]: "
+labels: ['enhancement']
+
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for contributing to this project!
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Guidelines
+      description: By submitting this issue, you agree to follow our [Contributing Guidelines](https://github.com/teociaps/SwaggerUI.Themes/blob/main/CONTRIBUTING.md).
+      options:
+        - label: I agree to follow this project's Contributing Guidelines.
+          required: true
+
+  - type: textarea
+    id: feature
+    attributes:
+      label: What would you like to be added?
+      description: |
+        Please check existing issues to avoid making duplicates. Any duplicate issue will be closed immediately.
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Is your feature request related to a problem?
+      placeholder: What problem will this solve?
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Add any other useful information about the idea here.
+      placeholder: Is there any additional helpful information you can share?
+    validations:
+      required: false

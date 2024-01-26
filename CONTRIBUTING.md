@@ -47,9 +47,6 @@ If you find a bug or have a question, please open an issue on GitHub. When repor
 ## Feature Requests
 We welcome suggestions for new features or improvements. Please open an issue to propose your ideas.
 
-Development Setup
-To set up the project for local development, follow the instructions in the [README](README.md) file.
-
 ## License
 By contributing to this project, you agree that your contributions will be licensed under the [License](LICENSE) file.
 
