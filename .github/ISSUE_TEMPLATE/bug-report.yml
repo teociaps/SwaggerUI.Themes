@@ -12,7 +12,7 @@ body:
     id: terms
     attributes:
       label: Guidelines
-      description: By submitting this issue, you agree to follow our [Contributing Guidelines](https://github.com/jessesquires/.github/blob/main/CONTRIBUTING.md).
+      description: By submitting this issue, you agree to follow our [Contributing Guidelines](https://github.com/teociaps/SwaggerUI.Themes/blob/main/CONTRIBUTING.md).
       options:
         - label: I agree to follow this project's Contributing Guidelines.
           required: true
@@ -50,7 +50,7 @@ body:
     attributes:
       label: Steps to reproduce
       description: How do you reproduce this? Please provide as much step-by-step detail as possible.
-      value: |
+      placeholder: |
         1.
         2.
         3.
