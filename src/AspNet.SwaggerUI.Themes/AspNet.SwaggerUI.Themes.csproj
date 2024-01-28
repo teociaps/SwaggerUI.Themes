@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\build\NuGet.props" />
+
+  <!-- Official Version -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <MajorVersion>1</MajorVersion>
+    <MinorVersion>0</MinorVersion>
+    <PatchVersion>0</PatchVersion>
+    <VersionSuffix></VersionSuffix> <!-- used for preview -->
+    <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>net462;net472;net48</TargetFrameworks>
+    <RootNamespace />
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>AspNet.SwaggerUI.Themes</PackageId>
+    <Description>
+      An extension library which enhances Swagger UI configuration, offering new themes for API documentation in ASP.NET applications.
+    </Description>
+    <PackageTags>
+      extension;aspnet;webapi;swagger;swagger-ui;themes;dark-theme;swashbuckle
+    </PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Web" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="Swashbuckle" Version="5.6.0" />
+    <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="AspNet\SwaggerUI\Themes\Styles\dark.css" />
+  </ItemGroup>
+
+</Project>
