@@ -39,13 +39,7 @@ public static class StyleSwaggerUIBuilderExtensions
 
         var defaultSetupAction = InjectStyle(style);
         if (setupAction is not null)
-        {
-            defaultSetupAction = options =>
-            {
-                defaultSetupAction(options);
-                setupAction(options);
-            };
-        }
+            defaultSetupAction += setupAction;
 
         return app.UseSwaggerUI(defaultSetupAction);
     }

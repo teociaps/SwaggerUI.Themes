@@ -19,7 +19,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(Style.Dark);
+    app.UseSwaggerUI(Style.Dark, c => c.DocumentTitle = "Prova");
 }
 
 app.UseHttpsRedirection();
