@@ -25,15 +25,14 @@ internal static class StyleProvider
         return reader.ReadToEnd();
     }
 
-    internal static void AddGetEndpoint(WebApplication app, string fullStylePath, string styleText, string styleFormat)
+    internal static void AddGetEndpoint(WebApplication app, string fullStylePath, string styleContent, string styleFormat)
     {
         app.MapGet(fullStylePath, (HttpContext context) =>
         {
-            // TODO: change cache time?
-            context.Response.Headers.CacheControl = "public, max-age=3600";
-            context.Response.Headers.Expires = DateTime.UtcNow.AddDays(2).ToString("R");
+            context.Response.Headers.CacheControl = "max-age=3600";
+            context.Response.Headers.Expires = DateTime.UtcNow.AddHours(1).ToString("R");
 
-            return Results.Content(styleText, $"text/{styleFormat}");
+            return Results.Content(styleContent, $"text/{styleFormat}");
         })
         .ExcludeFromDescription();
     }
