@@ -16,9 +16,8 @@ public sealed class Style
     /// </summary>
     public string FileName { get; }
 
-    // TODO: change summary of styles
     /// <summary>
-    /// Gets an instance of the style class representing the dark style.
+    /// Apply a default dark style to your Swagger UI.
     /// </summary>
     public static Style Dark => new("dark.css");
 
