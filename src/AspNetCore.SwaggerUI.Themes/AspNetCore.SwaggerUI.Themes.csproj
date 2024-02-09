@@ -23,6 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\common.css" />
     <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\dark.css" />
   </ItemGroup>
 

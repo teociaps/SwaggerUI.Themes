@@ -10,8 +10,6 @@ internal static class StyleProvider
 
     internal static readonly string StylePath = "/styles/";
 
-    // TODO: internal const string CommonStyleFile = "common.css";
-
     internal static string GetResourceText(string fileName)
     {
         var currentAssembly = Assembly.GetExecutingAssembly();
@@ -25,14 +23,14 @@ internal static class StyleProvider
         return reader.ReadToEnd();
     }
 
-    internal static void AddGetEndpoint(WebApplication app, string fullStylePath, string styleContent, string styleFormat)
+    internal static void AddGetEndpoint(WebApplication app, string fullStylePath, string styleContent)
     {
         app.MapGet(fullStylePath, (HttpContext context) =>
         {
             context.Response.Headers.CacheControl = "max-age=3600";
             context.Response.Headers.Expires = DateTime.UtcNow.AddHours(1).ToString("R");
 
-            return Results.Content(styleContent, $"text/{styleFormat}");
+            return Results.Content(styleContent, "text/css");
         })
         .ExcludeFromDescription();
     }

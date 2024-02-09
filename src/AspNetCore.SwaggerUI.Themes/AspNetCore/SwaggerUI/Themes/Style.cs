@@ -22,12 +22,17 @@ public sealed class Style
     /// </summary>
     public StyleFormat Format { get; }
 
+    // TODO: change summary of styles
     /// <summary>
     /// Gets an instance of the style class representing the dark style.
     /// </summary>
     public static Style Dark => new("dark.css");
 
+    internal static Style Common => new("common.css");
+
     // TODO: custom style
+
+    // TODO: default and modern styles
 
     /// <summary>
     /// Returns the file name and format as a string representation of the style.
@@ -57,6 +62,7 @@ public sealed class Style
     }
 }
 
+// TODO: remove format?? because swaggerui supports only css
 /// <summary>
 /// Represents the format of a style file.
 /// </summary>
