@@ -5,9 +5,8 @@
 /// </summary>
 public sealed class Style
 {
-    private Style(string fileName, StyleFormat styleFormat = StyleFormat.Css)
+    private Style(string fileName)
     {
-        Format = styleFormat;
         CheckFileNameExtension(fileName);
         FileName = fileName;
     }
@@ -16,11 +15,6 @@ public sealed class Style
     /// Gets the file name associated with the selected style.
     /// </summary>
     public string FileName { get; }
-
-    /// <summary>
-    /// Gets the format of the style (e.g., Css, Scss, etc.).
-    /// </summary>
-    public StyleFormat Format { get; }
 
     // TODO: change summary of styles
     /// <summary>
@@ -38,7 +32,7 @@ public sealed class Style
     /// Returns the file name and format as a string representation of the style.
     /// </summary>
     /// <returns>The file name and format associated with the style.</returns>
-    public override string ToString() => $"{GetStyleName()} Style ({Format})";
+    public override string ToString() => $"{GetStyleName()} Style";
 
     /// <summary>
     /// Gets the name of the style without the file extension.
@@ -53,33 +47,9 @@ public sealed class Style
     #endif
     }
 
-    internal string FormatText => Format.ToString().ToLowerInvariant();
-
-    private void CheckFileNameExtension(string fileName)
+    private static void CheckFileNameExtension(string fileName)
     {
-        if (!fileName.EndsWith($".{FormatText}", StringComparison.OrdinalIgnoreCase))
-            throw new ArgumentException($"The file name extension doesn't match the chosen style format: {FormatText}.", nameof(fileName));
+        if (!fileName.EndsWith(".css", StringComparison.OrdinalIgnoreCase))
+            throw new ArgumentException("The file name extension doesn't match the CSS style format!", nameof(fileName));
     }
-}
-
-// TODO: remove format?? because swaggerui supports only css
-/// <summary>
-/// Represents the format of a style file.
-/// </summary>
-public enum StyleFormat
-{
-    /// <summary>
-    /// Cascading Style Sheets format.
-    /// </summary>
-    Css,
-
-    /// <summary>
-    /// Sassy CSS (SCSS) format.
-    /// </summary>
-    Scss,
-
-    /// <summary>
-    /// Syntactically Awesome Style Sheets (Sass) format.
-    /// </summary>
-    Sass
 }
