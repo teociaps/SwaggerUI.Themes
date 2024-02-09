@@ -24,9 +24,9 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
         styleText.ShouldStartWith($"""
             /*
                 {style}
-            */
 
-            @charset "UTF-8";
+                https://github.com/teociaps/SwaggerUI.Themes
+            */
             """);
     }
 

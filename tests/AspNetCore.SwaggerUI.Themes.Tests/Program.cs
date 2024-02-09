@@ -21,7 +21,7 @@ void RegisterTestStyleEndpoint()
     {
         var style = (Style)item[0];
         var fullPath = StylePath + style.FileName;
-        AddGetEndpoint(app, fullPath, GetResourceText(style.FileName), style.FormatText);
+        AddGetEndpoint(app, fullPath, GetResourceText(style.FileName));
     }
 }
 
