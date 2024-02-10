@@ -147,6 +147,9 @@ body {
 .swagger-ui .parameter__type {
     color: var(--swagger-main-color, #3b4151);
 }
+.swagger-ui .opblock-tag {
+    border-bottom: 1px solid var(--opblock-tag-border-bottom-color, rgba(59,65,81,.3));
+}
 .swagger-ui .opblock-tag:hover {
     background: var(--opblock-tag-background-color-hover, rgba(0,0,0,.02));
 }
@@ -537,7 +540,7 @@ body {
 .swagger-ui .dialog-ux .modal-ux-header {
     border-bottom: 1px solid var(--dialog-border-color, #ebebeb);
 }
-.swagger-ui .dialog-ux .modal-ux-header .modal-button svg {
+.swagger-ui .dialog-ux .modal-ux-header button svg {
     fill: var(--dialog-close-button-icon-color, black);
 }
 
