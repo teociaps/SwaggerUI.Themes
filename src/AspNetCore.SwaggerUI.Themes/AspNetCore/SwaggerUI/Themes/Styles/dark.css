@@ -29,7 +29,7 @@
         --api-version-color: #cdcdcd;
         /* Authorize Section/Modal */
         --scheme-container-background-color: #202020;
-        --scheme-container-box-shadow-color: rgba(67, 67, 67, 0.3));
+        --scheme-container-box-shadow-color: rgba(67, 67, 67, 0.3);
         --auth-container-border-bottom-color: #ebebeb;
         --auth-container-background-color: #ddd;
         --auth-container-errors-color: red;
