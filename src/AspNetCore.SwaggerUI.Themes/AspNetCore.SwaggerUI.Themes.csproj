@@ -1,7 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\build\Common.props" />
+  <Import Project="..\..\build\Common.Core.props" />
   <Import Project="..\..\build\NuGet.props" />
+
+  <!-- Official Version -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <MajorVersion>0</MajorVersion>
+    <MinorVersion>2</MinorVersion>
+    <PatchVersion>0</PatchVersion>
+    <VersionSuffix></VersionSuffix> <!-- used for preview -->
+    <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
+  </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>AspNetCore.SwaggerUI.Themes</PackageId>
@@ -14,6 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\common.css" />
     <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\dark.css" />
   </ItemGroup>
 

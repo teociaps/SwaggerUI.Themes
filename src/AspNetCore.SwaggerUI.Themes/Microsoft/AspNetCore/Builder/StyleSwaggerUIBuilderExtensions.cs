@@ -17,6 +17,10 @@ public static class StyleSwaggerUIBuilderExtensions
     /// <param name="options">The SwaggerUI options.</param>
     public static IApplicationBuilder UseSwaggerUI(this WebApplication app, Style style, SwaggerUIOptions options)
     {
+        // Common style
+        InjectCommonStyle(app).Invoke(options);
+
+        // Chosen style
         ImportSwaggerStyle(app, style);
 
         InjectStyle(style).Invoke(options);
@@ -35,17 +39,15 @@ public static class StyleSwaggerUIBuilderExtensions
         Style style,
         Action<SwaggerUIOptions> setupAction = null)
     {
+        // Common style
+        var defaultSetupAction = InjectCommonStyle(app);
+
+        // Chosen style
         ImportSwaggerStyle(app, style);
 
-        var defaultSetupAction = InjectStyle(style);
+        defaultSetupAction += InjectStyle(style);
         if (setupAction is not null)
-        {
-            defaultSetupAction = options =>
-            {
-                defaultSetupAction(options);
-                setupAction(options);
-            };
-        }
+            defaultSetupAction += setupAction;
 
         return app.UseSwaggerUI(defaultSetupAction);
     }
@@ -54,7 +56,7 @@ public static class StyleSwaggerUIBuilderExtensions
     {
         string stylesheet = StyleProvider.GetResourceText(style.FileName);
 
-        StyleProvider.AddGetEndpoint(app, ComposeFullStylePath(style), stylesheet, style.FormatText);
+        StyleProvider.AddGetEndpoint(app, ComposeFullStylePath(style), stylesheet);
     }
 
     private static Action<SwaggerUIOptions> InjectStyle(Style style)
@@ -65,5 +67,12 @@ public static class StyleSwaggerUIBuilderExtensions
     private static string ComposeFullStylePath(Style style)
     {
         return StyleProvider.StylePath + style.FileName;
+    }
+
+    private static Action<SwaggerUIOptions> InjectCommonStyle(WebApplication app)
+    {
+        var commonStyle = Style.Common;
+        ImportSwaggerStyle(app, commonStyle);
+        return InjectStyle(commonStyle);
     }
 }
