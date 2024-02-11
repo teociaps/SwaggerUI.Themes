@@ -339,8 +339,8 @@ body {
 
 /* Code highlighted one color (e.g. response headers) */
 .swagger-ui .opblock-body pre.microlight {
-    background: var(--opblock-pre-microlight-background-color, #333);
-    color: var(--opblock-pre-microlight-color, #fff);
+    background: var(--opblock-pre-microlight-background-color, #333) !important;
+    color: var(--opblock-pre-microlight-color, #fff) !important;
 }
 
 /* Download & copy to clipboard button of a content */

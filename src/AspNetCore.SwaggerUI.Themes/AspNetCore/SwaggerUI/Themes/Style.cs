@@ -21,6 +21,11 @@ public sealed class Style
     /// </summary>
     public static Style Dark => new("dark.css");
 
+    /// <summary>
+    /// Apply a forest tones style to your Swagger UI.
+    /// </summary>
+    public static Style Forest => new("forest.css");
+
     internal static Style Common => new("common.css");
 
     // TODO: custom style

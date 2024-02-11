@@ -9,6 +9,7 @@ public class StyleTestData : IEnumerable<object[]> // object[] because [ClassDat
     {
         yield return [Style.Common];
         yield return [Style.Dark];
+        yield return [Style.Forest];
     }
 
     System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
