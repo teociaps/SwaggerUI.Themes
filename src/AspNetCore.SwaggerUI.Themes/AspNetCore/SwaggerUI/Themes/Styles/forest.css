@@ -5,7 +5,7 @@
 */
 
 :root {
-    --body-background-color: #17310a;
+    --body-background-color: #0e2702;
     --swagger-main-color: #fff;
     /* Loading */
     --loading-container-border-color: rgba(200, 200, 200, .1);
@@ -15,7 +15,7 @@
     --errors-wrapper-border-color: #f95c5c;
     --errors-wrapper-errors-color: #bdbdbd;
     /* Top-bar */
-    --topbar-background-color: #152502;
+    --topbar-background-color: #0f1a01;
     --topbar-select-border-color: #43b715;
     --topbar-select-label-color: #f1f1f1;
     --topbar-download-url-button-background-color: #43b715;
@@ -27,7 +27,7 @@
     --api-version-stamp-background-color: #907a48;
     --api-version-color: black;
     /* Authorize Section/Modal */
-    --scheme-container-background-color: #271e13;
+    --scheme-container-background-color: #2d2010;
     --scheme-container-box-shadow-color: rgba(0, 0, 0, .3);
     --auth-container-border-bottom-color: #251717;
     --auth-container-background-color: #3a4928;
@@ -50,33 +50,33 @@
     --opblock-summary-method-color: #fff;
     --opblock-summary-method-shadow-color: rgba(0, 0, 0, .1);
     /*POST*/
-    --opblock-post-background-color: rgba(54, 163, 124, .24);
-    --opblock-post-method-color: #49cc90;
-    --opblock-post-border-color: #49cc90;
+    --opblock-post-background-color: rgba(62, 163, 54, .24);
+    --opblock-post-method-color: #228738;
+    --opblock-post-border-color: #228738;
     /*PUT*/
-    --opblock-put-background-color: rgba(255, 189, 63, .1);
-    --opblock-put-method-color: #eb9532;
-    --opblock-put-border-color: #eb9532;
+    --opblock-put-background-color: rgba(255, 167, 0, .3);
+    --opblock-put-method-color: #c95f00;
+    --opblock-put-border-color: #c95f00;
     /*DELETE*/
-    --opblock-delete-background-color: rgba(255, 4, 4, .1);
-    --opblock-delete-method-color: #c0392b;
-    --opblock-delete-border-color: #c0392b;
+    --opblock-delete-background-color: rgba(255, 0, 0, .14);
+    --opblock-delete-method-color: #631f03;
+    --opblock-delete-border-color: #631f03;
     /*GET*/
-    --opblock-get-background-color: rgb(33, 161, 255, .1);
-    --opblock-get-method-color: #61affe;
-    --opblock-get-border-color: #61affe;
+    --opblock-get-background-color: rgba(151, 255, 0, .17);
+    --opblock-get-method-color: #9f9400;
+    --opblock-get-border-color: #9f9400;
     /*PATCH*/
-    --opblock-patch-background-color: rgba(255, 0, 165, .1);
-    --opblock-patch-method-color: #9b59b6;
-    --opblock-patch-border-color: #9b59b6;
+    --opblock-patch-background-color: rgba(133, 117, 69, .25);
+    --opblock-patch-method-color: #857545;
+    --opblock-patch-border-color: #857545;
     /*HEAD*/
-    --opblock-head-background-color: rgba(43, 55, 99, .36);
-    --opblock-head-method-color: #3e4972;
-    --opblock-head-border-color: #3e4972;
+    --opblock-head-background-color: rgba(55, 50, 6, .8);
+    --opblock-head-method-color: #4b4719;
+    --opblock-head-border-color: #4b4719;
     /*OPTIONS*/
-    --opblock-options-background-color: rgba(37, 64, 211, .1);
-    --opblock-options-method-color: #263795;
-    --opblock-options-border-color: #263795;
+    --opblock-options-background-color: rgba(19, 22, 19, .3);
+    --opblock-options-method-color: #131613;
+    --opblock-options-border-color: #131613;
     /*Deprecated*/
     --opblock-deprecated-background-color: hsla(0, 0%, 100%, .14);
     --opblock-deprecated-method-color: #a59595;
@@ -109,8 +109,8 @@
     --button-cancel-background-color: transparent;
     --button-cancel-border-color: #ff6060;
     --button-cancel-color: #ff6060;
-    --button-execute-background-color: #459f16;
-    --button-execute-border-color: #92ff5f;
+    --button-execute-background-color: #346719;
+    --button-execute-border-color: #478d26;
     --button-execute-color: white;
     --button-invalid-background-color: #feebeb;
     --button-invalid-border-color: #f93e3e;
