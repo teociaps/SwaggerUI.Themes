@@ -50,21 +50,21 @@
     --opblock-summary-method-color: #fff;
     --opblock-summary-method-shadow-color: rgba(0, 0, 0, .1);
     /*POST*/
-    --opblock-post-background-color: rgba(96, 194, 192, .18);
-    --opblock-post-method-color: #60c2c0;
-    --opblock-post-border-color: #60c2c0;
+    --opblock-post-background-color: rgba(33, 161, 255, .1);
+    --opblock-post-method-color: #61affe;
+    --opblock-post-border-color: #61affe;
     /*PUT*/
-    --opblock-put-background-color: rgba(218, 167, 153, .2);
-    --opblock-put-method-color: #c18574;
-    --opblock-put-border-color: #c18574;
+    --opblock-put-background-color: rgba(0, 73, 133, .2);
+    --opblock-put-method-color: #004985;
+    --opblock-put-border-color: #004985;
     /*DELETE*/
-    --opblock-delete-background-color: rgba(255, 4, 4, .1);
-    --opblock-delete-method-color: #ff176b;
-    --opblock-delete-border-color: #ff176b;
+    --opblock-delete-background-color: rgba(20, 41, 111, .14);
+    --opblock-delete-method-color: #14296f;
+    --opblock-delete-border-color: #14296f;
     /*GET*/
-    --opblock-get-background-color: rgb(33, 161, 255, .1);
-    --opblock-get-method-color: #61affe;
-    --opblock-get-border-color: #61affe;
+    --opblock-get-background-color: rgba(0, 127, 110, .2);
+    --opblock-get-method-color: #007f6e;
+    --opblock-get-border-color: #007f6e;
     /*PATCH*/
     --opblock-patch-background-color: rgba(255, 0, 165, .1);
     --opblock-patch-method-color: #9b59b6;
@@ -74,9 +74,9 @@
     --opblock-head-method-color: #3e4972;
     --opblock-head-border-color: #3e4972;
     /*OPTIONS*/
-    --opblock-options-background-color: rgba(37, 64, 211, .1);
-    --opblock-options-method-color: #263795;
-    --opblock-options-border-color: #263795;
+    --opblock-options-background-color: rgba(129, 0, 100, .3);
+    --opblock-options-method-color: #810064;
+    --opblock-options-border-color: #810064;
     /*Deprecated*/
     --opblock-deprecated-background-color: hsla(0, 0%, 100%, .14);
     --opblock-deprecated-method-color: #a59595;
