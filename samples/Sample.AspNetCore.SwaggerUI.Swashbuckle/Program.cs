@@ -70,7 +70,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(Style.Dark, c => c.DocumentTitle = "Sample Title");
+    app.UseSwaggerUI(ModernStyle.Dark, c => c.DocumentTitle = "Sample Title");
 }
 
 app.UseHttpsRedirection();

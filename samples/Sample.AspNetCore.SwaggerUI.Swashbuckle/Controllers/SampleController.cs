@@ -30,6 +30,13 @@ public class SampleController : ControllerBase
         return Ok();
     }
 
+    [HttpPost("form")]
+    [Authorize]
+    public IActionResult PostSample([FromForm] Sample model, IFormFile form)
+    {
+        return Ok();
+    }
+
     [HttpGet("get")]
     [Obsolete("test")]
     public IActionResult GetDisabledSample([Required] int sample)
