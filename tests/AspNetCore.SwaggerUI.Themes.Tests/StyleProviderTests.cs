@@ -15,7 +15,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
 
     [Theory]
     [ClassData(typeof(StyleTestData))]
-    public void Should_Embed_And_Retrieve_Style_From_ExecutingAssembly(Style style)
+    public void Should_Embed_And_Retrieve_Style_From_ExecutingAssembly(BaseStyle style)
     {
         // Arrange/Act
         var styleText = GetResourceText(style.FileName);
@@ -42,7 +42,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
 
     [Theory]
     [ClassData(typeof(StyleTestData))]
-    public async Task Should_Add_Endpoint_And_Get_Style_Content(Style style)
+    public async Task Should_Add_Endpoint_And_Get_Style_Content(BaseStyle style)
     {
         // Arrange
         var fullPath = StylePath + style.FileName;

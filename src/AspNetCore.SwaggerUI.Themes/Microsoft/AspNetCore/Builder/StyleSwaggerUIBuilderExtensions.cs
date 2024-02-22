@@ -15,10 +15,10 @@ public static class StyleSwaggerUIBuilderExtensions
     /// <param name="app">The application builder instance.</param>
     /// <param name="style">The style to apply.</param>
     /// <param name="options">The SwaggerUI options.</param>
-    public static IApplicationBuilder UseSwaggerUI(this WebApplication app, Style style, SwaggerUIOptions options)
+    public static IApplicationBuilder UseSwaggerUI(this WebApplication app, BaseStyle style, SwaggerUIOptions options)
     {
         // Common style
-        InjectCommonStyle(app).Invoke(options);
+        InjectCommonStyle(app, style).Invoke(options);
 
         // Chosen style
         ImportSwaggerStyle(app, style);
@@ -36,11 +36,11 @@ public static class StyleSwaggerUIBuilderExtensions
     /// <param name="setupAction">An action used to configure SwaggerUI options.</param>
     public static IApplicationBuilder UseSwaggerUI(
         this WebApplication app,
-        Style style,
+        BaseStyle style,
         Action<SwaggerUIOptions> setupAction = null)
     {
         // Common style
-        var defaultSetupAction = InjectCommonStyle(app);
+        var defaultSetupAction = InjectCommonStyle(app, style);
 
         // Chosen style
         ImportSwaggerStyle(app, style);
@@ -52,26 +52,26 @@ public static class StyleSwaggerUIBuilderExtensions
         return app.UseSwaggerUI(defaultSetupAction);
     }
 
-    private static void ImportSwaggerStyle(WebApplication app, Style style)
+    private static void ImportSwaggerStyle(WebApplication app, BaseStyle style)
     {
         string stylesheet = StyleProvider.GetResourceText(style.FileName);
 
         StyleProvider.AddGetEndpoint(app, ComposeFullStylePath(style), stylesheet);
     }
 
-    private static Action<SwaggerUIOptions> InjectStyle(Style style)
+    private static Action<SwaggerUIOptions> InjectStyle(BaseStyle style)
     {
         return x => x.InjectStylesheet(ComposeFullStylePath(style));
     }
 
-    private static string ComposeFullStylePath(Style style)
+    private static string ComposeFullStylePath(BaseStyle style)
     {
         return StyleProvider.StylePath + style.FileName;
     }
 
-    private static Action<SwaggerUIOptions> InjectCommonStyle(WebApplication app)
+    private static Action<SwaggerUIOptions> InjectCommonStyle(WebApplication app, BaseStyle style)
     {
-        var commonStyle = Style.Common;
+        var commonStyle = style.Common;
         ImportSwaggerStyle(app, commonStyle);
         return InjectStyle(commonStyle);
     }

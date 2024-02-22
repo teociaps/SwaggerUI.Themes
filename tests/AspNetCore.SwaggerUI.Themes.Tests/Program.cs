@@ -19,7 +19,7 @@ void RegisterTestStyleEndpoint()
 {
     foreach (var item in new StyleTestData())
     {
-        var style = (Style)item[0];
+        var style = (BaseStyle)item[0];
         var fullPath = StylePath + style.FileName;
         AddGetEndpoint(app, fullPath, GetResourceText(style.FileName));
     }

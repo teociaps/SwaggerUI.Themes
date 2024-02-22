@@ -32,10 +32,25 @@
 
 ## Features
 
-- **New Themes:** Enhances the Swagger documentation interface with a modern themes, including dark theme.	
-  Currently, only the _Dark_ style is available; additional styles will be introduced in the future.
-- **Seamless Integration:** Simply install the package and add the style parameter to the existing method used for SwaggerUI.
+- _New Themes_: enhances the Swagger documentation interface with different themes, including a default style that retains the classic Swagger UI appearance and new modern styles.
+- _Seamless Integration_: simply install the package and add the style parameter to the existing method used for SwaggerUI.
 
+## Themes
+
+There are a few themes available for your Swagger UI:
+
+### Default Styles
+
+- __Dark__: offers a simple dark-themed interface, maintaining the classic Swagger UI layout;
+- __Forest__: inspired by the colors of a forest, this theme brings a natural and vibrant feel to your documentation;
+- __DeepSea__: inspired by the depths of the sea, this theme features cool blues and deep greens for a tranquil and immersive experience.
+
+> The light style is not in this list because it's just the default one used by Swagger UI; to use that you don't need this library.
+
+### Modern Styles
+
+- __Light__: offers a modern, light-themed interface that overrides some aspects of the default Swagger UI;
+- __Dark__: provides a sleek, dark-themed interface for a more modern look and feel.
 
 ## Supported .NET Versions
 
@@ -52,7 +67,7 @@ The table below provides a quick overview of **AspNetCore.SwaggerUI.Themes** ver
 | Library Version | .NET 6 | .NET 7 | .NET 8 |
 | --------------- | ------ | ------ | ------ |
 | 0.1.0           | ❌	   | ❌		| ✔		 |
-| 0.2.0           | ✔	   | ✔		| ✔		 |
+| 0.2.0 +         | ✔	   | ✔		| ✔		 |
 
 - ✔️ Supported: The library version is compatible with the respective .NET version.
 - ❌ Unsupported: The library version is not compatible with the respective .NET version.
@@ -74,7 +89,7 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 	Install-Package AspNetCore.SwaggerUI.Themes
 	```
 
-2. In your `Program.cs` file, add the style through the `Style` class as new parameter of `app.UseSwaggerUI()` method:
+2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUI()` method:
 
 	```csharp
 	using AspNetCore.SwaggerUI.Themes;
@@ -105,7 +120,7 @@ builder.Services.AddSwaggerGen();
 app.UseSwagger();
 
 // Enable the dark theme for Swagger UI
-app.UseSwaggerUI(Style.Dark, c =>
+app.UseSwaggerUI(ModernStyle.Dark, c =>
 {
     // Your Swagger UI configuration here (optional)
 });
