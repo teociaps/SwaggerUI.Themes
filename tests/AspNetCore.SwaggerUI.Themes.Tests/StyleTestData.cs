@@ -10,6 +10,7 @@ public class StyleTestData : IEnumerable<object[]> // object[] because [ClassDat
         yield return [Style.Dark];
         yield return [Style.Forest];
         yield return [Style.DeepSea];
+        yield return [ModernStyle.Light];
         yield return [ModernStyle.Dark];
     }
 

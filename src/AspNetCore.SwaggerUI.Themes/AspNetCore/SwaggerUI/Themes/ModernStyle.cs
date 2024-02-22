@@ -12,6 +12,11 @@ public sealed class ModernStyle : BaseStyle
     internal override ModernStyle Common => new("modern.common.css");
 
     /// <summary>
+    /// Apply a modern light style to your Swagger UI.
+    /// </summary>
+    public static ModernStyle Light => new("modern.light.css");
+
+    /// <summary>
     /// Apply a modern sleek dark style to your Swagger UI.
     /// </summary>
     public static ModernStyle Dark => new("modern.dark.css");
