@@ -42,7 +42,7 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 	```
 
 	This code enables the chosen theme for Swagger UI in your application.
-	
+
 > Please be aware that for projects utilizing the older style template with separate `Startup.cs` and `Program.cs` files, the previously code should be configured within the `Configure` method of the `Startup` class.
 
 

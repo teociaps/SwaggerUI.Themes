@@ -45,7 +45,9 @@ There are a few themes available for your Swagger UI:
 - __Forest__: inspired by the colors of a forest, this theme brings a natural and vibrant feel to your documentation;
 - __DeepSea__: inspired by the depths of the sea, this theme features cool blues and deep greens for a tranquil and immersive experience.
 
+> [!NOTE]
 > The light style is not in this list because it's just the default one used by Swagger UI; to use that you don't need this library.
+
 
 ### Modern Styles
 
@@ -100,7 +102,8 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 	```
 
 	This code enables the chosen theme for Swagger UI in your application.
-	
+
+> [!IMPORTANT]	
 > Please be aware that for projects utilizing the older style template with separate `Startup.cs` and `Program.cs` files, the previously code should be configured within the `Configure` method of the `Startup` class.
 
 
@@ -131,7 +134,8 @@ app.UseSwaggerUI(ModernStyle.Dark, c =>
 
 That's it! Your Swagger UI will now have a sleek dark theme.
 
-> Please note that using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
+> [!NOTE]
+> Using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
 
 ## Contributing
 If you have any suggestions, bug reports, or contributions, feel free to open an [issue](https://github.com/teociaps/SwaggerUI.Themes/issues) or submit a [pull request](https://github.com/teociaps/SwaggerUI.Themes/pulls)
