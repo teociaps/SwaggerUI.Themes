@@ -47,13 +47,12 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 
 
 ## Available Themes
+There are a few styles available for your Swagger UI.
 
-There are a few styles available for your Swagger UI:
+### Defaults:
 
-### Defaults
-
-#### Dark
-Offers a simple dark-themed interface, maintaining the classic Swagger UI layout;
+### • Dark
+Offers a simple dark-themed interface, maintaining the classic Swagger UI layout.
 
 ![dark style example image](/samples/screenshots/default-dark.png)
 
@@ -61,8 +60,8 @@ Offers a simple dark-themed interface, maintaining the classic Swagger UI layout
 Style.Dark
 ```
 
-#### Forest
-Inspired by the colors of a forest, this theme brings a natural and vibrant feel to your documentation;
+### • Forest
+Inspired by the colors of a forest, this theme brings a natural and vibrant feel to your documentation.
 
 ![forest style example image](/samples/screenshots/default-forest.png)
 
@@ -70,7 +69,7 @@ Inspired by the colors of a forest, this theme brings a natural and vibrant feel
 Style.Forest
 ```
 
-#### DeepSea
+### • DeepSea
 Inspired by the depths of the sea, this theme features cool blues and deep greens for a tranquil and immersive experience.
 
 ![deep sea style example image](/samples/screenshots/default-deepsea.png)
@@ -82,10 +81,10 @@ Style.DeepSea
 > The light style is not in this list because it's just the default one used by Swagger UI; to use that you don't need this library.
 
 
-### Moderns
+### Moderns:
 
-#### Light
-Offers a modern, light-themed interface that overrides some aspects of the default Swagger UI;
+### • Light
+Offers a modern, light-themed interface that overrides some aspects of the default Swagger UI.
 
 ![modern dark style example image](/samples/screenshots/modern-light.png)
 
@@ -93,7 +92,7 @@ Offers a modern, light-themed interface that overrides some aspects of the defau
 ModernStyle.Light
 ```
 
-#### Dark
+### • Dark
 Provides a sleek, dark-themed interface for a more modern look and feel.
 
 ![modern dark style example image](/samples/screenshots/modern-dark.png)
