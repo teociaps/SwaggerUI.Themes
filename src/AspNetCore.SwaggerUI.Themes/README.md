@@ -55,7 +55,7 @@ There are a few styles available for your Swagger UI:
 #### Dark
 Offers a simple dark-themed interface, maintaining the classic Swagger UI layout;
 
-![dark style example image](..\..\samples\screenshots\default-dark.png)
+![dark style example image](/samples/screenshots/default-dark.png)
 
 ```
 Style.Dark
@@ -64,7 +64,7 @@ Style.Dark
 #### Forest
 Inspired by the colors of a forest, this theme brings a natural and vibrant feel to your documentation;
 
-![forest style example image](..\..\samples\screenshots\default-forest.png)
+![forest style example image](/samples/screenshots/default-forest.png)
 
 ```
 Style.Forest
@@ -73,7 +73,7 @@ Style.Forest
 #### DeepSea
 Inspired by the depths of the sea, this theme features cool blues and deep greens for a tranquil and immersive experience.
 
-![deep sea style example image](..\..\samples\screenshots\default-deepsea.png)
+![deep sea style example image](/samples/screenshots/default-deepsea.png)
 
 ```
 Style.DeepSea
@@ -87,7 +87,7 @@ Style.DeepSea
 #### Light
 Offers a modern, light-themed interface that overrides some aspects of the default Swagger UI;
 
-![modern dark style example image](..\..\samples\screenshots\modern-light.png)
+![modern dark style example image](/samples/screenshots/modern-light.png)
 
 ```
 ModernStyle.Light
@@ -96,7 +96,7 @@ ModernStyle.Light
 #### Dark
 Provides a sleek, dark-themed interface for a more modern look and feel.
 
-![modern dark style example image](..\..\samples\screenshots\modern-dark.png)
+![modern dark style example image](/samples/screenshots/modern-dark.png)
 
 ```
 ModernStyle.Dark
