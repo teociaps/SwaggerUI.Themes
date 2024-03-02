@@ -137,6 +137,7 @@ body {
         /*.swagger-ui .topbar a {
             color: #fff;
         }*/
+
         .swagger-ui .topbar .download-url-wrapper input[type=text],
         .swagger-ui .topbar .download-url-wrapper .select-label select {
             border: 2px solid var(--topbar-select-border-color, #62a03f);
@@ -801,6 +802,7 @@ body {
 
         .swagger-ui section.models h4 {
             color: var(--model-section-header-color, #606060);
+            padding: 0;
         }
 
             .swagger-ui section.models h4:hover {
@@ -813,7 +815,7 @@ body {
 
             .swagger-ui section.models h4 button.models-control {
                 color: var(--model-section-header-color, #606060);
-                padding: 10px 20px 10px 10px;
+                padding: 20px 40px 20px 20px;
             }
 
         .swagger-ui section.models h5 {
