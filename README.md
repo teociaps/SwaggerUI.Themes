@@ -32,27 +32,8 @@
 
 ## Features
 
-- _New Themes_: enhances the Swagger documentation interface with different themes, including a default style that retains the classic Swagger UI appearance and new modern styles.
+- _New Themes_: enhances the Swagger documentation interface with different themes, including a default style that retains the classic Swagger UI appearance and new modern styles. See samples [here](/src/AspNetCore.SwaggerUI.Themes#available-themes).
 - _Seamless Integration_: simply install the package and add the style parameter to the existing method used for SwaggerUI.
-
-## Themes
-
-There are a few themes available for your Swagger UI:
-
-### Default Styles
-
-- __Dark__: offers a simple dark-themed interface, maintaining the classic Swagger UI layout;
-- __Forest__: inspired by the colors of a forest, this theme brings a natural and vibrant feel to your documentation;
-- __DeepSea__: inspired by the depths of the sea, this theme features cool blues and deep greens for a tranquil and immersive experience.
-
-> [!NOTE]
-> The light style is not in this list because it's just the default one used by Swagger UI; to use that you don't need this library.
-
-
-### Modern Styles
-
-- __Light__: offers a modern, light-themed interface that overrides some aspects of the default Swagger UI;
-- __Dark__: provides a sleek, dark-themed interface for a more modern look and feel.
 
 ## Supported .NET Versions
 

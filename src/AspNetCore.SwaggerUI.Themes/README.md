@@ -100,3 +100,12 @@ Provides a sleek, dark-themed interface for a more modern look and feel.
 ```
 ModernStyle.Dark
 ```
+
+### • Forest
+Brings a natural feel to your documentation with colors inspired by the serene ambiance of a forest.
+
+![modern forest style example image](/samples/screenshots/modern-forest.png)
+
+```
+ModernStyle.Forest
+```
