@@ -925,7 +925,7 @@ body {
 
             .swagger-ui section.models h4 button.models-control {
                 color: var(--model-section-header-color, #606060);
-                padding: 20px 40px 20px 20px;
+                padding: 20px;
             }
 
         .swagger-ui section.models h5 {
