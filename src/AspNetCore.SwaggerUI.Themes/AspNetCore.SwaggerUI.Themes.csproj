@@ -32,6 +32,7 @@
     <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.common.css" />
     <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.dark.css" />
     <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.forest.css" />
+    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.deepsea.css" />
   </ItemGroup>
 
   <ItemGroup>
