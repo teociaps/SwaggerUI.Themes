@@ -109,3 +109,12 @@ Brings a natural feel to your documentation with colors inspired by the serene a
 ```
 ModernStyle.Forest
 ```
+
+### • DeepSea
+Dive into a tranquil interface with cool blues and deep greens, inspired by the depths of the sea.
+
+![modern deep sea style example image](/samples/screenshots/modern-deepsea.png)
+
+```
+ModernStyle.DeepSea
+```
