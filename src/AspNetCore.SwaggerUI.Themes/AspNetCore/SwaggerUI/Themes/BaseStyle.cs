@@ -19,6 +19,11 @@ public abstract class BaseStyle
     public string FileName { get; }
 
     /// <summary>
+    /// Indicates if the style is a modern theme.
+    /// </summary>
+    internal abstract bool IsModern { get; }
+
+    /// <summary>
     /// Returns the file name as a string representation of the style.
     /// </summary>
     /// <returns>The file name associated with the style.</returns>

@@ -1,7 +1,7 @@
 ﻿namespace AspNetCore.SwaggerUI.Themes.Tests;
 
 /// <summary>
-/// List of styles to test.
+/// List of all styles to test.
 /// </summary>
 public class StyleTestData : TheoryData<BaseStyle>
 {

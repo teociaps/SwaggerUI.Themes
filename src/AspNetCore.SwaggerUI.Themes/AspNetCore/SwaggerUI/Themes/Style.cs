@@ -11,6 +11,9 @@ public sealed class Style : BaseStyle
 
     internal override Style Common => new("common.css");
 
+    /// <inheritdoc/>
+    internal override bool IsModern => false;
+
     /// <summary>
     /// Apply a dark style to your Swagger UI.
     /// </summary>

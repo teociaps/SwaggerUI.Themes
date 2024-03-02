@@ -11,6 +11,9 @@ public sealed class ModernStyle : BaseStyle
 
     internal override ModernStyle Common => new("modern.common.css");
 
+    /// <inheritdoc/>
+    internal override bool IsModern => true;
+
     /// <summary>
     /// Apply a modern light style to your Swagger UI.
     /// </summary>

@@ -1,5 +1,5 @@
 using Shouldly;
-using static AspNetCore.SwaggerUI.Themes.StyleProvider;
+using static AspNetCore.SwaggerUI.Themes.FileProvider;
 
 namespace AspNetCore.SwaggerUI.Themes.Tests;
 
@@ -28,6 +28,21 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
                 https://github.com/teociaps/SwaggerUI.Themes
             */
             """);
+
+        if (style.IsModern)
+        {
+            // Arrange/Act
+            var jsFile = GetResourceText("modern.js");
+
+            // Assert
+            jsFile.ShouldStartWith("""
+            /*
+                Modern UI
+
+                https://github.com/teociaps/SwaggerUI.Themes
+            */
+            """);
+        }
     }
 
     [Fact]
@@ -45,7 +60,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     public async Task Should_Add_Endpoint_And_Get_Style_Content(BaseStyle style)
     {
         // Arrange
-        var fullPath = StylePath + style.FileName;
+        var fullPath = StylesPath + style.FileName;
         var styleText = GetResourceText(style.FileName);
 
         // Act

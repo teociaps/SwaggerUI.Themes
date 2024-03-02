@@ -54,9 +54,9 @@ public static class StyleSwaggerUIBuilderExtensions
 
     private static void ImportSwaggerStyle(WebApplication app, BaseStyle style)
     {
-        string stylesheet = StyleProvider.GetResourceText(style.FileName);
+        string stylesheet = FileProvider.GetResourceText(style.FileName);
 
-        StyleProvider.AddGetEndpoint(app, ComposeFullStylePath(style), stylesheet);
+        FileProvider.AddGetEndpoint(app, ComposeFullStylePath(style), stylesheet);
     }
 
     private static Action<SwaggerUIOptions> InjectStyle(BaseStyle style)
@@ -66,13 +66,28 @@ public static class StyleSwaggerUIBuilderExtensions
 
     private static string ComposeFullStylePath(BaseStyle style)
     {
-        return StyleProvider.StylePath + style.FileName;
+        return FileProvider.StylesPath + style.FileName;
     }
 
     private static Action<SwaggerUIOptions> InjectCommonStyle(WebApplication app, BaseStyle style)
     {
         var commonStyle = style.Common;
         ImportSwaggerStyle(app, commonStyle);
-        return InjectStyle(commonStyle);
+
+        var action = InjectStyle(commonStyle);
+        if (style.IsModern)
+            action += InjectModernJavaScript(app);
+
+        return action;
+    }
+
+    private static Action<SwaggerUIOptions> InjectModernJavaScript(WebApplication app)
+    {
+        const string JsFilename = "modern.js";
+        string javascript = FileProvider.GetResourceText(JsFilename);
+        const string FullPath = FileProvider.ScriptsPath + JsFilename;
+
+        FileProvider.AddGetEndpoint(app, FullPath, javascript, MimeTypes.Text.Javascript);
+        return x => x.InjectJavascript(FullPath);
     }
 }
