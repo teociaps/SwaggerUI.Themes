@@ -12,7 +12,8 @@ public class StyleTestData : TheoryData<BaseStyle>
             Style.Forest,
             Style.DeepSea,
             ModernStyle.Light,
-            ModernStyle.Dark
+            ModernStyle.Dark,
+            ModernStyle.Forest
         );
     }
 }

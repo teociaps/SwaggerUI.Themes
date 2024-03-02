@@ -24,6 +24,11 @@ public sealed class ModernStyle : BaseStyle
     /// </summary>
     public static ModernStyle Dark => new("modern.dark.css");
 
+    /// <summary>
+    /// Apply a modern forest tones style to your Swagger UI.
+    /// </summary>
+    public static ModernStyle Forest => new("modern.forest.css");
+
     /// <inheritdoc/>
     protected override string GetStyleName()
     {
