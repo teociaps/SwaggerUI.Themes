@@ -4,16 +4,25 @@
     https://github.com/teociaps/SwaggerUI.Themes
 */
 
+const rootElement = document.documentElement;
+
 window.onpageshow = function () {
     console.log('Hello modern Swagger UI!');
 
-    let topbarWrapper = document.querySelector('.topbar-wrapper');
+    configurePinnableTopbar();
 
-    const pinTopbarIcon = document.createElement("div");
+    setUpScrollToTopButton();
+}
+
+function configurePinnableTopbar() {
+    const topbarWrapper = document.querySelector('.topbar-wrapper');
+
+    const pinTopbarIcon = document.createElement('div');
     pinTopbarIcon.setAttribute('id', 'pin-topbar-icon');
     pinTopbarIcon.addEventListener('click', () => pinOrUnpinTopbar(pinTopbarIcon))
 
     topbarWrapper.appendChild(pinTopbarIcon);
+
     pinOrUnpinTopbar(pinTopbarIcon);
 }
 
@@ -42,5 +51,36 @@ function setUnpinnedIconTo(element) {
                          </svg>`;
 }
 
+function setUpScrollToTopButton() {
 
-// TODO add scrolltotop button
+    // Create wrapper
+    const scrollToTopContainer = document.createElement('div');
+    scrollToTopContainer.classList.add('scroll-to-top-wrapper');
+
+    // Create scroll top button
+    const scrollToTopButton = document.createElement('button');
+    scrollToTopButton.setAttribute('id', 'scroll-to-top-btn');
+    scrollToTopButton.setAttribute('title', 'Back to top');
+    scrollToTopButton.addEventListener('click', () => scrollToTop());
+    scrollToTopContainer.appendChild(scrollToTopButton);
+
+    const swaggerContainer = document.getElementById('swagger-ui');
+    swaggerContainer.appendChild(scrollToTopContainer);
+
+    // Show/hide management
+    const showHideScrollTopBtn = () => {
+        window.scrollY >= 200
+            ? scrollToTopButton.classList.add("showBtn")
+            : scrollToTopButton.classList.remove("showBtn");
+    }
+
+    window.addEventListener("scroll", showHideScrollTopBtn);
+    window.addEventListener("resize", showHideScrollTopBtn);
+}
+
+function scrollToTop() {
+    rootElement.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
+}

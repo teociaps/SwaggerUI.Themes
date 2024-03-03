@@ -18,7 +18,8 @@
     --errors-wrapper-errors-color: #bdbdbd;
     /* Top-bar */
     --topbar-background-color: #0f1a01;
-    --topbar-pinned-background-color: rgba(0, 0, 0, .45);
+    --topbar-pinned-background-color: rgb(0, 25, 2, .5);
+    --topbar-pinned-shadow-color: rgba(0, 10, 2, .5);
     --topbar-pin-icon-color: white;
     --topbar-border-color: #095300;
     --topbar-select-border-color: #43b715;
@@ -180,4 +181,10 @@
     --rendered-markdown-pre-color: #000;
     --rendered-markdown-code-background-color: rgba(0, 0, 0, .05);
     --rendered-markdown-code-color: #9012fe;
+    /* Scroll to top button */
+    --scroll-to-top-button-background-color: #002c02db;
+    --scroll-to-top-button-hover-background-color: #003e03ca;
+    --scroll-to-top-button-border-color: #43b715;
+    --scroll-to-top-button-icon-color: #7cff54;
+    --scroll-to-top-button-shadow-color: rgba(8, 114, 36, .50);
 }
