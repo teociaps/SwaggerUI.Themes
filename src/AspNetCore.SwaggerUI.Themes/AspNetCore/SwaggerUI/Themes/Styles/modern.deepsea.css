@@ -180,4 +180,10 @@
     --rendered-markdown-pre-color: #000;
     --rendered-markdown-code-background-color: rgba(0, 0, 0, .05);
     --rendered-markdown-code-color: #9012fe;
+    /* Scroll to top button */
+    --scroll-to-top-button-background-color: #02001ec2;
+    --scroll-to-top-button-hover-background-color: #020d35b8;
+    --scroll-to-top-button-border-color: #002648;
+    --scroll-to-top-button-icon-color: #7becff;
+    --scroll-to-top-button-shadow-color: rgba(8, 25, 114, .5);
 }

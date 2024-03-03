@@ -979,3 +979,97 @@ body {
         background: var(--rendered-markdown-code-background-color, rgba(0,0,0,.05));
         color: var(--rendered-markdown-code-color, #9012fe);
     }
+
+
+.scroll-to-top-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: end;
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 1460px;
+    padding: 0 20px;
+    width: 100%;
+}
+#scroll-to-top-btn {
+    background-color: var(--scroll-to-top-button-background-color, #000000d1);
+    border: 1px solid var(--scroll-to-top-button-border-color, #d1c9c9);
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    width: 3rem;
+    aspect-ratio: 1;
+    backdrop-filter: blur(20px);
+    margin: 10px;
+    position: relative;
+    transition: background-color .5s, opacity .6s .2s, translate .8s, scale .2s;
+    opacity: 0;
+    translate: 0 100px;
+    box-shadow: 0 0 10px 0 var(--scroll-to-top-button-shadow-color, rgba(0, 0, 0, .4));
+}
+
+    #scroll-to-top-btn.showBtn {
+        opacity: 1;
+        translate: 0 0;
+    }
+
+    #scroll-to-top-btn::before {
+        position: absolute;
+        content: '';
+        top: 11px;
+        left: 12px;
+        right: 12px;
+        background-color: var(--scroll-to-top-button-icon-color, #fff);
+        border-radius: 1rem;
+        height: 2px;
+    }
+    #scroll-to-top-btn::after {
+        position: absolute;
+        content: '';
+        top: 20px;
+        left: 50%;
+        border: solid var(--scroll-to-top-button-icon-color, #fff);
+        border-width: 0 2px 2px 0;
+        padding: 4px;
+        transform: rotate(-135deg);
+        translate: -50% 5px;
+    }
+
+    #scroll-to-top-btn:hover {
+        background-color: var(--scroll-to-top-button-hover-background-color, #0d0d0dba);
+    }
+    #scroll-to-top-btn:hover::after {
+        animation: bounceUp 1.2s ease-in infinite;
+    }
+    #scroll-to-top-btn:active {
+        scale: 0.95;
+    }
+
+@keyframes bounceUp {
+    25% {
+        translate: -50% 6px;
+    }
+    60% {
+        translate: -50% -4px;
+    }
+}
+
+@-moz-keyframes bounceUp {
+    25% {
+        translate: -50% 6px;
+    }
+    60% {
+        translate: -50% -4px;
+    }
+}
+
+@-webkit-keyframes bounceUp {
+    25% {
+        translate: -50% 6px;
+    }
+    60% {
+        translate: -50% -4px;
+    }
+}
