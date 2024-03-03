@@ -18,7 +18,8 @@
     --errors-wrapper-errors-color: #bdbdbd;
     /* Top-bar */
     --topbar-background-color: #0f1a01;
-    --topbar-pinned-background-color: rgba(0, 0, 0, .45);
+    --topbar-pinned-background-color: rgb(0, 25, 2, .5);
+    --topbar-pinned-shadow-color: rgba(0, 10, 2, .5);
     --topbar-pin-icon-color: white;
     --topbar-border-color: #095300;
     --topbar-select-border-color: #43b715;

@@ -134,7 +134,8 @@ body {
             border: 1px solid var(--topbar-border-color, gray);
             border-top: 0;
             border-radius: 0 0 .5rem .5rem;
-            padding: 0.5rem;
+            padding: .5rem;
+            box-shadow: 0 5px 15px 0 var(--topbar-pinned-shadow-color, rgba(0, 0, 0, .5));
         }
             .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon svg {
                 fill: var(--topbar-pin-icon-color, white);
