@@ -120,11 +120,13 @@ body {
 
     /* Top-bar */
     .swagger-ui .topbar {
-        position: sticky;
-        top: 0;
         background-color: transparent;
         z-index: 1000;
         padding: 0;
+    }
+    .swagger-ui .topbar.pinned {
+        position: sticky;
+        top: 10px;
     }
 
         .swagger-ui .topbar .topbar-wrapper {
@@ -134,9 +136,118 @@ body {
             border-radius: 0 0 .5rem .5rem;
             padding: 0.5rem;
         }
+            .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon svg {
+                fill: var(--topbar-pin-icon-color, white);
+            }
+            .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon {
+                cursor: pointer;
+                margin: .8rem;
+                padding: .2rem;
+                transition: all .2s;
+                rotate: z 359deg;
+            }
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon:hover {
+                    scale: 1.05;
+                    animation: pintobbar 1.2s infinite;
+                }
+
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon:active {
+                    scale: 0.95;
+                }
+
+        .swagger-ui .topbar.pinned .topbar-wrapper {
+            background-color: var(--topbar-pinned-background-color, rgba(0, 0, 0, .7));
+            border: 1px solid var(--topbar-border-color, gray);
+            border-radius: .5rem;
+            backdrop-filter: blur(20px);
+        }
+
+            .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-icon {
+                translate: 0 5px;
+                rotate: z 0deg;
+            }
+
+                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-icon:hover {
+                    animation: unpintobbar 1.2s infinite;
+                }
+
+@keyframes pintobbar {
+    30% {
+        rotate: z 313deg;
+        translate: 0px 1px;
+    }
+    40% {
+        translate: 0 5px;
+    }
+    50% {
+        rotate: z 313deg;
+    }
+}
+
+@-moz-keyframes pintobbar {
+    30% {
+        rotate: z 313deg;
+        translate: 0px 1px;
+    }
+
+    40% {
+        translate: 0 5px;
+    }
+
+    50% {
+        rotate: z 313deg;
+    }
+}
+
+@-webkit-keyframes pintobbar {
+    30% {
+        rotate: z 313deg;
+        translate: 0px 1px;
+    }
+
+    40% {
+        translate: 0 5px;
+    }
+
+    50% {
+        rotate: z 313deg;
+    }
+}
+
+@keyframes unpintobbar {
+    10% {
+        translate: 0 1px;
+    }
+    70% {
+        rotate: z 50deg;
+        translate: -3px 1px;
+    }
+}
+
+@-moz-keyframes unpintobbar {
+    10% {
+        translate: 0 -4px;
+    }
+    70% {
+        rotate: z 50deg;
+        translate: -3px 1px;
+    }
+}
+
+@-webkit-keyframes unpintobbar {
+    10% {
+        translate: 0 -4px;
+    }
+    70% {
+        rotate: z 50deg;
+        translate: -3px 1px;
+    }
+}
+
         /*.swagger-ui .topbar a {
             color: #fff;
         }*/
+
         .swagger-ui .topbar .download-url-wrapper input[type=text],
         .swagger-ui .topbar .download-url-wrapper .select-label select {
             border: 2px solid var(--topbar-select-border-color, #62a03f);
@@ -801,6 +912,7 @@ body {
 
         .swagger-ui section.models h4 {
             color: var(--model-section-header-color, #606060);
+            padding: 0;
         }
 
             .swagger-ui section.models h4:hover {
@@ -813,7 +925,7 @@ body {
 
             .swagger-ui section.models h4 button.models-control {
                 color: var(--model-section-header-color, #606060);
-                padding: 10px 20px 10px 10px;
+                padding: 20px;
             }
 
         .swagger-ui section.models h5 {

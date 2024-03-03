@@ -11,6 +11,9 @@ public sealed class ModernStyle : BaseStyle
 
     internal override ModernStyle Common => new("modern.common.css");
 
+    /// <inheritdoc/>
+    internal override bool IsModern => true;
+
     /// <summary>
     /// Apply a modern light style to your Swagger UI.
     /// </summary>
@@ -20,6 +23,16 @@ public sealed class ModernStyle : BaseStyle
     /// Apply a modern sleek dark style to your Swagger UI.
     /// </summary>
     public static ModernStyle Dark => new("modern.dark.css");
+
+    /// <summary>
+    /// Apply a modern forest tones style to your Swagger UI.
+    /// </summary>
+    public static ModernStyle Forest => new("modern.forest.css");
+
+    /// <summary>
+    /// Apply a modern deep sea tones style to your Swagger UI.
+    /// </summary>
+    public static ModernStyle DeepSea => new("modern.deepsea.css");
 
     /// <inheritdoc/>
     protected override string GetStyleName()

@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Controllers;
 
+#pragma warning disable CS0618 // Type or member is obsolete - Done for test purpose
+
 [ApiController]
 public class SampleController : ControllerBase
 {
@@ -38,9 +40,13 @@ public class SampleController : ControllerBase
     }
 
     [HttpGet("get")]
+#pragma warning disable S1133 // Deprecated code should be removed - Done for test purpose
     [Obsolete("test")]
+#pragma warning restore S1133 // Deprecated code should be removed - Done for test purpose
     public IActionResult GetDisabledSample([Required] int sample)
     {
         return Ok(sample);
     }
 }
+
+#pragma warning restore CS0618 // Type or member is obsolete - Done for test purpose

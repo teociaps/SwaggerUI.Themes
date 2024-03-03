@@ -1,18 +1,20 @@
 ﻿namespace AspNetCore.SwaggerUI.Themes.Tests;
 
 /// <summary>
-/// List of styles to test.
+/// List of all styles to test.
 /// </summary>
-public class StyleTestData : IEnumerable<object[]> // object[] because [ClassData]
+public class StyleTestData : TheoryData<BaseStyle>
 {
-    public IEnumerator<object[]> GetEnumerator()
+    public StyleTestData()
     {
-        yield return [Style.Dark];
-        yield return [Style.Forest];
-        yield return [Style.DeepSea];
-        yield return [ModernStyle.Light];
-        yield return [ModernStyle.Dark];
+        AddRange(
+            Style.Dark,
+            Style.Forest,
+            Style.DeepSea,
+            ModernStyle.Light,
+            ModernStyle.Dark,
+            ModernStyle.Forest,
+            ModernStyle.DeepSea
+        );
     }
-
-    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 }

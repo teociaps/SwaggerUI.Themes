@@ -2,7 +2,7 @@
 using AspNetCore.SwaggerUI.Themes.Tests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
-using static AspNetCore.SwaggerUI.Themes.StyleProvider;
+using static AspNetCore.SwaggerUI.Themes.FileProvider;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -20,8 +20,10 @@ void RegisterTestStyleEndpoint()
     foreach (var item in new StyleTestData())
     {
         var style = (BaseStyle)item[0];
-        var fullPath = StylePath + style.FileName;
+        var fullPath = StylesPath + style.FileName;
         AddGetEndpoint(app, fullPath, GetResourceText(style.FileName));
+        if (style.IsModern)
+            AddGetEndpoint(app, ScriptsPath + "modern.js", GetResourceText("modern.js"), MimeTypes.Text.Javascript);
     }
 }
 
