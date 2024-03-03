@@ -8,6 +8,8 @@ using Swashbuckle.AspNetCore.Annotations;
 
 #endif
 
+#pragma warning disable S1133 // Deprecated code should be removed - Done for test purpose
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
@@ -15,9 +17,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
     {
-        #if NET6_0 || NET7_0
+#if NET6_0 || NET7_0
         options.EnableAnnotations();
-        #endif
+#endif
+#pragma warning disable S1075 // URIs should not be hardcoded - Done for test purpose
         options.SwaggerDoc("v1", new OpenApiInfo
         {
             Version = "v1",
@@ -35,6 +38,7 @@ builder.Services.AddSwaggerGen(options =>
                 Url = new Uri("https://example.com/license")
             }
         });
+#pragma warning restore S1075 // URIs should not be hardcoded - Done for test purpose
         options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
             Description = @"JWT Authorization header using the Bearer scheme.
@@ -135,6 +139,8 @@ app.MapControllers();
 
 app.Run();
 
+#pragma warning disable S3903 // Types should be defined in named namespaces - Done for test purpose
+
 public record WeatherForecast(DateOnly Date, int TemperatureC, string Summary)
 {
     [Obsolete("test")]
@@ -143,3 +149,6 @@ public record WeatherForecast(DateOnly Date, int TemperatureC, string Summary)
 
 [Obsolete("test")]
 public record Sample(WeatherForecast WeatherForecast, [Required] double Value);
+
+#pragma warning restore S3903 // Types should be defined in named namespaces - Done for test purpose
+#pragma warning restore S1133 // Deprecated code should be removed - Done for test purpose
