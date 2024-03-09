@@ -993,6 +993,7 @@ body {
     max-width: 1460px;
     padding: 0 20px;
     width: 100%;
+    pointer-events: none;
 }
 #scroll-to-top-btn {
     background-color: var(--scroll-to-top-button-background-color, #000000d1);
@@ -1014,6 +1015,7 @@ body {
     #scroll-to-top-btn.showBtn {
         opacity: 1;
         translate: 0 0;
+        pointer-events: auto;
     }
 
     #scroll-to-top-btn::before {
