@@ -34,6 +34,11 @@ public sealed class ModernStyle : BaseStyle
     /// </summary>
     public static ModernStyle DeepSea => new("modern.deepsea.css");
 
+    /// <summary>
+    /// Apply a modern futuristic style to your Swagger UI.
+    /// </summary>
+    public static ModernStyle Futuristic => new("modern.futuristic.css");
+
     /// <inheritdoc/>
     protected override string GetStyleName()
     {

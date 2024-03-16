@@ -120,3 +120,12 @@ Dive into a tranquil interface with cool blues and deep greens, inspired by the 
 ```
 ModernStyle.DeepSea
 ```
+
+### • Futuristic
+Experience a futuristic neon-inspired interface for a modern browsing experience.
+
+![modern futuristic style example image](/samples/screenshots/modern-futuristic.png)
+
+```
+ModernStyle.Futuristic
+```
