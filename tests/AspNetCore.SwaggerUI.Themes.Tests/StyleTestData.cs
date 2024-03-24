@@ -11,10 +11,13 @@ public class StyleTestData : TheoryData<BaseStyle>
             Style.Dark,
             Style.Forest,
             Style.DeepSea,
+            Style.Desert,
             ModernStyle.Light,
             ModernStyle.Dark,
             ModernStyle.Forest,
-            ModernStyle.DeepSea
+            ModernStyle.DeepSea,
+            ModernStyle.Futuristic,
+            ModernStyle.Desert
         );
     }
 }

@@ -2,11 +2,12 @@
 ##   RELEASE NOTES   ##
  #-------------------#
 
-v0.4.0
+v0.5.0
 
 Changes:
-- New modern styles
-- Enhanced modern styles
+- New desert styles
+- New futuristic modern style
+- Fixes and enhancements
 
 
 See https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes#readme-body-tab

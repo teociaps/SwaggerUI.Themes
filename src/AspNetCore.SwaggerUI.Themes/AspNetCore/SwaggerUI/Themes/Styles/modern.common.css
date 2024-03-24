@@ -993,6 +993,7 @@ body {
     max-width: 1460px;
     padding: 0 20px;
     width: 100%;
+    pointer-events: none;
 }
 #scroll-to-top-btn {
     background-color: var(--scroll-to-top-button-background-color, #000000d1);
@@ -1000,7 +1001,7 @@ body {
     border-radius: 50%;
     color: white;
     cursor: pointer;
-    width: 3rem;
+    width: 2.5rem;
     aspect-ratio: 1;
     backdrop-filter: blur(20px);
     margin: 10px;
@@ -1014,12 +1015,13 @@ body {
     #scroll-to-top-btn.showBtn {
         opacity: 1;
         translate: 0 0;
+        pointer-events: auto;
     }
 
     #scroll-to-top-btn::before {
         position: absolute;
         content: '';
-        top: 11px;
+        top: 10px;
         left: 12px;
         right: 12px;
         background-color: var(--scroll-to-top-button-icon-color, #fff);
@@ -1029,13 +1031,13 @@ body {
     #scroll-to-top-btn::after {
         position: absolute;
         content: '';
-        top: 20px;
+        top: 15px;
         left: 50%;
         border: solid var(--scroll-to-top-button-icon-color, #fff);
         border-width: 0 2px 2px 0;
-        padding: 4px;
+        padding: 3px;
         transform: rotate(-135deg);
-        translate: -50% 5px;
+        translate: -50% 4px;
     }
 
     #scroll-to-top-btn:hover {
@@ -1053,7 +1055,7 @@ body {
         translate: -50% 6px;
     }
     60% {
-        translate: -50% -4px;
+        translate: -50% -2px;
     }
 }
 
@@ -1062,7 +1064,7 @@ body {
         translate: -50% 6px;
     }
     60% {
-        translate: -50% -4px;
+        translate: -50% -2px;
     }
 }
 
@@ -1071,6 +1073,6 @@ body {
         translate: -50% 6px;
     }
     60% {
-        translate: -50% -4px;
+        translate: -50% -2px;
     }
 }

@@ -11,8 +11,10 @@
 
 ## Features
 
-- _New Themes_: enhances the Swagger documentation interface with different themes, including a default style that retains the classic Swagger UI appearance and new modern styles.
+- _New Themes_: enhances the Swagger documentation interface with various themes, including a default style that preserves the classic Swagger UI appearance and introduces new modern styles. Explore samples [here](/src/AspNetCore.SwaggerUI.Themes#available-themes).
 - _Seamless Integration_: simply install the package and add the style parameter to the existing method used for SwaggerUI.
+
+> Modern styles come with additional functionalities, including _**pinned topbar**_ and _**back-to-top button**_.
 
 
 ## Getting Started
@@ -54,7 +56,7 @@ There are a few styles available for your Swagger UI.
 ### • Dark
 Offers a simple dark-themed interface, maintaining the classic Swagger UI layout.
 
-![dark style example image](/samples/screenshots/default-dark.png)
+![dark style example image](screenshots/default-dark.png)
 
 ```
 Style.Dark
@@ -63,7 +65,7 @@ Style.Dark
 ### • Forest
 Inspired by the colors of a forest, this theme brings a natural and vibrant feel to your documentation.
 
-![forest style example image](/samples/screenshots/default-forest.png)
+![forest style example image](screenshots/default-forest.png)
 
 ```
 Style.Forest
@@ -72,10 +74,19 @@ Style.Forest
 ### • DeepSea
 Inspired by the depths of the sea, this theme features cool blues and deep greens for a tranquil and immersive experience.
 
-![deep sea style example image](/samples/screenshots/default-deepsea.png)
+![deep sea style example image](screenshots/default-deepsea.png)
 
 ```
 Style.DeepSea
+```
+
+### • Desert
+Inspired by the essence of the desert, this theme evokes warm tones and sandy hues for an immersive experience.
+
+![desert style example image](screenshots/default-desert.png)
+
+```
+Style.Desert
 ```
 
 > The light style is not in this list because it's just the default one used by Swagger UI; to use that you don't need this library.
@@ -86,7 +97,7 @@ Style.DeepSea
 ### • Light
 Offers a modern, light-themed interface that overrides some aspects of the default Swagger UI.
 
-![modern dark style example image](/samples/screenshots/modern-light.png)
+![modern dark style example image](screenshots/modern-light.png)
 
 ```
 ModernStyle.Light
@@ -95,7 +106,7 @@ ModernStyle.Light
 ### • Dark
 Provides a sleek, dark-themed interface for a more modern look and feel.
 
-![modern dark style example image](/samples/screenshots/modern-dark.png)
+![modern dark style example image](screenshots/modern-dark.png)
 
 ```
 ModernStyle.Dark
@@ -104,7 +115,7 @@ ModernStyle.Dark
 ### • Forest
 Brings a natural feel to your documentation with colors inspired by the serene ambiance of a forest.
 
-![modern forest style example image](/samples/screenshots/modern-forest.png)
+![modern forest style example image](screenshots/modern-forest.png)
 
 ```
 ModernStyle.Forest
@@ -113,8 +124,26 @@ ModernStyle.Forest
 ### • DeepSea
 Dive into a tranquil interface with cool blues and deep greens, inspired by the depths of the sea.
 
-![modern deep sea style example image](/samples/screenshots/modern-deepsea.png)
+![modern deep sea style example image](screenshots/modern-deepsea.png)
 
 ```
 ModernStyle.DeepSea
+```
+
+### • Desert
+Immerse yourself in a desert-inspired theme, characterized by warm tones and sandy hues.
+
+![modern desert style example image](screenshots/modern-desert.png)
+
+```
+ModernStyle.Desert
+```
+
+### • Futuristic
+Experience a futuristic neon-inspired interface for a modern browsing experience.
+
+![modern futuristic style example image](screenshots/modern-futuristic.png)
+
+```
+ModernStyle.Futuristic
 ```

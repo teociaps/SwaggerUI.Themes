@@ -28,4 +28,9 @@ public sealed class Style : BaseStyle
     /// Apply a deep sea tones style to your Swagger UI.
     /// </summary>
     public static Style DeepSea => new("deepsea.css");
+
+    /// <summary>
+    /// Apply a desert tones style to your Swagger UI.
+    /// </summary>
+    public static Style Desert => new("desert.css");
 }
