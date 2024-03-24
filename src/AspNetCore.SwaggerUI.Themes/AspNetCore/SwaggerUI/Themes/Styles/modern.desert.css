@@ -1,10 +1,12 @@
 ﻿/*
-    Desert Style
+    Modern Desert Style
 
     https://github.com/teociaps/SwaggerUI.Themes
 */
 
 :root {
+    --scrollbar-thumb-color: hsl(40, 40%, 30%);
+    --scrollbar-thumb-hover-color: hsl(40, 40%, 35%);
     --body-background-color: #c58c59;
     --swagger-main-color: #ffffff;
     /* Loading */
@@ -16,6 +18,10 @@
     --errors-wrapper-errors-color: #3f1616;
     /* Top-bar */
     --topbar-background-color: #573420;
+    --topbar-pinned-background-color: rgba(0, 0, 0, .5);
+    --topbar-pinned-shadow-color: rgba(0, 0, 0, .6);
+    --topbar-pin-icon-color: white;
+    --topbar-border-color: #60360b;
     --topbar-select-border-color: #8F5933;
     --topbar-select-label-color: #ffeec8;
     --topbar-download-url-button-background-color: #774109;
@@ -27,8 +33,11 @@
     --api-version-stamp-background-color: #a96105;
     --api-version-color: #ffffff;
     /* Authorize Section/Modal */
-    --scheme-container-background-color: #cd753d;
-    --scheme-container-box-shadow-color: rgb(51 0 0 / 30%);
+    /*--scheme-container-background-color: #cd753d;*/
+    /*--scheme-container-box-shadow-color: rgb(51 0 0 / 30%);*/
+    --auth-wrapper-background-color: #cd753d;
+    --auth-wrapper-border-color: #b25f2a;
+    --auth-wrapper-box-shadow-color: #6b48178c;
     --auth-container-border-bottom-color: #ebebeb;
     --auth-container-background-color: #ddd;
     --auth-container-errors-color: red;
@@ -37,10 +46,11 @@
     --btn-authorize-font-color: #caff85;
     --btn-authorize-svg-fill-color: #caff85;
     /* Operations */
-    --opblock-tag-background-color-hover: rgba(0, 0, 0, .1);
-    --opblock-tag-border-bottom-color: rgb(78, 56, 56, 0.30);
+    --opblock-tag-section-border-color: #92491a;
     --opblock-border-color: black;
-    --opblock-shadow-color: rgba(59, 59, 59, .19);
+    --opblock-tag-background-color-hover: rgba(0, 0, 0, .1);
+    --opblock-tag-border-bottom-color: rgb(78, 38, 18, 0.30);
+    --opblock-shadow-color: rgb(74, 25, 25, 0.19);
     --opblock-tabheader-underline-color: rgba(255, 255, 255, .6);
     --opblock-summary-svg-icons-color: white;
     --opblock-summary-border-bottom-color: black;
@@ -171,4 +181,10 @@
     --rendered-markdown-pre-color: #000;
     --rendered-markdown-code-background-color: rgba(0, 0, 0, .05);
     --rendered-markdown-code-color: #9012fe;
+    /* Scroll to top button */
+    --scroll-to-top-button-background-color: #2c120285;
+    --scroll-to-top-button-hover-background-color: #3d210c85;
+    --scroll-to-top-button-border-color: #60360b;
+    --scroll-to-top-button-icon-color: #ffedbc;
+    --scroll-to-top-button-shadow-color: rgba(0, 0, 0, .3);
 }
