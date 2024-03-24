@@ -80,6 +80,15 @@ Inspired by the depths of the sea, this theme features cool blues and deep green
 Style.DeepSea
 ```
 
+### • Desert
+Inspired by the essence of the desert, this theme evokes warm tones and sandy hues for an immersive experience.
+
+![desert style example image](/samples/screenshots/default-desert.png)
+
+```
+Style.Desert
+```
+
 > The light style is not in this list because it's just the default one used by Swagger UI; to use that you don't need this library.
 
 
@@ -119,6 +128,15 @@ Dive into a tranquil interface with cool blues and deep greens, inspired by the 
 
 ```
 ModernStyle.DeepSea
+```
+
+### • Desert
+Immerse yourself in a desert-inspired theme, characterized by warm tones and sandy hues.
+
+![modern desert style example image](/samples/screenshots/modern-desert.png)
+
+```
+ModernStyle.Desert
 ```
 
 ### • Futuristic
