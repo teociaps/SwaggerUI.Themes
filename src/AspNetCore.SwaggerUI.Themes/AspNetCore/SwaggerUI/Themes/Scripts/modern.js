@@ -52,7 +52,6 @@ function setUnpinnedIconTo(element) {
 }
 
 function setUpScrollToTopButton() {
-
     // Create wrapper
     const scrollToTopContainer = document.createElement('div');
     scrollToTopContainer.classList.add('scroll-to-top-wrapper');

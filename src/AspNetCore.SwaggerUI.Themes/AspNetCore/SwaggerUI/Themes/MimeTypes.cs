@@ -16,6 +16,7 @@ internal static class MimeTypes
         /// <c>text/css</c>
         /// </summary>
         internal const string Css = _Prefix + "css";
+
         /// <summary>
         /// <c>text/javascript</c>
         /// </summary>
