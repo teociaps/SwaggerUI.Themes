@@ -1,21 +1,8 @@
 ﻿# AspNetCore.SwaggerUI.Themes
 
-[![Build](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg)](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml) [![Test](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml/badge.svg)](https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml)
-
-## Introduction
-
-[Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) is a popular library for adding Swagger support to ASP.NET Core projects, making it easier to document and interact with your APIs.
-
 **AspNetCore.SwaggerUI.Themes** builds upon Swashbuckle.AspNetCore.SwaggerUI, enhancing the Swagger UI with modern and visually appealing themes.
 
-
-## Features
-
-- _New Themes_: enhances the Swagger documentation interface with various themes, including a default style that preserves the classic Swagger UI appearance and introduces new modern styles.
-- _Seamless Integration_: simply install the package and add the style parameter to the existing method used for SwaggerUI.
-
-> Modern styles come with additional functionalities, including _**pinned topbar**_ and _**back-to-top button**_.
-
+See [GitHub](https://github.com/teociaps/SwaggerUI.Themes) for more info.
 
 ## Getting Started
 
