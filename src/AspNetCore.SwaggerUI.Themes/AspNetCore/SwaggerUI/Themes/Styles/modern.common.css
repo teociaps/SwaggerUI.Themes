@@ -316,20 +316,20 @@ body {
     padding: 0;
 }
 
-.swagger-ui .auth-wrapper {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-    border: 1px solid var(--auth-wrapper-border-color, #d5d5d5);
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0px 3px 5px -5px var(--auth-wrapper-box-shadow-color, black);
-    background: var(--auth-wrapper-background-color, white);
-}
+    .swagger-ui .auth-wrapper {
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+        border: 1px solid var(--auth-wrapper-border-color, #d5d5d5);
+        padding: 0;
+        border-radius: 5px;
+        box-shadow: 0px 3px 5px -5px var(--auth-wrapper-box-shadow-color, black);
+        background: var(--auth-wrapper-background-color, white);
+    }
 
-.swagger-ui .scheme-container .schemes > label {
-    color: var(--swagger-main-color, #3b4151);
-}
+    .swagger-ui .scheme-container .schemes > label {
+        color: var(--swagger-main-color, #3b4151);
+    }
 /* Authorize Modal */
 .swagger-ui .auth-container {
     border-bottom: 1px solid var(--auth-container-border-bottom-color, #ebebeb); /*divider; overridden by :last-of-type*/
