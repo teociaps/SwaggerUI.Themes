@@ -7,7 +7,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <MajorVersion>0</MajorVersion>
     <MinorVersion>5</MinorVersion>
-    <PatchVersion>0</PatchVersion>
+    <PatchVersion>1</PatchVersion>
     <VersionSuffix></VersionSuffix> <!-- used for preview -->
     <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
   </PropertyGroup>
@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.6.2" />
   </ItemGroup>
 
 </Project>

@@ -11,8 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{FF08
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{9F3BA92D-50DB-4F90-BAAD-C574A5A5EA6E}"
 	ProjectSection(SolutionItems) = preProject
-		build\icon.png = build\icon.png
 		build\Common.Core.props = build\Common.Core.props
+		build\icon.png = build\icon.png
 		build\NuGet.props = build\NuGet.props
 		build\Versioning.props = build\Versioning.props
 	EndProjectSection

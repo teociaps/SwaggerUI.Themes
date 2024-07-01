@@ -2,11 +2,11 @@
 ##   RELEASE NOTES   ##
  #-------------------#
 
-v0.5.0
+
+v0.5.1
 
 Changes:
-- New desert styles
-- New futuristic modern style
+- Update swagger-ui to latest version
 - Fixes and enhancements
 
 
