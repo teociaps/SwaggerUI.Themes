@@ -7,11 +7,17 @@
 const rootElement = document.documentElement;
 
 window.onpageshow = function () {
-    console.log('Hello modern Swagger UI!');
+    let swaggerUILoaded = setInterval(function () {
+        if (document.getElementById("swagger-ui") != null) {
+            clearInterval(swaggerUILoaded);
 
-    configurePinnableTopbar();
+            console.log('Hello modern Swagger UI!');
 
-    setUpScrollToTopButton();
+            configurePinnableTopbar();
+
+            setUpScrollToTopButton();
+        }
+    }, 100);
 }
 
 function configurePinnableTopbar() {
