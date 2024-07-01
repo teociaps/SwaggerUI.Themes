@@ -429,6 +429,7 @@ body {
     .swagger-ui .opblock .opblock-summary-path__deprecated,
     .swagger-ui .opblock .opblock-summary-description {
         color: var(--swagger-main-color, #3b4151);
+        word-break: normal;
     }
     /* POST */
     .swagger-ui .opblock.opblock-post {
@@ -1089,5 +1090,23 @@ body {
 
     60% {
         translate: -50% -2px;
+    }
+}
+
+/* TODO: sticky operations */
+/*.swagger-ui .opblock-tag-section.is-open .opblock-tag {
+        position: sticky;
+        top: 4.8rem;
+        background: #5eb4fd;
+        z-index: 4;
+        border-radius: 0 0 .5rem .5rem;
+    }*/
+
+@media only screen and (max-width: 680px) {
+    .swagger-ui .opblock .opblock-summary-operation-id,
+    .swagger-ui .opblock .opblock-summary-path,
+    .swagger-ui .opblock .opblock-summary-path__deprecated,
+    .swagger-ui .opblock .opblock-summary-description {
+        word-break: break-all;
     }
 }

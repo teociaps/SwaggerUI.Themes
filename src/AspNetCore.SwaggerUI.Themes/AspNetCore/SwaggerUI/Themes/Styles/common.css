@@ -209,6 +209,7 @@ body {
         .swagger-ui .opblock .opblock-summary-path__deprecated,
         .swagger-ui .opblock .opblock-summary-description {
             color: var(--swagger-main-color, #3b4151);
+            word-break: normal;
         }
         /* POST */
         .swagger-ui .opblock.opblock-post {
@@ -742,3 +743,13 @@ body {
         background: var(--rendered-markdown-code-background-color, rgba(0,0,0,.05));
         color: var(--rendered-markdown-code-color, #9012fe);
     }
+
+
+@media only screen and (max-width: 680px) {
+    .swagger-ui .opblock .opblock-summary-operation-id,
+    .swagger-ui .opblock .opblock-summary-path,
+    .swagger-ui .opblock .opblock-summary-path__deprecated,
+    .swagger-ui .opblock .opblock-summary-description {
+        word-break: break-all;
+    }
+}
