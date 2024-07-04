@@ -32,7 +32,7 @@
 
 
 ## Features
-- _New Themes_: enhances the Swagger documentation interface with various themes, including a default style that preserves the classic Swagger UI appearance and introduces new modern styles. Explore samples [here](/src/AspNetCore.SwaggerUI.Themes#available-themes).
+- _New Themes_: enhances the Swagger documentation interface with various themes, including a default style that preserves the classic Swagger UI appearance and introduces new modern styles. Explore samples [here](#available-themes).
 - _Seamless Integration_: simply install the package and add the style parameter to the existing method used for SwaggerUI.
 
 > [!TIP]
