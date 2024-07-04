@@ -24,43 +24,30 @@
 
 </span>
 
-## Introduction
 
+## Introduction
 [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) is a popular library for adding Swagger support to ASP.NET Core projects, making it easier to document and interact with your APIs.
 
 **AspNetCore.SwaggerUI.Themes** builds upon Swashbuckle.AspNetCore.SwaggerUI, enhancing the Swagger UI with modern and visually appealing themes.
 
-## Features
 
+## Features
 - _New Themes_: enhances the Swagger documentation interface with various themes, including a default style that preserves the classic Swagger UI appearance and introduces new modern styles. Explore samples [here](/src/AspNetCore.SwaggerUI.Themes#available-themes).
 - _Seamless Integration_: simply install the package and add the style parameter to the existing method used for SwaggerUI.
 
-> [!NOTE]
-> Modern styles come with additional functionalities, including _**pinned topbar**_ and _**back-to-top button**_.
+> [!TIP]
+> Opt for Modern Styles! Modern styles come with additional functionalities, including _**pinned topbar**_ and _**back-to-top button**_.
+
 
 ## Supported .NET Versions
-
 | Version | Status        |
 | ------- | ------------- |
 | .NET 6  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
 | .NET 7  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
 | .NET 8  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
 
-### Version History
-
-The table below provides a quick overview of **AspNetCore.SwaggerUI.Themes** versions and their compatibility with different .NET versions.
-
-| Library Version | .NET 6 | .NET 7 | .NET 8 |
-| --------------- | ------ | ------ | ------ |
-| 0.1.0           | ❌	   | ❌		| ✔		 |
-| 0.2.0 +         | ✔	   | ✔		| ✔		 |
-
-- ✔️ Supported: The library version is compatible with the respective .NET version.
-- ❌ Unsupported: The library version is not compatible with the respective .NET version.
-
 
 ## Getting Started
-
 To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow these steps:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
@@ -87,7 +74,7 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 
 	This code enables the chosen theme for Swagger UI in your application.
 
-> [!IMPORTANT]	
+> [!NOTE]	
 > Please be aware that for projects utilizing the older style template with separate `Startup.cs` and `Program.cs` files, the previously code should be configured within the `Configure` method of the `Startup` class.
 
 
@@ -118,8 +105,47 @@ app.UseSwaggerUI(ModernStyle.Dark, c =>
 
 That's it! Your Swagger UI will now have a sleek dark theme.
 
-> [!NOTE]
+> [!IMPORTANT]
 > Using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
+
+
+## Available Themes
+There are a few pre-defined styles available for your Swagger UI.
+
+### Classics:
+
+| Dark | Forest | DeepSea | Desert |
+|------|--------|---------|--------|
+| ![dark style example image] | ![forest style example image] | ![deepSea style example image] | ![desert style example image] |
+| <center><pre lang="csharp">`Style.Dark`</pre></center> | <center><pre lang="csharp">`Style.Forest`</pre></center> | <center><pre lang="csharp">`Style.DeepSea`</pre></center> | <center><pre lang="csharp">`Style.Desert`</pre></center> |
+
+> The light style is not in this list because it's just the default one used by Swagger UI; to use that you don't need this library.
+
+### Moderns:
+
+| Light | Dark | Forest |
+|-------|------|--------|
+| ![modern light style example image] | ![modern dark style example image] | ![modern forest style example image] |
+| <center><pre lang="csharp">`ModernStyle.Light`</pre></center> | <center><pre lang="csharp">`ModernStyle.Dark`</pre></center> | <center><pre lang="csharp">`ModernStyle.Forest`</pre></center> |
+
+| DeepSea | Desert | Futuristic |
+|---------|--------|------------|
+| ![modern deepSea style example image] | ![modern desert style example image] | ![modern futuristic style example image] |
+| <center><pre lang="csharp">`ModernStyle.DeepSea`</pre></center> | <center><pre lang="csharp">`ModernStyle.Desert`</pre></center> | <center><pre lang="csharp">`ModernStyle.Futuristic`</pre></center> |
+
 
 ## Contributing
 If you have any suggestions, bug reports, or contributions, feel free to open an [issue](https://github.com/teociaps/SwaggerUI.Themes/issues) or submit a [pull request](https://github.com/teociaps/SwaggerUI.Themes/pulls)
+
+
+[Dark Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/default-dark.png
+[Forest Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/default-forest.png
+[DeepSea Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/default-deepsea.png
+[Desert Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/default-desert.png
+
+[Modern Light Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-light.png
+[Modern Dark Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-dark.png
+[Modern Forest Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-forest.png
+[Modern DeepSea Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-deepsea.png
+[Modern Desert Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-desert.png
+[Modern Futuristic Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-futuristic.png

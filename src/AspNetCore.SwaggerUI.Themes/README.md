@@ -2,7 +2,6 @@
 
 **AspNetCore.SwaggerUI.Themes** builds upon Swashbuckle.AspNetCore.SwaggerUI, enhancing the Swagger UI with modern and visually appealing themes.
 
-See [GitHub](https://github.com/teociaps/SwaggerUI.Themes) for more info.
 
 ## Getting Started
 
@@ -36,101 +35,5 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 
 
 ## Available Themes
-There are a few styles available for your Swagger UI.
 
-### Defaults:
-
-### • Dark
-Offers a simple dark-themed interface, maintaining the classic Swagger UI layout.
-
-![dark style example image](https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/default-dark.png)
-
-```
-Style.Dark
-```
-
-### • Forest
-Inspired by the colors of a forest, this theme brings a natural and vibrant feel to your documentation.
-
-![forest style example image](https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/default-forest.png)
-
-```
-Style.Forest
-```
-
-### • DeepSea
-Inspired by the depths of the sea, this theme features cool blues and deep greens for a tranquil and immersive experience.
-
-![deep sea style example image](https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/default-deepsea.png)
-
-```
-Style.DeepSea
-```
-
-### • Desert
-Inspired by the essence of the desert, this theme evokes warm tones and sandy hues for an immersive experience.
-
-![desert style example image](https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/default-desert.png)
-
-```
-Style.Desert
-```
-
-> The light style is not in this list because it's just the default one used by Swagger UI; to use that you don't need this library.
-
-
-### Moderns:
-
-### • Light
-Offers a modern, light-themed interface that overrides some aspects of the default Swagger UI.
-
-![modern dark style example image](https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-light.png)
-
-```
-ModernStyle.Light
-```
-
-### • Dark
-Provides a sleek, dark-themed interface for a more modern look and feel.
-
-![modern dark style example image](https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-dark.png)
-
-```
-ModernStyle.Dark
-```
-
-### • Forest
-Brings a natural feel to your documentation with colors inspired by the serene ambiance of a forest.
-
-![modern forest style example image](https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-forest.png)
-
-```
-ModernStyle.Forest
-```
-
-### • DeepSea
-Dive into a tranquil interface with cool blues and deep greens, inspired by the depths of the sea.
-
-![modern deep sea style example image](https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-deepsea.png)
-
-```
-ModernStyle.DeepSea
-```
-
-### • Desert
-Immerse yourself in a desert-inspired theme, characterized by warm tones and sandy hues.
-
-![modern desert style example image](https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-desert.png)
-
-```
-ModernStyle.Desert
-```
-
-### • Futuristic
-Experience a futuristic neon-inspired interface for a modern browsing experience.
-
-![modern futuristic style example image](https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-futuristic.png)
-
-```
-ModernStyle.Futuristic
-```
+See [here](https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#available-themes) the available themes.

@@ -15,10 +15,10 @@
   <PropertyGroup>
     <PackageId>AspNetCore.SwaggerUI.Themes</PackageId>
     <Description>
-      An extension library which enhances Swagger middleware functionality, offering new themes for API documentation in ASP.NET Core applications.
+      Change theme to your Swagger API documentation in ASP.NET Core applications.
     </Description>
     <PackageTags>
-      extension;aspnetcore;swagger;swagger-ui;themes;dark-theme
+      extension;aspnetcore;swagger;swagger-ui;themes;dark-theme;modern
     </PackageTags>
   </PropertyGroup>
 
