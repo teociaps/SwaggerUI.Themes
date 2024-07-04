@@ -129,7 +129,7 @@ There are a few pre-defined styles available for your Swagger UI.
 | <center><pre lang="csharp">`ModernStyle.Light`</pre></center> | <center><pre lang="csharp">`ModernStyle.Dark`</pre></center> | <center><pre lang="csharp">`ModernStyle.Forest`</pre></center> |
 
 | DeepSea | Desert | Futuristic |
-|---|
+|---------|--------|------------|
 | ![modern deepSea style example image] | ![modern desert style example image] | ![modern futuristic style example image] |
 | <center><pre lang="csharp">`ModernStyle.DeepSea`</pre></center> | <center><pre lang="csharp">`ModernStyle.Desert`</pre></center> | <center><pre lang="csharp">`ModernStyle.Futuristic`</pre></center> |
 
