@@ -1,6 +1,5 @@
 ﻿using AspNetCore.SwaggerUI.Themes;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using System.Text;
 
 namespace Microsoft.AspNetCore.Builder;
 
@@ -10,7 +9,7 @@ namespace Microsoft.AspNetCore.Builder;
 public static class StyleSwaggerUIBuilderExtensions
 {
     /// <summary>
-    /// Register the SwaggerUI middleware using the specified style. You can override the behaviour
+    /// Register the SwaggerUI middleware using the specified style. You can override the behavior
     /// by providing options.
     /// </summary>
     /// <param name="app">The application builder instance.</param>
@@ -90,30 +89,5 @@ public static class StyleSwaggerUIBuilderExtensions
 
         FileProvider.AddGetEndpoint(app, FullPath, javascript, MimeTypes.Text.Javascript);
         return x => x.InjectJavascript(FullPath);
-    }
-
-    public static string GetSwaggerStyleCss(BaseStyle style)
-    {
-        var sb = new StringBuilder();
-
-        string baseCss = FileProvider.GetResourceText(style.Common.FileName);
-        string styleCss = FileProvider.GetResourceText(style.FileName);
-
-        sb.Append(baseCss);
-        sb.Append('\n');
-        sb.Append(styleCss);
-
-        return sb.ToString();
-    }
-
-    public static string GetSwaggerStyleJavascriptPath(WebApplication app)
-    {
-        const string JsFilename = "modern.js";
-        string javascript = FileProvider.GetResourceText(JsFilename);
-        const string FullPath = FileProvider.ScriptsPath + JsFilename;
-
-        FileProvider.AddGetEndpoint(app, FullPath, javascript, MimeTypes.Text.Javascript);
-
-        return FullPath;
     }
 }

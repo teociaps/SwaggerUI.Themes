@@ -1,4 +1,4 @@
-using AspNetCore.SwaggerUI.Themes;
+using AspNetCore.NSwag.Themes;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using Sample.AspNetCore.SwaggerUI.NSwag;
@@ -57,11 +57,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi();
-    app.UseSwaggerUi(options =>
-    {
-        options.CustomInlineStyles = StyleSwaggerUIBuilderExtensions.GetSwaggerStyleCss(Style.Dark);
-        options.CustomJavaScriptPath = StyleSwaggerUIBuilderExtensions.GetSwaggerStyleJavascriptPath(app);
-    });
+    app.UseSwaggerUi(ModernStyle.Dark);
 }
 
 app.UseHttpsRedirection();

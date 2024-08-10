@@ -17,11 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NSwag.AspNetCore" Version="14.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\AspNetCore.SwaggerUI.Themes\AspNetCore.SwaggerUI.Themes.csproj" />
+    <ProjectReference Include="..\..\src\AspNetCore.NSwag.Themes\AspNetCore.NSwag.Themes.csproj" />
   </ItemGroup>
 
 </Project>
