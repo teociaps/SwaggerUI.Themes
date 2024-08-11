@@ -1,6 +1,6 @@
 ﻿# AspNetCore.NSwag.Themes
 
-**AspNetCore.NSwag.Themes** builds upon AspNetCore.NSwag, enhancing the Swagger UI with modern and visually appealing themes.
+**AspNetCore.NSwag.Themes** builds upon NSwag.AspNetCore, enhancing the Swagger UI with modern and visually appealing themes.
 
 
 ## Getting Started
