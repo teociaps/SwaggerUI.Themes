@@ -22,7 +22,7 @@ To use **AspNetCore.NSwag.Themes** in your ASP.NET Core project, follow these st
 2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUi()` method:
 
 	```csharp
-	using AspNetCore.NSwag.Themes;
+	using AspNetCore.Swagger.Themes;
 
 	...
 
