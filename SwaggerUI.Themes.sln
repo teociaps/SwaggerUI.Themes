@@ -21,7 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.AspNetCore.SwaggerUI
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B89F6FD2-68B6-4A70-A070-FF22FE42DDE4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.SwaggerUI.Themes.Tests", "tests\AspNetCore.SwaggerUI.Themes.Tests\AspNetCore.SwaggerUI.Themes.Tests.csproj", "{540CD242-4352-4C39-ADBA-572D2795B160}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Swagger.Themes.Tests", "tests\AspNetCore.SwaggerUI.Themes.Tests\AspNetCore.Swagger.Themes.Tests.csproj", "{540CD242-4352-4C39-ADBA-572D2795B160}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.AspNetCore.SwaggerUI.NSwag", "samples\Sample.AspNetCore.SwaggerUI.NSwag\Sample.AspNetCore.SwaggerUI.NSwag.csproj", "{E8C376AC-9933-4ECF-92D8-66BC706FD6D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.NSwag.Themes", "src\AspNetCore.NSwag.Themes\AspNetCore.NSwag.Themes.csproj", "{38614F76-C962-4CDC-9C9D-25469B92CDE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Swagger.Themes.Common", "src\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj", "{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +47,18 @@ Global
 		{540CD242-4352-4C39-ADBA-572D2795B160}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{540CD242-4352-4C39-ADBA-572D2795B160}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{540CD242-4352-4C39-ADBA-572D2795B160}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8C376AC-9933-4ECF-92D8-66BC706FD6D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8C376AC-9933-4ECF-92D8-66BC706FD6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8C376AC-9933-4ECF-92D8-66BC706FD6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8C376AC-9933-4ECF-92D8-66BC706FD6D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38614F76-C962-4CDC-9C9D-25469B92CDE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38614F76-C962-4CDC-9C9D-25469B92CDE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38614F76-C962-4CDC-9C9D-25469B92CDE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38614F76-C962-4CDC-9C9D-25469B92CDE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +67,9 @@ Global
 		{5FC2CEDA-5475-4096-BDEC-1C9BFC933FB8} = {19896985-FCB0-4EA0-8E5F-FF3902AC13FC}
 		{ED52DF52-839F-4DFE-ABDD-05C8F85D71BC} = {FF08B180-6923-46E0-8426-99391CFB47CD}
 		{540CD242-4352-4C39-ADBA-572D2795B160} = {B89F6FD2-68B6-4A70-A070-FF22FE42DDE4}
+		{E8C376AC-9933-4ECF-92D8-66BC706FD6D0} = {FF08B180-6923-46E0-8426-99391CFB47CD}
+		{38614F76-C962-4CDC-9C9D-25469B92CDE2} = {19896985-FCB0-4EA0-8E5F-FF3902AC13FC}
+		{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D} = {19896985-FCB0-4EA0-8E5F-FF3902AC13FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {660A434B-79DE-4C3F-892C-333338978C59}

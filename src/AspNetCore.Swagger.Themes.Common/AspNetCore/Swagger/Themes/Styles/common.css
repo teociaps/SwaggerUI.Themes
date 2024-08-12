@@ -744,7 +744,6 @@ body {
         color: var(--rendered-markdown-code-color, #9012fe);
     }
 
-
 @media only screen and (max-width: 680px) {
     .swagger-ui .opblock .opblock-summary-operation-id,
     .swagger-ui .opblock .opblock-summary-path,

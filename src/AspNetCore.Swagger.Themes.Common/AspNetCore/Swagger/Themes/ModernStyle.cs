@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.SwaggerUI.Themes;
+﻿namespace AspNetCore.Swagger.Themes;
 
 /// <summary>
 /// Represents a modern style for Swagger UI.
@@ -48,7 +48,7 @@ public sealed class ModernStyle : BaseStyle
     protected override string GetStyleName()
     {
 #if NET6_0_OR_GREATER
-        return char.ToUpper(FileName[0]) + FileName[1..(FileName.LastIndexOf('.'))].Replace('.', ' ');
+        return char.ToUpper(FileName[0]) + FileName[1..FileName.LastIndexOf('.')].Replace('.', ' ');
 #else
         return char.ToUpper(FileName[0]) + FileName.Substring(1, FileName.LastIndexOf('.')).Replace('.', ' ');
 #endif

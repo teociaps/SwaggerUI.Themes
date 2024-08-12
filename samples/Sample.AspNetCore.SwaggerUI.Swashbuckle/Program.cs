@@ -1,4 +1,4 @@
-using AspNetCore.SwaggerUI.Themes;
+using AspNetCore.Swagger.Themes;
 using Sample.AspNetCore.SwaggerUI.Swashbuckle;
 
 var builder = WebApplication.CreateBuilder(args);

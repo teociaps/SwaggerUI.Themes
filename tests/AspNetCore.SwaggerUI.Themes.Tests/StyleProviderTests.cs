@@ -1,7 +1,7 @@
 using Shouldly;
-using static AspNetCore.SwaggerUI.Themes.FileProvider;
+using static AspNetCore.Swagger.Themes.FileProvider;
 
-namespace AspNetCore.SwaggerUI.Themes.Tests;
+namespace AspNetCore.Swagger.Themes.Tests;
 
 public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFactory<Program>>
 {

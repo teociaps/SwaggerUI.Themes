@@ -1,8 +1,8 @@
-﻿using AspNetCore.SwaggerUI.Themes;
-using AspNetCore.SwaggerUI.Themes.Tests;
+﻿using AspNetCore.Swagger.Themes;
+using AspNetCore.Swagger.Themes.Tests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
-using static AspNetCore.SwaggerUI.Themes.FileProvider;
+using static AspNetCore.Swagger.Themes.FileProvider;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {

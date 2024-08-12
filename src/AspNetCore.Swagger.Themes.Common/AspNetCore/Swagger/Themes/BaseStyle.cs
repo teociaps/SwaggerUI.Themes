@@ -1,11 +1,11 @@
-﻿namespace AspNetCore.SwaggerUI.Themes;
+﻿namespace AspNetCore.Swagger.Themes;
 
 /// <summary>
 /// Represents the base class used to create a style for Swagger UI.
 /// </summary>
 public abstract class BaseStyle
 {
-    private protected BaseStyle(string fileName)
+    protected BaseStyle(string fileName)
     {
         CheckFileNameExtension(fileName);
         FileName = fileName;
@@ -36,7 +36,7 @@ public abstract class BaseStyle
     protected virtual string GetStyleName()
     {
 #if NET6_0_OR_GREATER
-        return char.ToUpper(FileName[0]) + FileName[1..(FileName.LastIndexOf('.'))];
+        return char.ToUpper(FileName[0]) + FileName[1..FileName.LastIndexOf('.')];
 #else
         return char.ToUpper(FileName[0]) + FileName.Substring(1, FileName.LastIndexOf('.'));
 #endif

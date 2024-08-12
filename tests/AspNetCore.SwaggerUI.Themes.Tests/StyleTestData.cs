@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.SwaggerUI.Themes.Tests;
+﻿namespace AspNetCore.Swagger.Themes.Tests;
 
 /// <summary>
 /// List of all styles to test.

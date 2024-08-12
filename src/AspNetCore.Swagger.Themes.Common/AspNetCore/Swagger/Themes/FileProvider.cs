@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Http;
 using System.Reflection;
 
-namespace AspNetCore.SwaggerUI.Themes;
+namespace AspNetCore.Swagger.Themes;
 
 internal static class FileProvider
 {
-    private static readonly string _prefix = typeof(FileProvider).Namespace;
-    private static readonly string _stylesNamespace = _prefix + ".Styles.";
-    private static readonly string _scriptsNamespace = _prefix + ".Scripts.";
+    private const string _Prefix = "AspNetCore.Swagger.Themes";
+    private const string _StylesNamespace = _Prefix + ".Styles.";
+    private const string _ScriptsNamespace = _Prefix + ".Scripts.";
 
     internal const string StylesPath = "/styles/";
     internal const string ScriptsPath = "/scripts/";
@@ -16,7 +16,7 @@ internal static class FileProvider
     internal static string GetResourceText(string fileName)
     {
         var currentAssembly = Assembly.GetExecutingAssembly();
-        var resource = string.Concat(IsCssFile(fileName) ? _stylesNamespace : _scriptsNamespace, fileName);
+        var resource = string.Concat(IsCssFile(fileName) ? _StylesNamespace : _ScriptsNamespace, fileName);
 
         using var stream = currentAssembly.GetManifestResourceStream(resource)
             ?? throw new FileNotFoundException($"Can't find {fileName} resource.");

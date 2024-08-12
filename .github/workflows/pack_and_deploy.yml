@@ -6,7 +6,7 @@ on:
       - published
 
 env:
-    PROJECTS_PATH: 'src/*'
+    PROJECTS_PATH: 'src/*.Themes'
     CONFIGURATION: 'Release'
     PACKAGE_OUTPUT: ${{ github.workspace }}/artifacts
     NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'

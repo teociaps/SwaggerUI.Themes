@@ -5,25 +5,25 @@
 
   <!-- Official Version -->
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <MajorVersion>0</MajorVersion>
-    <MinorVersion>5</MinorVersion>
-    <PatchVersion>1</PatchVersion>
+    <MajorVersion>1</MajorVersion>
+    <MinorVersion>0</MinorVersion>
+    <PatchVersion>0</PatchVersion>
     <VersionSuffix></VersionSuffix>
     <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>AspNetCore.SwaggerUI.Themes</PackageId>
+    <PackageId>AspNetCore.NSwag.Themes</PackageId>
     <Description>
       Change theme to your Swagger API documentation in ASP.NET Core applications.
     </Description>
     <PackageTags>
-      extension;aspnetcore;swagger;swagger-ui;themes;dark-theme;modern
+      extension;aspnetcore;swagger;swagger-ui;nswag;themes;dark-theme;modern
     </PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.7.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="14.1.0" />
   </ItemGroup>
 
   <ItemGroup>
