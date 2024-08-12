@@ -1,4 +1,4 @@
-﻿using AspNetCore.NSwag.Themes;
+﻿using AspNetCore.Swagger.Themes;
 using NSwag.AspNetCore;
 using System.Text;
 

@@ -1,11 +1,11 @@
-﻿namespace AspNetCore.NSwag.Themes;
+﻿namespace AspNetCore.Swagger.Themes;
 
 /// <summary>
 /// Represents the base class used to create a style for Swagger UI.
 /// </summary>
 public abstract class BaseStyle
 {
-    private protected BaseStyle(string fileName)
+    protected BaseStyle(string fileName)
     {
         CheckFileNameExtension(fileName);
         FileName = fileName;

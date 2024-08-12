@@ -1,4 +1,4 @@
-using AspNetCore.NSwag.Themes;
+using AspNetCore.Swagger.Themes;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using Sample.AspNetCore.SwaggerUI.NSwag;

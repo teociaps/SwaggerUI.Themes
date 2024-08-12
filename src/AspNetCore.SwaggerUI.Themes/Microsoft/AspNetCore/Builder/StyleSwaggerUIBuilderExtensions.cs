@@ -1,4 +1,4 @@
-﻿using AspNetCore.SwaggerUI.Themes;
+﻿using AspNetCore.Swagger.Themes;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Microsoft.AspNetCore.Builder;
@@ -15,7 +15,10 @@ public static class StyleSwaggerUIBuilderExtensions
     /// <param name="app">The application builder instance.</param>
     /// <param name="style">The style to apply.</param>
     /// <param name="options">The SwaggerUI options.</param>
-    public static IApplicationBuilder UseSwaggerUI(this WebApplication app, BaseStyle style, SwaggerUIOptions options)
+    public static IApplicationBuilder UseSwaggerUI(
+        this WebApplication app,
+        BaseStyle style,
+        SwaggerUIOptions options)
     {
         // Common style
         InjectCommonStyle(app, style).Invoke(options);

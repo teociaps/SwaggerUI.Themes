@@ -34,8 +34,8 @@ Change style to your API documentation in ASP.NET Core applications!
 
 
 ## Supported .NET Versions
-| Version | Status        |
-| ------- | ------------- |
+| Version | Status |
+| ------- | ------ |
 | .NET 6  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
 | .NET 7  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
 | .NET 8  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
@@ -59,7 +59,7 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUI()` method:
 
 	```csharp
-	using AspNetCore.SwaggerUI.Themes;
+	using AspNetCore.Swagger.Themes;
 
 	...
 
@@ -68,8 +68,8 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 
 	This code enables the chosen theme for Swagger UI in your application.
 	
-	> [!NOTE]
-	> Using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
+> [!NOTE]
+> Using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
 
 
 ## NSwag.AspNetCore
@@ -91,7 +91,7 @@ To use **AspNetCore.NSwag.Themes** in your ASP.NET Core project, follow these st
 2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUi()` method:
 
 	```csharp
-	using AspNetCore.NSwag.Themes;
+	using AspNetCore.Swagger.Themes;
 
 	...
 
@@ -100,8 +100,8 @@ To use **AspNetCore.NSwag.Themes** in your ASP.NET Core project, follow these st
 
 	This code enables the chosen theme for Swagger UI in your application.
 	
-	> [!NOTE]
-	> Setting the `CustomInlineStyles` property while configuring the NSwag settings will override the provided style.
+> [!NOTE]
+> Setting the `CustomInlineStyles` property while configuring the NSwag settings will override the provided style.
 
 
 ## Available Themes

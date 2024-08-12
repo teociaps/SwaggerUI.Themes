@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.NSwag.Themes;
+﻿namespace AspNetCore.Swagger.Themes;
 
 /// <summary>
 /// Represents a modern style for Swagger UI.

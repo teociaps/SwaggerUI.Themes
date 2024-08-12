@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\build\Common.Core.props" />
+
+  <ItemGroup>
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Scripts\modern.js" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\common.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\dark.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\deepsea.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\desert.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\forest.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.common.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.dark.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.deepsea.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.desert.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.forest.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.futuristic.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.light.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+</Project>

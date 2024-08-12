@@ -8,7 +8,7 @@
     <MajorVersion>0</MajorVersion>
     <MinorVersion>5</MinorVersion>
     <PatchVersion>1</PatchVersion>
-    <VersionSuffix></VersionSuffix> <!-- used for preview -->
+    <VersionSuffix></VersionSuffix>
     <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
   </PropertyGroup>
 
@@ -23,27 +23,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Scripts\modern.js" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\common.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\dark.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\forest.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\deepsea.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\desert.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.light.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.common.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.dark.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.forest.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.deepsea.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.futuristic.css" />
-    <EmbeddedResource Include="AspNetCore\SwaggerUI\Themes\Styles\modern.desert.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj" />
   </ItemGroup>
 
 </Project>

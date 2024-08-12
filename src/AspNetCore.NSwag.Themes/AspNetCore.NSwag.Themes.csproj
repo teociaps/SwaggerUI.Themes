@@ -9,7 +9,6 @@
     <MinorVersion>0</MinorVersion>
     <PatchVersion>0</PatchVersion>
     <VersionSuffix></VersionSuffix>
-    <!-- used for preview -->
     <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
   </PropertyGroup>
 
@@ -24,24 +23,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Scripts\modern.js" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\common.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\dark.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\deepsea.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\desert.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\forest.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\modern.common.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\modern.dark.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\modern.deepsea.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\modern.desert.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\modern.forest.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\modern.futuristic.css" />
-    <EmbeddedResource Include="AspNetCore\NSwag\Themes\Styles\modern.light.css" />
+    <PackageReference Include="NSwag.AspNetCore" Version="14.1.0" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <PackageReference Include="NSwag.AspNetCore" Version="14.1.0" />
+    <ProjectReference Include="..\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 
-namespace AspNetCore.SwaggerUI.Themes.Tests;
+namespace AspNetCore.Swagger.Themes.Tests;
 
 /// <summary>
 /// Factory for bootstrapping an application in memory for functional end to end tests.
