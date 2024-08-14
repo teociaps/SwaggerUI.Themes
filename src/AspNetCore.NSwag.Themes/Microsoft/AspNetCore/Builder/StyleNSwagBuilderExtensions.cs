@@ -10,26 +10,35 @@ namespace Microsoft.AspNetCore.Builder;
 public static class StyleNSwagBuilderExtensions
 {
     /// <summary>
-    /// Register the SwaggerUI middleware using the specified style. You can override the behavior
-    /// by providing custom settings.
+    /// Registers the Swagger UI middleware with a specified style and optional settings setup action.
     /// </summary>
-    /// <param name="app">The application builder instance.</param>
+    /// <param name="application">The application builder instance.</param>
     /// <param name="style">The style to apply.</param>
-    /// <param name="configure">The SwaggerUI settings.</param>
-    public static IApplicationBuilder UseSwaggerUi(this WebApplication app, BaseStyle style, Action<SwaggerUiSettings> configure = null)
+    /// <param name="configureSettings">An optional action to configure Swagger UI settings.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    public static IApplicationBuilder UseSwaggerUi(
+        this WebApplication application,
+        BaseStyle style,
+        Action<SwaggerUiSettings> configureSettings = null)
     {
+        ArgumentNullException.ThrowIfNull(style);
+
         Action<SwaggerUiSettings> swaggerUiSettingsAction = options =>
         {
             options.CustomInlineStyles = GetSwaggerStyleCss(style);
 
             if (style.IsModern)
-                options.CustomJavaScriptPath = GetSwaggerStyleJavascriptPath(app);
+                options.CustomJavaScriptPath = GetSwaggerStyleJavascriptPath(application);
         };
 
-        swaggerUiSettingsAction += configure;
+        swaggerUiSettingsAction += configureSettings;
 
-        return app.UseSwaggerUi(swaggerUiSettingsAction);
+        return application.UseSwaggerUi(swaggerUiSettingsAction);
     }
+
+    // TODO: add other extension methods from nswag?
+
+    #region Private
 
     private static string GetSwaggerStyleCss(BaseStyle style)
     {
@@ -55,4 +64,6 @@ public static class StyleNSwagBuilderExtensions
 
         return FullPath;
     }
+
+    #endregion Private
 }
