@@ -1,4 +1,6 @@
-﻿namespace AspNetCore.Swagger.Themes.Tests;
+﻿using AspNetCore.Swagger.Themes.Tests.Styles;
+
+namespace AspNetCore.Swagger.Themes.Tests;
 
 /// <summary>
 /// List of all styles to test.
@@ -17,7 +19,9 @@ public class StyleTestData : TheoryData<BaseStyle>
             ModernStyle.Forest,
             ModernStyle.DeepSea,
             ModernStyle.Futuristic,
-            ModernStyle.Desert
+            ModernStyle.Desert,
+            CustomStyle.Custom,
+            CustomModernStyle.CustomModern
         );
     }
 }

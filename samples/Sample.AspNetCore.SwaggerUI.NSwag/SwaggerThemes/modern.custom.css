@@ -1,0 +1,190 @@
+﻿/*
+    Modern Custom Style
+
+    https://github.com/teociaps/SwaggerUI.Themes
+*/
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --scrollbar-thumb-color: hsl(0, 0%, 45%);
+        --scrollbar-thumb-hover-color: hsl(0, 0%, 55%);
+        --body-background-color: #120e1f;
+        --swagger-main-color: white;
+        /* Loading */
+        --loading-container-border-color: rgba(200, 200, 200, .1);
+        --loading-container-border-top-color: rgba(255, 255, 255, .6);
+        /* Errors container */
+        --errors-wrapper-background-color: rgb(255, 0, 0, .1);
+        --errors-wrapper-border-color: #f93e3e;
+        --errors-wrapper-errors-color: #606060;
+        /* Top-bar */
+        --topbar-pinned-background-color: rgba(0, 0, 0, .3);
+        --topbar-pinned-shadow-color: rgba(0, 0, 0, .6);
+        --topbar-pin-icon-color: white;
+        --topbar-border-color: gray;
+        --topbar-background-color: #161629;
+        --topbar-select-border-color: #4990e2;
+        --topbar-select-label-color: #bfbfbf;
+        --topbar-download-url-button-background-color: #5b5b5b;
+        --topbar-download-url-button-color: #dfd9d9;
+        /* Info-box */
+        --swagger-info-link: #4990e2;
+        --swagger-info-link-hover: #1b78e5;
+        --api-version-background-color: #616161;
+        --api-version-stamp-background-color: #23891f;
+        --api-version-color: #cdcdcd;
+        /* Authorize Section/Modal */
+        --auth-wrapper-background-color: black;
+        --auth-wrapper-border-color: #383636;
+        --auth-wrapper-box-shadow-color: #c1c1c1;
+        --auth-container-border-bottom-color: #ebebeb;
+        --auth-container-background-color: #ddd;
+        --auth-container-errors-color: red;
+        --btn-authorize-background-color: transparent;
+        --btn-authorize-border-color: #49cc90;
+        --btn-authorize-font-color: #49cc90;
+        --btn-authorize-svg-fill-color: #49cc90;
+        /* Operations */
+        --opblock-tag-section-border-color: #312c2c;
+        --opblock-border-color: black;
+        --opblock-tag-background-color-hover: rgba(0, 0, 0, .1);
+        --opblock-tag-border-bottom-color: rgba(109, 113, 121, .3);
+        --opblock-shadow-color: rgba(59, 59, 59, .19);
+        --opblock-tabheader-underline-color: rgba(255, 255, 255, .6);
+        --opblock-summary-svg-icons-color: white;
+        --opblock-summary-border-bottom-color: black;
+        --opblock-section-header-background-color: #0000004a;
+        --opblock-section-header-shadow-color: rgba(0, 0, 0, .1);
+        --opblock-summary-method-background-color: black;
+        --opblock-summary-method-color: white;
+        --opblock-summary-method-shadow-color: rgba(0, 0, 0, .1);
+        /*POST*/
+        --opblock-post-background-color: rgba(56, 203, 82, .1);
+        --opblock-post-method-color: #49cc90;
+        --opblock-post-border-color: #49cc90;
+        /*PUT*/
+        --opblock-put-background-color: rgba(255, 189, 63, .1);
+        --opblock-put-method-color: #eb9532;
+        --opblock-put-border-color: #eb9532;
+        /*DELETE*/
+        --opblock-delete-background-color: rgba(255, 4, 4, .1);
+        --opblock-delete-method-color: #c0392b;
+        --opblock-delete-border-color: #c0392b;
+        /*GET*/
+        --opblock-get-background-color: rgb(33, 161, 255, .1);
+        --opblock-get-method-color: #61affe;
+        --opblock-get-border-color: #61affe;
+        /*PATCH*/
+        --opblock-patch-background-color: rgba(255, 0, 165, .1);
+        --opblock-patch-method-color: #9b59b6;
+        --opblock-patch-border-color: #9b59b6;
+        /*HEAD*/
+        --opblock-head-background-color: rgba(62, 73, 114, .1);
+        --opblock-head-method-color: #3e4972;
+        --opblock-head-border-color: #3e4972;
+        /*OPTIONS*/
+        --opblock-options-background-color: rgba(37, 64, 211, .1);
+        --opblock-options-method-color: #263795;
+        --opblock-options-border-color: #263795;
+        /*Deprecated*/
+        --opblock-deprecated-background-color: hsla(0, 0%, 87%, .1);
+        --opblock-deprecated-method-color: #a59595;
+        --opblock-deprecated-border-color: #a59595;
+        /* Tabs */
+        --swagger-tabs-divider-color: gray;
+        /* Other of operations */
+        --response-undocumented-color: #999;
+        --response-control-media-type-color: green;
+        --opblock-pre-microlight-background-color: #333;
+        --opblock-pre-microlight-color: #ebe3e3;
+        --download-contents-background-color: #7d8293;
+        --download-contents-color: white;
+        --copy-to-clipboard-background-color: #7d8293;
+        --copy-to-clipboard-icon: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" aria-hidden="true"><path fill="%23fff" fill-rule="evenodd" d="M4 12h4v1H4v-1zm5-6H4v1h5V6zm2 3V7l-3 3 3 3v-2h5V9h-5zM6.5 8H4v1h2.5V8zM4 11h2.5v-1H4v1zm9 1h1v2c-.02.28-.11.52-.3.7-.19.18-.42.28-.7.3H3c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h3c0-1.11.89-2 2-2 1.11 0 2 .89 2 2h3c.55 0 1 .45 1 1v5h-1V5H3v9h10v-2zM4 4h8c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1s-.45-1-1-1-1 .45-1 1-.45 1-1 1H5c-.55 0-1 .45-1 1z"/></svg>') 50% no-repeat;
+        --filter-operation-filter-input-border-color: #d8dde7;
+        --filter-download-failed-color: red;
+        --filter-download-loading-color: #aaa;
+        --table-headers-example-color: #999;
+        --table-thead-border-bottom-color: rgba(59, 65, 81, .2);
+        --parameter-name-required-symbol-color: red;
+        --parameter-name-required-color: rgba(255, 0, 0, .8);
+        --parameter-in-extension-color: #878585;
+        --parameter-deprecated-color: red;
+        /* Buttons */
+        --button-background-color: transparent;
+        --button-border-color: #a1a1a1;
+        --button-shadow-color: rgba(0, 0, 0, .1);
+        --button-shadow-hover-color: rgba(0, 0, 0, .3);
+        --button-cancel-background-color: transparent;
+        --button-cancel-border-color: #ff6060;
+        --button-cancel-color: #ff6060;
+        --button-execute-background-color: #4990e2;
+        --button-execute-border-color: #5fa9ff;
+        --button-execute-color: white;
+        --button-invalid-background-color: #feebeb;
+        --button-invalid-border-color: #f93e3e;
+        /* Expand operation icon */
+        --expand-operation-svg-arrow-color: #aaa;
+        --expand-operation-svg-arrow-hover-color: white;
+        /* Form elements */
+        --select-background-icon: #0c0c0c url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="%23fff" fill-rule="evenodd" d="M13.418 7.859a.695.695 0 0 1 .978 0 .68.68 0 0 1 0 .969l-3.908 3.83a.697.697 0 0 1-.979 0l-3.908-3.83a.68.68 0 0 1 0-.969.695.695 0 0 1 .978 0L10 11l3.418-3.141z"/></svg>') right 10px center no-repeat;
+        --select-border-color: #41444e;
+        --select-shadow-color: rgba(0, 0, 0, .25);
+        --input-background-color: #0c0c0c;
+        --input-border-color: #6d6d6d;
+        --input-invalid-background-color: #210101;
+        --input-invalid-border-color: #f93e3e;
+        --input-invalid-color: #f3ebeb;
+        --input-disabled-background-color: #333333;
+        --input-disabled-color: #757575;
+        --select-disabled-border-color: #888;
+        --textarea-disabled-background-color: #2b2b2b;
+        --textarea-disabled-color: #b3b3b3;
+        --textarea-background-color: hsla(0, 0%, 0%, .8);
+        --textarea-border-focus-color: #a5a5a5;
+        --textarea-curl-background-color: #41444e;
+        --textarea-curl-color: #fff;
+        --checkbox-color: #303030;
+        --checkbox-label-item-background-color: #e8e8e8;
+        --checkbox-label-item-shadow-color: #e8e8e8;
+        --checkbox-label-item-icon: #e8e8e8 url('data:image/svg+xml;charset=utf-8,<svg width="10" height="8" viewBox="3 7 10 8" xmlns="http://www.w3.org/2000/svg"><path fill="%2341474e" fill-rule="evenodd" d="M6.333 15 3 11.667l1.333-1.334 2 2L11.667 7 13 8.333z"/></svg>') 50% no-repeat;
+        /* Dialog */
+        --dialog-backdrop-color: rgba(0, 0, 0, .8);
+        --dialog-background-color: #161616;
+        --dialog-border-color: #333436;
+        --dialog-shadow-color: rgba(0, 0, 0, .2);
+        --dialog-close-button-icon-color: #fff;
+        /* Models */
+        --model-deprecated-color: #a0a0a0;
+        --model-arrow-icon: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="%23aaa" fill-rule="evenodd" d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>') 50% no-repeat;
+        --model-hint-background-color: rgba(0, 0, 0, .7);
+        --model-hint-color: #ebebeb;
+        --model-property-color: #999;
+        --model-property-primitive-color: #676767;
+        --model-property-required-symbol-color: red;
+        --model-property-description: #b9b9b9;
+        --model-property-extension: #8d8a8a;
+        --model-section-border-color: rgba(96, 96, 96, .3);
+        --model-section-header-color: white;
+        --model-section-header-hover-background-color: rgba(0, 0, 0, .02);
+        --expand-model-svg-arrow-color: white;
+        --model-section-little-header-color: #707070;
+        --model-container-background-color: rgba(20, 20, 20, .1);
+        --model-container-hover-background-color: rgba(0, 0, 0, .1);
+        --model-box-background-color: rgba(0, 0, 0, .15);
+        --model-title-color: #bec6cf;
+        --model-deprecated-warning-color: #f93e3e;
+        --model-prop-type-color: #6464db;
+        --model-prop-format-color: #b7b7b7;
+        /* Rendered Markdown */
+        --rendered-markdown-pre-color: #000;
+        --rendered-markdown-code-background-color: rgba(0, 0, 0, .05);
+        --rendered-markdown-code-color: #9012fe;
+        /* Scroll to top button */
+        --scroll-to-top-button-background-color: #00000085;
+        --scroll-to-top-button-hover-background-color: #0d0d0d85;
+        --scroll-to-top-button-border-color: #232323;
+        --scroll-to-top-button-icon-color: #d1cccc;
+        --scroll-to-top-button-shadow-color: rgba(0, 0, 0, .3);
+    }
+}

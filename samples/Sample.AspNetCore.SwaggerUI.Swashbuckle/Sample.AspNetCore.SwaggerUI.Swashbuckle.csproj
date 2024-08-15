@@ -23,6 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="SwaggerThemes\custom.css" />
+    <EmbeddedResource Include="SwaggerThemes\modern.custom.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\AspNetCore.SwaggerUI.Themes\AspNetCore.SwaggerUI.Themes.csproj" />
   </ItemGroup>
 

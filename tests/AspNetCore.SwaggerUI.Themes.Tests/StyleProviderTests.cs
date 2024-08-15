@@ -18,7 +18,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     public void Should_Embed_And_Retrieve_Style_From_ExecutingAssembly(BaseStyle style)
     {
         // Arrange/Act
-        var styleText = GetResourceText(style.FileName);
+        var styleText = GetResourceText(style.FileName, style.GetType());
 
         // Assert
         styleText.ShouldStartWith($"""
@@ -46,7 +46,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     }
 
     [Fact]
-    public void Should_Throw_FileNotFoundException_When_External_Style()
+    public void Should_Throw_FileNotFoundException_When_External_Css_Without_Declared_Style()
     {
         // Arrange
         const string ExternalFileName = "style.css";
@@ -61,7 +61,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     {
         // Arrange
         var fullPath = StylesPath + style.FileName;
-        var styleText = GetResourceText(style.FileName);
+        var styleText = GetResourceText(style.FileName, style.GetType());
 
         // Act
         var response = await _styleProviderWebApplicationFactory.Client.GetAsync(fullPath);

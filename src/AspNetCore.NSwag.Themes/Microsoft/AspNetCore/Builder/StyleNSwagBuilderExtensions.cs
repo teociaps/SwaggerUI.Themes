@@ -45,7 +45,7 @@ public static class StyleNSwagBuilderExtensions
         var sb = new StringBuilder();
 
         string baseCss = FileProvider.GetResourceText(style.Common.FileName);
-        string styleCss = FileProvider.GetResourceText(style.FileName);
+        string styleCss = FileProvider.GetResourceText(style.FileName, style.GetType());
 
         sb.Append(baseCss);
         sb.Append('\n');

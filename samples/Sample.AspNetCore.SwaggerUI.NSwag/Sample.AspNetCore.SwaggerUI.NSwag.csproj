@@ -17,6 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="SwaggerThemes\custom.css" />
+    <EmbeddedResource Include="SwaggerThemes\modern.custom.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\AspNetCore.NSwag.Themes\AspNetCore.NSwag.Themes.csproj" />
   </ItemGroup>
 

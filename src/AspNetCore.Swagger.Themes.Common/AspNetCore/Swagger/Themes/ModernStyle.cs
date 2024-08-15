@@ -3,9 +3,9 @@
 /// <summary>
 /// Represents a modern style for Swagger UI.
 /// </summary>
-public sealed class ModernStyle : BaseStyle
+public class ModernStyle : BaseStyle
 {
-    private ModernStyle(string fileName) : base(fileName)
+    protected ModernStyle(string fileName) : base(fileName)
     {
     }
 

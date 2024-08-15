@@ -3,9 +3,9 @@
 /// <summary>
 /// Represents a style for Swagger UI.
 /// </summary>
-public sealed class Style : BaseStyle
+public class Style : BaseStyle
 {
-    private Style(string fileName) : base(fileName)
+    protected Style(string fileName) : base(fileName)
     {
     }
 

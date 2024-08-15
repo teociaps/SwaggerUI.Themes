@@ -67,7 +67,7 @@ public static class StyleSwaggerUIBuilderExtensions
 
     private static void ImportSwaggerStyle(WebApplication app, BaseStyle style)
     {
-        var stylesheet = FileProvider.GetResourceText(style.FileName);
+        var stylesheet = FileProvider.GetResourceText(style.FileName, style.GetType());
         FileProvider.AddGetEndpoint(app, ComposeStylePath(style), stylesheet);
     }
 

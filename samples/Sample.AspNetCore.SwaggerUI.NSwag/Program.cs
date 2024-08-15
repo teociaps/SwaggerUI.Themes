@@ -1,7 +1,7 @@
-using AspNetCore.Swagger.Themes;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using Sample.AspNetCore.SwaggerUI.NSwag;
+using SwaggerThemes;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -57,7 +57,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi();
-    app.UseSwaggerUi(ModernStyle.Dark);
+    app.UseSwaggerUi(CustomModernStyle.CustomModern);
 }
 
 app.UseHttpsRedirection();
