@@ -16,7 +16,7 @@ public static class StyleSwaggerUIBuilderExtensions
     /// <param name="options">The Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
     public static IApplicationBuilder UseSwaggerUI(
-        this WebApplication application,
+        this IApplicationBuilder application,
         BaseStyle style,
         SwaggerUIOptions options)
     {
@@ -36,7 +36,7 @@ public static class StyleSwaggerUIBuilderExtensions
     /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
     public static IApplicationBuilder UseSwaggerUI(
-        this WebApplication application,
+        this IApplicationBuilder application,
         BaseStyle style,
         Action<SwaggerUIOptions> setupAction = null)
     {
@@ -52,7 +52,7 @@ public static class StyleSwaggerUIBuilderExtensions
 
     #region Private
 
-    private static Action<SwaggerUIOptions> ConfigureSwaggerUIOptions(WebApplication app, BaseStyle style)
+    private static Action<SwaggerUIOptions> ConfigureSwaggerUIOptions(IApplicationBuilder app, BaseStyle style)
     {
         ImportSwaggerStyle(app, style);
 
@@ -65,7 +65,7 @@ public static class StyleSwaggerUIBuilderExtensions
         return optionsAction;
     }
 
-    private static void ImportSwaggerStyle(WebApplication app, BaseStyle style)
+    private static void ImportSwaggerStyle(IApplicationBuilder app, BaseStyle style)
     {
         var stylesheet = FileProvider.GetResourceText(style.FileName, style.GetType());
         FileProvider.AddGetEndpoint(app, ComposeStylePath(style), stylesheet);
@@ -81,7 +81,7 @@ public static class StyleSwaggerUIBuilderExtensions
         return FileProvider.StylesPath + style.FileName;
     }
 
-    private static Action<SwaggerUIOptions> InjectCommonStyle(WebApplication app, BaseStyle style)
+    private static Action<SwaggerUIOptions> InjectCommonStyle(IApplicationBuilder app, BaseStyle style)
     {
         var commonStyle = style.Common;
         ImportSwaggerStyle(app, commonStyle);
@@ -89,7 +89,7 @@ public static class StyleSwaggerUIBuilderExtensions
         return InjectStyle(commonStyle);
     }
 
-    private static Action<SwaggerUIOptions> InjectModernJavaScript(WebApplication app)
+    private static Action<SwaggerUIOptions> InjectModernJavaScript(IApplicationBuilder app)
     {
         const string JsFilename = "modern.js";
         var javascript = FileProvider.GetResourceText(JsFilename);
