@@ -28,6 +28,10 @@ Change style to your API documentation in ASP.NET Core applications!
 | ![NSwag Nuget Version] | It provides styles for [NSwag.AspNetCore] |
 
 
+> [!WARNING]
+> From **v1.0.0** the namespace of pre-defined styles is `AspNetCore.Swagger.Themes`, instead of `AspNetCore.SwaggerUI.Themes`!
+
+
 ## Features
 - _New Themes_: enhances the Swagger documentation interface with various themes, including a default style that preserves the classic Swagger UI appearance and introduces new modern styles. Explore samples [here](#available-themes).
 - _Seamless Integration_: simply install the package and add the style parameter to the existing method used for SwaggerUI.

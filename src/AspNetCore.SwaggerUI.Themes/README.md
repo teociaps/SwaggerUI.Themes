@@ -1,4 +1,7 @@
-﻿# AspNetCore.SwaggerUI.Themes
+﻿> **Warning**: From v1.0.0 the namespace of pre-defined styles is `AspNetCore.Swagger.Themes`, instead of `AspNetCore.SwaggerUI.Themes`!
+
+
+# AspNetCore.SwaggerUI.Themes
 
 **AspNetCore.SwaggerUI.Themes** builds upon Swashbuckle.AspNetCore.SwaggerUI, enhancing the Swagger UI with modern and visually appealing themes.
 
