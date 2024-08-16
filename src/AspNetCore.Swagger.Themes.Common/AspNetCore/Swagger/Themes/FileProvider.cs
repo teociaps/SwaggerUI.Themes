@@ -38,16 +38,42 @@ internal static class FileProvider
     }
 
 
-    internal static void AddGetEndpoint(WebApplication app, string path, string content, string contentType = MimeTypes.Text.Css)
+    internal static void AddGetEndpoint(IApplicationBuilder app, string path, string content, string contentType = MimeTypes.Text.Css)
     {
-        app.MapGet(path, (HttpContext context) =>
+        if (app is WebApplication webApp)
         {
-            context.Response.Headers.CacheControl = "max-age=3600";
-            context.Response.Headers.Expires = DateTime.UtcNow.AddHours(1).ToString("R");
+            webApp.MapGet(path, (HttpContext context) =>
+            {
+                SetHeaders(context);
 
             return Results.Content(content, contentType);
         })
         .ExcludeFromDescription();
+    }
+        else
+        {
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.Path.Equals(path, StringComparison.OrdinalIgnoreCase))
+                {
+                    SetHeaders(context);
+
+                    context.Response.ContentType = contentType;
+                    await context.Response.WriteAsync(content);
+                }
+                else
+                {
+                    await next();
+                }
+
+            });
+        }
+
+        static void SetHeaders(HttpContext context)
+        {
+            context.Response.Headers.CacheControl = "max-age=3600";
+            context.Response.Headers.Expires = DateTime.UtcNow.AddHours(1).ToString("R");
+        }
     }
 
     private static bool IsCssFile(string fileName) => fileName.EndsWith(".css");

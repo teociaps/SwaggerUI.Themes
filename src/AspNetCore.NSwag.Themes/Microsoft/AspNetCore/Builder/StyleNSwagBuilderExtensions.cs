@@ -17,7 +17,7 @@ public static class StyleNSwagBuilderExtensions
     /// <param name="configureSettings">An optional action to configure Swagger UI settings.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
     public static IApplicationBuilder UseSwaggerUi(
-        this WebApplication application,
+        this IApplicationBuilder application,
         BaseStyle style,
         Action<SwaggerUiSettings> configureSettings = null)
     {
@@ -54,7 +54,7 @@ public static class StyleNSwagBuilderExtensions
         return sb.ToString();
     }
 
-    private static string GetSwaggerStyleJavascriptPath(WebApplication app)
+    private static string GetSwaggerStyleJavascriptPath(IApplicationBuilder app)
     {
         const string JsFilename = "modern.js";
         string javascript = FileProvider.GetResourceText(JsFilename);
