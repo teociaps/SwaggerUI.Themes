@@ -1,5 +1,4 @@
 using Sample.AspNetCore.SwaggerUI.Swashbuckle;
-using SwaggerThemes;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -12,7 +11,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(CustomStyle.Custom, c => c.DocumentTitle = "Sample Title");
+    app.UseSwaggerUI("body { background-color: yellow; }", c => c.DocumentTitle = "Sample Title");
 }
 
 app.UseHttpsRedirection();

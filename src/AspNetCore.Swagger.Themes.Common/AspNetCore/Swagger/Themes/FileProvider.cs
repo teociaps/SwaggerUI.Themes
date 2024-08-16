@@ -46,10 +46,10 @@ internal static class FileProvider
             {
                 SetHeaders(context);
 
-            return Results.Content(content, contentType);
-        })
-        .ExcludeFromDescription();
-    }
+                return Results.Content(content, contentType);
+            })
+            .ExcludeFromDescription();
+        }
         else
         {
             app.Use(async (context, next) =>

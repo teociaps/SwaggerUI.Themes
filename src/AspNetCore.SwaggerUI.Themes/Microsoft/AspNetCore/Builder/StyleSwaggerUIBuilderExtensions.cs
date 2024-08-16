@@ -50,6 +50,27 @@ public static class StyleSwaggerUIBuilderExtensions
         return application.UseSwaggerUI(optionsAction);
     }
 
+    /// <summary>
+    /// Registers the Swagger UI middleware applying the provided CSS style and optional setup action.
+    /// </summary>
+    /// <param name="application">The application builder instance.</param>
+    /// <param name="cssStyleContent">The CSS style to apply.</param>
+    /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    public static IApplicationBuilder UseSwaggerUI(
+        this IApplicationBuilder application,
+        string cssStyleContent,
+        Action<SwaggerUIOptions> setupAction = null)
+    {
+        ArgumentNullException.ThrowIfNull(cssStyleContent);
+
+        const string CustomCssStylePath = "/styles/custom.css";
+        FileProvider.AddGetEndpoint(application, CustomCssStylePath, cssStyleContent);
+        setupAction += options => options.InjectStylesheet(CustomCssStylePath);
+
+        return application.UseSwaggerUI(setupAction);
+    }
+
     #region Private
 
     private static Action<SwaggerUIOptions> ConfigureSwaggerUIOptions(IApplicationBuilder app, BaseStyle style)

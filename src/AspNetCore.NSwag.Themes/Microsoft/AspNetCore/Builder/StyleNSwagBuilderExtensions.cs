@@ -36,6 +36,25 @@ public static class StyleNSwagBuilderExtensions
         return application.UseSwaggerUi(swaggerUiSettingsAction);
     }
 
+    /// <summary>
+    /// Registers the Swagger UI middleware applying the provided CSS style and optional setup action.
+    /// </summary>
+    /// <param name="application">The application builder instance.</param>
+    /// <param name="cssStyleContent">The CSS style to apply.</param>
+    /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    public static IApplicationBuilder UseSwaggerUi(
+        this IApplicationBuilder application,
+        string cssStyleContent,
+        Action<SwaggerUiSettings> setupAction = null)
+    {
+        ArgumentNullException.ThrowIfNull(cssStyleContent);
+
+        setupAction += options => options.CustomInlineStyles = cssStyleContent;
+
+        return application.UseSwaggerUi(setupAction);
+    }
+
     // TODO: add other extension methods from nswag?
 
     #region Private
