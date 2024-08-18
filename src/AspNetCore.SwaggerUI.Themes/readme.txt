@@ -2,12 +2,20 @@
 ##   RELEASE NOTES   ##
  #-------------------#
 
+v1.0.0
 
-v0.5.1
+Breaking Changes:
+- Pre-defined Styles moved to a new namespace: AspNetCore.Swagger.Themes
 
-Changes:
-- Update swagger-ui to latest version
+
+Other Changes:
+- Create your own style!
+- Added IApplicationBuilder support
+- New style type to avoid loading additional JS for modern styles
 - Fixes and enhancements
 
 
-See https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes#readme-body-tab
+More info: https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#swashbuckleaspnetcoreswaggerui
+
+
+[new!] Added NSwag support: see https://www.nuget.org/packages/AspNetCore.NSwag.Themes
