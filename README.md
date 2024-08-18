@@ -24,8 +24,8 @@ Change style to your API documentation in ASP.NET Core applications!
 
 | Package | Purpose |
 | ------- | ------- |
-| ![Swashbuckle Nuget Version] | It provides styles for [Swashbuckle.AspNetCore.SwaggerUI] |
-| ![NSwag Nuget Version] | It provides styles for [NSwag.AspNetCore] |
+| ![Swashbuckle Nuget Version] | It allows you to customize the style for [Swashbuckle.AspNetCore.SwaggerUI] |
+| ![NSwag Nuget Version] | It offers the flexibility to modify the style for [NSwag.AspNetCore] |
 
 
 > [!WARNING]
@@ -34,7 +34,7 @@ Change style to your API documentation in ASP.NET Core applications!
 
 ## Features
 - _New Themes_: enhances the Swagger documentation interface with various themes, including a default style that preserves the classic Swagger UI appearance and introduces new modern styles. Explore samples [here](#available-themes).
-- _Seamless Integration_: simply install the package and add the style parameter to the existing method used for SwaggerUI.
+- _Seamless Integration_: simply install the package and add the style parameter to the existing method used for Swagger UI.
 - 🆕 _Custom Styles_: create your own style for Swagger documentation. You can either inherit from the classic or modern common styles, or define a completely new style (see more [here](#custom-styles)).
 
 
@@ -61,7 +61,7 @@ Customize the Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.T
 	Install-Package AspNetCore.SwaggerUI.Themes
 	```
 
-2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUI()` method:
+2. In your `Program.cs` file, add the style through the `Style`, `ModernStyle` or `NoJsModernStyle` class as new parameter of `app.UseSwaggerUI()` method:
 
 	```csharp
 	using AspNetCore.Swagger.Themes;
@@ -93,7 +93,7 @@ Customize the NSwag API documentation UI by using **AspNetCore.NSwag.Themes** in
 	Install-Package AspNetCore.NSwag.Themes
 	```
 
-2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUi()` method:
+2. In your `Program.cs` file, add the style through the `Style`, `ModernStyle` or `NoJsModernStyle` class as new parameter of `app.UseSwaggerUi()` method:
 
 	```csharp
 	using AspNetCore.Swagger.Themes;
@@ -137,13 +137,15 @@ There are a few pre-defined styles available for your Swagger UI.
 > [!TIP]
 > Opt for Modern Styles! Modern styles come with additional functionalities, including _**pinned topbar**_ and _**back-to-top button**_.
 
+🆕You can also choose for a version without additional JavaScript if desired by using the pre-built `NoJsModernStyle` class.
 
 > [!NOTE]
 > The classic and modern **dark styles** will only load if your browser's color scheme preference is set to _dark_; otherwise, the light style is loaded.
 
 
 ## 🆕Custom Styles
-You can customize the Swagger UI in your ASP.NET Core application by applying custom CSS styles. Here are the available methods:
+You can customize the Swagger UI in your ASP.NET Core application by applying custom CSS styles.
+Here are the available methods.
 
 ### Inline CSS Styles
 You can directly write your custom CSS content as a string and apply it to the Swagger UI:
@@ -177,13 +179,14 @@ app.UseSwaggerUi(assembly, cssFileName, settings => ...);
 > If your CSS file's name starts with **"classic."** or **"modern."**, the method automatically prepends a related common style (either classic or modern) to your custom styles.
 > These common styles serve as the base for [pre-defined styles](#available-themes) that enhance the Swagger UI.
 
-### Creating Custom Styles by Inheriting from `Style` or `ModernStyle` Classes
-Another powerful customization option is to create your own style classes by inheriting from the `Style` or `ModernStyle` base classes.
+### Creating Custom Styles by Inheriting from Base Classes
+Another powerful customization option is to create your own style classes by inheriting from the `Style`, `ModernStyle` or `NoJsModernStyle` base classes.
 This approach allows you to define new styles that automatically incorporate common base styles and, for modern themes, additional JavaScript.
 
 Here’s how to create a custom style:
 
 ```csharp
+// Use modern style loading additional JS
 public class CustomModernStyle : ModernStyle
 {
 	protected CustomModernStyle(string fileName) : base(fileName)
@@ -193,6 +196,17 @@ public class CustomModernStyle : ModernStyle
 	public static CustomModernStyle CustomModern => new("modern.custom.css");
 }
 
+// Use modern style without loading additional JS
+public class CustomNoJsModernStyle : NoJsModernStyle
+{
+	protected CustomNoJsModernStyle(string fileName) : base(fileName)
+	{
+	}
+
+	public static CustomNoJsModernStyle CustomModern => new("modern.custom.css");
+}
+
+// Use classic style
 public class CustomStyle : Style
 {
 	protected CustomStyle(string fileName) : base(fileName)
@@ -204,7 +218,7 @@ public class CustomStyle : Style
 ```
     
 Place your CSS file (e.g., "custom.css") as an embedded resource in the same assembly where your custom style class is located.
-Then, apply it to the Swagger UI
+Then, apply it to the Swagger UI:
 
 ```csharp
 var customStyle = CustomStyle.Custom;
@@ -218,7 +232,7 @@ app.UseSwaggerUi(customStyle, settings => ...);
 
 > [!NOTE]
 > Custom styles that inherit from the `ModernStyle` class include additional JavaScript.
-> This is not the case for inline styles or those applied directly from assemblies.
+> This doesn't apply to styles that inherit from `NoJsModernStyle`, inline styles, or those applied directly from assemblies.
 
 
 ## Contributing

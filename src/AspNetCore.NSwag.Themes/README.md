@@ -19,7 +19,7 @@ Customize the NSwag API documentation UI by using **AspNetCore.NSwag.Themes** in
 	Install-Package AspNetCore.NSwag.Themes
 	```
 
-2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUi()` method:
+2. In your `Program.cs` file, add the style through the `Style`, `ModernStyle` or `NoJsModernStyle` class as new parameter of `app.UseSwaggerUi()` method:
 
 	```csharp
 	using AspNetCore.Swagger.Themes;

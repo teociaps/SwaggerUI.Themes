@@ -22,7 +22,7 @@ Customize the Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.T
 	Install-Package AspNetCore.SwaggerUI.Themes
 	```
 
-2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUI()` method:
+2. In your `Program.cs` file, add the style through the `Style`, `ModernStyle` or `NoJsModernStyle` class as new parameter of `app.UseSwaggerUI()` method:
 
 	```csharp
 	using AspNetCore.Swagger.Themes;
