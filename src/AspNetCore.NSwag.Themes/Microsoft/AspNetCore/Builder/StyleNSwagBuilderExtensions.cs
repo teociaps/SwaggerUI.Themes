@@ -28,7 +28,7 @@ public static class StyleNSwagBuilderExtensions
         {
             options.CustomInlineStyles = GetSwaggerStyleCss(style);
 
-            if (style.IsModern)
+            if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs)
                 options.CustomJavaScriptPath = GetSwaggerStyleJavascriptPath(application);
         };
 

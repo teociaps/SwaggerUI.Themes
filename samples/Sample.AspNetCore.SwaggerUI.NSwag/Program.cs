@@ -11,7 +11,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi();
-    app.UseSwaggerUi(CustomModernStyle.CustomModern, c => c.DocumentTitle = "Sample Title");
+    app.UseSwaggerUi(CustomNoJsModernStyle.CustomModern, c => c.DocumentTitle = "Sample Title");
 }
 
 app.UseHttpsRedirection();

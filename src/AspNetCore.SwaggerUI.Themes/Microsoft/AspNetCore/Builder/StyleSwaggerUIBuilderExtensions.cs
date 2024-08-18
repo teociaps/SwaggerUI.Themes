@@ -113,7 +113,7 @@ public static class StyleSwaggerUIBuilderExtensions
         var optionsAction = InjectCommonStyle(app, style);
         optionsAction += InjectStyle(style);
 
-        if (style.IsModern)
+        if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs)
             optionsAction += InjectModernJavaScript(app);
 
         return optionsAction;

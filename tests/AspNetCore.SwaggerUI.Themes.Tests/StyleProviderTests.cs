@@ -30,7 +30,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             */
             """);
 
-        if (style.IsModern)
+        if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs)
         {
             // Arrange/Act
             var jsFile = GetResourceText("modern.js");
@@ -180,7 +180,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
 
         // Assert
         Assert.Equal(200, context.Response.StatusCode);
-        Assert.Equal("text/css", context.Response.ContentType);
+        Assert.Equal(MimeTypes.Text.Css, context.Response.ContentType);
 
         context.Response.Body.Seek(0, SeekOrigin.Begin);
 
