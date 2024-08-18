@@ -8,4 +8,4 @@ Changes:
 - NSwag support!
 
 
-See https://www.nuget.org/packages/AspNetCore.NSwag.Themes#readme-body-tab
+More info: https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#nswagaspnetcore

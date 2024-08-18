@@ -5,7 +5,7 @@
 
 ## Getting Started
 
-To use **AspNetCore.NSwag.Themes** in your ASP.NET Core project, follow these steps:
+Customize the NSwag API documentation UI by using **AspNetCore.NSwag.Themes** in your ASP.NET Core project:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
 
@@ -26,11 +26,11 @@ To use **AspNetCore.NSwag.Themes** in your ASP.NET Core project, follow these st
 
 	...
 
-	app.UseSwaggerUi(Style.Dark);
+	app.UseSwaggerUi(ModernStyle.Dark, settings => ...);
 	```
 
 	This code enables the chosen theme for Swagger UI in your application.
-
+	
 > [!NOTE]
 > Setting the `CustomInlineStyles` property while configuring the NSwag settings will override the provided style.
 > See [here](https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#custom-styles) how to inject custom styles.

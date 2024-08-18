@@ -29,7 +29,7 @@ Change style to your API documentation in ASP.NET Core applications!
 
 
 > [!WARNING]
-> From **v1.0.0** the namespace of pre-defined styles is `AspNetCore.Swagger.Themes`, instead of `AspNetCore.SwaggerUI.Themes`!
+> Starting from v1.0.0 the namespace for pre-defined styles is `AspNetCore.Swagger.Themes` instead of `AspNetCore.SwaggerUI.Themes`!
 
 
 ## Features
@@ -47,7 +47,7 @@ Change style to your API documentation in ASP.NET Core applications!
 
 
 ## Swashbuckle.AspNetCore.SwaggerUI
-To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow these steps:
+Customize the Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
 
@@ -68,7 +68,7 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 
 	...
 
-	app.UseSwaggerUI(Style.Dark);
+	app.UseSwaggerUI(ModernStyle.Dark, options => ...);
 	```
 
 	This code enables the chosen theme for Swagger UI in your application.
@@ -79,8 +79,7 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 
 
 ## NSwag.AspNetCore
-
-To use **AspNetCore.NSwag.Themes** in your ASP.NET Core project, follow these steps:
+Customize the NSwag API documentation UI by using **AspNetCore.NSwag.Themes** in your ASP.NET Core project:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
 
@@ -101,7 +100,7 @@ To use **AspNetCore.NSwag.Themes** in your ASP.NET Core project, follow these st
 
 	...
 
-	app.UseSwaggerUi(Style.Dark);
+	app.UseSwaggerUi(ModernStyle.Dark, settings => ...);
 	```
 
 	This code enables the chosen theme for Swagger UI in your application.
@@ -224,6 +223,9 @@ app.UseSwaggerUi(customStyle, settings => ...);
 
 ## Contributing
 If you have any suggestions, bug reports, or contributions, feel free to open an [issue](https://github.com/teociaps/SwaggerUI.Themes/issues) or submit a [pull request](https://github.com/teociaps/SwaggerUI.Themes/pulls)
+
+
+
 
 
 [Dark Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/default-dark.png
