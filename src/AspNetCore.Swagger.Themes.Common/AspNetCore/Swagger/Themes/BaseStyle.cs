@@ -48,5 +48,3 @@ public abstract class BaseStyle
             throw new ArgumentException("The file name extension doesn't match the CSS style format!", nameof(fileName));
     }
 }
-
-// TODO: custom style

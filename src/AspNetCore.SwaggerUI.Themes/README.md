@@ -34,8 +34,9 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 
 	This code enables the chosen theme for Swagger UI in your application.
 
-> Please be aware that for projects utilizing the older style template with separate `Startup.cs` and `Program.cs` files, the previously code should be configured within the `Configure` method of the `Startup` class.
-
+> [!NOTE]
+> Using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
+> See [here](https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#custom-styles) how to inject custom styles.
 
 ## Available Themes
 
