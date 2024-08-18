@@ -1,5 +1,6 @@
 ﻿using AspNetCore.Swagger.Themes;
 using NSwag.AspNetCore;
+using System.Reflection;
 using System.Text;
 
 namespace Microsoft.AspNetCore.Builder;
@@ -51,6 +52,29 @@ public static class StyleNSwagBuilderExtensions
         ArgumentNullException.ThrowIfNull(cssStyleContent);
 
         setupAction += options => options.CustomInlineStyles = cssStyleContent;
+
+        return application.UseSwaggerUi(setupAction);
+    }
+
+    /// <summary>
+    /// Registers the Swagger UI middleware applying the provided CSS style and optional setup action.
+    /// </summary>
+    /// <param name="application">The application builder instance.</param>
+    /// <param name="assembly">The assembly where the embedded CSS file is situated.</param>
+    /// <param name="cssFilename">The CSS style filename (e.g. "myCustomStyle.css").</param>
+    /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    public static IApplicationBuilder UseSwaggerUi(
+        this IApplicationBuilder application,
+        Assembly assembly,
+        string cssFilename,
+        Action<SwaggerUiSettings> setupAction = null)
+    {
+        ArgumentNullException.ThrowIfNull(assembly);
+        ArgumentNullException.ThrowIfNull(cssFilename);
+
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly);
+        setupAction += options => options.CustomInlineStyles = stylesheet;
 
         return application.UseSwaggerUi(setupAction);
     }

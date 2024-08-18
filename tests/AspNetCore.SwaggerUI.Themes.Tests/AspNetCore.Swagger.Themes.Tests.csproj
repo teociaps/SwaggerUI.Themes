@@ -12,6 +12,7 @@
     <EmbeddedResource Include="Styles\style.css" />
     <EmbeddedResource Include="Styles\custom.css" />
     <EmbeddedResource Include="Styles\modern.custom.css" />
+    <EmbeddedResource Include="SwaggerThemes\style.css" />
   </ItemGroup>
 
   <ItemGroup>

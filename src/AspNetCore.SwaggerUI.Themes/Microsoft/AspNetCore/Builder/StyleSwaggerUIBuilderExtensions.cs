@@ -1,5 +1,6 @@
 ﻿using AspNetCore.Swagger.Themes;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Reflection;
 
 namespace Microsoft.AspNetCore.Builder;
 
@@ -64,9 +65,33 @@ public static class StyleSwaggerUIBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(cssStyleContent);
 
-        const string CustomCssStylePath = "/styles/custom.css";
+        const string CustomCssStylePath = $"{FileProvider.StylesPath}custom.css";
         FileProvider.AddGetEndpoint(application, CustomCssStylePath, cssStyleContent);
         setupAction += options => options.InjectStylesheet(CustomCssStylePath);
+
+        return application.UseSwaggerUI(setupAction);
+    }
+
+    /// <summary>
+    /// Registers the Swagger UI middleware applying the provided CSS style and optional setup action.
+    /// </summary>
+    /// <param name="application">The application builder instance.</param>
+    /// <param name="assembly">The assembly where the embedded CSS file is situated.</param>
+    /// <param name="cssFilename">The CSS style filename (e.g. "myCustomStyle.css").</param>
+    /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    public static IApplicationBuilder UseSwaggerUI(
+        this IApplicationBuilder application,
+        Assembly assembly,
+        string cssFilename,
+        Action<SwaggerUIOptions> setupAction = null)
+    {
+        ArgumentNullException.ThrowIfNull(assembly);
+        ArgumentNullException.ThrowIfNull(cssFilename);
+
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly);
+        FileProvider.AddGetEndpoint(application, FileProvider.StylesPath + cssFilename, stylesheet);
+        setupAction += options => options.InjectStylesheet(FileProvider.StylesPath + cssFilename);
 
         return application.UseSwaggerUI(setupAction);
     }

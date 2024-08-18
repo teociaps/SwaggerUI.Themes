@@ -1,4 +1,5 @@
 using Shouldly;
+using System.Reflection;
 using static AspNetCore.Swagger.Themes.FileProvider;
 
 namespace AspNetCore.Swagger.Themes.Tests;
@@ -53,6 +54,29 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
 
         // Act/Assert
         Should.Throw(() => GetResourceText(ExternalFileName), typeof(FileNotFoundException));
+    }
+
+    [Fact]
+    public void GetResourceText_ShouldGetCssStyle_WhenExternalCssLoadedWithinAssemblyNamespace()
+    {
+        // Arrange
+        const string ExternalFileName = "style.css";
+
+        // Act
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly());
+
+        // Assert
+        styleContent.ShouldBe("""
+            /*
+                Test Style
+
+                https://github.com/teociaps/SwaggerUI.Themes
+            */
+
+            body {
+                background-color: var(--body-background-color, #fafafa);
+            }
+            """);
     }
 
     [Theory]
