@@ -1,5 +1,5 @@
 using Sample.AspNetCore.SwaggerUI.NSwag;
-using System.Reflection;
+using SwaggerThemes;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -11,7 +11,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi();
-    app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "classic.custom.css", c => c.DocumentTitle = "Sample Title");
+    app.UseSwaggerUi(CustomModernStyle.CustomModern, c => c.DocumentTitle = "Sample Title");
 }
 
 app.UseHttpsRedirection();
