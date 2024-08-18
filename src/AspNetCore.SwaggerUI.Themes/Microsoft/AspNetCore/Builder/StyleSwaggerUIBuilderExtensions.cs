@@ -89,7 +89,15 @@ public static class StyleSwaggerUIBuilderExtensions
         ArgumentNullException.ThrowIfNull(assembly);
         ArgumentNullException.ThrowIfNull(cssFilename);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly);
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle);
+
+        if (!string.IsNullOrEmpty(commonStyle))
+        {
+            const string CustomCssStylePath = $"{FileProvider.StylesPath}common.css";
+            FileProvider.AddGetEndpoint(application, CustomCssStylePath, commonStyle);
+            setupAction += options => options.InjectStylesheet(CustomCssStylePath);
+        }
+
         FileProvider.AddGetEndpoint(application, FileProvider.StylesPath + cssFilename, stylesheet);
         setupAction += options => options.InjectStylesheet(FileProvider.StylesPath + cssFilename);
 

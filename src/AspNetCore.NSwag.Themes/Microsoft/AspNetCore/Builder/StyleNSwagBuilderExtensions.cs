@@ -73,7 +73,11 @@ public static class StyleNSwagBuilderExtensions
         ArgumentNullException.ThrowIfNull(assembly);
         ArgumentNullException.ThrowIfNull(cssFilename);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly);
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle);
+
+        if (!string.IsNullOrEmpty(commonStyle))
+            stylesheet = commonStyle + Environment.NewLine + stylesheet;
+
         setupAction += options => options.CustomInlineStyles = stylesheet;
 
         return application.UseSwaggerUi(setupAction);

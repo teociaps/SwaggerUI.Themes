@@ -63,7 +63,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
         const string ExternalFileName = "style.css";
 
         // Act
-        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly());
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out _);
 
         // Assert
         styleContent.ShouldBe("""
@@ -76,6 +76,70 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             body {
                 background-color: var(--body-background-color, #fafafa);
             }
+            """);
+    }
+
+
+    [Fact]
+    public void GetResourceText_ShouldGetCommonClassicCssStyle_WhenExternalCssHasClassicPrefix()
+    {
+        // Arrange
+        const string ExternalFileName = "classic.style.css";
+
+        // Act
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonClassicStyle);
+
+        // Assert
+        styleContent.ShouldBe("""
+            /*
+                Test Classic Style
+
+                https://github.com/teociaps/SwaggerUI.Themes
+            */
+
+            body {
+                background-color: var(--body-background-color, #fafafa);
+            }
+            """);
+
+        commonClassicStyle.ShouldStartWith("""
+            /*
+                Common Style
+
+                https://github.com/teociaps/SwaggerUI.Themes
+            */
+            """);
+    }
+
+
+    [Fact]
+    public void GetResourceText_ShouldGetCommonModernCssStyle_WhenExternalCssHasModernPrefix()
+    {
+        // Arrange
+        const string ExternalFileName = "modern.style.css";
+
+        // Act
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonModernStyle);
+
+        // Assert
+        styleContent.ShouldBe("""
+            /*
+                Test Modern Style
+
+                https://github.com/teociaps/SwaggerUI.Themes
+            */
+
+            body {
+                background-color: var(--body-background-color, #fafafa);
+            }
+            """);
+
+        commonModernStyle.ShouldStartWith("""
+            /*
+                Modern Common Style
+
+                https://github.com/teociaps/SwaggerUI.Themes
+            */
             """);
     }
 

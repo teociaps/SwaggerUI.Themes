@@ -14,7 +14,6 @@ internal static class FileProvider
     internal const string StylesPath = "/styles/";
     internal const string ScriptsPath = "/scripts/";
 
-
     internal static string GetResourceText(string fileName, Type styleType = null)
     {
         var assembly = styleType?.Assembly ?? Assembly.GetExecutingAssembly();
@@ -29,18 +28,21 @@ internal static class FileProvider
         return reader.ReadToEnd();
     }
 
-    internal static string GetResourceText(string fileName, Assembly assembly)
+    internal static string GetResourceText(string fileName, Assembly assembly, out string commonStyle)
     {
         if (!IsCssFile(fileName))
             throw new InvalidOperationException($"{fileName} is not a valid name for CSS files. It must ends with '.css'.");
-
-        // TODO: check if filename starts with "modern." or "classic.", if any of these load the respective common style
 
         var resourceNamespaces = assembly.GetManifestResourceNames().Where(n => n.EndsWith(_CustomStylesNamespace + fileName, StringComparison.OrdinalIgnoreCase)).ToArray();
         if (resourceNamespaces.Length != 1)
             throw new InvalidOperationException($"Can't find {fileName} or it appears more than one time in assembly {assembly.GetName().Name}.");
 
         var resourceName = resourceNamespaces[0];
+
+        // Retrieve the common style based on the css filename (classic or modern)
+        // This is a shortcut to inherit common style without making a new style class
+        commonStyle = RetrieveCommonStyleFromCustom(resourceName);
+
         using var stream = assembly.GetManifestResourceStream(resourceName)
             ?? throw new FileNotFoundException($"Can't find {fileName} resource in assembly {assembly.GetName().Name}.");
 
@@ -85,6 +87,8 @@ internal static class FileProvider
         }
     }
 
+    #region Private
+
     private static bool IsCssFile(string fileName) => fileName.EndsWith(".css");
 
     private static string DetermineResourceNamespace(string fileName, Type styleType)
@@ -96,4 +100,20 @@ internal static class FileProvider
 
         return IsCssFile(fileName) ? _StylesNamespace : _ScriptsNamespace;
     }
+
+    private static string RetrieveCommonStyleFromCustom(string resourceName)
+    {
+        string commonStyle = string.Empty;
+        var index = resourceName.IndexOf(_CustomStylesNamespace);
+        var isClassicStyle = resourceName[(index + _CustomStylesNamespace.Length)..].StartsWith("classic.");
+        var isModernStyle = resourceName[(index + _CustomStylesNamespace.Length)..].StartsWith("modern.");
+        if (isClassicStyle)
+            return GetResourceText("common.css");
+        else if (isModernStyle)
+            return GetResourceText("modern.common.css");
+
+        return commonStyle;
+    }
+
+    #endregion Private
 }

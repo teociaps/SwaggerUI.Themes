@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="SwaggerThemes\custom.css" />
+    <EmbeddedResource Include="SwaggerThemes\classic.custom.css" />
     <EmbeddedResource Include="SwaggerThemes\modern.custom.css" />
   </ItemGroup>
 

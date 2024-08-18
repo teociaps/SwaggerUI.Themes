@@ -11,7 +11,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi();
-    app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "custom.css", c => c.DocumentTitle = "Sample Title");
+    app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "classic.custom.css", c => c.DocumentTitle = "Sample Title");
 }
 
 app.UseHttpsRedirection();
