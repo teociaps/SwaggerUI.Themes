@@ -1,18 +1,15 @@
-﻿namespace AspNetCore.SwaggerUI.Themes;
+﻿namespace AspNetCore.Swagger.Themes;
 
 /// <summary>
 /// Represents a style for Swagger UI.
 /// </summary>
-public sealed class Style : BaseStyle
+public class Style : BaseStyle
 {
-    private Style(string fileName) : base(fileName)
+    protected Style(string fileName) : base(fileName)
     {
     }
 
     internal override Style Common => new("common.css");
-
-    /// <inheritdoc/>
-    internal override bool IsModern => false;
 
     /// <summary>
     /// Apply a dark style to your Swagger UI.

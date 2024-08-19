@@ -1,18 +1,24 @@
-﻿namespace AspNetCore.SwaggerUI.Themes;
+﻿namespace AspNetCore.Swagger.Themes;
 
 /// <summary>
-/// Represents a modern style for Swagger UI.
+/// Represents a modern style for Swagger UI with additional JavaScript.
 /// </summary>
-public sealed class ModernStyle : BaseStyle
+public class ModernStyle : BaseStyle
 {
-    private ModernStyle(string fileName) : base(fileName)
+    protected ModernStyle(string fileName) : base(fileName)
     {
     }
 
     internal override ModernStyle Common => new("modern.common.css");
 
-    /// <inheritdoc/>
-    internal override bool IsModern => true;
+    /// <summary>
+    /// Indicates whether additional JavaScript should be loaded and new functionalities will be added to the UI.
+    /// The default value is <see langword="true"/>.
+    /// </summary>
+    /// <remarks>
+    /// See the <see cref="NoJsModernStyle"/> class for no JS version.
+    /// </remarks>
+    public virtual bool LoadAdditionalJs => true;
 
     /// <summary>
     /// Apply a modern light style to your Swagger UI.
@@ -48,7 +54,7 @@ public sealed class ModernStyle : BaseStyle
     protected override string GetStyleName()
     {
 #if NET6_0_OR_GREATER
-        return char.ToUpper(FileName[0]) + FileName[1..(FileName.LastIndexOf('.'))].Replace('.', ' ');
+        return char.ToUpper(FileName[0]) + FileName[1..FileName.LastIndexOf('.')].Replace('.', ' ');
 #else
         return char.ToUpper(FileName[0]) + FileName.Substring(1, FileName.LastIndexOf('.')).Replace('.', ' ');
 #endif

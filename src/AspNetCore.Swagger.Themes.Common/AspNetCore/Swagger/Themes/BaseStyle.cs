@@ -1,11 +1,11 @@
-﻿namespace AspNetCore.SwaggerUI.Themes;
+﻿namespace AspNetCore.Swagger.Themes;
 
 /// <summary>
 /// Represents the base class used to create a style for Swagger UI.
 /// </summary>
 public abstract class BaseStyle
 {
-    private protected BaseStyle(string fileName)
+    protected BaseStyle(string fileName)
     {
         CheckFileNameExtension(fileName);
         FileName = fileName;
@@ -17,11 +17,6 @@ public abstract class BaseStyle
     /// Gets the file name associated with the selected style.
     /// </summary>
     public string FileName { get; }
-
-    /// <summary>
-    /// Indicates if the style is a modern theme.
-    /// </summary>
-    internal abstract bool IsModern { get; }
 
     /// <summary>
     /// Returns the file name as a string representation of the style.
@@ -36,7 +31,7 @@ public abstract class BaseStyle
     protected virtual string GetStyleName()
     {
 #if NET6_0_OR_GREATER
-        return char.ToUpper(FileName[0]) + FileName[1..(FileName.LastIndexOf('.'))];
+        return char.ToUpper(FileName[0]) + FileName[1..FileName.LastIndexOf('.')];
 #else
         return char.ToUpper(FileName[0]) + FileName.Substring(1, FileName.LastIndexOf('.'));
 #endif
@@ -48,5 +43,3 @@ public abstract class BaseStyle
             throw new ArgumentException("The file name extension doesn't match the CSS style format!", nameof(fileName));
     }
 }
-
-// TODO: custom style

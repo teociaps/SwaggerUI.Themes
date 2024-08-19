@@ -10,10 +10,15 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Styles\style.css" />
+    <EmbeddedResource Include="Styles\custom.css" />
+    <EmbeddedResource Include="Styles\modern.custom.css" />
+    <EmbeddedResource Include="SwaggerThemes\classic.style.css" />
+    <EmbeddedResource Include="SwaggerThemes\modern.style.css" />
+    <EmbeddedResource Include="SwaggerThemes\style.css" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Condition=" '$(TargetFramework)' == 'net8.0' " Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.7" />
+    <PackageReference Condition=" '$(TargetFramework)' == 'net8.0' " Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.8" />
     <PackageReference Condition=" '$(TargetFramework)' == 'net7.0' " Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.20" />
     <PackageReference Condition=" '$(TargetFramework)' == 'net6.0' " Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.32" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
@@ -30,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AspNetCore.SwaggerUI.Themes\AspNetCore.SwaggerUI.Themes.csproj" />
+    <ProjectReference Include="..\..\src\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj" />
   </ItemGroup>
 
 </Project>

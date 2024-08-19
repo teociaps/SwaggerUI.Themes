@@ -1,11 +1,14 @@
-﻿# AspNetCore.SwaggerUI.Themes
+﻿> **Warning**: Starting from v1.0.0 the namespace for pre-defined styles is `AspNetCore.Swagger.Themes` instead of `AspNetCore.SwaggerUI.Themes`!
+
+
+# AspNetCore.SwaggerUI.Themes
 
 **AspNetCore.SwaggerUI.Themes** builds upon Swashbuckle.AspNetCore.SwaggerUI, enhancing the Swagger UI with modern and visually appealing themes.
 
 
 ## Getting Started
 
-To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow these steps:
+Customize the Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
 
@@ -19,20 +22,21 @@ To use **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project, follow thes
 	Install-Package AspNetCore.SwaggerUI.Themes
 	```
 
-2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUI()` method:
+2. In your `Program.cs` file, add the style through the `Style`, `ModernStyle` or `NoJsModernStyle` class as new parameter of `app.UseSwaggerUI()` method:
 
 	```csharp
-	using AspNetCore.SwaggerUI.Themes;
+	using AspNetCore.Swagger.Themes;
 
 	...
 
-	app.UseSwaggerUI(Style.Dark);
+	app.UseSwaggerUI(ModernStyle.Dark, options => ...);
 	```
 
 	This code enables the chosen theme for Swagger UI in your application.
-
-> Please be aware that for projects utilizing the older style template with separate `Startup.cs` and `Program.cs` files, the previously code should be configured within the `Configure` method of the `Startup` class.
-
+	
+> [!NOTE]
+> Using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
+> See [here](https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#custom-styles) how to inject custom styles.
 
 ## Available Themes
 
