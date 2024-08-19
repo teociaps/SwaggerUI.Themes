@@ -33,8 +33,7 @@ Customize the Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.T
 	```
 
 	This code enables the chosen theme for Swagger UI in your application.
-	
-> [!NOTE]
+
 > Using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
 > See [here](https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#custom-styles) how to inject custom styles.
 

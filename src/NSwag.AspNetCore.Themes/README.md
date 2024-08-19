@@ -31,7 +31,6 @@ Customize the NSwag API documentation UI by using **NSwag.AspNetCore.Themes** in
 
 	This code enables the chosen theme for Swagger UI in your application.
 	
-> [!NOTE]
 > Setting the `CustomInlineStyles` property while configuring the NSwag settings will override the provided style.
 > See [here](https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#custom-styles) how to inject custom styles.
 
