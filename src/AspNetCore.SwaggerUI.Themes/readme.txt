@@ -18,4 +18,4 @@ Other Changes:
 More info: https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#swashbuckleaspnetcoreswaggerui
 
 
-[new!] Added NSwag support: see https://www.nuget.org/packages/AspNetCore.NSwag.Themes
+[new!] Added NSwag support: see https://www.nuget.org/packages/NSwag.AspNetCore.Themes

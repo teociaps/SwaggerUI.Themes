@@ -1,22 +1,22 @@
-﻿# AspNetCore.NSwag.Themes
+﻿# NSwag.AspNetCore.Themes
 
-**AspNetCore.NSwag.Themes** builds upon NSwag.AspNetCore, enhancing the Swagger UI with modern and visually appealing themes.
+**NSwag.AspNetCore.Themes** builds upon NSwag.AspNetCore, enhancing the Swagger UI with modern and visually appealing themes.
 
 
 ## Getting Started
 
-Customize the NSwag API documentation UI by using **AspNetCore.NSwag.Themes** in your ASP.NET Core project:
+Customize the NSwag API documentation UI by using **NSwag.AspNetCore.Themes** in your ASP.NET Core project:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
 
 	```bash
-	dotnet add package AspNetCore.NSwag.Themes
+	dotnet add package NSwag.AspNetCore.Themes
 	```
 
 	or
 
 	```bash
-	Install-Package AspNetCore.NSwag.Themes
+	Install-Package NSwag.AspNetCore.Themes
 	```
 
 2. In your `Program.cs` file, add the style through the `Style`, `ModernStyle` or `NoJsModernStyle` class as new parameter of `app.UseSwaggerUi()` method:

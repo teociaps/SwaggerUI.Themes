@@ -79,18 +79,18 @@ Customize the Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.T
 
 
 ## NSwag.AspNetCore
-Customize the NSwag API documentation UI by using **AspNetCore.NSwag.Themes** in your ASP.NET Core project:
+Customize the NSwag API documentation UI by using **NSwag.AspNetCore.Themes** in your ASP.NET Core project:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
 
 	```bash
-	dotnet add package AspNetCore.NSwag.Themes
+	dotnet add package NSwag.AspNetCore.Themes
 	```
 
 	or
 
 	```bash
-	Install-Package AspNetCore.NSwag.Themes
+	Install-Package NSwag.AspNetCore.Themes
 	```
 
 2. In your `Program.cs` file, add the style through the `Style`, `ModernStyle` or `NoJsModernStyle` class as new parameter of `app.UseSwaggerUi()` method:
@@ -256,7 +256,7 @@ If you have any suggestions, bug reports, or contributions, feel free to open an
 
 
 [Swashbuckle Nuget Version]: https://img.shields.io/nuget/v/AspNetCore.SwaggerUI.Themes?logo=nuget&label=AspNetCore.SwaggerUI.Themes&color=blue
-[NSwag Nuget Version]: https://img.shields.io/nuget/v/AspNetCore.NSwag.Themes?logo=nuget&label=AspNetCore.NSwag.Themes&color=blue
+[NSwag Nuget Version]: https://img.shields.io/nuget/v/NSwag.AspNetCore.Themes?logo=nuget&label=NSwag.AspNetCore.Themes&color=blue
 
 [Swashbuckle.AspNetCore.SwaggerUI]: https://github.com/domaindrivendev/Swashbuckle.AspNetCore
 [NSwag.AspNetCore]: https://github.com/RicoSuter/NSwag?tab=readme-ov-file#aspnet-and-aspnet-core

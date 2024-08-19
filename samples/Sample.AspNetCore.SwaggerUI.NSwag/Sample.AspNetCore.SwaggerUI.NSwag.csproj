@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AspNetCore.NSwag.Themes\AspNetCore.NSwag.Themes.csproj" />
+    <ProjectReference Include="..\..\src\NSwag.AspNetCore.Themes\NSwag.AspNetCore.Themes.csproj" />
     <ProjectReference Include="..\..\src\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj" />
   </ItemGroup>
 

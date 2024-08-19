@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Swagger.Themes.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.AspNetCore.SwaggerUI.NSwag", "samples\Sample.AspNetCore.SwaggerUI.NSwag\Sample.AspNetCore.SwaggerUI.NSwag.csproj", "{E8C376AC-9933-4ECF-92D8-66BC706FD6D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.NSwag.Themes", "src\AspNetCore.NSwag.Themes\AspNetCore.NSwag.Themes.csproj", "{38614F76-C962-4CDC-9C9D-25469B92CDE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSwag.AspNetCore.Themes", "src\NSwag.AspNetCore.Themes\NSwag.AspNetCore.Themes.csproj", "{38614F76-C962-4CDC-9C9D-25469B92CDE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Swagger.Themes.Common", "src\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj", "{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Swagger.Themes.Common", "src\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj", "{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
