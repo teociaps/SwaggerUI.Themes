@@ -24,8 +24,8 @@ Change style to your API documentation in ASP.NET Core applications!
 
 | Package | Purpose |
 | ------- | ------- |
-| ![Swashbuckle Nuget Version] | Customize the style for [Swashbuckle.AspNetCore.SwaggerUI] |
-| ![NSwag Nuget Version] | Customize the style for [NSwag.AspNetCore] |
+| [![Swashbuckle Nuget Version]](https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes/) | Customize the style for [Swashbuckle.AspNetCore.SwaggerUI] |
+| [![NSwag Nuget Version]](https://www.nuget.org/packages/NSwag.AspNetCore.Themes/) | Customize the style for [NSwag.AspNetCore] |
 
 
 > [!WARNING]
