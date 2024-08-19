@@ -20,6 +20,7 @@
     <PackageTags>
       extension;aspnetcore;swagger;swagger-ui;themes;dark-theme;modern
     </PackageTags>
+    <IncludeBuildOutput>true</IncludeBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +28,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj" />
+    <ProjectReference Include="..\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj" PrivateAssets="all" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(OutputPath)AspNetCore.Swagger.Themes.Common.dll" />
+    </ItemGroup>
+  </Target>
 
 </Project>
