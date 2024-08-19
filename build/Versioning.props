@@ -19,4 +19,11 @@
     <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
   </PropertyGroup>
 
+  <Target Name="GetVersion">
+    <Message Importance="High" Text="$(Version)" />
+    <PropertyGroup>
+      <VersionOutput>$(Version)</VersionOutput>
+    </PropertyGroup>
+  </Target>
+
 </Project>

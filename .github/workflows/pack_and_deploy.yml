@@ -6,7 +6,6 @@ on:
       - published
 
 env:
-    PROJECTS_PATH: 'src/*.Themes'
     CONFIGURATION: 'Release'
     PACKAGE_OUTPUT: ${{ github.workspace }}/artifacts
     NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
@@ -32,16 +31,6 @@ jobs:
           7.0.x
           8.0.x
 
-    - name: Pack
-      run: |
-        dotnet pack ${{ env.PROJECTS_PATH }} --configuration ${{ env.CONFIGURATION }} --output ${{ env.PACKAGE_OUTPUT }}
-
-    - name: Publish Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: artifacts
-        path: ${{ env.PACKAGE_OUTPUT }}
-
-    - name: Push to NuGet
-      run: |
-        dotnet nuget push ${{ env.PACKAGE_OUTPUT }}/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s ${{ env.NUGET_SOURCE_URL }}
+    - name: Pack & Push to NuGet
+      shell: pwsh
+      run: ./deploy.ps1 -Configuration ${{ env.CONFIGURATION }} -PackageOutput ${{ env.PACKAGE_OUTPUT }} -NuGetSourceUrl ${{ env.NUGET_SOURCE_URL }} -NuGetApiKey ${{ secrets.NUGET_API_KEY }}
