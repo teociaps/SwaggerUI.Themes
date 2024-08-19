@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>AspNetCore.NSwag.Themes</PackageId>
+    <PackageId>NSwag.AspNetCore.Themes</PackageId>
     <Description>
       Change theme to your Swagger API documentation in ASP.NET Core applications.
     </Description>
