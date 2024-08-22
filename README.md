@@ -175,7 +175,7 @@ app.UseSwaggerUI(assembly, cssFileName, options => ...);
 app.UseSwaggerUi(assembly, cssFileName, settings => ...);
 ```
 	
-> [!NOTE]
+> [!TIP]
 > If your CSS file's name starts with **"classic."** or **"modern."**, the method automatically prepends a related common style (either classic or modern) to your custom styles.
 > These common styles serve as the base for [pre-defined styles](#available-themes) that enhance the Swagger UI.
 
