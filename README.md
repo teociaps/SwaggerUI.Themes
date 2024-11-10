@@ -44,6 +44,7 @@ Change style to your API documentation in ASP.NET Core applications!
 | .NET 6  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
 | .NET 7  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
 | .NET 8  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+| .NET 9  | ![Badge](https://img.shields.io/badge/Status-Coming%20soon...-blue) |
 
 
 ## Swashbuckle.AspNetCore.SwaggerUI
@@ -175,7 +176,7 @@ app.UseSwaggerUI(assembly, cssFileName, options => ...);
 app.UseSwaggerUi(assembly, cssFileName, settings => ...);
 ```
 	
-> [!NOTE]
+> [!TIP]
 > If your CSS file's name starts with **"classic."** or **"modern."**, the method automatically prepends a related common style (either classic or modern) to your custom styles.
 > These common styles serve as the base for [pre-defined styles](#available-themes) that enhance the Swagger UI.
 
