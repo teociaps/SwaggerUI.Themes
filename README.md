@@ -35,7 +35,7 @@ Change style to your API documentation in ASP.NET Core applications!
 ## Features
 - _New Themes_: enhances the Swagger documentation interface with various themes, including a default style that preserves the classic Swagger UI appearance and introduces new modern styles. Explore samples [here](#available-themes).
 - _Seamless Integration_: simply install the package and add the style parameter to the existing method used for Swagger UI.
-- 🆕 _Custom Styles_: create your own style for Swagger documentation. You can either inherit from the classic or modern common styles, or define a completely new style (see more [here](#custom-styles)).
+- _Custom Styles_: create your own style for Swagger documentation. You can either inherit from the classic or modern common styles, or define a completely new style (see more [here](#custom-styles)).
 
 
 ## Supported .NET Versions
@@ -44,6 +44,7 @@ Change style to your API documentation in ASP.NET Core applications!
 | .NET 6  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
 | .NET 7  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
 | .NET 8  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+| .NET 9  | ![Badge](https://img.shields.io/badge/Status-Coming%20soon...-blue) |
 
 
 ## Swashbuckle.AspNetCore.SwaggerUI
@@ -135,15 +136,14 @@ There are a few pre-defined styles available for your Swagger UI.
 | <center><pre lang="csharp">`ModernStyle.DeepSea`</pre></center> | <center><pre lang="csharp">`ModernStyle.Desert`</pre></center> | <center><pre lang="csharp">`ModernStyle.Futuristic`</pre></center> |
 
 > [!TIP]
-> Opt for Modern Styles! Modern styles come with additional functionalities, including _**pinned topbar**_ and _**back-to-top button**_.
-
-🆕You can also choose for a version without additional JavaScript if desired by using the pre-built `NoJsModernStyle` class.
+> Opt for Modern Styles! Modern styles come with additional functionalities, including _**pinned topbar**_ and _**back-to-top button**_.<br>
+> If you prefer not to use additional JavaScript functionalities but still want to apply the modern style, you can use the pre-built `NoJsModernStyle` class.
 
 > [!NOTE]
 > The classic and modern **dark styles** will only load if your browser's color scheme preference is set to _dark_; otherwise, the light style is loaded.
 
 
-## 🆕Custom Styles
+## Custom Styles
 You can customize the Swagger UI in your ASP.NET Core application by applying custom CSS styles.
 Here are the available methods.
 
@@ -189,31 +189,31 @@ Here’s how to create a custom style:
 // Use modern style loading additional JS
 public class CustomModernStyle : ModernStyle
 {
-	protected CustomModernStyle(string fileName) : base(fileName)
-	{
-	}
+    protected CustomModernStyle(string fileName) : base(fileName)
+    {
+    }
 
-	public static CustomModernStyle CustomModern => new("modern.custom.css");
+    public static CustomModernStyle CustomModern => new("modern.custom.css");
 }
 
 // Use modern style without loading additional JS
 public class CustomNoJsModernStyle : NoJsModernStyle
 {
-	protected CustomNoJsModernStyle(string fileName) : base(fileName)
-	{
-	}
+    protected CustomNoJsModernStyle(string fileName) : base(fileName)
+    {
+    }
 
-	public static CustomNoJsModernStyle CustomModern => new("modern.custom.css");
+    public static CustomNoJsModernStyle CustomModern => new("modern.custom.css");
 }
 
 // Use classic style
 public class CustomStyle : Style
 {
-	protected CustomStyle(string fileName) : base(fileName)
-	{
-	}
+    protected CustomStyle(string fileName) : base(fileName)
+    {
+    }
 
-	public static CustomStyle Custom => new("custom.css");
+    public static CustomStyle Custom => new("custom.css");
 }
 ```
     
