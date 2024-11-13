@@ -176,6 +176,7 @@ app.UseSwaggerUi(assembly, cssFileName, settings => ...);
 > [!TIP]
 > If your CSS file's name starts with **"classic."** or **"modern."**, the method automatically prepends a related common style (either classic or modern) to your custom styles.
 > These common styles serve as the base for [pre-defined styles](#available-themes) that enhance the Swagger UI.
+> For modern styles, the additional JS is loaded automatically.
 
 ### Creating Custom Styles by Inheriting from Base Classes
 Another powerful customization option is to create your own style classes by inheriting from the `Style`, `ModernStyle` or `NoJsModernStyle` base classes.
@@ -229,8 +230,8 @@ app.UseSwaggerUi(customStyle, settings => ...);
 ```
 
 > [!NOTE]
-> Custom styles that inherit from the `ModernStyle` class include additional JavaScript.
-> This doesn't apply to styles that inherit from `NoJsModernStyle`, inline styles, or those applied directly from assemblies.
+> Custom styles that inherit from the `ModernStyle` class and modern styles applied directly from assemblies include additional JavaScript.
+> This doesn't apply to inline styles, styles that inherit from `NoJsModernStyle`  and classic styles.
 
 
 ## Contributing

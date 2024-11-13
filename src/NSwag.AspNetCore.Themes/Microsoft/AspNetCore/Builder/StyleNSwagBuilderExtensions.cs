@@ -24,12 +24,12 @@ public static class StyleNSwagBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(style);
 
-        Action<SwaggerUiSettings> swaggerUiSettingsAction = options =>
+        Action<SwaggerUiSettings> swaggerUiSettingsAction = settings =>
         {
-            options.CustomInlineStyles = GetSwaggerStyleCss(style);
+            settings.CustomInlineStyles = GetSwaggerStyleCss(style);
 
             if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs)
-                options.CustomJavaScriptPath = GetSwaggerStyleJavascriptPath(application);
+                AddCustomJavascript(application, settings);
         };
 
         swaggerUiSettingsAction += configureSettings;
@@ -73,10 +73,15 @@ public static class StyleNSwagBuilderExtensions
         ArgumentNullException.ThrowIfNull(assembly);
         ArgumentNullException.ThrowIfNull(cssFilename);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle);
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var isModernStyle);
 
         if (!string.IsNullOrEmpty(commonStyle))
+        {
             stylesheet = commonStyle + Environment.NewLine + stylesheet;
+
+            if (isModernStyle)
+                setupAction += settings => AddCustomJavascript(application, settings);
+        }
 
         setupAction += options => options.CustomInlineStyles = stylesheet;
 
@@ -111,6 +116,9 @@ public static class StyleNSwagBuilderExtensions
 
         return FullPath;
     }
+
+    private static void AddCustomJavascript(IApplicationBuilder app, SwaggerUiSettings settings)
+        => settings.CustomJavaScriptPath = GetSwaggerStyleJavascriptPath(app);
 
     #endregion Private
 }

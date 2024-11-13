@@ -63,7 +63,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
         const string ExternalFileName = "style.css";
 
         // Act
-        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out _);
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonClassicStyle, out var isModernStyle);
 
         // Assert
         styleContent.ShouldBe("""
@@ -77,6 +77,9 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
                 background-color: var(--body-background-color, #fafafa);
             }
             """);
+
+        commonClassicStyle.ShouldBeEmpty();
+        isModernStyle.ShouldBeFalse();
     }
 
 
@@ -87,7 +90,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
         const string ExternalFileName = "classic.style.css";
 
         // Act
-        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonClassicStyle);
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonClassicStyle, out var isModernStyle);
 
         // Assert
         styleContent.ShouldBe("""
@@ -109,6 +112,8 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
                 https://github.com/teociaps/SwaggerUI.Themes
             */
             """);
+
+        isModernStyle.ShouldBeFalse();
     }
 
 
@@ -119,7 +124,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
         const string ExternalFileName = "modern.style.css";
 
         // Act
-        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonModernStyle);
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonModernStyle, out var isModernStyle);
 
         // Assert
         styleContent.ShouldBe("""
@@ -141,6 +146,8 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
                 https://github.com/teociaps/SwaggerUI.Themes
             */
             """);
+
+        isModernStyle.ShouldBeTrue();
     }
 
     [Theory]

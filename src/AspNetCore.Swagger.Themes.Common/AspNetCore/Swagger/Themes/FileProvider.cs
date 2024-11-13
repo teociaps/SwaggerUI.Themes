@@ -28,7 +28,7 @@ internal static class FileProvider
         return reader.ReadToEnd();
     }
 
-    internal static string GetResourceText(string fileName, Assembly assembly, out string commonStyle)
+    internal static string GetResourceText(string fileName, Assembly assembly, out string commonStyle, out bool isModernStyle)
     {
         if (!IsCssFile(fileName))
             throw new InvalidOperationException($"{fileName} is not a valid name for CSS files. It must ends with '.css'.");
@@ -41,7 +41,7 @@ internal static class FileProvider
 
         // Retrieve the common style based on the css filename (classic or modern)
         // This is a shortcut to inherit common style without making a new style class
-        commonStyle = RetrieveCommonStyleFromCustom(resourceName);
+        commonStyle = RetrieveCommonStyleFromCustom(resourceName, out isModernStyle);
 
         using var stream = assembly.GetManifestResourceStream(resourceName)
             ?? throw new FileNotFoundException($"Can't find {fileName} resource in assembly {assembly.GetName().Name}.");
@@ -101,12 +101,12 @@ internal static class FileProvider
         return IsCssFile(fileName) ? _StylesNamespace : _ScriptsNamespace;
     }
 
-    private static string RetrieveCommonStyleFromCustom(string resourceName)
+    private static string RetrieveCommonStyleFromCustom(string resourceName, out bool isModernStyle)
     {
         string commonStyle = string.Empty;
         var index = resourceName.IndexOf(_CustomStylesNamespace);
         var isClassicStyle = resourceName[(index + _CustomStylesNamespace.Length)..].StartsWith("classic.");
-        var isModernStyle = resourceName[(index + _CustomStylesNamespace.Length)..].StartsWith("modern.");
+        isModernStyle = resourceName[(index + _CustomStylesNamespace.Length)..].StartsWith("modern.");
         if (isClassicStyle)
             return GetResourceText("common.css");
         else if (isModernStyle)

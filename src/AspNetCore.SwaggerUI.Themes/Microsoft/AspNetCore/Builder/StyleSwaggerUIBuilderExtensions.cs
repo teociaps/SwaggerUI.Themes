@@ -89,13 +89,16 @@ public static class StyleSwaggerUIBuilderExtensions
         ArgumentNullException.ThrowIfNull(assembly);
         ArgumentNullException.ThrowIfNull(cssFilename);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle);
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var isModernStyle);
 
         if (!string.IsNullOrEmpty(commonStyle))
         {
             const string CustomCssStylePath = $"{FileProvider.StylesPath}common.css";
             FileProvider.AddGetEndpoint(application, CustomCssStylePath, commonStyle);
             setupAction += options => options.InjectStylesheet(CustomCssStylePath);
+
+            if (isModernStyle)
+                setupAction += InjectModernJavaScript(application);
         }
 
         FileProvider.AddGetEndpoint(application, FileProvider.StylesPath + cssFilename, stylesheet);
