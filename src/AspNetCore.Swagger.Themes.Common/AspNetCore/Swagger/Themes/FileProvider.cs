@@ -28,7 +28,7 @@ internal static class FileProvider
         return reader.ReadToEnd();
     }
 
-    internal static string GetResourceText(string fileName, Assembly assembly, out string commonStyle, out bool isModernStyle)
+    internal static string GetResourceText(string fileName, Assembly assembly, out string commonStyle, out bool loadModernJs)
     {
         if (!IsCssFile(fileName))
             throw new InvalidOperationException($"{fileName} is not a valid name for CSS files. It must ends with '.css'.");
@@ -39,9 +39,9 @@ internal static class FileProvider
 
         var resourceName = resourceNamespaces[0];
 
-        // Retrieve the common style based on the css filename (classic or modern)
+        // Retrieve the common style based on the css filename (classic or modern) and check if JS needs to be loaded for modern styles
         // This is a shortcut to inherit common style without making a new style class
-        commonStyle = RetrieveCommonStyleFromCustom(resourceName, out isModernStyle);
+        commonStyle = RetrieveCommonStyleFromCustom(resourceName, out loadModernJs);
 
         using var stream = assembly.GetManifestResourceStream(resourceName)
             ?? throw new FileNotFoundException($"Can't find {fileName} resource in assembly {assembly.GetName().Name}.");
@@ -94,23 +94,35 @@ internal static class FileProvider
     private static string DetermineResourceNamespace(string fileName, Type styleType)
     {
         if (IsCssFile(fileName) && styleType is not null && styleType.BaseType != typeof(BaseStyle))
-        {
             return styleType.Namespace;
-        }
 
         return IsCssFile(fileName) ? _StylesNamespace : _ScriptsNamespace;
     }
 
-    private static string RetrieveCommonStyleFromCustom(string resourceName, out bool isModernStyle)
+    private static string RetrieveCommonStyleFromCustom(string resourceName, out bool loadModernJs)
     {
         string commonStyle = string.Empty;
-        var index = resourceName.IndexOf(_CustomStylesNamespace);
-        var isClassicStyle = resourceName[(index + _CustomStylesNamespace.Length)..].StartsWith("classic.");
-        isModernStyle = resourceName[(index + _CustomStylesNamespace.Length)..].StartsWith("modern.");
+        loadModernJs = false;
+
+        int index = resourceName.IndexOf(_CustomStylesNamespace);
+        if (index == -1)
+            return commonStyle;
+
+        string styleSuffix = resourceName[(index + _CustomStylesNamespace.Length)..];
+
+        bool isClassicStyle = styleSuffix.StartsWith("classic.");
+        bool isModernStyle = styleSuffix.StartsWith("modern.") || styleSuffix.StartsWith("nojsmodern.");
+
         if (isClassicStyle)
+        {
             return GetResourceText("common.css");
-        else if (isModernStyle)
+        }
+
+        if (isModernStyle)
+        {
+            loadModernJs = !styleSuffix.StartsWith("nojsmodern.");
             return GetResourceText("modern.common.css");
+        }
 
         return commonStyle;
     }

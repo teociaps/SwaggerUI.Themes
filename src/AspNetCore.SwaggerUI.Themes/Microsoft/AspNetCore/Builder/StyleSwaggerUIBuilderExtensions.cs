@@ -89,7 +89,7 @@ public static class StyleSwaggerUIBuilderExtensions
         ArgumentNullException.ThrowIfNull(assembly);
         ArgumentNullException.ThrowIfNull(cssFilename);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var isModernStyle);
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var loadModernJs);
 
         if (!string.IsNullOrEmpty(commonStyle))
         {
@@ -97,7 +97,7 @@ public static class StyleSwaggerUIBuilderExtensions
             FileProvider.AddGetEndpoint(application, CustomCssStylePath, commonStyle);
             setupAction += options => options.InjectStylesheet(CustomCssStylePath);
 
-            if (isModernStyle)
+            if (loadModernJs)
                 setupAction += InjectModernJavaScript(application);
         }
 

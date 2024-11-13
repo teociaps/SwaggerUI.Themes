@@ -73,13 +73,13 @@ public static class StyleNSwagBuilderExtensions
         ArgumentNullException.ThrowIfNull(assembly);
         ArgumentNullException.ThrowIfNull(cssFilename);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var isModernStyle);
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var loadModernJs);
 
         if (!string.IsNullOrEmpty(commonStyle))
         {
             stylesheet = commonStyle + Environment.NewLine + stylesheet;
 
-            if (isModernStyle)
+            if (loadModernJs)
                 setupAction += settings => AddCustomJavascript(application, settings);
         }
 

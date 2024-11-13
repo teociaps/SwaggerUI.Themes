@@ -63,7 +63,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
         const string ExternalFileName = "style.css";
 
         // Act
-        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonClassicStyle, out var isModernStyle);
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonClassicStyle, out var loadModernJs);
 
         // Assert
         styleContent.ShouldBe("""
@@ -79,9 +79,8 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             """);
 
         commonClassicStyle.ShouldBeEmpty();
-        isModernStyle.ShouldBeFalse();
+        loadModernJs.ShouldBeFalse();
     }
-
 
     [Fact]
     public void GetResourceText_ShouldGetCommonClassicCssStyle_WhenExternalCssHasClassicPrefix()
@@ -90,7 +89,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
         const string ExternalFileName = "classic.style.css";
 
         // Act
-        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonClassicStyle, out var isModernStyle);
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonClassicStyle, out var loadModernJs);
 
         // Assert
         styleContent.ShouldBe("""
@@ -113,18 +112,17 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             */
             """);
 
-        isModernStyle.ShouldBeFalse();
+        loadModernJs.ShouldBeFalse();
     }
 
-
     [Fact]
-    public void GetResourceText_ShouldGetCommonModernCssStyle_WhenExternalCssHasModernPrefix()
+    public void GetResourceText_ShouldGetCommonModernCssStyleWithJS_WhenExternalCssHasModernPrefix()
     {
         // Arrange
         const string ExternalFileName = "modern.style.css";
 
         // Act
-        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonModernStyle, out var isModernStyle);
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonModernStyle, out var loadModernJs);
 
         // Assert
         styleContent.ShouldBe("""
@@ -147,7 +145,40 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             */
             """);
 
-        isModernStyle.ShouldBeTrue();
+        loadModernJs.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void GetResourceText_ShouldGetCommonModernCssStyleWithoutJS_WhenExternalCssHasNoJsModernPrefix()
+    {
+        // Arrange
+        const string ExternalFileName = "nojsmodern.style.css";
+
+        // Act
+        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonModernStyle, out var loadModernJs);
+
+        // Assert
+        styleContent.ShouldBe("""
+            /*
+                Test NoJsModern Style
+
+                https://github.com/teociaps/SwaggerUI.Themes
+            */
+
+            body {
+                background-color: var(--body-background-color, #fafafa);
+            }
+            """);
+
+        commonModernStyle.ShouldStartWith("""
+            /*
+                Modern Common Style
+
+                https://github.com/teociaps/SwaggerUI.Themes
+            */
+            """);
+
+        loadModernJs.ShouldBeFalse();
     }
 
     [Theory]
