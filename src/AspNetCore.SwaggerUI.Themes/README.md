@@ -2,6 +2,8 @@
 
 **AspNetCore.SwaggerUI.Themes** builds upon Swashbuckle.AspNetCore.SwaggerUI, enhancing the Swagger UI with modern and visually appealing themes.
 
+[See more here](https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#features)
+
 
 ## Getting Started
 
@@ -33,6 +35,7 @@ Customize the Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.T
 
 > Using the `InjectStylesheet()` method in the Swagger UI configuration will override the provided style.
 > See [here](https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#custom-styles) how to inject custom styles.
+
 
 ## Available Themes
 

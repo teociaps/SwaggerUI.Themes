@@ -2,6 +2,8 @@
 
 **NSwag.AspNetCore.Themes** builds upon NSwag.AspNetCore, enhancing the Swagger UI with modern and visually appealing themes.
 
+[See more here](https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#features)
+
 
 ## Getting Started
 
@@ -33,6 +35,7 @@ Customize the NSwag API documentation UI by using **NSwag.AspNetCore.Themes** in
 	
 > Setting the `CustomInlineStyles` property while configuring the NSwag settings will override the provided style.
 > See [here](https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#custom-styles) how to inject custom styles.
+
 
 ## Available Themes
 
