@@ -255,10 +255,6 @@ body {
     }
 }
 
-/*.swagger-ui .topbar a {
-            color: #fff;
-        }*/
-
 .swagger-ui .topbar .download-url-wrapper input[type=text],
 .swagger-ui .topbar .download-url-wrapper .select-label select {
     border: 2px solid var(--topbar-select-border-color, #62a03f);
@@ -309,8 +305,6 @@ body {
 
 /* Authorize Section */
 .swagger-ui .scheme-container {
-    /*background: var(--scheme-container-background-color, #fff);
-        box-shadow: 0 1px 2px 0 var(--scheme-container-box-shadow-color, rgba(0,0,0,.15));*/
     background: transparent;
     box-shadow: none;
     margin: 0;
