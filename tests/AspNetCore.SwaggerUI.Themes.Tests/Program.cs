@@ -17,9 +17,8 @@ await app.RunAsync();
 
 void RegisterTestStyleEndpoint()
 {
-    foreach (var item in new StyleTestData())
+    foreach (var style in new StyleTestData())
     {
-        var style = (BaseStyle)item[0];
         var fullPath = StylesPath + style.FileName;
         AddGetEndpoint(app, fullPath, GetResourceText(style.FileName, style.GetType()));
         if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs)

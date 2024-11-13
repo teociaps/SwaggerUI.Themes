@@ -28,10 +28,6 @@ Change style to your API documentation in ASP.NET Core applications!
 | [![NSwag Nuget Version]](https://www.nuget.org/packages/NSwag.AspNetCore.Themes/) | Customize the style for [NSwag.AspNetCore] |
 
 
-> [!WARNING]
-> Starting from v1.0.0 the namespace for pre-defined styles is `AspNetCore.Swagger.Themes` instead of `AspNetCore.SwaggerUI.Themes`!
-
-
 ## Features
 - _New Themes_: enhances the Swagger documentation interface with various themes, including a default style that preserves the classic Swagger UI appearance and introduces new modern styles. Explore samples [here](#available-themes).
 - _Seamless Integration_: simply install the package and add the style parameter to the existing method used for Swagger UI.
@@ -42,9 +38,11 @@ Change style to your API documentation in ASP.NET Core applications!
 | Version | Status |
 | ------- | ------ |
 | .NET 6  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
-| .NET 7  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+| .NET 7  | ![Badge](https://img.shields.io/badge/Status-Out%20of%20Support*-orange) |
 | .NET 8  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
-| .NET 9  | ![Badge](https://img.shields.io/badge/Status-Coming%20soon...-blue) |
+| .NET 9  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+
+___* Still available but it won't receive any update. Upgrade your .NET version!___
 
 
 ## Swashbuckle.AspNetCore.SwaggerUI

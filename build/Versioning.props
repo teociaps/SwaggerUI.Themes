@@ -1,7 +1,5 @@
 <Project>
 
-  <!-- TODO: enhance configuration for 'Official' version -->
-
   <!-- Local Development -->
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
