@@ -76,9 +76,6 @@ body {
     .swagger-ui .topbar {
         background-color: var(--topbar-background-color, #1b1b1b);
     }
-        /*.swagger-ui .topbar a {
-    color: #fff;
-}*/
         .swagger-ui .topbar .download-url-wrapper input[type=text],
         .swagger-ui .topbar .download-url-wrapper .select-label select {
             border: 2px solid var(--topbar-select-border-color, #62a03f);
@@ -170,6 +167,19 @@ body {
 
         .swagger-ui .opblock-tag:hover {
             background: var(--opblock-tag-background-color-hover, rgba(0,0,0,.02));
+        }
+
+    .swagger-ui .opblock-tag-section.is-open .opblock-tag {
+        position: sticky;
+        top: 0;
+        z-index: 4;
+        margin-bottom: 1rem;
+        border-bottom: 1px dashed var(--opblock-tag-border-bottom-color, #e1e1e1);
+        background: var(--body-background-color, #fafafa);
+    }
+
+        .swagger-ui .opblock-tag-section.is-open .opblock-tag:hover {
+            background: var(--opblock-tag-pinned-background-color-hover, #f1f1f1);
         }
 
     .swagger-ui .opblock {

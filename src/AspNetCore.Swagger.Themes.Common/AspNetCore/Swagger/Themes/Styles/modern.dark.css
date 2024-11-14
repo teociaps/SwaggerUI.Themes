@@ -48,6 +48,7 @@
         --opblock-tag-section-border-color: #312c2c;
         --opblock-border-color: black;
         --opblock-tag-background-color-hover: rgba(0, 0, 0, .1);
+        --opblock-tag-pinned-background-color-hover: #0e0e0e;
         --opblock-tag-border-bottom-color: rgba(109, 113, 121, .3);
         --opblock-shadow-color: rgba(59, 59, 59, .19);
         --opblock-tabheader-underline-color: rgba(255, 255, 255, .6);
