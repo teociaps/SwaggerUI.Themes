@@ -137,7 +137,7 @@ There are a few pre-defined styles available for your Swagger UI.
 | <center><pre lang="csharp">`ModernStyle.DeepSea`</pre></center> | <center><pre lang="csharp">`ModernStyle.Desert`</pre></center> | <center><pre lang="csharp">`ModernStyle.Futuristic`</pre></center> |
 
 > [!TIP]
-> Opt for Modern Styles! Modern styles come with more additional [functionalities](#enhanced-functionalities) using JavaScript<br>
+> Opt for Modern Styles! Modern styles come with more additional [functionalities](#enhanced-functionalities) using JavaScript.<br>
 > If you prefer not to use additional JavaScript functionalities but still want to apply the modern style, you can use the pre-built `NoJsModernStyle` class.
 
 > [!NOTE]
@@ -149,7 +149,7 @@ There are a few pre-defined styles available for your Swagger UI.
 Unlock new capabilities in your Swagger documentation with added features for both classic and modern themes, designed to improve navigation and usability.
 
 - **Both Classic and Modern Themes**:
-  - **Sticky Summary Operations**: Keeps the summary operations panel in view as you scroll, making it easier to navigate large API documentation.
+  - **Sticky Operations**: Keeps the operations head panel in view as you scroll, making it easier to navigate large API documentation.
   
     ![sticky operations gif] 
 
