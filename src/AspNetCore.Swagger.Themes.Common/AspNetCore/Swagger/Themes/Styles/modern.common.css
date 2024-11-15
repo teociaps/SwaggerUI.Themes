@@ -131,6 +131,18 @@ body {
             top: 10px;
         }
 
+            .swagger-ui .topbar.pinned::before {
+                content: '';
+                position: absolute;
+                inset: -10px 0 0;
+                pointer-events: none;
+                user-select: none;
+                backdrop-filter: blur(20px);
+                -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent);
+                mask-image: linear-gradient(to bottom, black 40%, transparent);
+                background: linear-gradient(90deg, rgba(0, 0, 0, 0) 5%, rgba(8, 8, 8, 0.4) 50%, rgba(0, 0, 0, 0) 95%);
+            }
+
         .swagger-ui .topbar .topbar-wrapper {
             background-color: var(--topbar-background-color, black);
             border: 1px solid var(--topbar-border-color, gray);
@@ -140,24 +152,27 @@ body {
             box-shadow: 0 5px 15px 0 var(--topbar-pinned-shadow-color, rgba(0, 0, 0, .5));
         }
 
-            .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon svg {
+            .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn svg {
                 fill: var(--topbar-pin-icon-color, white);
             }
 
-            .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon {
+            .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn {
                 cursor: pointer;
+                background: transparent;
+                border: none;
                 margin: .8rem;
                 padding: .2rem;
                 transition: all .2s;
                 rotate: z 359deg;
             }
 
-                .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon:hover {
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:hover,
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:focus-within {
                     scale: 1.05;
                     animation: pintobbar 1.2s infinite;
                 }
 
-                .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon:active {
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:active {
                     scale: 0.95;
                 }
 
@@ -168,12 +183,13 @@ body {
             backdrop-filter: blur(20px);
         }
 
-            .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-icon {
+            .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn {
                 translate: 0 5px;
                 rotate: z 0deg;
             }
 
-                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-icon:hover {
+                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn:hover,
+                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn:focus-within {
                     animation: unpintobbar 1.2s infinite;
                 }
 
@@ -1057,11 +1073,13 @@ body {
         translate: -50% 4px;
     }
 
-    #scroll-to-top-btn:hover {
+    #scroll-to-top-btn:hover,
+    #scroll-to-top-btn:focus-within {
         background-color: var(--scroll-to-top-button-hover-background-color, #0d0d0dba);
     }
 
-        #scroll-to-top-btn:hover::after {
+        #scroll-to-top-btn:hover::after,
+        #scroll-to-top-btn:focus-within::after {
             animation: bounceUp 1.2s ease-in infinite;
         }
 
@@ -1070,6 +1088,10 @@ body {
     }
 
 @keyframes bounceUp {
+    100% {
+        translate: -50% 4px;
+    }
+
     25% {
         translate: -50% 6px;
     }
@@ -1080,6 +1102,10 @@ body {
 }
 
 @-moz-keyframes bounceUp {
+    100% {
+        translate: -50% 4px;
+    }
+
     25% {
         translate: -50% 6px;
     }
@@ -1090,6 +1116,10 @@ body {
 }
 
 @-webkit-keyframes bounceUp {
+    100% {
+        translate: -50% 4px;
+    }
+
     25% {
         translate: -50% 6px;
     }

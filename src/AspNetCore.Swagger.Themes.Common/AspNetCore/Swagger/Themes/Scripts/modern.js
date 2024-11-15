@@ -23,25 +23,25 @@ window.onpageshow = function () {
 function configurePinnableTopbar() {
     const topbarWrapper = document.querySelector('.topbar-wrapper');
 
-    const pinTopbarIcon = document.createElement('div');
-    pinTopbarIcon.setAttribute('id', 'pin-topbar-icon');
-    pinTopbarIcon.addEventListener('click', () => pinOrUnpinTopbar(pinTopbarIcon))
+    const pinTopbarBtn = document.createElement('button');
+    pinTopbarBtn.setAttribute('id', 'pin-topbar-btn');
+    pinTopbarBtn.addEventListener('click', () => pinOrUnpinTopbar(pinTopbarBtn))
 
-    topbarWrapper.appendChild(pinTopbarIcon);
+    topbarWrapper.appendChild(pinTopbarBtn);
 
-    pinOrUnpinTopbar(pinTopbarIcon);
+    pinOrUnpinTopbar(pinTopbarBtn);
 }
 
-function pinOrUnpinTopbar(pinTopbarIcon) {
-    if (pinTopbarIcon.parentNode.parentNode.parentNode.classList.contains('pinned')) {
-        pinTopbarIcon.parentNode.parentNode.parentNode.classList.remove('pinned');
-        setUnpinnedIconTo(pinTopbarIcon);
-        pinTopbarIcon.setAttribute('title', 'Pin topbar');
+function pinOrUnpinTopbar(pinTopbarBtn) {
+    if (pinTopbarBtn.parentNode.parentNode.parentNode.classList.contains('pinned')) {
+        pinTopbarBtn.parentNode.parentNode.parentNode.classList.remove('pinned');
+        setUnpinnedIconTo(pinTopbarBtn);
+        pinTopbarBtn.setAttribute('title', 'Pin topbar');
     }
     else {
-        pinTopbarIcon.parentNode.parentNode.parentNode.classList.add('pinned');
-        setPinnedIconTo(pinTopbarIcon);
-        pinTopbarIcon.setAttribute('title', 'Unpin topbar');
+        pinTopbarBtn.parentNode.parentNode.parentNode.classList.add('pinned');
+        setPinnedIconTo(pinTopbarBtn);
+        pinTopbarBtn.setAttribute('title', 'Unpin topbar');
     }
 }
 
