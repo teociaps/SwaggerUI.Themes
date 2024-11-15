@@ -7,7 +7,7 @@
 
 ## Getting Started
 
-Customize the NSwag API documentation UI by using **NSwag.AspNetCore.Themes** in your ASP.NET Core project:
+Customize your NSwag API documentation UI by using **NSwag.AspNetCore.Themes** in ASP.NET Core:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
 

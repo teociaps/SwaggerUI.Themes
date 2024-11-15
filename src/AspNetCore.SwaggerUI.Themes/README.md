@@ -7,7 +7,7 @@
 
 ## Getting Started
 
-Customize the Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project:
+Customize your Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.Themes** in ASP.NET Core:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
 

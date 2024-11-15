@@ -29,9 +29,10 @@ Change style to your API documentation in ASP.NET Core applications!
 
 
 ## Features
-- _New Themes_: enhances the Swagger documentation interface with various themes, including a default style that preserves the classic Swagger UI appearance and introduces new modern styles. Explore samples [here](#available-themes).
-- _Seamless Integration_: simply install the package and add the style parameter to the existing method used for Swagger UI.
-- _Custom Styles_: create your own style for Swagger documentation. You can either inherit from the classic or modern common styles, or define a completely new style (see more [here](#custom-styles)).
+- __New Themes__: Choose from a variety of themes to customize the Swagger documentation interface. Options include a default style that preserves the classic Swagger UI look, along with fresh, modern styles. View theme samples [here](#available-themes).
+- __Enhanced Functionality__: Access expanded features with both classic and modern styles for an optimized documentation experience. Learn more [here](#enhanced-functionalities).
+- __Custom Styles__: Design your own Swagger UI style by either extending the classic or modern base styles or creating a completely new look. Find details on custom styling [here](#custom-styles).
+- __Easy Integration__: [Install the package](#getting-started) and add style parameters to the existing Swagger UI setup for a seamless upgrade.
 
 
 ## Supported .NET Versions
@@ -45,8 +46,10 @@ Change style to your API documentation in ASP.NET Core applications!
 ___* Still available but it won't receive any update. Upgrade your .NET version!___
 
 
-## Swashbuckle.AspNetCore.SwaggerUI
-Customize the Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.Themes** in your ASP.NET Core project:
+## Getting Started
+
+### Swashbuckle.AspNetCore.SwaggerUI
+Customize your Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.Themes** in ASP.NET Core:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
 
@@ -77,8 +80,8 @@ Customize the Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.T
 > See [here](#custom-styles) how to inject custom styles.
 
 
-## NSwag.AspNetCore
-Customize the NSwag API documentation UI by using **NSwag.AspNetCore.Themes** in your ASP.NET Core project:
+### NSwag.AspNetCore
+Customize your NSwag API documentation UI by using **NSwag.AspNetCore.Themes** in ASP.NET Core:
 
 1. Install the package using .NET CLI or NuGet Package Manager:
 
@@ -134,11 +137,34 @@ There are a few pre-defined styles available for your Swagger UI.
 | <center><pre lang="csharp">`ModernStyle.DeepSea`</pre></center> | <center><pre lang="csharp">`ModernStyle.Desert`</pre></center> | <center><pre lang="csharp">`ModernStyle.Futuristic`</pre></center> |
 
 > [!TIP]
-> Opt for Modern Styles! Modern styles come with additional functionalities, including _**pinned topbar**_ and _**back-to-top button**_.<br>
+> Opt for Modern Styles! Modern styles come with more additional [functionalities](#enhanced-functionalities) using JavaScript<br>
 > If you prefer not to use additional JavaScript functionalities but still want to apply the modern style, you can use the pre-built `NoJsModernStyle` class.
 
 > [!NOTE]
 > The classic and modern **dark styles** will only load if your browser's color scheme preference is set to _dark_; otherwise, the light style is loaded.
+
+
+## Enhanced Functionalities
+
+Unlock new capabilities in your Swagger documentation with added features for both classic and modern themes, designed to improve navigation and usability.
+
+- **Both Classic and Modern Themes**:
+  - **Sticky Summary Operations**: Keeps the summary operations panel in view as you scroll, making it easier to navigate large API documentation.
+  
+    ![sticky operations gif] 
+
+- **Modern Themes**:
+  - **Pinned Topbar**: The top navigation bar remains fixed at the top of the page, so you can quickly access key options.
+  
+    ![pinned topbar gif]
+  
+  
+  - **Back to Top Button**: Easily return to the top of the documentation with a single click, especially helpful for long pages.
+  
+    ![back-to-top gif] 
+  
+> [!NOTE]
+> The pinned topbar and back-to-top button require JavaScript to work.
 
 
 ## Custom Styles
@@ -257,6 +283,9 @@ If you have any suggestions, bug reports, or contributions, feel free to open an
 [Modern Desert Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-desert.png
 [Modern Futuristic Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-futuristic.png
 
+[Sticky Operations GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/sticky-operations.gif
+[Pinned Topbar GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/pinned-topbar.gif
+[Back-To-Top GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/back-to-top.gif
 
 [Swashbuckle Nuget Version]: https://img.shields.io/nuget/v/AspNetCore.SwaggerUI.Themes?logo=nuget&label=AspNetCore.SwaggerUI.Themes&color=blue
 [NSwag Nuget Version]: https://img.shields.io/nuget/v/NSwag.AspNetCore.Themes?logo=nuget&label=NSwag.AspNetCore.Themes&color=blue
