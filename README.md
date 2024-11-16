@@ -289,7 +289,7 @@ If you have any suggestions, bug reports, or contributions, feel free to open an
 [Sticky Operations GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/sticky-operations.gif
 [Pinned Topbar GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/pinned-topbar.gif
 [Back-To-Top GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/back-to-top.gif
-[Expand-Collapse All GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/dev/assets/expand-collapse-all-operations.gif
+[Expand-Collapse All GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/expand-collapse-all-operations.gif
 
 [Swashbuckle Nuget Version]: https://img.shields.io/nuget/v/AspNetCore.SwaggerUI.Themes?logo=nuget&label=AspNetCore.SwaggerUI.Themes&color=blue
 [NSwag Nuget Version]: https://img.shields.io/nuget/v/NSwag.AspNetCore.Themes?logo=nuget&label=NSwag.AspNetCore.Themes&color=blue
