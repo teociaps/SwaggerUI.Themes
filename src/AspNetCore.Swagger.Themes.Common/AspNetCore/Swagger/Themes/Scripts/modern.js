@@ -43,6 +43,8 @@ function pinOrUnpinTopbar(pinTopbarBtn) {
         setPinnedIconTo(pinTopbarBtn);
         pinTopbarBtn.setAttribute('title', 'Unpin topbar');
     }
+
+    pinTopbarBtn?.blur();
 }
 
 function setPinnedIconTo(element) {
@@ -66,7 +68,10 @@ function setUpScrollToTopButton() {
     const scrollToTopButton = document.createElement('button');
     scrollToTopButton.setAttribute('id', 'scroll-to-top-btn');
     scrollToTopButton.setAttribute('title', 'Back to top');
-    scrollToTopButton.addEventListener('click', () => scrollToTop());
+    scrollToTopButton.addEventListener('click', () => {
+        scrollToTop();
+        scrollToTopButton?.blur();
+    });
     scrollToTopContainer.appendChild(scrollToTopButton);
 
     const swaggerContainer = document.getElementById('swagger-ui');
