@@ -158,13 +158,16 @@ Unlock new capabilities in your Swagger documentation with added features for bo
   
     ![pinned topbar gif]
   
-  
   - **Back to Top Button**: Easily return to the top of the documentation with a single click, especially helpful for long pages.
   
     ![back-to-top gif] 
   
+  - **Expand/Collapse All Operations**: Expand or collapse all operations within a tag group with a single click. This makes it easier to manage large sets of API operations and navigate more efficiently.
+
+    ![expand-collapse all gif]
+
 > [!NOTE]
-> The pinned topbar and back-to-top button require JavaScript to work.
+> The pinned topbar, back-to-top button, and expand/collapse all operations features require JavaScript to work.
 
 
 ## Custom Styles
@@ -286,6 +289,7 @@ If you have any suggestions, bug reports, or contributions, feel free to open an
 [Sticky Operations GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/sticky-operations.gif
 [Pinned Topbar GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/pinned-topbar.gif
 [Back-To-Top GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/back-to-top.gif
+[Expand-Collapse All GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/dev/assets/expand-collapse-all-operations.gif
 
 [Swashbuckle Nuget Version]: https://img.shields.io/nuget/v/AspNetCore.SwaggerUI.Themes?logo=nuget&label=AspNetCore.SwaggerUI.Themes&color=blue
 [NSwag Nuget Version]: https://img.shields.io/nuget/v/NSwag.AspNetCore.Themes?logo=nuget&label=NSwag.AspNetCore.Themes&color=blue
