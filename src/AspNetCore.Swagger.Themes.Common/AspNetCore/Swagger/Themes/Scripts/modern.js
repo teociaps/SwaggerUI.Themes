@@ -16,6 +16,8 @@ window.onpageshow = function () {
             configurePinnableTopbar();
 
             setUpScrollToTopButton();
+
+            setUpExpandAndCollapseOperationsButtons();
         }
     }, 100);
 }
@@ -93,4 +95,49 @@ function scrollToTop() {
         top: 0,
         behavior: 'smooth'
     })
+}
+
+function setUpExpandAndCollapseOperationsButtons() {
+    const opBlockSections = document.querySelectorAll('.opblock-tag-section');
+
+    // Iterate over each operation group
+    opBlockSections.forEach(opBlockSection => {
+        const opBlockSectionHeader = opBlockSection.querySelector('h3');
+        const expandOperationButton = opBlockSectionHeader.querySelector('button.expand-operation');
+
+        // Create expand or collapse button, if needed
+        if (expandOperationButton) {
+            const expandOrCollapseButton = document.createElement('button');
+            expandOrCollapseButton.setAttribute('title', 'Expand/Collapse all the operations');
+            expandOrCollapseButton.classList.add('expand-collapse-all-btn');
+            expandOrCollapseButton.innerHTML = 'Expand/Collapse All';
+
+            opBlockSectionHeader.insertBefore(expandOrCollapseButton, expandOperationButton);
+
+            expandOrCollapseButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const opBlocks = opBlockSection.querySelectorAll('.opblock .opblock-control-arrow');
+                const allExpanded = Array.from(opBlocks).every(opBlock => opBlock.getAttribute('aria-expanded') === 'true');
+
+                if (allExpanded) {
+                    // Collapse all (click to collapse)
+                    opBlocks.forEach(opBlock => {
+                        if (opBlock.getAttribute('aria-expanded') === 'true') {
+                            opBlock.click(); // Collapse
+                        }
+                    });
+                } else {
+                    // Expand all (click to expand)
+                    opBlocks.forEach(opBlock => {
+                        if (opBlock.getAttribute('aria-expanded') === 'false') {
+                            opBlock.click(); // Expand
+                        }
+                    });
+                }
+
+            });
+        }
+    });
 }

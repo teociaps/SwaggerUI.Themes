@@ -372,6 +372,22 @@ body {
     overflow: clip;
 }
 
+    .swagger-ui .opblock-tag-section .expand-collapse-all-btn {
+        display: none;
+        user-select: none;
+    }
+
+    .swagger-ui .opblock-tag-section.is-open .expand-collapse-all-btn {
+        background: var(--opblock-tag-section-expandcollapse-background-color, rgb(220 220 220 / 45%));
+        color: var(--swagger-main-color, #3b4151);
+        border: 1px solid var(--opblock-tag-section-border-color, #dddddd);
+        border-radius: .5rem;
+        padding: 5px 10px;
+        font-size: medium;
+        margin-inline: 10px;
+        display: block;
+    }
+
 .swagger-ui .opblock-tag,
 .swagger-ui .opblock-tag small,
 .swagger-ui .parameter__type {

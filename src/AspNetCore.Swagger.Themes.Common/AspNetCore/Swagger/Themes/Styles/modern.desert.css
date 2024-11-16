@@ -46,6 +46,7 @@
     /* Operations */
     --opblock-tag-section-border-color: #92491a;
     --opblock-border-color: black;
+    --opblock-tag-section-expandcollapse-background-color: rgb(0 0 0 / 10%);
     --opblock-tag-background-color-hover: rgba(0, 0, 0, .1);
     --opblock-tag-pinned-background-color-hover: #bb8656;
     --opblock-tag-border-bottom-color: rgb(78, 38, 18, 0.30);
