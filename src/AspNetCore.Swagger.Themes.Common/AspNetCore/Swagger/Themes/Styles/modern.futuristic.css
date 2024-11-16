@@ -193,12 +193,12 @@
 .swagger-ui .topbar .topbar-wrapper {
     border: 3px solid var(--topbar-border-color);
     border-top: 0;
-    box-shadow: 0 0 10px 5px var(--topbar-pinned-shadow-color), inset 0 -5px 15px 0px var(--topbar-pinned-shadow-color);
+    box-shadow: 0 0 8px 4px var(--topbar-pinned-shadow-color), inset 0 -4px 10px 0px var(--topbar-pinned-shadow-color);
 }
 
 .swagger-ui .topbar.pinned .topbar-wrapper {
     border: 2px solid var(--topbar-border-color);
-    box-shadow: 0 0 10px 5px var(--topbar-pinned-shadow-color), inset 0 0 10px 5px var(--topbar-pinned-shadow-color);
+    box-shadow: 0 0 8px 4px var(--topbar-pinned-shadow-color), inset 0 0 8px 4px var(--topbar-pinned-shadow-color);
 }
 
 .swagger-ui .auth-wrapper {

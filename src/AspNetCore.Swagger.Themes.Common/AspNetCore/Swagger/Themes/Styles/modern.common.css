@@ -390,7 +390,8 @@ body {
     transition: all .2s;
 }
 
-    .swagger-ui .opblock-tag:hover {
+    .swagger-ui .opblock-tag:hover,
+    .swagger-ui .opblock-tag:focus-within {
         background: var(--opblock-tag-background-color-hover, rgba(0,0,0,.02));
     }
 
@@ -406,9 +407,12 @@ body {
     border-bottom: 1px dashed var(--opblock-tag-border-bottom-color, #e1e1e1);
     background: var(--body-background-color, #fafafa);
 }
-    .swagger-ui .opblock-tag-section.is-open .opblock-tag:hover {
+
+    .swagger-ui .opblock-tag-section.is-open .opblock-tag:hover,
+    .swagger-ui .opblock-tag-section.is-open .opblock-tag:focus-within {
         background: var(--opblock-tag-pinned-background-color-hover, #f1f1f1);
     }
+
 .swagger-ui:has(> .topbar.pinned) .opblock-tag-section.is-open .opblock-tag {
     top: 4.9rem;
 }
