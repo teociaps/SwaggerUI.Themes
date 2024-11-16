@@ -8,7 +8,7 @@ namespace Microsoft.AspNetCore.Builder;
 /// <summary>
 /// Extensions methods for <see cref="IApplicationBuilder"/>.
 /// </summary>
-public static class StyleNSwagBuilderExtensions
+public static class NSwagBuilderExtensions
 {
     /// <summary>
     /// Registers the Swagger UI middleware with a specified style and optional settings setup action.
