@@ -13,6 +13,8 @@ public abstract class BaseStyle
 
     internal virtual BaseStyle Common { get; }
 
+    internal virtual bool LoadAdditionalJs => false;
+
     /// <summary>
     /// Gets the file name associated with the selected style.
     /// </summary>

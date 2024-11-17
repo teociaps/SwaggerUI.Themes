@@ -63,7 +63,7 @@ Customize your Swashbuckle API documentation UI by using **AspNetCore.SwaggerUI.
     Install-Package AspNetCore.SwaggerUI.Themes
     ```
 
-2. In your `Program.cs` file, add the style through the `Style`, `ModernStyle` or `NoJsModernStyle` class as new parameter of `app.UseSwaggerUI()` method:
+2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUI()` method:
 
     ```csharp
     using AspNetCore.Swagger.Themes;
@@ -95,7 +95,7 @@ Customize your NSwag API documentation UI by using **NSwag.AspNetCore.Themes** i
     Install-Package NSwag.AspNetCore.Themes
     ```
 
-2. In your `Program.cs` file, add the style through the `Style`, `ModernStyle` or `NoJsModernStyle` class as new parameter of `app.UseSwaggerUi()` method:
+2. In your `Program.cs` file, add the style through the `Style` or `ModernStyle` class as new parameter of `app.UseSwaggerUi()` method:
 
     ```csharp
     using AspNetCore.Swagger.Themes;
@@ -137,8 +137,7 @@ There are a few pre-defined styles available for your Swagger UI.
 | <center><pre lang="csharp">`ModernStyle.DeepSea`</pre></center> | <center><pre lang="csharp">`ModernStyle.Desert`</pre></center> | <center><pre lang="csharp">`ModernStyle.Futuristic`</pre></center> |
 
 > [!TIP]
-> Opt for Modern Styles! Modern styles come with more additional [functionalities](#enhanced-functionalities) using JavaScript.<br>
-> If you prefer not to use additional JavaScript functionalities but still want to apply the modern style, you can use the pre-built `NoJsModernStyle` class.
+> Opt for Modern Styles! Modern styles come with more additional [functionalities](#enhanced-functionalities).
 
 > [!NOTE]
 > The classic and modern **dark styles** will only load if your browser's color scheme preference is set to _dark_; otherwise, the light style is loaded.
@@ -203,22 +202,21 @@ app.UseSwaggerUi(assembly, cssFileName, settings => ...);
 ```
     
 > [!TIP]
-> If your CSS file's name begins with **"classic."**, **"modern."**, or **"nojsmodern."**, a related common style (either classic or modern) will automatically be applied as a base for your custom styles.
+> If your CSS file's name begins with **"classic."** or **"modern."**, a related common style (either classic or modern) will automatically be applied as a base for your custom styles.
 > 
 > - **"classic."** files use a classic base style.
-> - **"modern."** files use a modern base style and load additional JavaScript.
-> - **"nojsmodern."** files use the modern base style without additional JavaScript.
+> - **"modern."** files use a modern base style and additional JavaScript functionalities can be enabled.
 >
 > These common styles serve as the base for [pre-defined styles](#available-themes) that enhance the Swagger UI.
 
 ### Creating Custom Styles by Inheriting from Base Classes
-Another powerful customization option is to create your own style classes by inheriting from the `Style`, `ModernStyle` or `NoJsModernStyle` base classes.
+Another powerful customization option is to create your own style classes by inheriting from the `Style` or `ModernStyle` base classes.
 This approach allows you to define new styles that automatically incorporate common base styles and, for modern themes, additional JavaScript.
 
 Here’s how to create a custom style:
 
 ```csharp
-// Use modern style loading additional JS
+// Use modern style with the possibility to enable additional JS functions
 public class CustomModernStyle : ModernStyle
 {
     protected CustomModernStyle(string fileName) : base(fileName)
@@ -226,16 +224,6 @@ public class CustomModernStyle : ModernStyle
     }
 
     public static CustomModernStyle CustomModern => new("modern.custom.css");
-}
-
-// Use modern style without loading additional JS
-public class CustomNoJsModernStyle : NoJsModernStyle
-{
-    protected CustomNoJsModernStyle(string fileName) : base(fileName)
-    {
-    }
-
-    public static CustomNoJsModernStyle CustomModern => new("nojsmodern.custom.css");
 }
 
 // Use classic style
@@ -263,9 +251,9 @@ app.UseSwaggerUi(customStyle, settings => ...);
 ```
 
 > [!NOTE]
-> Only custom styles that inherit from the `ModernStyle` class will include additional JavaScript.
+> Only custom styles that inherit from the `ModernStyle` class will be able to include additional JavaScript.
 >
-> Custom styles that inherit from the `Style` or `NoJsModernStyle` classes will apply the common style (classic or modern) without adding any JavaScript.
+> Custom styles that inherit from the `Style` class will apply the common classic style without adding any JavaScript.
 
 ## Contributing
 If you have any suggestions, bug reports, or contributions, feel free to open an [issue](https://github.com/teociaps/SwaggerUI.Themes/issues) or submit a [pull request](https://github.com/teociaps/SwaggerUI.Themes/pulls)

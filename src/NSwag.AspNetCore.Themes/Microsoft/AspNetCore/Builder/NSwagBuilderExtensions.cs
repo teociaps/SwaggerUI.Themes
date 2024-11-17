@@ -31,7 +31,7 @@ public static class NSwagBuilderExtensions
 
             uiSettings.CustomInlineStyles = GetSwaggerStyleCss(style, uiSettings);
 
-            if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(uiSettings.AdditionalSettings))
+            if (style.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(uiSettings.AdditionalSettings))
                 AddCustomJavascript(application, uiSettings);
         });
     }

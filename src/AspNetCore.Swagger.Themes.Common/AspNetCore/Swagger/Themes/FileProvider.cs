@@ -110,21 +110,14 @@ internal static class FileProvider
 
         string styleSuffix = resourceName[(index + _CustomStylesNamespace.Length)..];
 
-        // TODO: remove "nojsmodern" because AdvancedOptions
-
         bool isClassicStyle = styleSuffix.StartsWith("classic.");
-        bool isModernStyle = styleSuffix.StartsWith("modern.") || styleSuffix.StartsWith("nojsmodern.");
+        bool isModernStyle = loadModernJs = styleSuffix.StartsWith("modern.");
 
         if (isClassicStyle)
-        {
             return GetResourceText("common.css");
-        }
 
         if (isModernStyle)
-        {
-            loadModernJs = !styleSuffix.StartsWith("nojsmodern.");
             return GetResourceText("modern.common.css");
-        }
 
         return commonStyle;
     }

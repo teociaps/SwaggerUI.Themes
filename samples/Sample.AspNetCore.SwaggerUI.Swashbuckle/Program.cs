@@ -12,7 +12,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "nojsmodern.custom.css", c => c.DocumentTitle = "Sample Title");
+    //app.UseSwaggerUI(CustomModernStyle.CustomModern, c => c.DocumentTitle = "Sample Title");
     //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "modern.custom.css", c =>
     app.UseSwaggerUI(ModernStyle.Dark, c =>
     {

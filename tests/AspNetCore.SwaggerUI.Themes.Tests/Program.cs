@@ -21,7 +21,7 @@ void RegisterTestStyleEndpoint()
     {
         var fullPath = StylesPath + style.FileName;
         AddGetEndpoint(app, fullPath, GetResourceText(style.FileName, style.GetType()));
-        if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs)
+        if (style.LoadAdditionalJs)
             AddGetEndpoint(app, ScriptsPath + "modern.js", GetResourceText("modern.js"), MimeTypes.Text.Javascript);
     }
 }

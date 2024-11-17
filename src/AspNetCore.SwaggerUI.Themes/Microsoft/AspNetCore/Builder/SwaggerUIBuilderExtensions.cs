@@ -127,7 +127,7 @@ public static class SwaggerUIBuilderExtensions
         var optionsAction = InjectCommonStyle(application, options, style);
         optionsAction += InjectStyle(style);
 
-        if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
+        if (style.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
             optionsAction += InjectModernJavascript(application, options);
 
         return optionsAction;

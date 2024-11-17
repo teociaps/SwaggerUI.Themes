@@ -65,7 +65,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             */
             """);
 
-        if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(_advancedOptions))
+        if (style.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(_advancedOptions))
         {
             // Arrange/Act
             var jsFile = GetResourceText("modern.js");
@@ -181,39 +181,6 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             """);
 
         loadModernJs.ShouldBeTrue();
-    }
-
-    [Fact]
-    public void GetResourceText_ShouldGetCommonModernCssStyleWithoutJS_WhenExternalCssHasNoJsModernPrefix()
-    {
-        // Arrange
-        const string ExternalFileName = "nojsmodern.style.css";
-
-        // Act
-        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonModernStyle, out var loadModernJs);
-
-        // Assert
-        styleContent.ShouldBe("""
-            /*
-                Test NoJsModern Style
-
-                https://github.com/teociaps/SwaggerUI.Themes
-            */
-
-            body {
-                background-color: var(--body-background-color, #fafafa);
-            }
-            """);
-
-        commonModernStyle.ShouldStartWith("""
-            /*
-                Modern Common Style
-
-                https://github.com/teociaps/SwaggerUI.Themes
-            */
-            """);
-
-        loadModernJs.ShouldBeFalse();
     }
 
     [Theory]
