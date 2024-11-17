@@ -17,6 +17,7 @@ public static class NSwagBuilderExtensions
     /// <param name="style">The style to apply.</param>
     /// <param name="configureSettings">An optional action to configure Swagger UI settings.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUi(
         this IApplicationBuilder application,
         BaseStyle style,
@@ -42,6 +43,7 @@ public static class NSwagBuilderExtensions
     /// <param name="cssStyleContent">The CSS style to apply.</param>
     /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="cssStyleContent"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUi(
         this IApplicationBuilder application,
         string cssStyleContent,
@@ -62,6 +64,7 @@ public static class NSwagBuilderExtensions
     /// <param name="cssFilename">The CSS style filename (e.g. "myCustomStyle.css").</param>
     /// <param name="configureSettings">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> or <paramref name="cssFilename"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUi(
         this IApplicationBuilder application,
         Assembly assembly,
