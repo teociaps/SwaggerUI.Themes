@@ -24,20 +24,15 @@ public static class NSwagBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(style);
 
-        var set = new SwaggerUiSettings();
-        configureSettings?.Invoke(set);
-
-        Action<SwaggerUiSettings> swaggerUiSettingsAction = settings =>
+        return application.UseSwaggerUi(uiSettings =>
         {
-            settings.CustomInlineStyles = GetSwaggerStyleCss(style, set);
+            configureSettings?.Invoke(uiSettings);
 
-            if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(set.AdditionalSettings))
-                AddCustomJavascript(application, set);
-        };
+            uiSettings.CustomInlineStyles = GetSwaggerStyleCss(style, uiSettings);
 
-        swaggerUiSettingsAction += configureSettings;
-
-        return application.UseSwaggerUi(swaggerUiSettingsAction);
+            if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(uiSettings.AdditionalSettings))
+                AddCustomJavascript(application, uiSettings);
+        });
     }
 
     /// <summary>
