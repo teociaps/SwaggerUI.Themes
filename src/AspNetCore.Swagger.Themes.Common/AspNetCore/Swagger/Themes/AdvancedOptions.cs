@@ -17,7 +17,6 @@ internal static class AdvancedOptions
 
     // JS placeholders
     internal const string PinnableTopbarJsPH = "{$PINNABLE_TOPBAR}";
-
     internal const string BackToTopJsPH = "{$BACK_TO_TOP}";
     internal const string ExpandOrCollapseAllOperationsJsPH = "{$EXPAND_COLLAPSE_ALL_OPERATIONS}";
 
