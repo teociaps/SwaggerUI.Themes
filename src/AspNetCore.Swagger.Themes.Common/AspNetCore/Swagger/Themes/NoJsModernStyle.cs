@@ -1,5 +1,7 @@
 ﻿namespace AspNetCore.Swagger.Themes;
 
+// TODO: remove this because AdvancedOptions
+
 /// <summary>
 /// Represents a modern style for Swagger UI without additional JavaScript.
 /// </summary>

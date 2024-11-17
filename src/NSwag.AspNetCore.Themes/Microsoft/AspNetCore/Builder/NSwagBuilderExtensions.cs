@@ -24,12 +24,15 @@ public static class NSwagBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(style);
 
+        var set = new SwaggerUiSettings();
+        configureSettings?.Invoke(set);
+
         Action<SwaggerUiSettings> swaggerUiSettingsAction = settings =>
         {
-            settings.CustomInlineStyles = GetSwaggerStyleCss(style);
+            settings.CustomInlineStyles = GetSwaggerStyleCss(style, set);
 
-            if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs)
-                AddCustomJavascript(application, settings);
+            if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(set.AdditionalSettings))
+                AddCustomJavascript(application, set);
         };
 
         swaggerUiSettingsAction += configureSettings;
@@ -62,41 +65,47 @@ public static class NSwagBuilderExtensions
     /// <param name="application">The application builder instance.</param>
     /// <param name="assembly">The assembly where the embedded CSS file is situated.</param>
     /// <param name="cssFilename">The CSS style filename (e.g. "myCustomStyle.css").</param>
-    /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
+    /// <param name="configureSettings">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
     public static IApplicationBuilder UseSwaggerUi(
         this IApplicationBuilder application,
         Assembly assembly,
         string cssFilename,
-        Action<SwaggerUiSettings> setupAction = null)
+        Action<SwaggerUiSettings> configureSettings = null)
     {
         ArgumentNullException.ThrowIfNull(assembly);
         ArgumentNullException.ThrowIfNull(cssFilename);
+
+        var settings = new SwaggerUiSettings();
+        configureSettings?.Invoke(settings);
 
         var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var loadModernJs);
 
         if (!string.IsNullOrEmpty(commonStyle))
         {
+            commonStyle = AdvancedOptions.Apply(commonStyle, settings.AdditionalSettings, MimeTypes.Text.Css);
             stylesheet = commonStyle + Environment.NewLine + stylesheet;
 
-            if (loadModernJs)
-                setupAction += settings => AddCustomJavascript(application, settings);
+            if (loadModernJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
+                configureSettings += settings => AddCustomJavascript(application, settings);
         }
 
-        setupAction += options => options.CustomInlineStyles = stylesheet;
+        configureSettings += options => options.CustomInlineStyles = stylesheet;
 
-        return application.UseSwaggerUi(setupAction);
+        return application.UseSwaggerUi(configureSettings);
     }
 
     // TODO: add other extension methods from nswag?
 
     #region Private
 
-    private static string GetSwaggerStyleCss(BaseStyle style)
+    private static string GetSwaggerStyleCss(BaseStyle style, SwaggerUiSettings settings)
     {
         var sb = new StringBuilder();
 
         string baseCss = FileProvider.GetResourceText(style.Common.FileName);
+        baseCss = AdvancedOptions.Apply(baseCss, settings.AdditionalSettings, MimeTypes.Text.Css);
+
         string styleCss = FileProvider.GetResourceText(style.FileName, style.GetType());
 
         sb.Append(baseCss);
@@ -106,19 +115,20 @@ public static class NSwagBuilderExtensions
         return sb.ToString();
     }
 
-    private static string GetSwaggerStyleJavascriptPath(IApplicationBuilder app)
+    private static string GetSwaggerStyleJavascriptPath(IApplicationBuilder application, SwaggerUiSettings settings)
     {
         const string JsFilename = "modern.js";
         string javascript = FileProvider.GetResourceText(JsFilename);
-        const string FullPath = FileProvider.ScriptsPath + JsFilename;
+        javascript = AdvancedOptions.Apply(javascript, settings.AdditionalSettings, MimeTypes.Text.Javascript);
 
-        FileProvider.AddGetEndpoint(app, FullPath, javascript, MimeTypes.Text.Javascript);
+        const string FullPath = FileProvider.ScriptsPath + JsFilename;
+        FileProvider.AddGetEndpoint(application, FullPath, javascript, MimeTypes.Text.Javascript);
 
         return FullPath;
     }
 
-    private static void AddCustomJavascript(IApplicationBuilder app, SwaggerUiSettings settings)
-        => settings.CustomJavaScriptPath = GetSwaggerStyleJavascriptPath(app);
+    private static void AddCustomJavascript(IApplicationBuilder application, SwaggerUiSettings settings)
+        => settings.CustomJavaScriptPath = GetSwaggerStyleJavascriptPath(application, settings);
 
     #endregion Private
 }

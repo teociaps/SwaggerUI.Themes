@@ -169,18 +169,19 @@ body {
             background: var(--opblock-tag-background-color-hover, rgba(0,0,0,.02));
         }
 
-    .swagger-ui .opblock-tag-section.is-open .opblock-tag {
-        position: sticky;
-        top: 0;
-        z-index: 4;
-        margin-bottom: 1rem;
-        border-bottom: 1px dashed var(--opblock-tag-border-bottom-color, #e1e1e1);
-        background: var(--body-background-color, #fafafa);
-    }
+#STICKY_OPERATIONS.swagger-ui .opblock-tag-section.is-open .opblock-tag {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--opblock-tag-border-bottom-color, #e1e1e1);
+    background: var(--body-background-color, #fafafa);
+}
 
-        .swagger-ui .opblock-tag-section.is-open .opblock-tag:hover {
-            background: var(--opblock-tag-pinned-background-color-hover, #f1f1f1);
-        }
+    #STICKY_OPERATIONS.swagger-ui .opblock-tag-section.is-open .opblock-tag:hover,
+    #STICKY_OPERATIONS.swagger-ui .opblock-tag-section.is-open .opblock-tag:focus-within {
+        background: var(--opblock-tag-pinned-background-color-hover, #f1f1f1);
+    }
 
     .swagger-ui .opblock {
         border: 1px solid var(--opblock-border-color, #000);

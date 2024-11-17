@@ -18,7 +18,7 @@ public class ModernStyle : BaseStyle
     /// <remarks>
     /// See the <see cref="NoJsModernStyle"/> class for no JS version.
     /// </remarks>
-    public virtual bool LoadAdditionalJs => true;
+    public virtual bool LoadAdditionalJs => true; // TODO: pull up to BaseStyle
 
     /// <summary>
     /// Apply a modern light style to your Swagger UI.

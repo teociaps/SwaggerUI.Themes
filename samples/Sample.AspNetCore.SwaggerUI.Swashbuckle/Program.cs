@@ -1,5 +1,5 @@
+using AspNetCore.Swagger.Themes;
 using Sample.AspNetCore.SwaggerUI.Swashbuckle;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -12,7 +12,16 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "nojsmodern.custom.css", c => c.DocumentTitle = "Sample Title");
+    //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "nojsmodern.custom.css", c => c.DocumentTitle = "Sample Title");
+    app.UseSwaggerUI(Style.DeepSea, c =>
+    {
+        c.DocumentTitle = "Sample Title";
+        c.EnableAllAdvancedOptions();
+        //c.EnablePinnedTopbar();
+        //c.ShowBackToTopButton();
+        //c.EnableStickyOperations();
+        //c.EnableExpandOrCollapseAllOperations();
+    });
 }
 
 app.UseHttpsRedirection();
