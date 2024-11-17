@@ -13,7 +13,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "nojsmodern.custom.css", c => c.DocumentTitle = "Sample Title");
-    app.UseSwaggerUI(Style.DeepSea, c =>
+    //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "modern.custom.css", c =>
+    app.UseSwaggerUI(ModernStyle.Dark, c =>
     {
         c.DocumentTitle = "Sample Title";
         c.EnableAllAdvancedOptions();

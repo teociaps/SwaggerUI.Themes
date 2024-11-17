@@ -12,6 +12,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi();
     //app.UseSwaggerUi(CustomNoJsModernStyle.CustomModern, c => c.DocumentTitle = "Sample Title");
+    //app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "modern.custom.css", c =>
     app.UseSwaggerUi(ModernStyle.Dark, c =>
     {
         c.DocumentTitle = "Sample Title";
