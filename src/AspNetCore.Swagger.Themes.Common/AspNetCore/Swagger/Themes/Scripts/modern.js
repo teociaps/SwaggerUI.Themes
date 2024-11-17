@@ -13,7 +13,7 @@ window.onpageshow = function () {
 
             console.log('Hello modern Swagger UI!');
 
-            setUpPinnableTopbar({$PINNED_TOPBAR});
+            setUpPinnableTopbar({$PINNABLE_TOPBAR});
 
             setUpScrollToTopButton({$BACK_TO_TOP});
 

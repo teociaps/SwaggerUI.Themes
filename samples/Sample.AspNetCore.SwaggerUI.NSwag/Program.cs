@@ -17,7 +17,7 @@ if (app.Environment.IsDevelopment())
     {
         c.DocumentTitle = "Sample Title";
         c.EnableAllAdvancedOptions();
-        //c.EnablePinnedTopbar();
+        //c.EnablePinnableTopbar();
         //c.ShowBackToTopButton();
         //c.EnableStickyOperations();
         //c.EnableExpandOrCollapseAllOperations();

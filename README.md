@@ -154,9 +154,9 @@ Unlock new capabilities in your Swagger documentation with added features for bo
     ![sticky operations gif] 
 
 - **Modern Themes**:
-  - **Pinned Topbar**: The top navigation bar remains fixed at the top of the page, so you can quickly access key options.
+  - **Pinnable Topbar**: The top navigation bar remains fixed at the top of the page, so you can quickly access key options.
   
-    ![pinned topbar gif]
+    ![pinnable topbar gif]
   
   - **Back to Top Button**: Easily return to the top of the documentation with a single click, especially helpful for long pages.
   
@@ -167,7 +167,7 @@ Unlock new capabilities in your Swagger documentation with added features for bo
     ![expand-collapse all gif]
 
 > [!NOTE]
-> The pinned topbar, back-to-top button, and expand/collapse all operations features require JavaScript to work.
+> The pinnable topbar, back-to-top button, and expand/collapse all operations features require JavaScript to work.
 
 
 ## Custom Styles
@@ -287,7 +287,7 @@ If you have any suggestions, bug reports, or contributions, feel free to open an
 [Modern Futuristic Style Example Image]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/samples/screenshots/modern-futuristic.png
 
 [Sticky Operations GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/sticky-operations.gif
-[Pinned Topbar GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/pinned-topbar.gif
+[Pinnable Topbar GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/pinnable-topbar.gif
 [Back-To-Top GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/back-to-top.gif
 [Expand-Collapse All GIF]: https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/main/assets/expand-collapse-all-operations.gif
 

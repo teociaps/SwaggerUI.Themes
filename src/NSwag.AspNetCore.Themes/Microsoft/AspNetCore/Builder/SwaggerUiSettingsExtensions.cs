@@ -12,8 +12,8 @@ public static class SwaggerUiSettingsExtensions
     /// Enables all the advanced options:
     /// <list type="bullet">
     /// <item>
-    /// Pinned topbar:
-    /// <see cref="EnablePinnedTopbar(SwaggerUiSettings)"/>
+    /// Pinnable topbar:
+    /// <see cref="EnablePinnableTopbar(SwaggerUiSettings)"/>
     /// </item>
     /// <item>
     /// Back to top button
@@ -32,19 +32,19 @@ public static class SwaggerUiSettingsExtensions
     /// <param name="settings">The SwaggerUi options.</param>
     public static void EnableAllAdvancedOptions(this SwaggerUiSettings settings)
     {
-        settings.EnablePinnedTopbar();
+        settings.EnablePinnableTopbar();
         settings.ShowBackToTopButton();
         settings.EnableStickyOperations();
         settings.EnableExpandOrCollapseAllOperations();
     }
 
     /// <summary>
-    /// Enables the pinned topbar feature.
+    /// Enables the pinnable topbar feature.
     /// </summary>
     /// <param name="settings">The SwaggerUi settings.</param>
-    public static void EnablePinnedTopbar(this SwaggerUiSettings settings)
+    public static void EnablePinnableTopbar(this SwaggerUiSettings settings)
     {
-        settings.AdditionalSettings.EnablePinnedTopbar();
+        settings.AdditionalSettings.EnablePinnableTopbar();
     }
 
     /// <summary>
