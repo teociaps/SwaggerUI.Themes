@@ -9,6 +9,7 @@
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\deepsea.css" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\desert.css" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\forest.css" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\light.css" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.common.css" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.dark.css" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.deepsea.css" />
