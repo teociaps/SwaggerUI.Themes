@@ -329,10 +329,10 @@ app.UseSwaggerUI(customStyle, options => ...);
 app.UseSwaggerUi(customStyle, settings => ...);
 ```
 
-> [!IMPORTANT]
+> [!NOTE]
 > Only _Inline CSS Styles_ do not support [Advanced Options](#advanced-options); **the other methods do**.
 
-> [!NOTE]
+> [!IMPORTANT]
 > Styles and JavaScript resources are cached by default.
 > If you make changes to a style or encounter issues after modifying settings, try refreshing the cache in your browser or clearing local storage to ensure the latest version is loaded.
 
