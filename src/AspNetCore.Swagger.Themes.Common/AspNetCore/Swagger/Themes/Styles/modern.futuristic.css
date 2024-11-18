@@ -33,8 +33,6 @@
     --api-version-stamp-background-color: #443390;
     --api-version-color: #ffffff;
     /* Authorize Section/Modal */
-    /*--scheme-container-background-color: #202020;*/
-    /*--scheme-container-box-shadow-color: rgba(67, 67, 67, 0.3);*/
     --auth-wrapper-background-color: #0f0222;
     --auth-wrapper-border-color: #00f1ff;
     --auth-wrapper-box-shadow-color: #c1c1c1;
@@ -48,7 +46,9 @@
     /* Operations */
     --opblock-tag-section-border-color: #418f89;
     --opblock-border-color: #00ffea;
+    --opblock-tag-section-expandcollapse-background-color: rgb(0 0 0 / 45%);
     --opblock-tag-background-color-hover: rgba(4, 7, 44, .2);
+    --opblock-tag-pinned-background-color-hover: #03081c;
     --opblock-tag-border-bottom-color: rgba(0, 255, 234, .5);
     --opblock-shadow-color: rgba(255, 255, 255, .5);
     --opblock-tabheader-underline-color: rgba(255, 255, 255, .6);
@@ -194,12 +194,12 @@
 .swagger-ui .topbar .topbar-wrapper {
     border: 3px solid var(--topbar-border-color);
     border-top: 0;
-    box-shadow: 0 0 10px 5px var(--topbar-pinned-shadow-color), inset 0 -5px 15px 0px var(--topbar-pinned-shadow-color);
+    box-shadow: 0 0 8px 4px var(--topbar-pinned-shadow-color), inset 0 -4px 10px 0px var(--topbar-pinned-shadow-color);
 }
 
 .swagger-ui .topbar.pinned .topbar-wrapper {
     border: 2px solid var(--topbar-border-color);
-    box-shadow: 0 0 10px 5px var(--topbar-pinned-shadow-color), inset 0 0 10px 5px var(--topbar-pinned-shadow-color);
+    box-shadow: 0 0 8px 4px var(--topbar-pinned-shadow-color), inset 0 0 8px 4px var(--topbar-pinned-shadow-color);
 }
 
 .swagger-ui .auth-wrapper {

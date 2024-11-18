@@ -17,5 +17,5 @@ public class CustomStyle : Style
     {
     }
 
-    public static CustomStyle Custom => new("custom.css");
+    public static CustomStyle Custom => new("classic.custom.css");
 }

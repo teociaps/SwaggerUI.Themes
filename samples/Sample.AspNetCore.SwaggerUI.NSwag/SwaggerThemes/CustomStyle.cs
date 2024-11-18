@@ -2,13 +2,13 @@
 
 namespace SwaggerThemes;
 
-public class CustomNoJsModernStyle : NoJsModernStyle
+public class CustomModernStyle : ModernStyle
 {
-    protected CustomNoJsModernStyle(string fileName) : base(fileName)
+    protected CustomModernStyle(string fileName) : base(fileName)
     {
     }
 
-    public static CustomNoJsModernStyle CustomModern => new("modern.custom.css");
+    public static CustomModernStyle CustomModern => new("modern.custom.css");
 }
 
 public class CustomStyle : Style

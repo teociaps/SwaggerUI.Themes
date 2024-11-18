@@ -43,6 +43,7 @@ body::-webkit-scrollbar-thumb {
 
 body {
     background-color: var(--body-background-color, #fafafa);
+    padding-bottom: 1rem;
 }
 
 *,
@@ -56,7 +57,7 @@ body {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     line-height: 1.15;
-    margin: 0
+    margin: 0;
 }
 
     /* TODO check these styles */
@@ -130,6 +131,18 @@ body {
             top: 10px;
         }
 
+            .swagger-ui .topbar.pinned::before {
+                content: '';
+                position: absolute;
+                inset: -10px 0 0;
+                pointer-events: none;
+                user-select: none;
+                backdrop-filter: blur(20px);
+                -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent);
+                mask-image: linear-gradient(to bottom, black 40%, transparent);
+                background: linear-gradient(90deg, rgba(0, 0, 0, 0) 5%, rgba(8, 8, 8, 0.4) 50%, rgba(0, 0, 0, 0) 95%);
+            }
+
         .swagger-ui .topbar .topbar-wrapper {
             background-color: var(--topbar-background-color, black);
             border: 1px solid var(--topbar-border-color, gray);
@@ -139,24 +152,27 @@ body {
             box-shadow: 0 5px 15px 0 var(--topbar-pinned-shadow-color, rgba(0, 0, 0, .5));
         }
 
-            .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon svg {
+            .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn svg {
                 fill: var(--topbar-pin-icon-color, white);
             }
 
-            .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon {
+            .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn {
                 cursor: pointer;
+                background: transparent;
+                border: none;
                 margin: .8rem;
                 padding: .2rem;
                 transition: all .2s;
                 rotate: z 359deg;
             }
 
-                .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon:hover {
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:hover,
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:focus-within {
                     scale: 1.05;
                     animation: pintobbar 1.2s infinite;
                 }
 
-                .swagger-ui .topbar .topbar-wrapper #pin-topbar-icon:active {
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:active {
                     scale: 0.95;
                 }
 
@@ -167,12 +183,13 @@ body {
             backdrop-filter: blur(20px);
         }
 
-            .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-icon {
+            .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn {
                 translate: 0 5px;
                 rotate: z 0deg;
             }
 
-                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-icon:hover {
+                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn:hover,
+                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn:focus-within {
                     animation: unpintobbar 1.2s infinite;
                 }
 
@@ -254,10 +271,6 @@ body {
     }
 }
 
-/*.swagger-ui .topbar a {
-            color: #fff;
-        }*/
-
 .swagger-ui .topbar .download-url-wrapper input[type=text],
 .swagger-ui .topbar .download-url-wrapper .select-label select {
     border: 2px solid var(--topbar-select-border-color, #62a03f);
@@ -308,8 +321,6 @@ body {
 
 /* Authorize Section */
 .swagger-ui .scheme-container {
-    /*background: var(--scheme-container-background-color, #fff);
-        box-shadow: 0 1px 2px 0 var(--scheme-container-box-shadow-color, rgba(0,0,0,.15));*/
     background: transparent;
     box-shadow: none;
     margin: 0;
@@ -358,7 +369,24 @@ body {
     border: 1px solid var(--opblock-tag-section-border-color, #dddddd);
     border-radius: 0.5rem;
     margin-block: 1rem;
+    overflow: clip;
 }
+
+    .swagger-ui .opblock-tag-section .expand-collapse-all-btn {
+        display: none;
+        user-select: none;
+    }
+
+    .swagger-ui .opblock-tag-section.is-open .expand-collapse-all-btn {
+        background: var(--opblock-tag-section-expandcollapse-background-color, rgb(220 220 220 / 45%));
+        color: var(--swagger-main-color, #3b4151);
+        border: 1px solid var(--opblock-tag-section-border-color, #dddddd);
+        border-radius: .5rem;
+        padding: 5px 10px;
+        font-size: medium;
+        margin-inline: 10px;
+        display: block;
+    }
 
 .swagger-ui .opblock-tag,
 .swagger-ui .opblock-tag small,
@@ -378,7 +406,8 @@ body {
     transition: all .2s;
 }
 
-    .swagger-ui .opblock-tag:hover {
+    .swagger-ui .opblock-tag:hover,
+    .swagger-ui .opblock-tag:focus-within {
         background: var(--opblock-tag-background-color-hover, rgba(0,0,0,.02));
     }
 
@@ -386,9 +415,22 @@ body {
         margin-inline: 5px;
     }
 
-.swagger-ui .opblock-tag-section.is-open .opblock-tag {
+#STICKY_OPERATIONS.swagger-ui .opblock-tag-section.is-open .opblock-tag {
+    position: sticky;
+    top: 0;
+    z-index: 4;
     margin-bottom: 1rem;
     border-bottom: 1px dashed var(--opblock-tag-border-bottom-color, #e1e1e1);
+    background: var(--body-background-color, #fafafa);
+}
+
+    #STICKY_OPERATIONS.swagger-ui .opblock-tag-section.is-open .opblock-tag:hover,
+    #STICKY_OPERATIONS.swagger-ui .opblock-tag-section.is-open .opblock-tag:focus-within {
+        background: var(--opblock-tag-pinned-background-color-hover, #f1f1f1);
+    }
+
+.swagger-ui:has(> .topbar.pinned) .opblock-tag-section.is-open .opblock-tag {
+    top: 4.9rem;
 }
 
 .swagger-ui .opblock {
@@ -1051,11 +1093,13 @@ body {
         translate: -50% 4px;
     }
 
-    #scroll-to-top-btn:hover {
+    #scroll-to-top-btn:hover,
+    #scroll-to-top-btn:focus-within {
         background-color: var(--scroll-to-top-button-hover-background-color, #0d0d0dba);
     }
 
-        #scroll-to-top-btn:hover::after {
+        #scroll-to-top-btn:hover::after,
+        #scroll-to-top-btn:focus-within::after {
             animation: bounceUp 1.2s ease-in infinite;
         }
 
@@ -1064,6 +1108,10 @@ body {
     }
 
 @keyframes bounceUp {
+    100% {
+        translate: -50% 4px;
+    }
+
     25% {
         translate: -50% 6px;
     }
@@ -1074,6 +1122,10 @@ body {
 }
 
 @-moz-keyframes bounceUp {
+    100% {
+        translate: -50% 4px;
+    }
+
     25% {
         translate: -50% 6px;
     }
@@ -1084,6 +1136,10 @@ body {
 }
 
 @-webkit-keyframes bounceUp {
+    100% {
+        translate: -50% 4px;
+    }
+
     25% {
         translate: -50% 6px;
     }
@@ -1092,15 +1148,6 @@ body {
         translate: -50% -2px;
     }
 }
-
-/* TODO: sticky operations */
-/*.swagger-ui .opblock-tag-section.is-open .opblock-tag {
-        position: sticky;
-        top: 4.8rem;
-        background: #5eb4fd;
-        z-index: 4;
-        border-radius: 0 0 .5rem .5rem;
-    }*/
 
 @media only screen and (max-width: 680px) {
     .swagger-ui .opblock .opblock-summary-operation-id,

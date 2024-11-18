@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 
-namespace AspNetCore.Swagger.Themes.Tests;
+namespace AspNetCore.Swagger.Themes.Tests.Utilities;
 
 public class MockApplicationBuilder : IApplicationBuilder
 {

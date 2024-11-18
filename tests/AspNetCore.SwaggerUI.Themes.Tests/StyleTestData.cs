@@ -10,6 +10,7 @@ public class StyleTestData : TheoryData<BaseStyle>
     public StyleTestData()
     {
         AddRange(
+            Style.Light,
             Style.Dark,
             Style.Forest,
             Style.DeepSea,

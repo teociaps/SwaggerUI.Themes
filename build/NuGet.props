@@ -15,12 +15,12 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile>package-readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\..\LICENSE" Pack="true" PackagePath="LICENSE" />
-    <None Include="README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\..\package-readme.md" Pack="true" PackagePath="\"/>
     <None Include="readme.txt" pack="true" PackagePath="." />
   </ItemGroup>
 

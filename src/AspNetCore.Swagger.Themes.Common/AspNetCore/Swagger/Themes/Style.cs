@@ -12,6 +12,11 @@ public class Style : BaseStyle
     internal override Style Common => new("common.css");
 
     /// <summary>
+    /// Apply a light style to your Swagger UI.
+    /// </summary>
+    public static Style Light => new("light.css");
+
+    /// <summary>
     /// Apply a dark style to your Swagger UI.
     /// </summary>
     public static Style Dark => new("dark.css");

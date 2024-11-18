@@ -38,6 +38,7 @@
     --btn-authorize-svg-fill-color: #fbffff;
     /* Operations */
     --opblock-tag-background-color-hover: rgba(0, 0, 0, .05);
+    --opblock-tag-pinned-background-color-hover: #0d2402;
     --opblock-tag-border-bottom-color: rgba(250, 250, 250, .3);
     --opblock-border-color: white;
     --opblock-shadow-color: rgba(0, 0, 0, .2);

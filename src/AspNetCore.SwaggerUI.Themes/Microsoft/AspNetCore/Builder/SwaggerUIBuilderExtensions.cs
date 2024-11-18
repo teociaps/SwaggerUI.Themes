@@ -7,7 +7,7 @@ namespace Microsoft.AspNetCore.Builder;
 /// <summary>
 /// Extensions methods for <see cref="IApplicationBuilder"/>.
 /// </summary>
-public static class StyleSwaggerUIBuilderExtensions
+public static class SwaggerUIBuilderExtensions
 {
     /// <summary>
     /// Registers the Swagger UI middleware with a specified style and optional configuration.
@@ -16,6 +16,7 @@ public static class StyleSwaggerUIBuilderExtensions
     /// <param name="style">The style to apply.</param>
     /// <param name="options">The Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUI(
         this IApplicationBuilder application,
         BaseStyle style,
@@ -24,7 +25,7 @@ public static class StyleSwaggerUIBuilderExtensions
         ArgumentNullException.ThrowIfNull(style);
 
         options ??= new SwaggerUIOptions();
-        ConfigureSwaggerUIOptions(application, style).Invoke(options);
+        ConfigureSwaggerUIOptions(application, options, style).Invoke(options);
 
         return application.UseSwaggerUI(options);
     }
@@ -36,6 +37,7 @@ public static class StyleSwaggerUIBuilderExtensions
     /// <param name="style">The style to apply.</param>
     /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUI(
         this IApplicationBuilder application,
         BaseStyle style,
@@ -43,7 +45,10 @@ public static class StyleSwaggerUIBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(style);
 
-        var optionsAction = ConfigureSwaggerUIOptions(application, style);
+        var options = new SwaggerUIOptions();
+        setupAction?.Invoke(options);
+
+        var optionsAction = ConfigureSwaggerUIOptions(application, options, style);
 
         if (setupAction is not null)
             optionsAction += setupAction;
@@ -58,6 +63,7 @@ public static class StyleSwaggerUIBuilderExtensions
     /// <param name="cssStyleContent">The CSS style to apply.</param>
     /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="cssStyleContent"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUI(
         this IApplicationBuilder application,
         string cssStyleContent,
@@ -80,6 +86,7 @@ public static class StyleSwaggerUIBuilderExtensions
     /// <param name="cssFilename">The CSS style filename (e.g. "myCustomStyle.css").</param>
     /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> or <paramref name="cssFilename"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUI(
         this IApplicationBuilder application,
         Assembly assembly,
@@ -89,13 +96,20 @@ public static class StyleSwaggerUIBuilderExtensions
         ArgumentNullException.ThrowIfNull(assembly);
         ArgumentNullException.ThrowIfNull(cssFilename);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle);
+        var options = new SwaggerUIOptions();
+        setupAction?.Invoke(options);
+
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var loadModernJs);
 
         if (!string.IsNullOrEmpty(commonStyle))
         {
-            const string CustomCssStylePath = $"{FileProvider.StylesPath}common.css";
-            FileProvider.AddGetEndpoint(application, CustomCssStylePath, commonStyle);
-            setupAction += options => options.InjectStylesheet(CustomCssStylePath);
+            commonStyle = AdvancedOptions.Apply(commonStyle, options.ConfigObject.AdditionalItems, MimeTypes.Text.Css);
+            const string CommonCssStylePath = $"{FileProvider.StylesPath}common.css";
+            FileProvider.AddGetEndpoint(application, CommonCssStylePath, commonStyle);
+            setupAction += options => options.InjectStylesheet(CommonCssStylePath);
+
+            if (loadModernJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
+                setupAction += InjectModernJavascript(application, options);
         }
 
         FileProvider.AddGetEndpoint(application, FileProvider.StylesPath + cssFilename, stylesheet);
@@ -106,23 +120,27 @@ public static class StyleSwaggerUIBuilderExtensions
 
     #region Private
 
-    private static Action<SwaggerUIOptions> ConfigureSwaggerUIOptions(IApplicationBuilder app, BaseStyle style)
+    private static Action<SwaggerUIOptions> ConfigureSwaggerUIOptions(IApplicationBuilder application, SwaggerUIOptions options, BaseStyle style)
     {
-        ImportSwaggerStyle(app, style);
+        ImportSwaggerStyle(application, options, style);
 
-        var optionsAction = InjectCommonStyle(app, style);
+        var optionsAction = InjectCommonStyle(application, options, style);
         optionsAction += InjectStyle(style);
 
-        if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs)
-            optionsAction += InjectModernJavaScript(app);
+        if (style.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
+            optionsAction += InjectModernJavascript(application, options);
 
         return optionsAction;
     }
 
-    private static void ImportSwaggerStyle(IApplicationBuilder app, BaseStyle style)
+    private static void ImportSwaggerStyle(IApplicationBuilder application, SwaggerUIOptions options, BaseStyle style, bool isCommonStyle = false)
     {
         var stylesheet = FileProvider.GetResourceText(style.FileName, style.GetType());
-        FileProvider.AddGetEndpoint(app, ComposeStylePath(style), stylesheet);
+
+        if (isCommonStyle)
+            stylesheet = AdvancedOptions.Apply(stylesheet, options.ConfigObject.AdditionalItems, MimeTypes.Text.Css);
+
+        FileProvider.AddGetEndpoint(application, ComposeStylePath(style), stylesheet);
     }
 
     private static Action<SwaggerUIOptions> InjectStyle(BaseStyle style)
@@ -135,21 +153,23 @@ public static class StyleSwaggerUIBuilderExtensions
         return FileProvider.StylesPath + style.FileName;
     }
 
-    private static Action<SwaggerUIOptions> InjectCommonStyle(IApplicationBuilder app, BaseStyle style)
+    private static Action<SwaggerUIOptions> InjectCommonStyle(IApplicationBuilder application, SwaggerUIOptions options, BaseStyle style)
     {
         var commonStyle = style.Common;
-        ImportSwaggerStyle(app, commonStyle);
+        ImportSwaggerStyle(application, options, commonStyle, true);
 
         return InjectStyle(commonStyle);
     }
 
-    private static Action<SwaggerUIOptions> InjectModernJavaScript(IApplicationBuilder app)
+    private static Action<SwaggerUIOptions> InjectModernJavascript(IApplicationBuilder application, SwaggerUIOptions options)
     {
         const string JsFilename = "modern.js";
         var javascript = FileProvider.GetResourceText(JsFilename);
-        const string FullPath = FileProvider.ScriptsPath + JsFilename;
+        javascript = AdvancedOptions.Apply(javascript, options.ConfigObject.AdditionalItems, MimeTypes.Text.Javascript);
 
-        FileProvider.AddGetEndpoint(app, FullPath, javascript, MimeTypes.Text.Javascript);
+        const string FullPath = FileProvider.ScriptsPath + JsFilename;
+        FileProvider.AddGetEndpoint(application, FullPath, javascript, MimeTypes.Text.Javascript);
+
         return options => options.InjectJavascript(FullPath);
     }
 

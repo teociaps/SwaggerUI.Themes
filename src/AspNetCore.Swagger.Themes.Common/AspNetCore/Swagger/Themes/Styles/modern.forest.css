@@ -33,8 +33,6 @@
     --api-version-stamp-background-color: #907a48;
     --api-version-color: black;
     /* Authorize Section/Modal */
-    /*--scheme-container-background-color: #2d2010;*/
-    /*--scheme-container-box-shadow-color: rgba(0, 0, 0, .3);*/
     --auth-wrapper-background-color: #2d2010;
     --auth-wrapper-border-color: #422e15;
     --auth-wrapper-box-shadow-color: rgba(0, 0, 0, .3);
@@ -49,7 +47,9 @@
     --opblock-tag-section-border-color: rgb(62, 165, 55);
     --opblock-border-color: white;
     --opblock-shadow-color: rgba(0, 0, 0, .2);
+    --opblock-tag-section-expandcollapse-background-color: rgb(0 0 0 / 45%);
     --opblock-tag-background-color-hover: rgba(0, 0, 0, .05);
+    --opblock-tag-pinned-background-color-hover: #0d2402;
     --opblock-tag-border-bottom-color: rgba(212, 191, 136, .5);
     --opblock-tabheader-underline-color: rgba(255, 255, 255, .6);
     --opblock-summary-svg-icons-color: white;

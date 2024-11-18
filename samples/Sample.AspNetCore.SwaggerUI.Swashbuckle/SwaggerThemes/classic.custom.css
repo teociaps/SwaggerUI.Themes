@@ -1,12 +1,8 @@
 ﻿/*
-    Custom Style
+    Classic Custom Style
 
     https://github.com/teociaps/SwaggerUI.Themes
 */
-
-body {
-    background-color: black;
-}
 
 :root {
     --body-background-color: #120e1f;
