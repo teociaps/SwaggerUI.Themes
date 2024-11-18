@@ -2,20 +2,18 @@
 ##   RELEASE NOTES   ##
  #-------------------#
 
-v1.0.0
+v2.0.0
 
 Breaking Changes:
-- Pre-defined Styles moved to a new namespace: AspNetCore.Swagger.Themes
-
+- Removed NoJsModernStyle in favor of ModernStyle, which now defaults to not loading JavaScript. See release notes: https://github.com/teociaps/SwaggerUI.Themes/releases/tag/v2.0.0
 
 Other Changes:
-- Create your own style!
-- Added IApplicationBuilder support
-- New style type to avoid loading additional JS for modern styles
+- .NET 9 support!
+- Introducing Advanced Options! Follow the link down below to learn more
+- New Swagger UI feature: sticky operations (both classic and modern themes)
+- New Swagger UI feature: expand/collapse operations (modern themes only)
+- Now JS is loaded for custom styles with "modern" prefix from assembly
 - Fixes and enhancements
 
 
-More info: https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#swashbuckleaspnetcoreswaggerui
-
-
-[new!] Added NSwag support: see https://www.nuget.org/packages/NSwag.AspNetCore.Themes
+More info: https://github.com/teociaps/SwaggerUI.Themes?tab=readme-ov-file#swaggeruithemes

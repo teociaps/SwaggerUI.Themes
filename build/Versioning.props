@@ -10,7 +10,7 @@
     <Floored>$([System.Math]::Floor($(MinutesSinceMidnight)))</Floored>
     <Today>$([System.DateTime]::Today.ToString("yyMMdd"))</Today>
     <Revision>$(Today)-$(Floored)</Revision>
-    <MajorVersion>1</MajorVersion>
+    <MajorVersion>2</MajorVersion>
     <MinorVersion>0</MinorVersion>
     <PatchVersion>0</PatchVersion>
     <VersionSuffix>-$(Revision)</VersionSuffix>
