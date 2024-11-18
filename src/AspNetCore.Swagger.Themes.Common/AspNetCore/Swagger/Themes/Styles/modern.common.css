@@ -415,7 +415,7 @@ body {
         margin-inline: 5px;
     }
 
-.swagger-ui .opblock-tag-section.is-open .opblock-tag {
+#STICKY_OPERATIONS.swagger-ui .opblock-tag-section.is-open .opblock-tag {
     position: sticky;
     top: 0;
     z-index: 4;
@@ -424,8 +424,8 @@ body {
     background: var(--body-background-color, #fafafa);
 }
 
-    .swagger-ui .opblock-tag-section.is-open .opblock-tag:hover,
-    .swagger-ui .opblock-tag-section.is-open .opblock-tag:focus-within {
+    #STICKY_OPERATIONS.swagger-ui .opblock-tag-section.is-open .opblock-tag:hover,
+    #STICKY_OPERATIONS.swagger-ui .opblock-tag-section.is-open .opblock-tag:focus-within {
         background: var(--opblock-tag-pinned-background-color-hover, #f1f1f1);
     }
 

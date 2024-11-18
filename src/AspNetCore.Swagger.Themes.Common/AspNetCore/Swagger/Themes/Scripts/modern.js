@@ -13,16 +13,19 @@ window.onpageshow = function () {
 
             console.log('Hello modern Swagger UI!');
 
-            configurePinnableTopbar();
+            setUpPinnableTopbar({$PINNABLE_TOPBAR});
 
-            setUpScrollToTopButton();
+            setUpScrollToTopButton({$BACK_TO_TOP});
 
-            setUpExpandAndCollapseOperationsButtons();
+            setUpExpandAndCollapseOperationsButtons({$EXPAND_COLLAPSE_ALL_OPERATIONS});
         }
     }, 100);
 }
 
-function configurePinnableTopbar() {
+function setUpPinnableTopbar(enabled) {
+    if (enabled === false)
+        return;
+
     const topbarWrapper = document.querySelector('.topbar-wrapper');
 
     const pinTopbarBtn = document.createElement('button');
@@ -61,7 +64,10 @@ function setUnpinnedIconTo(element) {
                          </svg>`;
 }
 
-function setUpScrollToTopButton() {
+function setUpScrollToTopButton(enabled) {
+    if (enabled === false)
+        return;
+
     // Create wrapper
     const scrollToTopContainer = document.createElement('div');
     scrollToTopContainer.classList.add('scroll-to-top-wrapper');
@@ -97,7 +103,10 @@ function scrollToTop() {
     })
 }
 
-function setUpExpandAndCollapseOperationsButtons() {
+function setUpExpandAndCollapseOperationsButtons(enabled) {
+    if (enabled === false)
+        return;
+
     const opBlockSections = document.querySelectorAll('.opblock-tag-section');
 
     // Iterate over each operation group
@@ -136,7 +145,6 @@ function setUpExpandAndCollapseOperationsButtons() {
                         }
                     });
                 }
-
             });
         }
     });

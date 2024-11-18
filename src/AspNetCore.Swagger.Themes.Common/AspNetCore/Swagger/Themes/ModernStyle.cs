@@ -1,7 +1,7 @@
 ﻿namespace AspNetCore.Swagger.Themes;
 
 /// <summary>
-/// Represents a modern style for Swagger UI with additional JavaScript.
+/// Represents a modern style for Swagger UI.
 /// </summary>
 public class ModernStyle : BaseStyle
 {
@@ -11,14 +11,7 @@ public class ModernStyle : BaseStyle
 
     internal override ModernStyle Common => new("modern.common.css");
 
-    /// <summary>
-    /// Indicates whether additional JavaScript should be loaded and new functionalities will be added to the UI.
-    /// The default value is <see langword="true"/>.
-    /// </summary>
-    /// <remarks>
-    /// See the <see cref="NoJsModernStyle"/> class for no JS version.
-    /// </remarks>
-    public virtual bool LoadAdditionalJs => true;
+    internal override bool LoadAdditionalJs => true;
 
     /// <summary>
     /// Apply a modern light style to your Swagger UI.

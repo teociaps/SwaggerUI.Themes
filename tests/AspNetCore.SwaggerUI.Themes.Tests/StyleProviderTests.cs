@@ -1,3 +1,4 @@
+using AspNetCore.Swagger.Themes.Tests.Utilities;
 using Shouldly;
 using System.Reflection;
 using static AspNetCore.Swagger.Themes.FileProvider;
@@ -8,10 +9,44 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
 {
     private readonly StyleProviderWebApplicationFactory<Program> _styleProviderWebApplicationFactory;
 
+    private readonly Dictionary<string, object> _advancedOptions = new()
+        {
+            { AdvancedOptions.PinnableTopbar, true },
+            { AdvancedOptions.StickyOperations, true },
+            { AdvancedOptions.BackToTop, true },
+            { AdvancedOptions.ExpandOrCollapseAllOperations, true }
+        };
+
     public StyleProviderTests(StyleProviderWebApplicationFactory<Program> styleProviderWebApplicationFactory)
     {
         _styleProviderWebApplicationFactory = styleProviderWebApplicationFactory;
         _styleProviderWebApplicationFactory.CreateClient();
+    }
+
+    [Fact]
+    public void GetResourceText_ThrowsFileNotFoundException_WhenResourceNotFound()
+    {
+        // Arrange
+        const string InvalidFileName = "nonexistent.css";
+        var styleType = typeof(BaseStyle);
+
+        // Act & Assert
+        var exception = Assert.Throws<FileNotFoundException>(() => GetResourceText(InvalidFileName, styleType));
+
+        exception.Message.ShouldContain("Can't find");
+    }
+
+    [Fact]
+    public void GetResourceText_ThrowsInvalidOperationException_WhenNotCssFile()
+    {
+        // Arrange
+        const string InvalidFileName = "not_a_css_file.txt";
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Act & Assert
+        var exception = Assert.Throws<InvalidOperationException>(() => GetResourceText(InvalidFileName, assembly, out string commonStyle, out bool loadModernJs));
+
+        exception.Message.ShouldContain("not a valid name for CSS files");
     }
 
     [Theory]
@@ -30,7 +65,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             */
             """);
 
-        if (style is ModernStyle modernStyle && modernStyle.LoadAdditionalJs)
+        if (style.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(_advancedOptions))
         {
             // Arrange/Act
             var jsFile = GetResourceText("modern.js");
@@ -146,39 +181,6 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             """);
 
         loadModernJs.ShouldBeTrue();
-    }
-
-    [Fact]
-    public void GetResourceText_ShouldGetCommonModernCssStyleWithoutJS_WhenExternalCssHasNoJsModernPrefix()
-    {
-        // Arrange
-        const string ExternalFileName = "nojsmodern.style.css";
-
-        // Act
-        var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonModernStyle, out var loadModernJs);
-
-        // Assert
-        styleContent.ShouldBe("""
-            /*
-                Test NoJsModern Style
-
-                https://github.com/teociaps/SwaggerUI.Themes
-            */
-
-            body {
-                background-color: var(--body-background-color, #fafafa);
-            }
-            """);
-
-        commonModernStyle.ShouldStartWith("""
-            /*
-                Modern Common Style
-
-                https://github.com/teociaps/SwaggerUI.Themes
-            */
-            """);
-
-        loadModernJs.ShouldBeFalse();
     }
 
     [Theory]
