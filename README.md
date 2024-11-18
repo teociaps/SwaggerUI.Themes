@@ -28,9 +28,13 @@ Change style to your API documentation in ASP.NET Core applications!
 | [![NSwag Nuget Version]](https://www.nuget.org/packages/NSwag.AspNetCore.Themes/) | Customize the style for [NSwag.AspNetCore] |
 
 
+> [!WARNING]
+> If you're upgrading from 1.0.0 to 2.x, there's a breaking change to be aware of: **NoJsModernStyle is no more available, use ModernStyle instead**. See the [release notes](https://github.com/teociaps/SwaggerUI.Themes/releases/tag/v2.0.0) for details.
+
+
 ## Features
 - __[New Themes](#available-themes)__: Choose from a variety of themes to customize the Swagger documentation interface. Options include a default style that preserves the classic Swagger UI look, along with fresh, modern styles.
-- __[Enhanced Functionality](#enhanced-functionalities)__: Access expanded features with both classic and modern styles for an optimized documentation experience.
+- 🆕 __[Advanced Options](#advanced-options)__: Access expanded features with both classic and modern styles for an optimized API documentation experience.
 - __[Custom Styles](#custom-styles)__: Design your own Swagger UI style by either extending the classic or modern base styles or creating a completely new look.
 - __[Easy Integration](#getting-started)__: and add style parameters to the existing Swagger UI setup for a seamless upgrade.
 
@@ -137,44 +141,118 @@ There are a few pre-defined styles available for your Swagger UI.
 | <center><pre lang="csharp">`ModernStyle.DeepSea`</pre></center> | <center><pre lang="csharp">`ModernStyle.Desert`</pre></center> | <center><pre lang="csharp">`ModernStyle.Futuristic`</pre></center> |
 
 > [!TIP]
-> Opt for Modern Styles! Modern styles come with more additional [functionalities](#enhanced-functionalities).
+> Opt for Modern Styles! Modern styles offer additional functionalities. Explore [Advanced Options](#advanced-options) for enhanced customization.
 
 > [!NOTE]
 > The classic and modern **dark styles** will only load if your browser's color scheme preference is set to _dark_; otherwise, the light style is loaded.
 
 
-## Enhanced Functionalities
-
+## 🆕 Advanced Options
 Unlock new capabilities in your Swagger documentation with added features for both classic and modern themes, designed to improve navigation and usability.
 
-- **Both Classic and Modern Themes**:
-  - **Sticky Operations**: Keeps the operations head panel in view as you scroll, making it easier to navigate large API documentation.
-  
-    ![sticky operations gif] 
+### Both Classic and Modern Themes
 
-- **Modern Themes**:
-  - **Pinnable Topbar**: The top navigation bar remains fixed at the top of the page, so you can quickly access key options.
-  
+* #### Sticky Operations
+    Keeps the operations head panel in view as you scroll, making it easier to navigate large API documentation:
+    ```csharp
+    // Swashbuckle
+    app.UseSwaggerUI(ModernStyle.Dark, options =>
+    {
+        options.EnableStickyOperations();
+    });
+
+    // NSwag
+    app.UseSwaggerUi(ModernStyle.Dark, settings =>
+    {
+        settings.EnableStickyOperations();
+    });
+    ```
+
+    ![sticky operations gif]
+
+### Modern Themes
+
+* #### Pinnable Topbar
+    The top navigation bar remains fixed at the top of the page, so you can quickly access key options:
+    ```csharp
+    // Swashbuckle
+    app.UseSwaggerUI(ModernStyle.Dark, options =>
+    {
+        options.EnablePinnableTopbar();
+    });
+
+    // NSwag
+    app.UseSwaggerUi(ModernStyle.Dark, settings =>
+    {
+        settings.EnablePinnableTopbar();
+    });
+    ```
+
     ![pinnable topbar gif]
-  
-  - **Back to Top Button**: Easily return to the top of the documentation with a single click, especially helpful for long pages.
-  
-    ![back-to-top gif] 
-  
-  - **Expand/Collapse All Operations**: Expand or collapse all operations within a tag group with a single click. This makes it easier to manage large sets of API operations and navigate more efficiently.
+
+* #### Back to Top Button
+    Easily return to the top of the documentation with a single click, especially helpful for long pages:
+    ```csharp
+    // Swashbuckle
+    app.UseSwaggerUI(ModernStyle.Dark, options =>
+    {
+        options.ShowBackToTopButton();
+    });
+
+    // NSwag
+    app.UseSwaggerUi(ModernStyle.Dark, settings =>
+    {
+        settings.ShowBackToTopButton();
+    });
+    ```
+
+    ![back-to-top gif]
+
+* #### Expand/Collapse All Operations
+    Expand or collapse all operations within a tag group with a single click. This makes it easier to manage large sets of API operations and navigate more efficiently:
+    ```csharp
+    // Swashbuckle
+    app.UseSwaggerUI(ModernStyle.Dark, options =>
+    {
+        options.EnableExpandOrCollapseAllOperations();
+    });
+
+    // NSwag
+    app.UseSwaggerUi(ModernStyle.Dark, settings =>
+    {
+        settings.EnableExpandOrCollapseAllOperations();
+    });
+    ```
 
     ![expand-collapse all gif]
 
 > [!NOTE]
-> The pinnable topbar, back-to-top button, and expand/collapse all operations features require JavaScript to work.
+> The features for modern themes require JavaScript to work.
+
+To enable all these features simultaneously, use the `EnableAllAdvancedOptions()` method:
+```csharp
+// Swashbuckle
+app.UseSwaggerUI(ModernStyle.Dark, options =>
+{
+    options.EnableAllAdvancedOptions();
+});
+
+// NSwag
+app.UseSwaggerUi(ModernStyle.Dark, settings =>
+{
+    settings.EnableAllAdvancedOptions();
+});
+```
+
+> [!NOTE]
+> Features are automatically managed based on the chosen style, whether it is classic or modern.
 
 
 ## Custom Styles
-You can customize the Swagger UI in your ASP.NET Core application by applying custom CSS styles.
-Here are the available methods.
+Customize the Swagger UI in your ASP.NET Core application by applying custom CSS styles using various methods.
 
 ### Inline CSS Styles
-You can directly write your custom CSS content as a string and apply it to the Swagger UI:
+Directly write your custom CSS content as a string and apply it to the Swagger UI:
 
 ```csharp
 var cssContent = "body { background-color: #f5f5f5; }";
@@ -187,12 +265,12 @@ app.UseSwaggerUi(cssContent, settings => ...);
 ```
 
 ### Applying Embedded CSS Files from Assemblies
-To apply a CSS file that is embedded as a resource within an assembly, place the file in a folder named **"SwaggerThemes"** inside the assembly.
-Then, specify the CSS filename and the assembly where the file is located:
+To apply a CSS file embedded as a resource within an assembly, place it in a folder named **"SwaggerThemes"** inside the assembly.
+Specify the CSS filename (without the folder name) and the assembly where the file is located:
     
 ```csharp
 var assembly = Assembly.GetExecutingAssembly();
-var cssFileName = "myCustomStyle.css"; // Only the filename, no need to specify the "SwaggerThemes" folder
+var cssFileName = "myCustomStyle.css"; // Only the filename, no need to specify the path
 
 // Swashbuckle
 app.UseSwaggerUI(assembly, cssFileName, options => ...);
@@ -204,26 +282,26 @@ app.UseSwaggerUi(assembly, cssFileName, settings => ...);
 > [!TIP]
 > If your CSS file's name begins with **"classic."** or **"modern."**, a related common style (either classic or modern) will automatically be applied as a base for your custom styles.
 > 
-> - **"classic."** files use a classic base style.
-> - **"modern."** files use a modern base style and additional JavaScript functionalities can be enabled.
+> - **"classic."** files use a classic common style.
+> - **"modern."** files use a modern common style and can enable additional JavaScript functionalities.
 >
 > These common styles serve as the base for [pre-defined styles](#available-themes) that enhance the Swagger UI.
 
 ### Creating Custom Styles by Inheriting from Base Classes
-Another powerful customization option is to create your own style classes by inheriting from the `Style` or `ModernStyle` base classes.
-This approach allows you to define new styles that automatically incorporate common base styles and, for modern themes, additional JavaScript.
+Another powerful customization option is to create a style by inheriting from the `Style` or `ModernStyle` base classes.
+This approach allows you to define new styles that automatically incorporate common base styles and, for modern themes, enable JavaScript-related features.
 
-Here’s how to create a custom style:
+Here's how to create a custom style:
 
 ```csharp
-// Use modern style with the possibility to enable additional JS functions
+// Use modern style with the possibility to enable additional JS features
 public class CustomModernStyle : ModernStyle
 {
     protected CustomModernStyle(string fileName) : base(fileName)
     {
     }
 
-    public static CustomModernStyle CustomModern => new("modern.custom.css");
+    public static CustomModernStyle CustomModern => new("modernCustom.css");
 }
 
 // Use classic style
@@ -250,10 +328,9 @@ app.UseSwaggerUI(customStyle, options => ...);
 app.UseSwaggerUi(customStyle, settings => ...);
 ```
 
-> [!NOTE]
-> Only custom styles that inherit from the `ModernStyle` class will be able to include additional JavaScript.
->
-> Custom styles that inherit from the `Style` class will apply the common classic style without adding any JavaScript.
+> [!IMPORTANT]
+> Only _Inline CSS Styles_ do not support [Advanced Options](#advanced-options); **the other methods do**.
+
 
 ## Contributing
 If you have any suggestions, bug reports, or contributions, feel free to open an [issue](https://github.com/teociaps/SwaggerUI.Themes/issues) or submit a [pull request](https://github.com/teociaps/SwaggerUI.Themes/pulls)
