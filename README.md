@@ -34,7 +34,7 @@ Change style to your API documentation in ASP.NET Core applications!
 
 ## Features
 - __[New Themes](#available-themes)__: Choose from a variety of themes to customize the Swagger documentation interface. Options include a default style that preserves the classic Swagger UI look, along with fresh, modern styles.
-- 🆕 __[Advanced Options](#-advanced-options)__: Access expanded features with both classic and modern styles for an optimized API documentation experience.
+- 🆕 __[Advanced Options](#advanced-options)__: Access expanded features with both classic and modern styles for an optimized API documentation experience.
 - __[Custom Styles](#custom-styles)__: Design your own Swagger UI style by either extending the classic or modern base styles or creating a completely new look.
 - __[Easy Integration](#getting-started)__: and add style parameters to the existing Swagger UI setup for a seamless upgrade.
 
@@ -126,7 +126,8 @@ There are a few pre-defined styles available for your Swagger UI.
 | ![dark style example image] | ![forest style example image] | ![deepSea style example image] | ![desert style example image] |
 | <center><pre lang="csharp">`Style.Dark`</pre></center> | <center><pre lang="csharp">`Style.Forest`</pre></center> | <center><pre lang="csharp">`Style.DeepSea`</pre></center> | <center><pre lang="csharp">`Style.Desert`</pre></center> |
 
-> The light style is not in this list because it's just the default one used by Swagger UI; to use that you don't need this library.
+> [!NOTE]
+> The light style is not shown in this list because it's the default style used by Swagger UI. If you want to use this theme with [Advanced Options](#advanced-options) for the classic theme, you can opt for `Style.Light`.
 
 ### Moderns:
 
@@ -141,13 +142,13 @@ There are a few pre-defined styles available for your Swagger UI.
 | <center><pre lang="csharp">`ModernStyle.DeepSea`</pre></center> | <center><pre lang="csharp">`ModernStyle.Desert`</pre></center> | <center><pre lang="csharp">`ModernStyle.Futuristic`</pre></center> |
 
 > [!TIP]
-> Opt for Modern Styles! Modern styles offer additional functionalities. Explore [Advanced Options](#-advanced-options) for enhanced customization.
+> Opt for Modern Styles! Modern styles offer additional functionalities. Explore [Advanced Options](#advanced-options) for enhanced customization.
 
 > [!NOTE]
 > The classic and modern **dark styles** will only load if your browser's color scheme preference is set to _dark_; otherwise, the light style is loaded.
 
 
-## 🆕 Advanced Options
+## 🆕Advanced Options
 Unlock new capabilities in your Swagger documentation with added features for both classic and modern themes, designed to improve navigation and usability.
 
 ### Both Classic and Modern Themes
@@ -329,7 +330,11 @@ app.UseSwaggerUi(customStyle, settings => ...);
 ```
 
 > [!IMPORTANT]
-> Only _Inline CSS Styles_ do not support [Advanced Options](#-advanced-options); **the other methods do**.
+> Only _Inline CSS Styles_ do not support [Advanced Options](#advanced-options); **the other methods do**.
+
+> [!NOTE]
+> Styles and JavaScript resources are cached by default.
+> If you make changes to a style or encounter issues after modifying settings, try refreshing the cache in your browser or clearing local storage to ensure the latest version is loaded.
 
 
 ## Contributing
