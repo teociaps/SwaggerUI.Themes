@@ -34,7 +34,7 @@ Change style to your API documentation in ASP.NET Core applications!
 
 ## Features
 - __[New Themes](#available-themes)__: Choose from a variety of themes to customize the Swagger documentation interface. Options include a default style that preserves the classic Swagger UI look, along with fresh, modern styles.
-- 🆕 __[Advanced Options](#advanced-options)__: Access expanded features with both classic and modern styles for an optimized API documentation experience.
+- 🆕 __[Advanced Options](#-advanced-options)__: Access expanded features with both classic and modern styles for an optimized API documentation experience.
 - __[Custom Styles](#custom-styles)__: Design your own Swagger UI style by either extending the classic or modern base styles or creating a completely new look.
 - __[Easy Integration](#getting-started)__: and add style parameters to the existing Swagger UI setup for a seamless upgrade.
 
@@ -141,7 +141,7 @@ There are a few pre-defined styles available for your Swagger UI.
 | <center><pre lang="csharp">`ModernStyle.DeepSea`</pre></center> | <center><pre lang="csharp">`ModernStyle.Desert`</pre></center> | <center><pre lang="csharp">`ModernStyle.Futuristic`</pre></center> |
 
 > [!TIP]
-> Opt for Modern Styles! Modern styles offer additional functionalities. Explore [Advanced Options](#advanced-options) for enhanced customization.
+> Opt for Modern Styles! Modern styles offer additional functionalities. Explore [Advanced Options](#-advanced-options) for enhanced customization.
 
 > [!NOTE]
 > The classic and modern **dark styles** will only load if your browser's color scheme preference is set to _dark_; otherwise, the light style is loaded.
@@ -329,7 +329,7 @@ app.UseSwaggerUi(customStyle, settings => ...);
 ```
 
 > [!IMPORTANT]
-> Only _Inline CSS Styles_ do not support [Advanced Options](#advanced-options); **the other methods do**.
+> Only _Inline CSS Styles_ do not support [Advanced Options](#-advanced-options); **the other methods do**.
 
 
 ## Contributing
