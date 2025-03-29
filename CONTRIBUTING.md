@@ -28,7 +28,7 @@ This project and everyone participating in it are governed by our [Code of Condu
 	git push origin feature/my-feature
 	```
 
-6. Open a **pull request (PR)** against the **dev** branch of the original repository.
+6. Open a **pull request (PR)** against the **main** branch of the original repository.
 
 ## Pull Request Guidelines
 - Ensure your code adheres to the existing coding standards.

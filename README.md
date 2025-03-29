@@ -47,7 +47,7 @@
 
 - **[Custom Styles](https://github.com/teociaps/SwaggerUI.Themes/wiki/Custom-Styles)**: design your own Swagger UI style by either extending the classic or modern base styles or creating a completely new look.
 
-- 🆕 **[Advanced Options](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)**: access expanded features with both classic and modern styles for an optimized API documentation experience.
+- **[Advanced Options](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)**: access expanded features with both classic and modern styles for an optimized API documentation experience.
 
 
 ## Supported .NET Versions
