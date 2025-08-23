@@ -53,7 +53,7 @@
 ## Supported .NET Versions
 | Version | Status |
 | ------- | ------ |
-| .NET 6  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
+| .NET 6  | ![Badge](https://img.shields.io/badge/Status-Out%20of%20Support*-orange) |
 | .NET 7  | ![Badge](https://img.shields.io/badge/Status-Out%20of%20Support*-orange) |
 | .NET 8  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
 | .NET 9  | ![Badge](https://img.shields.io/badge/Status-Supported-brightgreen) |
