@@ -1,11 +1,5 @@
 ﻿using Models;
 
-#if NET6_0
-
-using Swashbuckle.AspNetCore.Annotations;
-
-#endif
-
 namespace Sample.AspNetCore.SwaggerUI.Swashbuckle;
 
 internal static class Endpoints
@@ -44,12 +38,7 @@ internal static class Endpoints
     private static RouteHandlerBuilder WithInfo(this RouteHandlerBuilder builder)
     {
         return builder
-#if NET7_0_OR_GREATER
             .WithSummary("Summary")
-            .WithDescription("Description Test")
-            .WithOpenApi();
-#else
-            .WithMetadata(new SwaggerOperationAttribute(summary: "Summary", description: "Description Test"));
-#endif
+            .WithDescription("Description Test");
     }
 }

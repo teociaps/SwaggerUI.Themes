@@ -16,15 +16,15 @@ public static class SwaggerUIOptionsExtensions
     /// <see cref="EnablePinnableTopbar(SwaggerUIOptions)"/>
     /// </item>
     /// <item>
-    /// Back to top button
+    /// Back to top button:
     /// <see cref="ShowBackToTopButton(SwaggerUIOptions)"/>
     /// </item>
     /// <item>
-    /// Sticky operations
+    /// Sticky operations:
     /// <see cref="EnableStickyOperations(SwaggerUIOptions)"/>
     /// </item>
     /// <item>
-    /// Expand or collapse all operations
+    /// Expand or collapse all operations:
     /// <see cref="EnableExpandOrCollapseAllOperations(SwaggerUIOptions)"/>
     /// </item>
     /// </list>

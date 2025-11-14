@@ -5,7 +5,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <Authors>Matteo Ciapparelli</Authors>
-    <Copyright>Copyright © 2024 Matteo Ciapparelli</Copyright>
+    <Copyright>Copyright © 2024-present Matteo Ciapparelli</Copyright>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/teociaps/SwaggerUI.Themes</PackageProjectUrl>
     <RepositoryUrl>https://github.com/teociaps/SwaggerUI.Themes.git</RepositoryUrl>

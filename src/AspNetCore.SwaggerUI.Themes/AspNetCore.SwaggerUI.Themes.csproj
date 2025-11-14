@@ -18,13 +18,13 @@
       Change theme to your Swagger API documentation in ASP.NET Core applications.
     </Description>
     <PackageTags>
-      extension;aspnetcore;swagger;swagger-ui;themes;dark-theme;modern
+      extension;aspnetcore;swagger;swagger-ui;themes;ui;dark-theme;modern
     </PackageTags>
     <IncludeBuildOutput>true</IncludeBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.0.1" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

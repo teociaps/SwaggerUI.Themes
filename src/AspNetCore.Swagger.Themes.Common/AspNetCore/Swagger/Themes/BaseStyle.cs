@@ -32,11 +32,7 @@ public abstract class BaseStyle
     /// <returns>The style name.</returns>
     protected virtual string GetStyleName()
     {
-#if NET6_0_OR_GREATER
         return char.ToUpper(FileName[0]) + FileName[1..FileName.LastIndexOf('.')];
-#else
-        return char.ToUpper(FileName[0]) + FileName.Substring(1, FileName.LastIndexOf('.'));
-#endif
     }
 
     private static void CheckFileNameExtension(string fileName)

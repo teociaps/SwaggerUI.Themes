@@ -12,6 +12,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+    //string inlineStyle = "body { background-color: #000; }";
     //app.UseSwaggerUI(CustomModernStyle.CustomModern, c => c.DocumentTitle = "Sample Title");
     //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "modern.custom.css", c =>
     app.UseSwaggerUI(ModernStyle.Dark, c =>

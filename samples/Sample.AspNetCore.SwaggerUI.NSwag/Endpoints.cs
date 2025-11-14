@@ -1,11 +1,5 @@
 ﻿using Models;
 
-#if NET6_0
-
-using NSwag.Annotations;
-
-#endif
-
 namespace Sample.AspNetCore.SwaggerUI.NSwag;
 
 internal static class Endpoints
@@ -44,12 +38,7 @@ internal static class Endpoints
     private static RouteHandlerBuilder WithInfo(this RouteHandlerBuilder builder)
     {
         return builder
-#if NET7_0_OR_GREATER
             .WithSummary("Summary")
-            .WithDescription("Description Test")
-            .WithOpenApi();
-#else
-            .WithMetadata(new OpenApiOperationAttribute(summary: "Summary", description: "Description Test"));
-#endif
+            .WithDescription("Description Test");
     }
 }
