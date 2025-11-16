@@ -115,11 +115,10 @@ public static class NSwagBuilderExtensions
 
     private static string GetSwaggerStyleJavascriptPath(IApplicationBuilder application, SwaggerUiSettings settings)
     {
-        const string JsFilename = "modern.js";
-        string javascript = FileProvider.GetResourceText(JsFilename);
+        string javascript = FileProvider.GetResourceText(FileProvider.JsFilename);
         javascript = AdvancedOptions.Apply(javascript, settings.AdditionalSettings, MimeTypes.Text.Javascript);
 
-        const string FullPath = FileProvider.ScriptsPath + JsFilename;
+        const string FullPath = FileProvider.ScriptsPath + FileProvider.JsFilename;
         FileProvider.AddGetEndpoint(application, FullPath, javascript, MimeTypes.Text.Javascript);
 
         return FullPath;

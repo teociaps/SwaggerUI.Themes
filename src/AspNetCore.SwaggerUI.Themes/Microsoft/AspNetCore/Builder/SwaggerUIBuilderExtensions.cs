@@ -163,11 +163,10 @@ public static class SwaggerUIBuilderExtensions
 
     private static Action<SwaggerUIOptions> InjectModernJavascript(IApplicationBuilder application, SwaggerUIOptions options)
     {
-        const string JsFilename = "modern.js";
-        var javascript = FileProvider.GetResourceText(JsFilename);
+        var javascript = FileProvider.GetResourceText(FileProvider.JsFilename);
         javascript = AdvancedOptions.Apply(javascript, options.ConfigObject.AdditionalItems, MimeTypes.Text.Javascript);
 
-        const string FullPath = FileProvider.ScriptsPath + JsFilename;
+        const string FullPath = FileProvider.ScriptsPath + FileProvider.JsFilename;
         FileProvider.AddGetEndpoint(application, FullPath, javascript, MimeTypes.Text.Javascript);
 
         return options => options.InjectJavascript(FullPath);
