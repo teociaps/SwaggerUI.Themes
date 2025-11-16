@@ -5,34 +5,35 @@
 /// </summary>
 public class Style : BaseStyle
 {
-    protected Style(string fileName) : base(fileName)
+    /// <inheritdoc/>
+    protected Style(string fileName, bool useMinified = false) : base(fileName, useMinified)
     {
     }
 
-    internal override Style Common => new("common.css");
+    internal override Style Common => new("common.css", true);
 
     /// <summary>
     /// Apply a light style to your Swagger UI.
     /// </summary>
-    public static Style Light => new("light.css");
+    public static Style Light => new("light.css", true);
 
     /// <summary>
     /// Apply a dark style to your Swagger UI.
     /// </summary>
-    public static Style Dark => new("dark.css");
+    public static Style Dark => new("dark.css", true);
 
     /// <summary>
     /// Apply a forest tones style to your Swagger UI.
     /// </summary>
-    public static Style Forest => new("forest.css");
+    public static Style Forest => new("forest.css", true);
 
     /// <summary>
     /// Apply a deep sea tones style to your Swagger UI.
     /// </summary>
-    public static Style DeepSea => new("deepsea.css");
+    public static Style DeepSea => new("deepsea.css", true);
 
     /// <summary>
     /// Apply a desert tones style to your Swagger UI.
     /// </summary>
-    public static Style Desert => new("desert.css");
+    public static Style Desert => new("desert.css", true);
 }

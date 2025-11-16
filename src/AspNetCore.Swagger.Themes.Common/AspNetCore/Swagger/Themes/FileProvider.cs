@@ -14,11 +14,12 @@ internal static class FileProvider
     internal const string StylesPath = "/styles/";
     internal const string ScriptsPath = "/scripts/";
 
+    internal const string JsFilename = "modern.min.js";
+
     internal static string GetResourceText(string fileName, Type styleType = null)
     {
         var assembly = styleType?.Assembly ?? Assembly.GetExecutingAssembly();
         var resourceNamespace = DetermineResourceNamespace(fileName, styleType);
-
         var resourceName = $"{resourceNamespace}.{fileName}";
 
         using var stream = assembly.GetManifestResourceStream(resourceName)
@@ -31,9 +32,12 @@ internal static class FileProvider
     internal static string GetResourceText(string fileName, Assembly assembly, out string commonStyle, out bool loadModernJs)
     {
         if (!IsCssFile(fileName))
-            throw new InvalidOperationException($"{fileName} is not a valid name for CSS files. It must ends with '.css'.");
+            throw new InvalidOperationException($"{fileName} is not a valid name for CSS files. It must end with '.css' or '.min.css'.");
 
-        var resourceNamespaces = assembly.GetManifestResourceNames().Where(n => n.EndsWith(_CustomStylesNamespace + fileName, StringComparison.OrdinalIgnoreCase)).ToArray();
+        var resourceNamespaces = assembly.GetManifestResourceNames()
+            .Where(n => n.EndsWith(_CustomStylesNamespace + fileName, StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+
         if (resourceNamespaces.Length != 1)
             throw new InvalidOperationException($"Can't find {fileName} or it appears more than one time in assembly {assembly.GetName().Name}.");
 
@@ -89,7 +93,9 @@ internal static class FileProvider
 
     #region Private
 
-    private static bool IsCssFile(string fileName) => fileName.EndsWith(".css");
+    private static bool IsCssFile(string fileName) =>
+        fileName.EndsWith(".css", StringComparison.OrdinalIgnoreCase) ||
+        fileName.EndsWith(".min.css", StringComparison.OrdinalIgnoreCase);
 
     private static string DetermineResourceNamespace(string fileName, Type styleType)
     {
@@ -110,14 +116,14 @@ internal static class FileProvider
 
         string styleSuffix = resourceName[(index + _CustomStylesNamespace.Length)..];
 
-        bool isClassicStyle = styleSuffix.StartsWith("classic.");
-        bool isModernStyle = loadModernJs = styleSuffix.StartsWith("modern.");
+        bool isClassicStyle = styleSuffix.StartsWith("classic.", StringComparison.OrdinalIgnoreCase);
+        bool isModernStyle = loadModernJs = styleSuffix.StartsWith("modern.", StringComparison.OrdinalIgnoreCase);
 
         if (isClassicStyle)
-            return GetResourceText("common.css");
+            return GetResourceText("common.min.css");
 
         if (isModernStyle)
-            return GetResourceText("modern.common.css");
+            return GetResourceText("modern.common.min.css");
 
         return commonStyle;
     }

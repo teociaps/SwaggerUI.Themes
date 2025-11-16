@@ -22,7 +22,7 @@ void RegisterTestStyleEndpoint()
         var fullPath = StylesPath + style.FileName;
         AddGetEndpoint(app, fullPath, GetResourceText(style.FileName, style.GetType()));
         if (style.LoadAdditionalJs)
-            AddGetEndpoint(app, ScriptsPath + "modern.js", GetResourceText("modern.js"), MimeTypes.Text.Javascript);
+            AddGetEndpoint(app, ScriptsPath + JsFilename, GetResourceText(JsFilename), MimeTypes.Text.Javascript);
     }
 }
 

@@ -19,3 +19,12 @@ public class CustomStyle : Style
 
     public static CustomStyle Custom => new("classic.custom.css");
 }
+
+public class CustomMinifiedStyle : Style
+{
+    protected CustomMinifiedStyle(string fileName) : base(fileName, true)
+    {
+    }
+
+    public static CustomMinifiedStyle CustomMin => new("minifiedCustom.css");
+}

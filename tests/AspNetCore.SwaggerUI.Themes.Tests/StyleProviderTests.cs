@@ -56,28 +56,29 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
         // Arrange/Act
         var styleText = GetResourceText(style.FileName, style.GetType());
 
-        // Assert
-        styleText.ShouldStartWith($"""
-            /*
-                {style}
+        // Assert - Verify correct header format based on file type
+        if (style.FileName.EndsWith(".min.css"))
+        {
+            styleText.ShouldStartWith($"/*{style}*/");
+        }
+        else
+        {
+            styleText.ShouldStartWith($"""
+                /*
+                    {style}
 
-                https://github.com/teociaps/SwaggerUI.Themes
-            */
-            """);
+                    https://github.com/teociaps/SwaggerUI.Themes
+                */
+                """);
+        }
 
         if (style.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(_advancedOptions))
         {
-            // Arrange/Act
-            var jsFile = GetResourceText("modern.js");
+            // Arrange/Act - Test minified JS
+            var minJsFile = GetResourceText(JsFilename);
 
             // Assert
-            jsFile.ShouldStartWith("""
-            /*
-                Modern UI
-
-                https://github.com/teociaps/SwaggerUI.Themes
-            */
-            """);
+            minJsFile.ShouldStartWith("/*Modern UI*/");
         }
     }
 
@@ -139,14 +140,8 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             }
             """);
 
-        commonClassicStyle.ShouldStartWith("""
-            /*
-                Common Style
-
-                https://github.com/teociaps/SwaggerUI.Themes
-            */
-            """);
-
+        // Common style is always minified version
+        commonClassicStyle.ShouldStartWith("/*Common Style*/");
         loadModernJs.ShouldBeFalse();
     }
 
@@ -172,14 +167,8 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             }
             """);
 
-        commonModernStyle.ShouldStartWith("""
-            /*
-                Modern Common Style
-
-                https://github.com/teociaps/SwaggerUI.Themes
-            */
-            """);
-
+        // Common modern style is always minified version
+        commonModernStyle.ShouldStartWith("/*Modern Common Style*/");
         loadModernJs.ShouldBeTrue();
     }
 

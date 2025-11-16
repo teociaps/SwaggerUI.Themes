@@ -1,5 +1,5 @@
-using AspNetCore.Swagger.Themes;
 using Sample.AspNetCore.SwaggerUI.Swashbuckle;
+using SwaggerThemes;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -12,10 +12,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+
     //string inlineStyle = "body { background-color: #000; }";
-    //app.UseSwaggerUI(CustomModernStyle.CustomModern, c => c.DocumentTitle = "Sample Title");
+    //app.UseSwaggerUI(inlineStyle, c => c.DocumentTitle = "Sample Title");
+
+    //app.UseSwaggerUI(CustomMinifiedStyle.CustomMin, c =>
+    app.UseSwaggerUI(CustomModernStyle.CustomModern, c =>
     //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "modern.custom.css", c =>
-    app.UseSwaggerUI(ModernStyle.Dark, c =>
+    //app.UseSwaggerUI(ModernStyle.Dark, c =>
     {
         c.DocumentTitle = "Sample Title";
         c.EnableAllAdvancedOptions();

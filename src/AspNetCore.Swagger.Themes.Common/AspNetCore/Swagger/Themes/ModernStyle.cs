@@ -5,47 +5,52 @@
 /// </summary>
 public class ModernStyle : BaseStyle
 {
-    protected ModernStyle(string fileName) : base(fileName)
+    /// <inheritdoc/>
+    protected ModernStyle(string fileName, bool useMinified = false) : base(fileName, useMinified)
     {
     }
 
-    internal override ModernStyle Common => new("modern.common.css");
+    internal override ModernStyle Common => new("modern.common.css", true);
 
     internal override bool LoadAdditionalJs => true;
 
     /// <summary>
     /// Apply a modern light style to your Swagger UI.
     /// </summary>
-    public static ModernStyle Light => new("modern.light.css");
+    public static ModernStyle Light => new("modern.light.css", true);
 
     /// <summary>
     /// Apply a modern sleek dark style to your Swagger UI.
     /// </summary>
-    public static ModernStyle Dark => new("modern.dark.css");
+    public static ModernStyle Dark => new("modern.dark.css", true);
 
     /// <summary>
     /// Apply a modern forest tones style to your Swagger UI.
     /// </summary>
-    public static ModernStyle Forest => new("modern.forest.css");
+    public static ModernStyle Forest => new("modern.forest.css", true);
 
     /// <summary>
     /// Apply a modern deep sea tones style to your Swagger UI.
     /// </summary>
-    public static ModernStyle DeepSea => new("modern.deepsea.css");
+    public static ModernStyle DeepSea => new("modern.deepsea.css", true);
 
     /// <summary>
     /// Apply a modern futuristic style to your Swagger UI.
     /// </summary>
-    public static ModernStyle Futuristic => new("modern.futuristic.css");
+    public static ModernStyle Futuristic => new("modern.futuristic.css", true);
 
     /// <summary>
     /// Apply a modern desert tones style to your Swagger UI.
     /// </summary>
-    public static ModernStyle Desert => new("modern.desert.css");
+    public static ModernStyle Desert => new("modern.desert.css", true);
 
     /// <inheritdoc/>
     protected override string GetStyleName()
     {
-        return char.ToUpper(FileName[0]) + FileName[1..FileName.LastIndexOf('.')].Replace('.', ' ');
+        var nameWithoutExtension = FileName
+            .Replace(".min.css", "", StringComparison.OrdinalIgnoreCase)
+            .Replace(".css", "", StringComparison.OrdinalIgnoreCase);
+
+        return char.ToUpper(nameWithoutExtension[0]) + nameWithoutExtension[1..].Replace('.', ' ');
     }
 }
