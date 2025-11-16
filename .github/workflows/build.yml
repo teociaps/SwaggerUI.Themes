@@ -6,7 +6,7 @@ on:
     tags: ['v*.*.*']
     paths-ignore: ['**/*.md', '**/*.png', '**/*.txt']
   pull_request:
-    branches: [dev, main]
+    branches: [main]
     types: [opened, reopened, edited]
     paths-ignore: ['**/*.md', '**/*.png', '**/*.txt']
 
@@ -19,16 +19,15 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: |
-          6.0.x
-          7.0.x
           8.0.x
           9.0.x
+          10.0.x
 
     - name: Restore
       run: dotnet restore

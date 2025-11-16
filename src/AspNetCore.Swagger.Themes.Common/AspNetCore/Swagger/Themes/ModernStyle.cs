@@ -46,10 +46,6 @@ public class ModernStyle : BaseStyle
     /// <inheritdoc/>
     protected override string GetStyleName()
     {
-#if NET6_0_OR_GREATER
         return char.ToUpper(FileName[0]) + FileName[1..FileName.LastIndexOf('.')].Replace('.', ' ');
-#else
-        return char.ToUpper(FileName[0]) + FileName.Substring(1, FileName.LastIndexOf('.')).Replace('.', ' ');
-#endif
     }
 }
