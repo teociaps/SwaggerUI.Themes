@@ -9,7 +9,7 @@ namespace AspNetCore.Swagger.Themes.Tests.Utilities;
 /// <typeparam name="TProgram">
 /// A type in the entry point assembly of the application. Typically the Program classes can be used.
 /// </typeparam>
-public class StyleProviderWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>
+public class ThemeProviderWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>
     where TProgram : class
 {
     /// <summary>

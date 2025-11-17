@@ -1,9 +1,9 @@
 ﻿namespace AspNetCore.Swagger.Themes;
 
 /// <summary>
-/// Represents the base class used to create a style for Swagger UI.
+/// Represents the base class used to create a theme for Swagger UI.
 /// </summary>
-public abstract class BaseStyle
+public abstract class BaseTheme
 {
     /// <summary>
     /// Initializes a new instance with the specified CSS file name and an option to use the minified version.
@@ -15,7 +15,7 @@ public abstract class BaseStyle
     /// </remarks>
     /// <param name="fileName">The name of the CSS file to use. Must include the ".css" or ".min.css" extension.</param>
     /// <param name="useMinified"><see langword="true"/> to use the minified ".min.css" version of the file; otherwise, <see langword="false"/>.</param>
-    protected BaseStyle(string fileName, bool useMinified = false)
+    protected BaseTheme(string fileName, bool useMinified = false)
     {
         CheckFileNameExtension(fileName);
 
@@ -28,26 +28,26 @@ public abstract class BaseStyle
             : baseFileName;
     }
 
-    internal virtual BaseStyle Common { get; }
+    internal virtual BaseTheme Common { get; }
 
     internal virtual bool LoadAdditionalJs => false;
 
     /// <summary>
-    /// Gets the file name associated with the selected style.
+    /// Gets the file name associated with the selected theme.
     /// </summary>
     public string FileName { get; }
 
     /// <summary>
-    /// Returns the file name as a string representation of the style.
+    /// Returns the file name as a string representation of the theme.
     /// </summary>
-    /// <returns>The file name associated with the style.</returns>
-    public override string ToString() => $"{GetStyleName()} Style";
+    /// <returns>The file name associated with the theme.</returns>
+    public override string ToString() => $"{GetThemeName()} Theme";
 
     /// <summary>
-    /// Gets the name of the style without the file extension.
+    /// Gets the name of the theme without the file extension.
     /// </summary>
-    /// <returns>The style name.</returns>
-    protected virtual string GetStyleName()
+    /// <returns>The theme name.</returns>
+    protected virtual string GetThemeName()
     {
         var nameWithoutExtension = FileName
             .Replace(".min.css", "", StringComparison.OrdinalIgnoreCase)
@@ -61,7 +61,7 @@ public abstract class BaseStyle
         if (!fileName.EndsWith(".css", StringComparison.OrdinalIgnoreCase) &&
             !fileName.EndsWith(".min.css", StringComparison.OrdinalIgnoreCase))
         {
-            throw new ArgumentException("The file name extension doesn't match the CSS style format!", nameof(fileName));
+            throw new ArgumentException("The file name extension doesn't match the CSS theme format!", nameof(fileName));
         }
     }
 }

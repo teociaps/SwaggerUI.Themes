@@ -9,10 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Styles\style.css" />
+    <EmbeddedResource Include="Styles\theme.css" />
     <EmbeddedResource Include="Styles\custom.css" />
-    <EmbeddedResource Include="SwaggerThemes\custom.style.css" />
-    <EmbeddedResource Include="SwaggerThemes\standalone.style.css" />
+    <EmbeddedResource Include="SwaggerThemes\custom.theme.css" />
+    <EmbeddedResource Include="SwaggerThemes\standalone.theme.css" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,10 +1,10 @@
 /*
-    Test Standalone Style
+    Test Standalone Theme
 
     https://github.com/teociaps/SwaggerUI.Themes
 */
 
-/* Standalone style - should NOT load common.css or ui.js */
+/* Standalone theme - should NOT load common.css or ui.js */
 
 :root {
     --test-standalone-color: #ff0000;

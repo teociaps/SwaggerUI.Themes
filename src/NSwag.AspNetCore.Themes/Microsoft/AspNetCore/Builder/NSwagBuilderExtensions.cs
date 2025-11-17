@@ -11,57 +11,57 @@ namespace Microsoft.AspNetCore.Builder;
 public static class NSwagBuilderExtensions
 {
     /// <summary>
-    /// Registers the Swagger UI middleware with a specified style and optional settings setup action.
+    /// Registers the Swagger UI middleware with a specified theme and optional settings setup action.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
-    /// <param name="style">The style to apply.</param>
+    /// <param name="theme">The theme to apply.</param>
     /// <param name="configureSettings">An optional action to configure Swagger UI settings.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="theme"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUi(
         this IApplicationBuilder application,
-        BaseStyle style,
+        BaseTheme theme,
         Action<SwaggerUiSettings> configureSettings = null)
     {
-        ArgumentNullException.ThrowIfNull(style);
+        ArgumentNullException.ThrowIfNull(theme);
 
         return application.UseSwaggerUi(uiSettings =>
         {
             configureSettings?.Invoke(uiSettings);
 
-            uiSettings.CustomInlineStyles = GetSwaggerStyleCss(style, uiSettings);
+            uiSettings.CustomInlineStyles = GetSwaggerThemeCss(theme, uiSettings);
 
-            if (style.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(uiSettings.AdditionalSettings))
+            if (theme.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(uiSettings.AdditionalSettings))
                 AddCustomJavascript(application, uiSettings);
         });
     }
 
     /// <summary>
-    /// Registers the Swagger UI middleware applying the provided CSS style and optional setup action.
+    /// Registers the Swagger UI middleware applying the provided CSS theme and optional setup action.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
-    /// <param name="cssStyleContent">The CSS style to apply.</param>
+    /// <param name="cssThemeContent">The CSS theme to apply.</param>
     /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="cssStyleContent"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="cssThemeContent"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUi(
         this IApplicationBuilder application,
-        string cssStyleContent,
+        string cssThemeContent,
         Action<SwaggerUiSettings> setupAction = null)
     {
-        ArgumentNullException.ThrowIfNull(cssStyleContent);
+        ArgumentNullException.ThrowIfNull(cssThemeContent);
 
-        setupAction += options => options.CustomInlineStyles = cssStyleContent;
+        setupAction += options => options.CustomInlineStyles = cssThemeContent;
 
         return application.UseSwaggerUi(setupAction);
     }
 
     /// <summary>
-    /// Registers the Swagger UI middleware applying the provided CSS style and optional setup action.
+    /// Registers the Swagger UI middleware applying the provided CSS theme and optional setup action.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
     /// <param name="assembly">The assembly where the embedded CSS file is situated.</param>
-    /// <param name="cssFilename">The CSS style filename (e.g. "myCustomStyle.css").</param>
+    /// <param name="cssFilename">The CSS theme filename (e.g. "myCustomTheme.css").</param>
     /// <param name="configureSettings">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> or <paramref name="cssFilename"/> is null.</exception>
@@ -77,18 +77,18 @@ public static class NSwagBuilderExtensions
         var settings = new SwaggerUiSettings();
         configureSettings?.Invoke(settings);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var loadJs);
+        var theme = FileProvider.GetResourceText(cssFilename, assembly, out var commonTheme, out var loadJs);
 
-        if (!string.IsNullOrEmpty(commonStyle))
+        if (!string.IsNullOrEmpty(commonTheme))
         {
-            commonStyle = AdvancedOptions.Apply(commonStyle, settings.AdditionalSettings, MimeTypes.Text.Css);
-            stylesheet = commonStyle + Environment.NewLine + stylesheet;
+            commonTheme = AdvancedOptions.Apply(commonTheme, settings.AdditionalSettings, MimeTypes.Text.Css);
+            theme = commonTheme + Environment.NewLine + theme;
 
             if (loadJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
                 configureSettings += settings => AddCustomJavascript(application, settings);
         }
 
-        configureSettings += options => options.CustomInlineStyles = stylesheet;
+        configureSettings += options => options.CustomInlineStyles = theme;
 
         return application.UseSwaggerUi(configureSettings);
     }
@@ -97,23 +97,23 @@ public static class NSwagBuilderExtensions
 
     #region Private
 
-    private static string GetSwaggerStyleCss(BaseStyle style, SwaggerUiSettings settings)
+    private static string GetSwaggerThemeCss(BaseTheme theme, SwaggerUiSettings settings)
     {
         var sb = new StringBuilder();
 
-        string baseCss = FileProvider.GetResourceText(style.Common.FileName);
+        string baseCss = FileProvider.GetResourceText(theme.Common.FileName);
         baseCss = AdvancedOptions.Apply(baseCss, settings.AdditionalSettings, MimeTypes.Text.Css);
 
-        string styleCss = FileProvider.GetResourceText(style.FileName, style.GetType());
+        string themeCss = FileProvider.GetResourceText(theme.FileName, theme.GetType());
 
         sb.Append(baseCss);
         sb.Append('\n');
-        sb.Append(styleCss);
+        sb.Append(themeCss);
 
         return sb.ToString();
     }
 
-    private static string GetSwaggerStyleJavascriptPath(IApplicationBuilder application, SwaggerUiSettings settings)
+    private static string GetSwaggerThemeJavascriptPath(IApplicationBuilder application, SwaggerUiSettings settings)
     {
         string javascript = FileProvider.GetResourceText(FileProvider.JsFilename);
         javascript = AdvancedOptions.Apply(javascript, settings.AdditionalSettings, MimeTypes.Text.Javascript);
@@ -125,7 +125,7 @@ public static class NSwagBuilderExtensions
     }
 
     private static void AddCustomJavascript(IApplicationBuilder application, SwaggerUiSettings settings)
-        => settings.CustomJavaScriptPath = GetSwaggerStyleJavascriptPath(application, settings);
+        => settings.CustomJavaScriptPath = GetSwaggerThemeJavascriptPath(application, settings);
 
     #endregion Private
 }

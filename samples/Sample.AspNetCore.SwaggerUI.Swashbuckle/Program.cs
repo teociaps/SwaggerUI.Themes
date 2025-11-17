@@ -17,10 +17,10 @@ if (app.Environment.IsDevelopment())
     //app.UseSwaggerUI(inlineStyle, c => c.DocumentTitle = "Sample Title");
 
     //app.UseSwaggerUI(CustomMinifiedStyle.CustomMin, c =>
-    //app.UseSwaggerUI(CustomStyle.Custom, c =>
+    //app.UseSwaggerUI(CustomTheme.Custom, c =>
     //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "custom.css", c =>
     app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "standalone.custom.css", c => // Fully independent - no common.css or ui.js
-    //app.UseSwaggerUI(Style.Dark, c =>
+    //app.UseSwaggerUI(Theme.Dark, c =>
     {
         c.DocumentTitle = "Sample Title";
         c.EnableAllAdvancedOptions();

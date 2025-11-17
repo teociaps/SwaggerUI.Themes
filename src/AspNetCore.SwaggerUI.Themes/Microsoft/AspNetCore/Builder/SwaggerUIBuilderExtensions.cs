@@ -10,45 +10,45 @@ namespace Microsoft.AspNetCore.Builder;
 public static class SwaggerUIBuilderExtensions
 {
     /// <summary>
-    /// Registers the Swagger UI middleware with a specified style and optional configuration.
+    /// Registers the Swagger UI middleware with a specified theme and optional configuration.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
-    /// <param name="style">The style to apply.</param>
+    /// <param name="theme">The theme to apply.</param>
     /// <param name="options">The Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="theme"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUI(
         this IApplicationBuilder application,
-        BaseStyle style,
+        BaseTheme theme,
         SwaggerUIOptions options)
     {
-        ArgumentNullException.ThrowIfNull(style);
+        ArgumentNullException.ThrowIfNull(theme);
 
         options ??= new SwaggerUIOptions();
-        ConfigureSwaggerUIOptions(application, options, style).Invoke(options);
+        ConfigureSwaggerUIOptions(application, options, theme).Invoke(options);
 
         return application.UseSwaggerUI(options);
     }
 
     /// <summary>
-    /// Registers the Swagger UI middleware with a specified style and optional setup action.
+    /// Registers the Swagger UI middleware with a specified theme and optional setup action.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
-    /// <param name="style">The style to apply.</param>
+    /// <param name="theme">The theme to apply.</param>
     /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="style"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="theme"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUI(
         this IApplicationBuilder application,
-        BaseStyle style,
+        BaseTheme theme,
         Action<SwaggerUIOptions> setupAction = null)
     {
-        ArgumentNullException.ThrowIfNull(style);
+        ArgumentNullException.ThrowIfNull(theme);
 
         var options = new SwaggerUIOptions();
         setupAction?.Invoke(options);
 
-        var optionsAction = ConfigureSwaggerUIOptions(application, options, style);
+        var optionsAction = ConfigureSwaggerUIOptions(application, options, theme);
 
         if (setupAction is not null)
             optionsAction += setupAction;
@@ -57,33 +57,33 @@ public static class SwaggerUIBuilderExtensions
     }
 
     /// <summary>
-    /// Registers the Swagger UI middleware applying the provided CSS style and optional setup action.
+    /// Registers the Swagger UI middleware applying the provided CSS theme and optional setup action.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
-    /// <param name="cssStyleContent">The CSS style to apply.</param>
+    /// <param name="cssThemeContent">The CSS theme to apply.</param>
     /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="cssStyleContent"/> is null.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="cssThemeContent"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUI(
         this IApplicationBuilder application,
-        string cssStyleContent,
+        string cssThemeContent,
         Action<SwaggerUIOptions> setupAction = null)
     {
-        ArgumentNullException.ThrowIfNull(cssStyleContent);
+        ArgumentNullException.ThrowIfNull(cssThemeContent);
 
-        const string CustomCssStylePath = $"{FileProvider.StylesPath}custom.css";
-        FileProvider.AddGetEndpoint(application, CustomCssStylePath, cssStyleContent);
-        setupAction += options => options.InjectStylesheet(CustomCssStylePath);
+        const string CustomCssThemePath = $"{FileProvider.StylesPath}custom.css";
+        FileProvider.AddGetEndpoint(application, CustomCssThemePath, cssThemeContent);
+        setupAction += options => options.InjectStylesheet(CustomCssThemePath);
 
         return application.UseSwaggerUI(setupAction);
     }
 
     /// <summary>
-    /// Registers the Swagger UI middleware applying the provided CSS style and optional setup action.
+    /// Registers the Swagger UI middleware applying the provided CSS theme and optional setup action.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
     /// <param name="assembly">The assembly where the embedded CSS file is situated.</param>
-    /// <param name="cssFilename">The CSS style filename (e.g. "myCustomStyle.css").</param>
+    /// <param name="cssFilename">The CSS theme filename (e.g. "myCustomTheme.css").</param>
     /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> or <paramref name="cssFilename"/> is null.</exception>
@@ -99,20 +99,20 @@ public static class SwaggerUIBuilderExtensions
         var options = new SwaggerUIOptions();
         setupAction?.Invoke(options);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var loadJs);
+        var theme = FileProvider.GetResourceText(cssFilename, assembly, out var commonTheme, out var loadJs);
 
-        if (!string.IsNullOrEmpty(commonStyle))
+        if (!string.IsNullOrEmpty(commonTheme))
         {
-            commonStyle = AdvancedOptions.Apply(commonStyle, options.ConfigObject.AdditionalItems, MimeTypes.Text.Css);
-            const string CommonCssStylePath = $"{FileProvider.StylesPath}common.css";
-            FileProvider.AddGetEndpoint(application, CommonCssStylePath, commonStyle);
-            setupAction += options => options.InjectStylesheet(CommonCssStylePath);
+            commonTheme = AdvancedOptions.Apply(commonTheme, options.ConfigObject.AdditionalItems, MimeTypes.Text.Css);
+            const string CommonCssThemePath = $"{FileProvider.StylesPath}common.css";
+            FileProvider.AddGetEndpoint(application, CommonCssThemePath, commonTheme);
+            setupAction += options => options.InjectStylesheet(CommonCssThemePath);
 
             if (loadJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
-            setupAction += InjectJavascript(application, options);
+                setupAction += InjectJavascript(application, options);
         }
 
-        FileProvider.AddGetEndpoint(application, FileProvider.StylesPath + cssFilename, stylesheet);
+        FileProvider.AddGetEndpoint(application, FileProvider.StylesPath + cssFilename, theme);
         setupAction += options => options.InjectStylesheet(FileProvider.StylesPath + cssFilename);
 
         return application.UseSwaggerUI(setupAction);
@@ -120,45 +120,45 @@ public static class SwaggerUIBuilderExtensions
 
     #region Private
 
-    private static Action<SwaggerUIOptions> ConfigureSwaggerUIOptions(IApplicationBuilder application, SwaggerUIOptions options, BaseStyle style)
+    private static Action<SwaggerUIOptions> ConfigureSwaggerUIOptions(IApplicationBuilder application, SwaggerUIOptions options, BaseTheme theme)
     {
-        ImportSwaggerStyle(application, options, style);
+        ImportSwaggerTheme(application, options, theme);
 
-        var optionsAction = InjectCommonStyle(application, options, style);
-        optionsAction += InjectStyle(style);
+        var optionsAction = InjectCommonTheme(application, options, theme);
+        optionsAction += InjectTheme(theme);
 
-        if (style.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
-        optionsAction += InjectJavascript(application, options);
+        if (theme.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
+            optionsAction += InjectJavascript(application, options);
 
         return optionsAction;
     }
 
-    private static void ImportSwaggerStyle(IApplicationBuilder application, SwaggerUIOptions options, BaseStyle style, bool isCommonStyle = false)
+    private static void ImportSwaggerTheme(IApplicationBuilder application, SwaggerUIOptions options, BaseTheme theme, bool isCommonTheme = false)
     {
-        var stylesheet = FileProvider.GetResourceText(style.FileName, style.GetType());
+        var themeContent = FileProvider.GetResourceText(theme.FileName, theme.GetType());
 
-        if (isCommonStyle)
-            stylesheet = AdvancedOptions.Apply(stylesheet, options.ConfigObject.AdditionalItems, MimeTypes.Text.Css);
+        if (isCommonTheme)
+            themeContent = AdvancedOptions.Apply(themeContent, options.ConfigObject.AdditionalItems, MimeTypes.Text.Css);
 
-        FileProvider.AddGetEndpoint(application, ComposeStylePath(style), stylesheet);
+        FileProvider.AddGetEndpoint(application, ComposeThemePath(theme), themeContent);
     }
 
-    private static Action<SwaggerUIOptions> InjectStyle(BaseStyle style)
+    private static Action<SwaggerUIOptions> InjectTheme(BaseTheme theme)
     {
-        return options => options.InjectStylesheet(ComposeStylePath(style));
+        return options => options.InjectStylesheet(ComposeThemePath(theme));
     }
 
-    private static string ComposeStylePath(BaseStyle style)
+    private static string ComposeThemePath(BaseTheme theme)
     {
-        return FileProvider.StylesPath + style.FileName;
+        return FileProvider.StylesPath + theme.FileName;
     }
 
-    private static Action<SwaggerUIOptions> InjectCommonStyle(IApplicationBuilder application, SwaggerUIOptions options, BaseStyle style)
+    private static Action<SwaggerUIOptions> InjectCommonTheme(IApplicationBuilder application, SwaggerUIOptions options, BaseTheme theme)
     {
-        var commonStyle = style.Common;
-        ImportSwaggerStyle(application, options, commonStyle, true);
+        var commonTheme = theme.Common;
+        ImportSwaggerTheme(application, options, commonTheme, true);
 
-        return InjectStyle(commonStyle);
+        return InjectTheme(commonTheme);
     }
 
     private static Action<SwaggerUIOptions> InjectJavascript(IApplicationBuilder application, SwaggerUIOptions options)
