@@ -32,7 +32,7 @@ This project and everyone participating in it are governed by our [Code of Condu
 
 ## Working with Styles and Scripts
 
-When contributing changes to CSS or JavaScript files, please follow these guidelines to ensure both original and minified versions are properly maintained.
+When contributing changes to CSS or JavaScript files for themes, please follow these guidelines to ensure both original and minified versions are properly maintained.
 
 ### Minification Process
 

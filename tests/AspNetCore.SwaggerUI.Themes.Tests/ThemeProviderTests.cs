@@ -5,9 +5,9 @@ using static AspNetCore.Swagger.Themes.FileProvider;
 
 namespace AspNetCore.Swagger.Themes.Tests;
 
-public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFactory<Program>>
+public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFactory<Program>>
 {
-    private readonly StyleProviderWebApplicationFactory<Program> _styleProviderWebApplicationFactory;
+    private readonly ThemeProviderWebApplicationFactory<Program> _themeProviderWebApplicationFactory;
 
     private readonly Dictionary<string, object> _advancedOptions = new()
         {
@@ -17,10 +17,10 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             { AdvancedOptions.ExpandOrCollapseAllOperations, true }
         };
 
-    public StyleProviderTests(StyleProviderWebApplicationFactory<Program> styleProviderWebApplicationFactory)
+    public ThemeProviderTests(ThemeProviderWebApplicationFactory<Program> themeProviderWebApplicationFactory)
     {
-        _styleProviderWebApplicationFactory = styleProviderWebApplicationFactory;
-        _styleProviderWebApplicationFactory.CreateClient();
+        _themeProviderWebApplicationFactory = themeProviderWebApplicationFactory;
+        _themeProviderWebApplicationFactory.CreateClient();
     }
 
     [Fact]
@@ -28,10 +28,10 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     {
         // Arrange
         const string InvalidFileName = "nonexistent.css";
-        var styleType = typeof(BaseStyle);
+        var themeType = typeof(BaseTheme);
 
         // Act & Assert
-        var exception = Assert.Throws<FileNotFoundException>(() => GetResourceText(InvalidFileName, styleType));
+        var exception = Assert.Throws<FileNotFoundException>(() => GetResourceText(InvalidFileName, themeType));
 
         exception.Message.ShouldContain("Can't find");
     }
@@ -50,22 +50,22 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     }
 
     [Theory]
-    [ClassData(typeof(StyleTestData))]
-    public void GetResourceText_ShouldEmbedAndRetrieveStyleFromExecutingAssembly(BaseStyle style)
+    [ClassData(typeof(ThemeTestData))]
+    public void GetResourceText_ShouldEmbedAndRetrieveThemeStyleFromExecutingAssembly(BaseTheme Theme)
     {
         // Arrange/Act
-        var styleText = GetResourceText(style.FileName, style.GetType());
+        var styleText = GetResourceText(Theme.FileName, Theme.GetType());
 
         // Assert - Verify correct header format based on file type
-        if (style.FileName.EndsWith(".min.css"))
+        if (Theme.FileName.EndsWith(".min.css"))
         {
-            styleText.ShouldStartWith($"/*{style}*/");
+            styleText.ShouldStartWith($"/*{Theme}*/");
         }
         else
         {
             styleText.ShouldStartWith($"""
                 /*
-                    {style}
+                    {Theme}
 
                     https://github.com/teociaps/SwaggerUI.Themes
                 */
@@ -86,7 +86,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     public void GetResourceText_ShouldThrowFileNotFoundException_WhenExternalCssWithoutDeclaredStyle()
     {
         // Arrange
-        const string ExternalFileName = "style.css";
+        const string ExternalFileName = "theme.css";
 
         // Act/Assert
         Should.Throw(() => GetResourceText(ExternalFileName), typeof(FileNotFoundException));
@@ -96,7 +96,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     public void GetResourceText_ShouldGetCommonCssStyleWithJS_WhenExternalCssLoadedWithinAssemblyNamespace()
     {
         // Arrange
-        const string ExternalFileName = "custom.style.css";
+        const string ExternalFileName = "custom.Theme.css";
 
         // Act
         var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonStyle, out var loadJs);
@@ -104,7 +104,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
         // Assert
         styleContent.ShouldBe("""
             /*
-                Test Custom Style
+                Test Custom Theme
 
                 https://github.com/teociaps/SwaggerUI.Themes
             */
@@ -114,8 +114,8 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
             }
             """);
 
-        // Common style is always minified version
-        commonStyle.ShouldStartWith("/*Common Style*/");
+        // Common Theme is always minified version
+        commonStyle.ShouldStartWith("/*Common Theme*/");
         loadJs.ShouldBeTrue();
     }
 
@@ -123,7 +123,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     public void GetResourceText_ShouldNotLoadCommonStyleOrJS_WhenStandaloneStyleInCustomNamespace()
     {
         // Arrange
-        const string ExternalFileName = "standalone.style.css";
+        const string ExternalFileName = "standalone.Theme.css";
 
         // Act
         var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonStyle, out var loadJs);
@@ -131,15 +131,15 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
         // Assert
         styleContent.ShouldStartWith("""
             /*
-                Test Standalone Style
+                Test Standalone Theme
 
                 https://github.com/teociaps/SwaggerUI.Themes
             */
 
-            /* Standalone style - should NOT load common.css or ui.js */
+            /* Standalone Theme - should NOT load common.css or ui.js */
             """);
 
-        // Standalone style should NOT load common style or JS
+        // Standalone Theme should NOT load common Theme or JS
         commonStyle.ShouldBeEmpty();
         loadJs.ShouldBeFalse();
     }
@@ -147,7 +147,7 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     [Theory]
     [InlineData("standalone.custom.css")]
     [InlineData("STANDALONE.theme.css")]
-    [InlineData("my.standalone.style.css")]
+    [InlineData("my.standalone.Theme.css")]
     public void GetResourceText_ShouldRecognizeStandaloneKeyword_CaseInsensitive(string fileName)
     {
         // Note: This test verifies the logic without actually having these files
@@ -158,15 +158,15 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     }
 
     [Theory]
-    [ClassData(typeof(StyleTestData))]
-    public async Task AddGetEndpoint_ShouldReturnStyleContent_WhenWebApplication(BaseStyle style)
+    [ClassData(typeof(ThemeTestData))]
+    public async Task AddGetEndpoint_ShouldReturnStyleContent_WhenWebApplication(BaseTheme Theme)
     {
         // Arrange
-        var fullPath = StylesPath + style.FileName;
-        var styleText = GetResourceText(style.FileName, style.GetType());
+        var fullPath = StylesPath + Theme.FileName;
+        var styleText = GetResourceText(Theme.FileName, Theme.GetType());
 
         // Act
-        var response = await _styleProviderWebApplicationFactory.Client.GetAsync(fullPath);
+        var response = await _themeProviderWebApplicationFactory.Client.GetAsync(fullPath);
 
         // Assert
         response.StatusCode.ShouldBe(System.Net.HttpStatusCode.OK);
@@ -174,13 +174,13 @@ public class StyleProviderTests : IClassFixture<StyleProviderWebApplicationFacto
     }
 
     [Theory]
-    [ClassData(typeof(StyleTestData))]
-    public async Task AddGetEndpoint_ShouldReturnCssContent_WhenNotWebApplication(BaseStyle style)
+    [ClassData(typeof(ThemeTestData))]
+    public async Task AddGetEndpoint_ShouldReturnCssContent_WhenNotWebApplication(BaseTheme Theme)
     {
         // Arrange
         var mockAppBuilder = new MockApplicationBuilder();
-        var path = StylesPath + style.FileName;
-        var content = GetResourceText(style.FileName, style.GetType());
+        var path = StylesPath + Theme.FileName;
+        var content = GetResourceText(Theme.FileName, Theme.GetType());
 
         // Act
         AddGetEndpoint(mockAppBuilder, path, content);

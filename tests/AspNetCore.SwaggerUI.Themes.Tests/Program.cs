@@ -17,7 +17,7 @@ await app.RunAsync();
 
 void RegisterTestStyleEndpoint()
 {
-    foreach (var style in new StyleTestData())
+    foreach (var style in new ThemeTestData())
     {
         var fullPath = StylesPath + style.FileName;
         AddGetEndpoint(app, fullPath, GetResourceText(style.FileName, style.GetType()));

@@ -16,10 +16,10 @@ internal static class FileProvider
 
     internal const string JsFilename = "ui.min.js";
 
-    internal static string GetResourceText(string fileName, Type styleType = null)
+    internal static string GetResourceText(string fileName, Type themeType = null)
     {
-        var assembly = styleType?.Assembly ?? Assembly.GetExecutingAssembly();
-        var resourceNamespace = DetermineResourceNamespace(fileName, styleType);
+        var assembly = themeType?.Assembly ?? Assembly.GetExecutingAssembly();
+        var resourceNamespace = DetermineResourceNamespace(fileName, themeType);
         var resourceName = $"{resourceNamespace}.{fileName}";
 
         using var stream = assembly.GetManifestResourceStream(resourceName)
@@ -43,7 +43,7 @@ internal static class FileProvider
 
         var resourceName = resourceNamespaces[0];
 
-        // Retrieve the common style and determine if JS needs to be loaded
+        // Retrieve the common theme and determine if JS needs to be loaded
         commonStyle = RetrieveCommonStyleFromCustom(resourceName, out loadJs);
 
         using var stream = assembly.GetManifestResourceStream(resourceName)
@@ -96,10 +96,10 @@ internal static class FileProvider
         fileName.EndsWith(".css", StringComparison.OrdinalIgnoreCase) ||
         fileName.EndsWith(".min.css", StringComparison.OrdinalIgnoreCase);
 
-    private static string DetermineResourceNamespace(string fileName, Type styleType)
+    private static string DetermineResourceNamespace(string fileName, Type themeType)
     {
-        if (IsCssFile(fileName) && styleType is not null && styleType.BaseType != typeof(BaseStyle))
-            return styleType.Namespace;
+        if (IsCssFile(fileName) && themeType is not null && themeType.BaseType != typeof(BaseTheme))
+            return themeType.Namespace;
 
         return IsCssFile(fileName) ? _StylesNamespace : _ScriptsNamespace;
     }
@@ -119,7 +119,7 @@ internal static class FileProvider
         if (fileName.Contains("standalone", StringComparison.OrdinalIgnoreCase))
             return string.Empty;
 
-        // Otherwise, load both common style and JS
+        // Otherwise, load both common theme and JS
         loadJs = true;
         return GetResourceText("common.min.css");
     }

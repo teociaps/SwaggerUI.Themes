@@ -1,17 +1,17 @@
-﻿using AspNetCore.Swagger.Themes;
+using AspNetCore.Swagger.Themes;
 
 namespace SwaggerThemes;
 
-public class CustomStyle : Style
+public class CustomTheme : Theme
 {
-    protected CustomStyle(string fileName) : base(fileName)
+    protected CustomTheme(string fileName) : base(fileName)
     {
     }
 
-    public static CustomStyle Custom => new("custom.css");
+    public static CustomTheme Custom => new("custom.css");
 }
 
-public class CustomMinifiedStyle : Style
+public class CustomMinifiedStyle : Theme
 {
     protected CustomMinifiedStyle(string fileName, bool useMinified) : base(fileName, useMinified)
     {
