@@ -14,7 +14,7 @@ internal static class FileProvider
     internal const string StylesPath = "/styles/";
     internal const string ScriptsPath = "/scripts/";
 
-    internal const string JsFilename = "modern.min.js";
+    internal const string JsFilename = "ui.min.js";
 
     internal static string GetResourceText(string fileName, Type styleType = null)
     {
@@ -29,7 +29,7 @@ internal static class FileProvider
         return reader.ReadToEnd();
     }
 
-    internal static string GetResourceText(string fileName, Assembly assembly, out string commonStyle, out bool loadModernJs)
+    internal static string GetResourceText(string fileName, Assembly assembly, out string commonStyle, out bool loadJs)
     {
         if (!IsCssFile(fileName))
             throw new InvalidOperationException($"{fileName} is not a valid name for CSS files. It must end with '.css' or '.min.css'.");
@@ -43,9 +43,8 @@ internal static class FileProvider
 
         var resourceName = resourceNamespaces[0];
 
-        // Retrieve the common style based on the css filename (classic or modern) and check if JS needs to be loaded for modern styles
-        // This is a shortcut to inherit common style without making a new style class
-        commonStyle = RetrieveCommonStyleFromCustom(resourceName, out loadModernJs);
+        // Retrieve the common style and determine if JS needs to be loaded
+        commonStyle = RetrieveCommonStyleFromCustom(resourceName, out loadJs);
 
         using var stream = assembly.GetManifestResourceStream(resourceName)
             ?? throw new FileNotFoundException($"Can't find {fileName} resource in assembly {assembly.GetName().Name}.");
@@ -105,27 +104,24 @@ internal static class FileProvider
         return IsCssFile(fileName) ? _StylesNamespace : _ScriptsNamespace;
     }
 
-    private static string RetrieveCommonStyleFromCustom(string resourceName, out bool loadModernJs)
+    private static string RetrieveCommonStyleFromCustom(string resourceName, out bool loadJs)
     {
-        string commonStyle = string.Empty;
-        loadModernJs = false;
+        loadJs = false;
 
+        if (!resourceName.Contains(_CustomStylesNamespace))
+            return string.Empty;
+
+        // Extract filename from resource name
         int index = resourceName.IndexOf(_CustomStylesNamespace);
-        if (index == -1)
-            return commonStyle;
+        string fileName = resourceName[(index + _CustomStylesNamespace.Length)..];
 
-        string styleSuffix = resourceName[(index + _CustomStylesNamespace.Length)..];
+        // If filename contains "standalone", don't load anything (fully independent)
+        if (fileName.Contains("standalone", StringComparison.OrdinalIgnoreCase))
+            return string.Empty;
 
-        bool isClassicStyle = styleSuffix.StartsWith("classic.", StringComparison.OrdinalIgnoreCase);
-        bool isModernStyle = loadModernJs = styleSuffix.StartsWith("modern.", StringComparison.OrdinalIgnoreCase);
-
-        if (isClassicStyle)
-            return GetResourceText("common.min.css");
-
-        if (isModernStyle)
-            return GetResourceText("modern.common.min.css");
-
-        return commonStyle;
+        // Otherwise, load both common style and JS
+        loadJs = true;
+        return GetResourceText("common.min.css");
     }
 
     #endregion Private

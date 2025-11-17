@@ -99,7 +99,7 @@ public static class SwaggerUIBuilderExtensions
         var options = new SwaggerUIOptions();
         setupAction?.Invoke(options);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var loadModernJs);
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var loadJs);
 
         if (!string.IsNullOrEmpty(commonStyle))
         {
@@ -108,8 +108,8 @@ public static class SwaggerUIBuilderExtensions
             FileProvider.AddGetEndpoint(application, CommonCssStylePath, commonStyle);
             setupAction += options => options.InjectStylesheet(CommonCssStylePath);
 
-            if (loadModernJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
-                setupAction += InjectModernJavascript(application, options);
+            if (loadJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
+            setupAction += InjectJavascript(application, options);
         }
 
         FileProvider.AddGetEndpoint(application, FileProvider.StylesPath + cssFilename, stylesheet);
@@ -128,7 +128,7 @@ public static class SwaggerUIBuilderExtensions
         optionsAction += InjectStyle(style);
 
         if (style.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
-            optionsAction += InjectModernJavascript(application, options);
+        optionsAction += InjectJavascript(application, options);
 
         return optionsAction;
     }
@@ -161,7 +161,7 @@ public static class SwaggerUIBuilderExtensions
         return InjectStyle(commonStyle);
     }
 
-    private static Action<SwaggerUIOptions> InjectModernJavascript(IApplicationBuilder application, SwaggerUIOptions options)
+    private static Action<SwaggerUIOptions> InjectJavascript(IApplicationBuilder application, SwaggerUIOptions options)
     {
         var javascript = FileProvider.GetResourceText(FileProvider.JsFilename);
         javascript = AdvancedOptions.Apply(javascript, options.ConfigObject.AdditionalItems, MimeTypes.Text.Javascript);

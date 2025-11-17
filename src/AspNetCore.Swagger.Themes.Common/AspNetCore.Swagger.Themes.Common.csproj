@@ -3,20 +3,14 @@
   <Import Project="..\..\build\Common.Core.props" />
 
   <ItemGroup>
-    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Scripts\modern.min.js" Condition="Exists('AspNetCore\Swagger\Themes\Scripts\modern.min.js')" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Scripts\ui.min.js" Condition="Exists('AspNetCore\Swagger\Themes\Scripts\ui.min.js')" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\common.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\common.min.css')" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\dark.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\dark.min.css')" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\deepsea.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\deepsea.min.css')" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\desert.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\desert.min.css')" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\forest.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\forest.min.css')" />
+    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\futuristic.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\futuristic.min.css')" />
     <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\light.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\light.min.css')" />
-    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.common.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\modern.common.min.css')" />
-    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.dark.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\modern.dark.min.css')" />
-    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.deepsea.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\modern.deepsea.min.css')" />
-    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.desert.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\modern.desert.min.css')" />
-    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.forest.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\modern.forest.min.css')" />
-    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.futuristic.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\modern.futuristic.min.css')" />
-    <EmbeddedResource Include="AspNetCore\Swagger\Themes\Styles\modern.light.min.css" Condition="Exists('AspNetCore\Swagger\Themes\Styles\modern.light.min.css')" />
   </ItemGroup>
 
   <ItemGroup>

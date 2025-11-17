@@ -77,14 +77,14 @@ public static class NSwagBuilderExtensions
         var settings = new SwaggerUiSettings();
         configureSettings?.Invoke(settings);
 
-        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var loadModernJs);
+        var stylesheet = FileProvider.GetResourceText(cssFilename, assembly, out var commonStyle, out var loadJs);
 
         if (!string.IsNullOrEmpty(commonStyle))
         {
             commonStyle = AdvancedOptions.Apply(commonStyle, settings.AdditionalSettings, MimeTypes.Text.Css);
             stylesheet = commonStyle + Environment.NewLine + stylesheet;
 
-            if (loadModernJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
+            if (loadJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
                 configureSettings += settings => AddCustomJavascript(application, settings);
         }
 

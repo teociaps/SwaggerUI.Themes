@@ -1,5 +1,5 @@
 using Sample.AspNetCore.SwaggerUI.NSwag;
-using SwaggerThemes;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -16,9 +16,10 @@ if (app.Environment.IsDevelopment())
     //app.UseSwaggerUi(inlineStyle, c => c.DocumentTitle = "Sample Title");
 
     //app.UseSwaggerUi(CustomMinifiedStyle.CustomMin, c =>
-    app.UseSwaggerUi(CustomModernStyle.CustomModern, c =>
-    //app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "modern.custom.css", c =>
-    //app.UseSwaggerUi(ModernStyle.Dark, c =>
+    //app.UseSwaggerUi(CustomStyle.Custom, c =>
+    //app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "custom.css", c =>
+    app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "standalone.custom.css", c => // Fully independent - no common.css or ui.js
+    //app.UseSwaggerUi(Style.Dark, c =>
     {
         c.DocumentTitle = "Sample Title";
         c.EnableAllAdvancedOptions();
