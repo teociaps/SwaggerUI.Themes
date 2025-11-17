@@ -10,12 +10,12 @@ public abstract class BaseStyle
     /// </summary>
     /// <remarks>
     /// If <paramref name="useMinified"/> is <see langword="true"/> and the provided file name ends with ".css", the constructor will use
-    /// the corresponding ".min.css" file. If useMinified is false, the non-minified ".css" file is used regardless of
+    /// the corresponding ".min.css" file. If useMinified is <see langword="false"/>, the non-minified ".css" file is used regardless of
     /// the input extension.
     /// </remarks>
     /// <param name="fileName">The name of the CSS file to use. Must include the ".css" or ".min.css" extension.</param>
     /// <param name="useMinified"><see langword="true"/> to use the minified ".min.css" version of the file; otherwise, <see langword="false"/>.</param>
-    protected BaseStyle(string fileName, bool useMinified = true)
+    protected BaseStyle(string fileName, bool useMinified = false)
     {
         CheckFileNameExtension(fileName);
 

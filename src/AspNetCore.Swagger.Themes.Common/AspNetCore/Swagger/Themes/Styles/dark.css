@@ -6,6 +6,8 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
+        --scrollbar-thumb-color: hsl(0, 0%, 45%);
+        --scrollbar-thumb-hover-color: hsl(0, 0%, 55%);
         --body-background-color: #101010;
         --swagger-main-color: #ecf0f1;
         /* Loading */
@@ -17,6 +19,10 @@
         --errors-wrapper-errors-color: #606060;
         /* Top-bar */
         --topbar-background-color: black;
+        --topbar-pinned-background-color: rgba(0, 0, 0, .3);
+        --topbar-pinned-shadow-color: rgba(0, 0, 0, .6);
+        --topbar-pin-icon-color: white;
+        --topbar-border-color: gray;
         --topbar-select-border-color: #5b5b5b;
         --topbar-select-label-color: #dfd9d9;
         --topbar-download-url-button-background-color: #5b5b5b;
@@ -28,20 +34,23 @@
         --api-version-stamp-background-color: #23891f;
         --api-version-color: #cdcdcd;
         /* Authorize Section/Modal */
-        --scheme-container-background-color: #202020;
-        --scheme-container-box-shadow-color: rgba(67, 67, 67, 0.3);
+        --auth-wrapper-background-color: black;
+        --auth-wrapper-border-color: #383636;
+        --auth-wrapper-box-shadow-color: #c1c1c1;
         --auth-container-border-bottom-color: #ebebeb;
         --auth-container-background-color: #ddd;
         --auth-container-errors-color: red;
         --btn-authorize-background-color: transparent;
-        --btn-authorize-border-color: #ecf0f1;
-        --btn-authorize-font-color: #ecf0f1;
-        --btn-authorize-svg-fill-color: #ecf0f1;
+        --btn-authorize-border-color: #49cc90;
+        --btn-authorize-font-color: #49cc90;
+        --btn-authorize-svg-fill-color: #49cc90;
         /* Operations */
+        --opblock-tag-section-border-color: #312c2c;
+        --opblock-border-color: black;
+        --opblock-tag-section-expandcollapse-background-color: rgb(0 0 0 / 45%);
         --opblock-tag-background-color-hover: rgba(0, 0, 0, .1);
         --opblock-tag-pinned-background-color-hover: #0e0e0e;
-        --opblock-tag-border-bottom-color: rgba(59, 65, 81, .3);
-        --opblock-border-color: black;
+        --opblock-tag-border-bottom-color: rgba(109, 113, 121, .3);
         --opblock-shadow-color: rgba(59, 59, 59, .19);
         --opblock-tabheader-underline-color: rgba(255, 255, 255, .6);
         --opblock-summary-svg-icons-color: white;
@@ -173,5 +182,11 @@
         --rendered-markdown-pre-color: #000;
         --rendered-markdown-code-background-color: rgba(0, 0, 0, .05);
         --rendered-markdown-code-color: #9012fe;
+        /* Scroll to top button */
+        --scroll-to-top-button-background-color: #00000085;
+        --scroll-to-top-button-hover-background-color: #0d0d0d85;
+        --scroll-to-top-button-border-color: #232323;
+        --scroll-to-top-button-icon-color: #d1cccc;
+        --scroll-to-top-button-shadow-color: rgba(0, 0, 0, .3);
     }
 }
