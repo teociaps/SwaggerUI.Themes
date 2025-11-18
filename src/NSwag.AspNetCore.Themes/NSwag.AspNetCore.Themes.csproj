@@ -24,7 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NSwag.AspNetCore" Version="14.6.2" PrivateAssets="all" />
+    <PackageReference Include="NSwag.AspNetCore" Version="14.6.2" />
   </ItemGroup>
 
   <ItemGroup>
