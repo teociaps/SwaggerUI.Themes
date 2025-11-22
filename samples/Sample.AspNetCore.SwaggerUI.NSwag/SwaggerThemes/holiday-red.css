@@ -1,0 +1,51 @@
+/* Holiday Red Theme - Festive */
+
+:root {
+    --primary-color: #d32f2f;
+    --primary-dark: #b71c1c;
+    --primary-light: #ff6659;
+    --secondary-color: #c62828;
+    --background-dark: #1a0505;
+    --background-light: #3d1010;
+    --text-primary: #ffebee;
+    --text-secondary: #ffcdd2;
+    --border-color: #8b0000;
+    --success-color: #4caf50;
+    --accent-gold: #ffd700;
+}
+
+.swagger-ui {
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+}
+
+.swagger-ui .topbar {
+    background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 50%, #ff6659 100%);
+    border-bottom: 3px solid var(--accent-gold);
+}
+
+.swagger-ui .info .title {
+    color: var(--accent-gold);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.swagger-ui .opblock.opblock-get {
+    background-color: rgba(211, 47, 47, 0.1);
+    border-color: var(--primary-color);
+}
+
+.swagger-ui .opblock-summary-method {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.swagger-ui .btn {
+    background-color: var(--primary-color);
+    border-color: var(--primary-dark);
+    color: white;
+}
+
+.swagger-ui .btn:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 0 10px var(--accent-gold);
+}

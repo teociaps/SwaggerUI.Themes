@@ -5,17 +5,21 @@ using static AspNetCore.Swagger.Themes.FileProvider;
 
 namespace AspNetCore.Swagger.Themes.Tests;
 
+/// <summary>
+/// Tests for ThemeProvider functionality using WebApplicationFactory.
+/// Tests for non-WebApplication scenarios are in FileProviderMiddlewareTests.
+/// </summary>
 public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFactory<Program>>
 {
     private readonly ThemeProviderWebApplicationFactory<Program> _themeProviderWebApplicationFactory;
 
     private readonly Dictionary<string, object> _advancedOptions = new()
-        {
-            { AdvancedOptions.PinnableTopbar, true },
-            { AdvancedOptions.StickyOperations, true },
-            { AdvancedOptions.BackToTop, true },
-            { AdvancedOptions.ExpandOrCollapseAllOperations, true }
-        };
+    {
+        { AdvancedOptions.PinnableTopbar, true },
+        { AdvancedOptions.StickyOperations, true },
+        { AdvancedOptions.BackToTop, true },
+        { AdvancedOptions.ExpandOrCollapseAllOperations, true }
+    };
 
     public ThemeProviderTests(ThemeProviderWebApplicationFactory<Program> themeProviderWebApplicationFactory)
     {
@@ -46,26 +50,26 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
         // Act & Assert
         var exception = Assert.Throws<InvalidOperationException>(() => GetResourceText(InvalidFileName, assembly, out string commonStyle, out bool loadJs));
 
-        exception.Message.ShouldContain("not a valid name for CSS files");
+        exception.Message.ShouldContain("is not a valid CSS file. Must end with '.css' or '.min.css'.");
     }
 
     [Theory]
     [ClassData(typeof(ThemeTestData))]
-    public void GetResourceText_ShouldEmbedAndRetrieveThemeStyleFromExecutingAssembly(BaseTheme Theme)
+    public void GetResourceText_ShouldEmbedAndRetrieveThemeStyleFromExecutingAssembly(BaseTheme theme)
     {
         // Arrange/Act
-        var styleText = GetResourceText(Theme.FileName, Theme.GetType());
+        var styleText = GetResourceText(theme.FileName, theme.GetType());
 
         // Assert - Verify correct header format based on file type
-        if (Theme.FileName.EndsWith(".min.css"))
+        if (theme.FileName.EndsWith(".min.css"))
         {
-            styleText.ShouldStartWith($"/*{Theme}*/");
+            styleText.ShouldStartWith($"/*{theme} https://github.com/teociaps/SwaggerUI.Themes */");
         }
         else
         {
             styleText.ShouldStartWith($"""
                 /*
-                    {Theme}
+                    {theme}
 
                     https://github.com/teociaps/SwaggerUI.Themes
                 */
@@ -78,7 +82,7 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
             var minJsFile = GetResourceText(JsFilename);
 
             // Assert
-            minJsFile.ShouldStartWith("/*Swagger UI*/");
+            minJsFile.ShouldStartWith("/*Swagger UI https://github.com/teociaps/SwaggerUI.Themes */");
         }
     }
 
@@ -96,7 +100,7 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
     public void GetResourceText_ShouldGetCommonCssStyleWithJS_WhenExternalCssLoadedWithinAssemblyNamespace()
     {
         // Arrange
-        const string ExternalFileName = "custom.Theme.css";
+        const string ExternalFileName = "custom.theme.css";
 
         // Act
         var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonStyle, out var loadJs);
@@ -114,8 +118,8 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
             }
             """);
 
-        // Common Theme is always minified version
-        commonStyle.ShouldStartWith("/*Common Theme*/");
+        // Common theme is always minified version
+        commonStyle.ShouldStartWith("/*Common Theme https://github.com/teociaps/SwaggerUI.Themes */");
         loadJs.ShouldBeTrue();
     }
 
@@ -123,7 +127,7 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
     public void GetResourceText_ShouldNotLoadCommonStyleOrJS_WhenStandaloneStyleInCustomNamespace()
     {
         // Arrange
-        const string ExternalFileName = "standalone.Theme.css";
+        const string ExternalFileName = "standalone.theme.css";
 
         // Act
         var styleContent = GetResourceText(ExternalFileName, Assembly.GetExecutingAssembly(), out var commonStyle, out var loadJs);
@@ -136,10 +140,10 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
                 https://github.com/teociaps/SwaggerUI.Themes
             */
 
-            /* Standalone Theme - should NOT load common.css or ui.js */
+            /* Standalone theme - should NOT load common.css or ui.js */
             """);
 
-        // Standalone Theme should NOT load common Theme or JS
+        // Standalone theme should NOT load common theme or JS
         commonStyle.ShouldBeEmpty();
         loadJs.ShouldBeFalse();
     }
@@ -147,7 +151,7 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
     [Theory]
     [InlineData("standalone.custom.css")]
     [InlineData("STANDALONE.theme.css")]
-    [InlineData("my.standalone.Theme.css")]
+    [InlineData("my.standalone.theme.css")]
     public void GetResourceText_ShouldRecognizeStandaloneKeyword_CaseInsensitive(string fileName)
     {
         // Note: This test verifies the logic without actually having these files
@@ -159,11 +163,11 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
 
     [Theory]
     [ClassData(typeof(ThemeTestData))]
-    public async Task AddGetEndpoint_ShouldReturnStyleContent_WhenWebApplication(BaseTheme Theme)
+    public async Task AddGetEndpoint_ShouldReturnStyleContent_WhenWebApplication(BaseTheme theme)
     {
         // Arrange
-        var fullPath = StylesPath + Theme.FileName;
-        var styleText = GetResourceText(Theme.FileName, Theme.GetType());
+        var fullPath = StylesPath + theme.FileName;
+        var styleText = GetResourceText(theme.FileName, theme.GetType());
 
         // Act
         var response = await _themeProviderWebApplicationFactory.Client.GetAsync(fullPath);
@@ -171,35 +175,5 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
         // Assert
         response.StatusCode.ShouldBe(System.Net.HttpStatusCode.OK);
         (await response.Content.ReadAsStringAsync()).ShouldBeEquivalentTo(styleText);
-    }
-
-    [Theory]
-    [ClassData(typeof(ThemeTestData))]
-    public async Task AddGetEndpoint_ShouldReturnCssContent_WhenNotWebApplication(BaseTheme Theme)
-    {
-        // Arrange
-        var mockAppBuilder = new MockApplicationBuilder();
-        var path = StylesPath + Theme.FileName;
-        var content = GetResourceText(Theme.FileName, Theme.GetType());
-
-        // Act
-        AddGetEndpoint(mockAppBuilder, path, content);
-        var app = mockAppBuilder.Build();
-
-        // Simulate a request
-        var context = MockApplicationBuilder.CreateHttpContext(path);
-        await app.Invoke(context);
-
-        await context.Response.Body.FlushAsync();
-
-        // Assert
-        Assert.Equal(200, context.Response.StatusCode);
-        Assert.Equal(MimeTypes.Text.Css, context.Response.ContentType);
-
-        context.Response.Body.Seek(0, SeekOrigin.Begin);
-
-        using var reader = new StreamReader(context.Response.Body);
-        var responseBody = await reader.ReadToEndAsync();
-        Assert.Equal(content, responseBody);
     }
 }

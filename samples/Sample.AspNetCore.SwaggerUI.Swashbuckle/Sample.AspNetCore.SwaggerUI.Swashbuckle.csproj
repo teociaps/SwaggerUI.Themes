@@ -21,9 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="SwaggerThemes\custom.css" />
-    <EmbeddedResource Include="SwaggerThemes\minifiedCustom.min.css" />
+    <EmbeddedResource Include="SwaggerThemes\Custom\custom.css" />
+    <EmbeddedResource Include="SwaggerThemes\Custom\minifiedCustom.min.css" />
     <EmbeddedResource Include="SwaggerThemes\standalone.custom.css" />
+    <EmbeddedResource Include="CompanyThemes\corporate-blue.css" />
+    <EmbeddedResource Include="CompanyThemes\tech-green.css" />
+    <EmbeddedResource Include="CompanyThemes\startup-purple.css" />
+    <EmbeddedResource Include="SwaggerThemes\holiday-red.css" />
+    <EmbeddedResource Include="SwaggerThemes\ocean-blue.css" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,15 +1,6 @@
 using AspNetCore.Swagger.Themes;
 
-namespace SwaggerThemes;
-
-public class CustomTheme : Theme
-{
-    protected CustomTheme(string fileName) : base(fileName)
-    {
-    }
-
-    public static CustomTheme Custom => new("custom.css");
-}
+namespace SwaggerThemes.Custom;
 
 public class CustomMinifiedStyle : Theme
 {

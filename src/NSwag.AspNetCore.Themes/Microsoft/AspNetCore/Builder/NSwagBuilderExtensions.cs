@@ -6,12 +6,12 @@ using System.Text;
 namespace Microsoft.AspNetCore.Builder;
 
 /// <summary>
-/// Extensions methods for <see cref="IApplicationBuilder"/>.
+/// Extension methods for <see cref="IApplicationBuilder"/> to configure NSwag Swagger UI with themes.
 /// </summary>
 public static class NSwagBuilderExtensions
 {
     /// <summary>
-    /// Registers the Swagger UI middleware with a specified theme and optional settings setup action.
+    /// Registers the Swagger UI middleware with the specified theme and optional settings setup action.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
     /// <param name="theme">The theme to apply.</param>
@@ -25,14 +25,17 @@ public static class NSwagBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(theme);
 
-        return application.UseSwaggerUi(uiSettings =>
+        return application.UseSwaggerUi(settings =>
         {
-            configureSettings?.Invoke(uiSettings);
+            configureSettings?.Invoke(settings);
 
-            uiSettings.CustomInlineStyles = GetSwaggerThemeCss(theme, uiSettings);
+            settings.CustomInlineStyles = ThemeSwitcher.LoadThemeContent(theme, settings.AdditionalSettings);
 
-            if (theme.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(uiSettings.AdditionalSettings))
-                AddCustomJavascript(application, uiSettings);
+            if (theme.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
+            {
+                InjectJavascript(application, settings);
+                ConfigureThemeSwitcher(application, settings, theme);
+            }
         });
     }
 
@@ -51,13 +54,14 @@ public static class NSwagBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(cssThemeContent);
 
-        setupAction += options => options.CustomInlineStyles = cssThemeContent;
+        ThemeSwitcher.RegisterCustomTheme("custom.css", isStandalone: true);
 
+        setupAction += opt => opt.CustomInlineStyles = cssThemeContent;
         return application.UseSwaggerUi(setupAction);
     }
 
     /// <summary>
-    /// Registers the Swagger UI middleware applying the provided CSS theme and optional setup action.
+    /// Registers the Swagger UI middleware applying a CSS theme from an assembly with optional setup action.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
     /// <param name="assembly">The assembly where the embedded CSS file is situated.</param>
@@ -77,55 +81,60 @@ public static class NSwagBuilderExtensions
         var settings = new SwaggerUiSettings();
         configureSettings?.Invoke(settings);
 
-        var theme = FileProvider.GetResourceText(cssFilename, assembly, out var commonTheme, out var loadJs);
+        var (themeContent, commonContent, loadJs, isStandalone, themeName) =
+            ThemeBuilderHelpers.LoadAssemblyTheme(assembly, cssFilename);
 
-        if (!string.IsNullOrEmpty(commonTheme))
+        ThemeSwitcher.RegisterCustomTheme(cssFilename, isStandalone);
+
+        if (!isStandalone)
         {
-            commonTheme = AdvancedOptions.Apply(commonTheme, settings.AdditionalSettings, MimeTypes.Text.Css);
-            theme = commonTheme + Environment.NewLine + theme;
+            commonContent = AdvancedOptions.Apply(commonContent, settings.AdditionalSettings, MimeTypes.Text.Css);
+            themeContent = commonContent + Environment.NewLine + themeContent;
 
             if (loadJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
-                configureSettings += settings => AddCustomJavascript(application, settings);
+            {
+                configureSettings += s => InjectJavascript(application, s);
+                configureSettings += s => ThemeBuilderHelpers.ConfigureCustomThemeWithSwitcher(
+                    application, themeName, isStandalone, s.AdditionalSettings, s.GetThemeSwitcherOptions());
+            }
         }
 
-        configureSettings += options => options.CustomInlineStyles = theme;
+        configureSettings += opt => opt.CustomInlineStyles = themeContent;
 
         return application.UseSwaggerUi(configureSettings);
     }
 
-    // TODO: add other extension methods from nswag?
-
-    #region Private
-
-    private static string GetSwaggerThemeCss(BaseTheme theme, SwaggerUiSettings settings)
+    private static void InjectJavascript(IApplicationBuilder application, SwaggerUiSettings settings)
     {
-        var sb = new StringBuilder();
+        var javascript = ThemeBuilderHelpers.GetConfiguredJavaScript(settings.AdditionalSettings);
+        ThemeBuilderHelpers.RegisterJavaScriptEndpoint(application, javascript);
 
-        string baseCss = FileProvider.GetResourceText(theme.Common.FileName);
-        baseCss = AdvancedOptions.Apply(baseCss, settings.AdditionalSettings, MimeTypes.Text.Css);
-
-        string themeCss = FileProvider.GetResourceText(theme.FileName, theme.GetType());
-
-        sb.Append(baseCss);
-        sb.Append('\n');
-        sb.Append(themeCss);
-
-        return sb.ToString();
+        const string jsPath = FileProvider.ScriptsPath + FileProvider.JsFilename;
+        settings.CustomJavaScriptPath = jsPath;
     }
 
-    private static string GetSwaggerThemeJavascriptPath(IApplicationBuilder application, SwaggerUiSettings settings)
+    private static void ConfigureThemeSwitcher(
+        IApplicationBuilder application,
+        SwaggerUiSettings settings,
+        BaseTheme theme)
     {
-        string javascript = FileProvider.GetResourceText(FileProvider.JsFilename);
-        javascript = AdvancedOptions.Apply(javascript, settings.AdditionalSettings, MimeTypes.Text.Javascript);
+        var headContent = new StringBuilder();
+        var switcherOptions = settings.GetThemeSwitcherOptions();
 
-        const string FullPath = FileProvider.ScriptsPath + FileProvider.JsFilename;
-        FileProvider.AddGetEndpoint(application, FullPath, javascript, MimeTypes.Text.Javascript);
+        ThemeBuilderHelpers.ConfigureThemeWithSwitcher(
+            application,
+            theme,
+            settings.AdditionalSettings,
+            switcherOptions,
+            availableTheme =>
+            {
+                var themeCss = ThemeSwitcher.LoadThemeContent(availableTheme, settings.AdditionalSettings);
+                var themePath = $"{FileProvider.StylesPath}{availableTheme.FileName}";
+                FileProvider.AddGetEndpoint(application, themePath, themeCss);
 
-        return FullPath;
+                headContent.AppendLine(ThemeSwitcher.CreateThemeLink(availableTheme, disabled: true));
+            });
+
+        settings.CustomHeadContent += headContent.ToString();
     }
-
-    private static void AddCustomJavascript(IApplicationBuilder application, SwaggerUiSettings settings)
-        => settings.CustomJavaScriptPath = GetSwaggerThemeJavascriptPath(application, settings);
-
-    #endregion Private
 }

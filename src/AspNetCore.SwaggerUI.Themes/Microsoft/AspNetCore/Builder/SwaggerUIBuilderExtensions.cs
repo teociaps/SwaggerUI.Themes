@@ -1,11 +1,12 @@
 ﻿using AspNetCore.Swagger.Themes;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
+using System.Text;
 
 namespace Microsoft.AspNetCore.Builder;
 
 /// <summary>
-/// Extensions methods for <see cref="IApplicationBuilder"/>.
+/// Extension methods for <see cref="IApplicationBuilder"/> to configure Swagger UI with themes.
 /// </summary>
 public static class SwaggerUIBuilderExtensions
 {
@@ -23,10 +24,9 @@ public static class SwaggerUIBuilderExtensions
         SwaggerUIOptions options)
     {
         ArgumentNullException.ThrowIfNull(theme);
-
         options ??= new SwaggerUIOptions();
-        ConfigureSwaggerUIOptions(application, options, theme).Invoke(options);
 
+        ConfigureTheme(application, options, theme).Invoke(options);
         return application.UseSwaggerUI(options);
     }
 
@@ -45,19 +45,15 @@ public static class SwaggerUIBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(theme);
 
-        var options = new SwaggerUIOptions();
-        setupAction?.Invoke(options);
-
-        var optionsAction = ConfigureSwaggerUIOptions(application, options, theme);
-
-        if (setupAction is not null)
-            optionsAction += setupAction;
-
-        return application.UseSwaggerUI(optionsAction);
+        return application.UseSwaggerUI(opt =>
+        {
+            setupAction?.Invoke(opt);
+            ConfigureThemeInternal(application, opt, theme);
+        });
     }
 
     /// <summary>
-    /// Registers the Swagger UI middleware applying the provided CSS theme and optional setup action.
+    /// Registers the Swagger UI middleware applying the provided CSS theme.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
     /// <param name="cssThemeContent">The CSS theme to apply.</param>
@@ -71,15 +67,16 @@ public static class SwaggerUIBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(cssThemeContent);
 
-        const string CustomCssThemePath = $"{FileProvider.StylesPath}custom.css";
-        FileProvider.AddGetEndpoint(application, CustomCssThemePath, cssThemeContent);
-        setupAction += options => options.InjectStylesheet(CustomCssThemePath);
+        const string customPath = $"{FileProvider.StylesPath}custom.css";
+        FileProvider.AddGetEndpoint(application, customPath, cssThemeContent);
+        ThemeSwitcher.RegisterCustomTheme("custom.css", isStandalone: true);
 
+        setupAction += options => options.InjectStylesheet(customPath);
         return application.UseSwaggerUI(setupAction);
     }
 
     /// <summary>
-    /// Registers the Swagger UI middleware applying the provided CSS theme and optional setup action.
+    /// Registers the Swagger UI middleware applying a CSS theme from an assembly.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
     /// <param name="assembly">The assembly where the embedded CSS file is situated.</param>
@@ -99,78 +96,111 @@ public static class SwaggerUIBuilderExtensions
         var options = new SwaggerUIOptions();
         setupAction?.Invoke(options);
 
-        var theme = FileProvider.GetResourceText(cssFilename, assembly, out var commonTheme, out var loadJs);
+        var (themeContent, commonContent, loadJs, isStandalone, themeName) =
+            ThemeBuilderHelpers.LoadAssemblyTheme(assembly, cssFilename);
 
-        if (!string.IsNullOrEmpty(commonTheme))
+        var customPath = FileProvider.StylesPath + cssFilename;
+        ThemeSwitcher.RegisterCustomTheme(cssFilename, isStandalone);
+
+        if (!isStandalone)
         {
-            commonTheme = AdvancedOptions.Apply(commonTheme, options.ConfigObject.AdditionalItems, MimeTypes.Text.Css);
-            const string CommonCssThemePath = $"{FileProvider.StylesPath}common.css";
-            FileProvider.AddGetEndpoint(application, CommonCssThemePath, commonTheme);
-            setupAction += options => options.InjectStylesheet(CommonCssThemePath);
+            commonContent = AdvancedOptions.Apply(commonContent, options.ConfigObject.AdditionalItems, MimeTypes.Text.Css);
+
+            const string commonPath = $"{FileProvider.StylesPath}common.css";
+            FileProvider.AddGetEndpoint(application, commonPath, commonContent);
+            setupAction += opt => opt.InjectStylesheet(commonPath);
 
             if (loadJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
+            {
                 setupAction += InjectJavascript(application, options);
+                setupAction += opt => ThemeBuilderHelpers.ConfigureCustomThemeWithSwitcher(
+                    application, themeName, isStandalone, options.ConfigObject.AdditionalItems, opt.GetThemeSwitcherOptions());
+            }
         }
 
-        FileProvider.AddGetEndpoint(application, FileProvider.StylesPath + cssFilename, theme);
-        setupAction += options => options.InjectStylesheet(FileProvider.StylesPath + cssFilename);
+        FileProvider.AddGetEndpoint(application, customPath, themeContent);
+        setupAction += opt => opt.InjectStylesheet(customPath);
 
         return application.UseSwaggerUI(setupAction);
     }
 
-    #region Private
-
-    private static Action<SwaggerUIOptions> ConfigureSwaggerUIOptions(IApplicationBuilder application, SwaggerUIOptions options, BaseTheme theme)
+    private static void ConfigureThemeInternal(
+        IApplicationBuilder application,
+        SwaggerUIOptions options,
+        BaseTheme theme)
     {
-        ImportSwaggerTheme(application, options, theme);
+        // Register theme endpoints
+        ThemeSwitcher.RegisterThemeEndpoints(application, theme, options.ConfigObject.AdditionalItems);
 
-        var optionsAction = InjectCommonTheme(application, options, theme);
-        optionsAction += InjectTheme(theme);
+        // Inject stylesheets
+        var commonPath = FileProvider.StylesPath + theme.Common.FileName;
+        var themePath = FileProvider.StylesPath + theme.FileName;
+        options.InjectStylesheet(commonPath);
+        options.InjectStylesheet(themePath);
 
+        // Configure JS features if enabled
         if (theme.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(options.ConfigObject.AdditionalItems))
-            optionsAction += InjectJavascript(application, options);
-
-        return optionsAction;
+        {
+            InjectJavascriptInternal(application, options);
+            ConfigureThemeSwitcher(application, options, theme);
+        }
     }
 
-    private static void ImportSwaggerTheme(IApplicationBuilder application, SwaggerUIOptions options, BaseTheme theme, bool isCommonTheme = false)
+    private static Action<SwaggerUIOptions> ConfigureTheme(
+        IApplicationBuilder application,
+        SwaggerUIOptions options,
+        BaseTheme theme)
     {
-        var themeContent = FileProvider.GetResourceText(theme.FileName, theme.GetType());
-
-        if (isCommonTheme)
-            themeContent = AdvancedOptions.Apply(themeContent, options.ConfigObject.AdditionalItems, MimeTypes.Text.Css);
-
-        FileProvider.AddGetEndpoint(application, ComposeThemePath(theme), themeContent);
+        // This is only used by the first overload
+        return opt => ConfigureThemeInternal(application, opt, theme);
     }
 
-    private static Action<SwaggerUIOptions> InjectTheme(BaseTheme theme)
+    private static void InjectJavascriptInternal(
+        IApplicationBuilder application,
+        SwaggerUIOptions options)
     {
-        return options => options.InjectStylesheet(ComposeThemePath(theme));
+        var javascript = ThemeBuilderHelpers.GetConfiguredJavaScript(options.ConfigObject.AdditionalItems);
+        ThemeBuilderHelpers.RegisterJavaScriptEndpoint(application, javascript);
+
+        const string jsPath = FileProvider.ScriptsPath + FileProvider.JsFilename;
+        options.InjectJavascript(jsPath);
     }
 
-    private static string ComposeThemePath(BaseTheme theme)
+    private static Action<SwaggerUIOptions> InjectJavascript(
+        IApplicationBuilder application,
+        SwaggerUIOptions options)
     {
-        return FileProvider.StylesPath + theme.FileName;
+        return opt => InjectJavascriptInternal(application, opt);
     }
 
-    private static Action<SwaggerUIOptions> InjectCommonTheme(IApplicationBuilder application, SwaggerUIOptions options, BaseTheme theme)
+    private static void ConfigureThemeSwitcher(
+        IApplicationBuilder application,
+        SwaggerUIOptions options,
+        BaseTheme theme)
     {
-        var commonTheme = theme.Common;
-        ImportSwaggerTheme(application, options, commonTheme, true);
+        var headContent = new StringBuilder();
 
-        return InjectTheme(commonTheme);
+        // Get switcher options from cache
+        var switcherOptions = options.GetThemeSwitcherOptions();
+
+        ThemeBuilderHelpers.ConfigureThemeWithSwitcher(
+            application,
+            theme,
+            options.ConfigObject.AdditionalItems,
+            switcherOptions,
+            availableTheme =>
+            {
+                // Register endpoint for each available theme
+                ThemeSwitcher.RegisterThemeEndpoints(application, availableTheme, options.ConfigObject.AdditionalItems);
+
+                // Inject as disabled stylesheet
+                headContent.AppendLine(ThemeSwitcher.CreateThemeLink(availableTheme, disabled: true));
+            });
+
+        // Mark current theme
+        headContent.AppendLine(ThemeSwitcher.CreateCurrentThemeMarkerScript(theme));
+
+        // Append to options
+        options.HeadContent += headContent.ToString();
     }
-
-    private static Action<SwaggerUIOptions> InjectJavascript(IApplicationBuilder application, SwaggerUIOptions options)
-    {
-        var javascript = FileProvider.GetResourceText(FileProvider.JsFilename);
-        javascript = AdvancedOptions.Apply(javascript, options.ConfigObject.AdditionalItems, MimeTypes.Text.Javascript);
-
-        const string FullPath = FileProvider.ScriptsPath + FileProvider.JsFilename;
-        FileProvider.AddGetEndpoint(application, FullPath, javascript, MimeTypes.Text.Javascript);
-
-        return options => options.InjectJavascript(FullPath);
-    }
-
-    #endregion Private
 }

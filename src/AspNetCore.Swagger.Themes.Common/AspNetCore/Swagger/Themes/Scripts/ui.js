@@ -18,6 +18,8 @@ window.onpageshow = function () {
             setUpScrollToTopButton({$BACK_TO_TOP});
 
             setUpExpandAndCollapseOperationsButtons({$EXPAND_COLLAPSE_ALL_OPERATIONS});
+
+            setUpThemeSwitcher({$THEME_SWITCHER});
         }
     }, 100);
 }
@@ -148,4 +150,175 @@ function setUpExpandAndCollapseOperationsButtons(enabled) {
             });
         }
     });
+}
+
+function setUpThemeSwitcher(enabled) {
+    if (enabled === false)
+        return;
+
+    const STORAGE_KEY = 'swaggerui-theme-preference';
+    const METADATA_ENDPOINT = '/themes/metadata.json';
+
+    let themesMetadata = null;
+    let currentTheme = null;
+
+    // Load theme metadata and initialize
+    fetch(METADATA_ENDPOINT)
+        .then(response => {
+            if (!response.ok) {
+                console.warn('[ThemeSwitcher] Failed to load theme metadata');
+                return null;
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!data || !data.themes || data.themes.length < 2) {
+                console.warn('[ThemeSwitcher] Not enough themes available for switcher');
+                return;
+            }
+
+            themesMetadata = data;
+            currentTheme = detectCurrentTheme(data.themes);
+            restoreSavedTheme(data.themes);
+            injectThemeSwitcherUI(data);
+        })
+        .catch(error => {
+            console.error('[ThemeSwitcher] Error loading themes:', error);
+        });
+
+    function detectCurrentTheme(themes) {
+        // Check for data-theme attribute first (most reliable)
+        const activeLink = document.querySelector('link[rel="stylesheet"]:not([disabled])[data-theme]');
+        if (activeLink && activeLink.dataset.theme) {
+            return activeLink.dataset.theme;
+        }
+
+        // Fallback: check href patterns
+        const styleElements = document.querySelectorAll('link[rel="stylesheet"]:not([disabled])');
+
+        for (const element of styleElements) {
+            const theme = themes.find(t => {
+                if (element.href) {
+                    return element.href.includes(t.cssPath) ||
+                           element.href.endsWith(t.cssPath) ||
+                           element.href.includes(t.name.toLowerCase());
+                }
+                return false;
+            });
+
+            if (theme) {
+                return theme.name;
+            }
+        }
+
+        // Fallback to first theme
+        return themes.length > 0 ? themes[0].name : null;
+    }
+
+    function restoreSavedTheme(themes) {
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if (saved && themes.some(t => t.name === saved)) {
+            if (saved !== currentTheme) {
+                switchTheme(saved, false);
+            }
+        }
+    }
+
+    function injectThemeSwitcherUI(data) {
+        const topbarWrapper = document.querySelector('.topbar-wrapper');
+        if (!topbarWrapper) {
+            console.warn('[ThemeSwitcher] Topbar not found');
+            return;
+        }
+
+        const select = document.createElement('select');
+        select.id = 'theme-switcher-select';
+        select.setAttribute('aria-label', 'Select theme');
+        select.title = 'Switch theme';
+
+        data.themes.forEach(theme => {
+            const option = document.createElement('option');
+            option.value = theme.name;
+            option.textContent = formatThemeName(theme.name, data.config?.displayFormat || '{name}');
+
+            if (theme.name === currentTheme) {
+                option.selected = true;
+            }
+
+            select.appendChild(option);
+        });
+
+        select.addEventListener('change', (e) => {
+            switchTheme(e.target.value, true);
+        });
+
+        // Insert before pin button if it exists
+        const pinButton = document.getElementById('pin-topbar-btn');
+        if (pinButton) {
+            topbarWrapper.insertBefore(select, pinButton);
+        } else {
+            topbarWrapper.appendChild(select);
+        }
+    }
+
+    function switchTheme(themeName, saveToStorage) {
+        const theme = themesMetadata?.themes.find(t => t.name === themeName);
+        if (!theme) {
+            console.warn(`[ThemeSwitcher] Theme not found: ${themeName}`);
+            return;
+        }
+
+        // Find all theme stylesheets
+        const allStyleLinks = document.querySelectorAll('link[rel="stylesheet"]');
+        const allThemePaths = themesMetadata.themes.map(t => t.cssPath);
+
+        let themeActivated = false;
+
+        allStyleLinks.forEach(link => {
+            // Check if this is a theme stylesheet (has data-theme or matches a known theme path)
+            const isThemeStylesheet = link.dataset.theme ||
+                                     allThemePaths.some(path => link.href && link.href.endsWith(path));
+
+            if (isThemeStylesheet) {
+                // Use exact path matching to avoid substring issues
+                const isTargetTheme = (link.dataset.theme === themeName) ||
+                                     (link.href && link.href.endsWith(theme.cssPath));
+
+                if (isTargetTheme) {
+                    link.disabled = false;
+                    link.dataset.theme = themeName;
+                    themeActivated = true;
+                } else {
+                    link.disabled = true;
+                }
+            }
+        });
+
+        if (!themeActivated) {
+            console.warn(`[ThemeSwitcher] Could not activate theme: ${themeName}`);
+        }
+
+        currentTheme = themeName;
+
+        if (saveToStorage) {
+            localStorage.setItem(STORAGE_KEY, themeName);
+        }
+
+        const dropdown = document.getElementById('theme-switcher-select');
+        if (dropdown && dropdown.value !== themeName) {
+            dropdown.value = themeName;
+        }
+    }
+
+    function formatThemeName(name, format) {
+        const formatted = name
+            .replace(/([A-Z])/g, ' $1')
+            .trim()
+            .split(/[\s_-]+/)
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+
+        return format.replace('{name}', formatted);
+    }
 }

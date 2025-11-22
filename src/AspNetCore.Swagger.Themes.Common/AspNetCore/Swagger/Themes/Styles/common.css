@@ -126,7 +126,7 @@ body {
                 cursor: pointer;
                 background: transparent;
                 border: none;
-                margin: .8rem;
+                margin: .2rem;
                 padding: .2rem;
                 transition: all .2s;
                 rotate: z 359deg;
@@ -249,6 +249,13 @@ body {
 .swagger-ui .topbar .download-url-wrapper .download-url-button {
     background: var(--topbar-download-url-button-background-color, #62a03f);
     color: var(--topbar-download-url-button-color, #fff);
+}
+
+#theme-switcher-select {
+    background: var(--select-background-icon, #f7f7f7 url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="%23000" fill-rule="evenodd" d="M13.418 7.859a.695.695 0 0 1 .978 0 .68.68 0 0 1 0 .969l-3.908 3.83a.697.697 0 0 1-.979 0l-3.908-3.83a.68.68 0 0 1 0-.969.695.695 0 0 1 .978 0L10 11l3.418-3.141z"/></svg>') right 10px center no-repeat);
+    border: 2px solid var(--topbar-select-border-color, #62a03f);
+    min-width: 120px;
+    box-shadow: none;
 }
 
 /* Info-box (title, description, contact info...) */
@@ -396,7 +403,7 @@ body {
     }
 
 .swagger-ui:has(> .topbar.pinned) .opblock-tag-section.is-open .opblock-tag {
-    top: 4.9rem;
+    top: 4.2rem;
 }
 
 .swagger-ui .opblock {
@@ -739,10 +746,16 @@ body {
     border: 2px solid var(--select-border-color, #41444e);
     box-shadow: 0 1px 2px 0 var(--select-shadow-color, rgba(0,0,0,.25));
     color: var(--swagger-main-color, #3b4151);
+    cursor: pointer;
 }
 
     .swagger-ui select[multiple] {
         background: var(--select-background-color, #f7f7f7);
+    }
+
+    .swagger-ui select:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 
 .swagger-ui label {

@@ -22,4 +22,15 @@ internal static class MimeTypes
         /// </summary>
         internal const string Javascript = _Prefix + "javascript";
     }
+
+    /// <summary>
+    /// MIME type constants for <c>application/*</c> types.
+    /// </summary>
+    internal static class Application
+    {
+        /// <summary>
+        /// <c>application/json</c>
+        /// </summary>
+        internal const string Json = "application/json";
+    }
 }

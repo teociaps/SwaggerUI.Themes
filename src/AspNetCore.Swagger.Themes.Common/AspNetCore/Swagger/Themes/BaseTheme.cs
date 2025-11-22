@@ -47,13 +47,20 @@ public abstract class BaseTheme
     /// Gets the name of the theme without the file extension.
     /// </summary>
     /// <returns>The theme name.</returns>
-    protected virtual string GetThemeName()
+    protected internal virtual string GetThemeName()
     {
-        var nameWithoutExtension = FileName
-            .Replace(".min.css", "", StringComparison.OrdinalIgnoreCase)
-            .Replace(".css", "", StringComparison.OrdinalIgnoreCase);
+        var fileName = FileName;
 
-        return char.ToUpper(nameWithoutExtension[0]) + nameWithoutExtension[1..];
+        // Remove extension
+        if (fileName.EndsWith(".min.css", StringComparison.OrdinalIgnoreCase))
+            fileName = fileName[..^8];
+        else if (fileName.EndsWith(".css", StringComparison.OrdinalIgnoreCase))
+            fileName = fileName[..^4];
+
+        if (string.IsNullOrEmpty(fileName))
+            return string.Empty;
+
+        return char.ToUpper(fileName[0]) + fileName[1..];
     }
 
     private static void CheckFileNameExtension(string fileName)
