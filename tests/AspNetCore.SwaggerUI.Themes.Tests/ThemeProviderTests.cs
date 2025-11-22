@@ -176,4 +176,190 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
         response.StatusCode.ShouldBe(System.Net.HttpStatusCode.OK);
         (await response.Content.ReadAsStringAsync()).ShouldBeEquivalentTo(styleText);
     }
+
+    [Fact]
+    public void GetResourceText_ShouldFindThemeInSubfolder()
+    {
+        // Arrange
+        const string FileName = "custom.css"; // Exists in SwaggerThemes.Custom folder
+
+        // Act
+        var styleContent = GetResourceText(FileName, Assembly.GetExecutingAssembly(), out var commonStyle, out var loadJs);
+
+        // Assert
+        styleContent.ShouldNotBeEmpty();
+        styleContent.ShouldContain("Test Custom Theme");
+        commonStyle.ShouldNotBeEmpty();
+        loadJs.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void GetResourceText_ShouldThrowFileNotFoundException_WhenFileNotInAnySubfolder()
+    {
+        // Arrange
+        const string NonExistentFileName = "nonexistent-theme.css";
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Act & Assert
+        var exception = Should.Throw<FileNotFoundException>(() =>
+            GetResourceText(NonExistentFileName, assembly, out _, out _));
+
+        exception.Message.ShouldContain("Can't find");
+        exception.Message.ShouldContain("SwaggerThemes.*");
+        exception.Message.ShouldContain(NonExistentFileName);
+    }
+
+    [Theory]
+    [InlineData("custom.css", "SwaggerThemes")]
+    [InlineData("standalone.theme.css", "SwaggerThemes")]
+    [InlineData("custom.theme.css", "SwaggerThemes")]
+    public void GetResourceText_ShouldFindTheme_InAnySwaggerThemesNamespace(string fileName, string expectedNamespacePrefix)
+    {
+        // Arrange
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Act
+        var styleContent = GetResourceText(fileName, assembly, out _, out _);
+
+        // Assert
+        styleContent.ShouldNotBeEmpty();
+
+        // Verify the file was found in a SwaggerThemes.* namespace
+        var resourceNames = assembly.GetManifestResourceNames()
+            .Where(n => n.Contains(expectedNamespacePrefix) && n.EndsWith(fileName))
+            .ToList();
+
+        resourceNames.ShouldNotBeEmpty();
+        resourceNames.ShouldHaveSingleItem();
+    }
+
+    [Fact]
+    public void GetResourceText_ShouldBeFlexible_WithNestedFolderStructure()
+    {
+        // This test verifies that the search works regardless of folder depth
+        // Examples of valid structures:
+        // - SwaggerThemes.custom.css
+        // - SwaggerThemes.Custom.custom.css
+
+        // Arrange
+        const string FileName = "custom.css";
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Act
+        var result = GetResourceText(FileName, assembly, out var commonStyle, out var loadJs);
+
+        // Assert
+        result.ShouldNotBeEmpty();
+        // The function should find it regardless of how deep in the folder structure it is
+    }
+
+    [Theory]
+    [InlineData("custom.css", true)]
+    [InlineData("standalone.theme.css", false)]
+    [InlineData("custom.theme.css", true)]
+    public void GetResourceText_ShouldCorrectlyDetectStandalone_InSubfolders(string fileName, bool shouldLoadCommon)
+    {
+        // Arrange
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Act
+        GetResourceText(fileName, assembly, out var commonStyle, out var loadJs);
+
+        // Assert
+        if (shouldLoadCommon)
+        {
+            commonStyle.ShouldNotBeEmpty("Non-standalone themes should load common.css");
+            loadJs.ShouldBeTrue("Non-standalone themes should enable JS");
+        }
+        else
+        {
+            commonStyle.ShouldBeEmpty("Standalone themes should NOT load common.css");
+            loadJs.ShouldBeFalse("Standalone themes should NOT enable JS");
+        }
+    }
+
+    [Fact]
+    public void GetResourceText_ShouldWorkWith_RealWorldFolderStructure()
+    {
+        // This test validates the real-world usage pattern from samples
+        // Sample folder structure:
+        // SwaggerThemes/
+        //   Custom/
+        //     custom.css
+        //   standalone.theme.css
+
+        // Arrange
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Act & Assert - should find files in any subfolder
+        var customCss = GetResourceText("custom.css", assembly, out _, out _);
+        customCss.ShouldNotBeEmpty();
+
+        var standaloneCss = GetResourceText("standalone.theme.css", assembly, out var standaloneCommon, out var standaloneJs);
+        standaloneCss.ShouldNotBeEmpty();
+        standaloneCommon.ShouldBeEmpty();
+        standaloneJs.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void GetResourceText_ShouldThrowInvalidOperationException_WhenMultipleFilesWithSameName()
+    {
+        // Intentionally created duplicate files:
+        // - SwaggerThemes/duplicate.css
+        // - SwaggerThemes/Duplicates/duplicate.css
+
+        // Arrange
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Verify both files exist
+        var allResources = assembly.GetManifestResourceNames()
+            .Where(n => n.EndsWith(".duplicate.css"))
+            .ToList();
+
+        allResources.Count.ShouldBe(2, "Should have exactly 2 duplicate.css files for this test");
+
+        // Act & Assert - Should throw InvalidOperationException with clear error message
+        var exception = Should.Throw<InvalidOperationException>(() =>
+            GetResourceText("duplicate.css", assembly, out _, out _));
+
+        // Verify error message is helpful
+        exception.Message.ShouldContain("Found duplicate.css in multiple locations");
+        exception.Message.ShouldContain("SwaggerThemes.duplicate.css");
+        exception.Message.ShouldContain("SwaggerThemes.Duplicates.duplicate.css");
+        exception.Message.ShouldContain("Ensure the file name is unique across all theme folders");
+    }
+
+    [Fact]
+    public void GetResourceText_ShouldNotMatch_StandalonePrefix_WhenSearchingNonStandalone()
+    {
+        // Arrange
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Verify standalone.test.css exists
+        var standaloneExists = assembly.GetManifestResourceNames()
+            .Any(n => n.EndsWith(".standalone.test.css"));
+        standaloneExists.ShouldBeTrue("standalone.test.css should exist in test assembly");
+
+        // Act & Assert - Searching for "test.css" should not find "standalone.test.css"
+        var exception = Should.Throw<FileNotFoundException>(() =>
+            GetResourceText("test.css", assembly, out _, out _));
+
+        exception.Message.ShouldContain("Can't find test.css");
+    }
+
+    [Fact]
+    public void GetResourceText_ShouldMatch_StandaloneFile_WhenExplicitlySearching()
+    {
+        // Arrange
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Act - Explicitly search for "standalone.theme.css"
+        var content = GetResourceText("standalone.theme.css", assembly, out var commonStyle, out var loadJs);
+
+        // Assert
+        content.ShouldNotBeEmpty();
+        content.ShouldContain("Test Standalone Theme");
+        commonStyle.ShouldBeEmpty("Standalone themes don't load common.css");
+        loadJs.ShouldBeFalse("Standalone themes don't load JS");
+    }
 }

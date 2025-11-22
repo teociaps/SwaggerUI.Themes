@@ -1,0 +1,13 @@
+/*
+    Standalone Test Theme
+
+    https://github.com/teociaps/SwaggerUI.Themes
+*/
+
+:root {
+    --test-standalone-color: #ff0000;
+}
+
+body {
+    background-color: var(--test-standalone-color);
+}

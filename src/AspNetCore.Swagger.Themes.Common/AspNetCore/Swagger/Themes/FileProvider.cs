@@ -62,14 +62,45 @@ internal static class FileProvider
         if (!IsCssFile(fileName))
             throw new InvalidOperationException($"{fileName} is not a valid CSS file. Must end with '.css' or '.min.css'.");
 
-        var resourceNamespaces = assembly.GetManifestResourceNames()
-            .Where(n => n.EndsWith(_CustomStylesNamespace + fileName, StringComparison.OrdinalIgnoreCase)) // TODO: add other namespaces?
-            .ToArray();
+        // Get all SwaggerThemes resources
+        var swaggerThemesResources = assembly.GetManifestResourceNames()
+            .Where(n => n.Contains(_CustomStylesNamespace, StringComparison.OrdinalIgnoreCase))
+            .Where(resourceName =>
+            {
+                // Must end with ".{fileName}" to ensure exact match
+                if (!resourceName.EndsWith("." + fileName, StringComparison.OrdinalIgnoreCase))
+                    return false;
 
-        if (resourceNamespaces.Length != 1)
-            throw new InvalidOperationException($"Can't find {fileName} or it appears more than once in {assembly.GetName().Name}.");
+                // Special case: Exclude "standalone.{fileName}" when searching for "{fileName}"
+                // This prevents "{fileName}.css" from matching "standalone.{fileName}.css"
+                var idx = resourceName.LastIndexOf(_CustomStylesNamespace, StringComparison.OrdinalIgnoreCase);
+                if (idx != -1)
+                {
+                    var afterNamespace = resourceName[(idx + _CustomStylesNamespace.Length)..];
 
-        var resourceName = resourceNamespaces[0];
+                    if (afterNamespace.StartsWith("standalone.", StringComparison.OrdinalIgnoreCase) &&
+                        !fileName.StartsWith("standalone.", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            })
+            .ToList();
+
+        if (swaggerThemesResources.Count == 0)
+            throw new FileNotFoundException($"Can't find {fileName} in any {_CustomStylesNamespace}* namespace in {assembly.GetName().Name}.");
+
+        if (swaggerThemesResources.Count > 1)
+        {
+            var matchingPaths = string.Join(", ", swaggerThemesResources);
+            throw new InvalidOperationException(
+                $"Found {fileName} in multiple locations in {assembly.GetName().Name}: {matchingPaths}. " +
+                "Ensure the file name is unique across all theme folders.");
+        }
+
+        var resourceName = swaggerThemesResources[0];
         commonStyle = RetrieveCommonStyleFromCustom(resourceName, out loadJs);
 
         using var stream = assembly.GetManifestResourceStream(resourceName)
