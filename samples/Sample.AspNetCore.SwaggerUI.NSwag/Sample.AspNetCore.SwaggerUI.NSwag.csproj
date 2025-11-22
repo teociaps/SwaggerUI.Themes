@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="SwaggerThemes\Custom\mybrand.css" />
     <EmbeddedResource Include="SwaggerThemes\Custom\custom.css" />
     <EmbeddedResource Include="SwaggerThemes\Custom\minifiedCustom.min.css" />
     <EmbeddedResource Include="SwaggerThemes\standalone.custom.css" />

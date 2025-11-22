@@ -78,30 +78,34 @@ public static class NSwagBuilderExtensions
         ArgumentNullException.ThrowIfNull(assembly);
         ArgumentNullException.ThrowIfNull(cssFilename);
 
-        var settings = new SwaggerUiSettings();
-        configureSettings?.Invoke(settings);
-
-        var (themeContent, commonContent, loadJs, isStandalone, themeName) =
-            ThemeBuilderHelpers.LoadAssemblyTheme(assembly, cssFilename);
-
-        ThemeSwitcher.RegisterCustomTheme(cssFilename, isStandalone);
-
-        if (!isStandalone)
+        return application.UseSwaggerUi(settings =>
         {
-            commonContent = AdvancedOptions.Apply(commonContent, settings.AdditionalSettings, MimeTypes.Text.Css);
-            themeContent = commonContent + Environment.NewLine + themeContent;
+            configureSettings?.Invoke(settings);
 
-            if (loadJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
+            var (themeContent, commonContent, loadJs, isStandalone, themeName) =
+                ThemeBuilderHelpers.LoadAssemblyTheme(assembly, cssFilename);
+
+            // Create a dynamic BaseTheme instance for this CSS file
+            // This allows it to be discovered and included in the theme switcher
+            var dynamicTheme = new DynamicTheme(cssFilename, isStandalone, cssFilename.EndsWith(".min.css"));
+
+            if (!isStandalone)
             {
-                configureSettings += s => InjectJavascript(application, s);
-                configureSettings += s => ThemeBuilderHelpers.ConfigureCustomThemeWithSwitcher(
-                    application, themeName, isStandalone, s.AdditionalSettings, s.GetThemeSwitcherOptions());
+                // Register the theme for auto-discovery
+                ThemeSwitcher.RegisterTheme(dynamicTheme, cssFilename, isStandalone);
+
+                commonContent = AdvancedOptions.Apply(commonContent, settings.AdditionalSettings, MimeTypes.Text.Css);
+                themeContent = commonContent + Environment.NewLine + themeContent;
+
+                if (loadJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
+                {
+                    InjectJavascript(application, settings);
+                    ConfigureThemeSwitcher(application, settings, dynamicTheme);
+                }
             }
-        }
 
-        configureSettings += opt => opt.CustomInlineStyles = themeContent;
-
-        return application.UseSwaggerUi(configureSettings);
+            settings.CustomInlineStyles = themeContent;
+        });
     }
 
     private static void InjectJavascript(IApplicationBuilder application, SwaggerUiSettings settings)

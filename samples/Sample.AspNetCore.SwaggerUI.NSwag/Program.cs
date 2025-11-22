@@ -1,5 +1,5 @@
-﻿using AspNetCore.Swagger.Themes;
-using Sample.AspNetCore.SwaggerUI.NSwag;
+﻿using Sample.AspNetCore.SwaggerUI.NSwag;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -30,11 +30,11 @@ if (app.Environment.IsDevelopment())
     //});
 
     // 3. Custom theme from embedded resource
-    //app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "custom.css", c =>
-    //{
-    //    c.DocumentTitle = "Sample API - Custom Theme from Assembly";
-    //    c.EnableAllAdvancedOptions(); // Enables theme switcher + all UI features
-    //});
+    app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "mybrand.css", c =>
+    {
+        c.DocumentTitle = "Sample API - Custom Theme from Assembly";
+        c.EnableAllAdvancedOptions(); // Enables theme switcher + all UI features
+    });
 
     // 4. Standalone theme (no dependencies on common.css or ui.js)
     //app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "standalone.custom.css", c =>
@@ -183,13 +183,13 @@ if (app.Environment.IsDevelopment())
     //});
 
     // 18. Minimal configuration (just 2 themes)
-    app.UseSwaggerUi(Theme.Dark, c =>
-    {
-        c.DocumentTitle = "Sample API - Minimal";
-        c.EnableThemeSwitcher(new ThemeSwitcherOptions()
-            .WithThemes(Theme.Dark, Theme.Light)
-            .WithCustomThemes(CustomThemeMode.None));
-    });
+    //app.UseSwaggerUi(Theme.Dark, c =>
+    //{
+    //    c.DocumentTitle = "Sample API - Minimal";
+    //    c.EnableThemeSwitcher(new ThemeSwitcherOptions()
+    //        .WithThemes(Theme.Dark, Theme.Light)
+    //        .WithCustomThemes(CustomThemeMode.None));
+    //});
 }
 
 app.UseHttpsRedirection();

@@ -221,11 +221,6 @@ internal static class ThemeSwitcher
         theme.FileName.Contains("standalone", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
-    /// Gets all predefined themes.
-    /// </summary>
-    internal static IEnumerable<BaseTheme> GetAllPredefinedThemes() => s_predefinedThemes;
-
-    /// <summary>
     /// Gets available themes (excluding current theme).
     /// </summary>
     internal static IEnumerable<BaseTheme> GetAvailableThemes(BaseTheme currentTheme, ThemeSwitcherOptions options)

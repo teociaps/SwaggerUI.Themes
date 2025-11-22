@@ -1,5 +1,6 @@
 ﻿using AspNetCore.Swagger.Themes;
 using Sample.AspNetCore.SwaggerUI.Swashbuckle;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -30,11 +31,11 @@ if (app.Environment.IsDevelopment())
     //});
 
     // 3. Custom theme from embedded resource
-    //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "custom.css", c =>
-    //{
-    //    c.DocumentTitle = "Sample API - Custom Theme from Assembly";
-    //    c.EnableAllAdvancedOptions(); // Enables theme switcher + all UI features
-    //});
+    app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "mybrand.css", c =>
+    {
+        c.DocumentTitle = "Sample API - Custom Theme from Assembly";
+        c.EnableAllAdvancedOptions(ThemeSwitcherOptions.CustomOnly()); // Enables theme switcher + all UI features
+    });
 
     // 4. Standalone theme (no dependencies on common.css or ui.js)
     //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "standalone.custom.css", c =>
@@ -173,15 +174,15 @@ if (app.Environment.IsDevelopment())
     //});
 
     // 17. Complex filtering
-    app.UseSwaggerUI(Theme.Forest, c =>
-    {
-        c.DocumentTitle = "Sample API - Complex Filtering";
-        c.EnableAllAdvancedOptions();
-        c.EnableThemeSwitcher(new ThemeSwitcherOptions()
-            .WithAllPredefinedThemes(true) // Include all 6 predefined
-            .ExcludeThemes(Theme.Futuristic) // But exclude Futuristic
-            .WithCustomThemes(CustomThemeMode.AutoDiscover)); // Auto-discover custom
-    });
+    //app.UseSwaggerUI(Theme.Forest, c =>
+    //{
+    //    c.DocumentTitle = "Sample API - Complex Filtering";
+    //    c.EnableAllAdvancedOptions();
+    //    c.EnableThemeSwitcher(new ThemeSwitcherOptions()
+    //        .WithAllPredefinedThemes(true) // Include all 6 predefined
+    //        .ExcludeThemes(Theme.Futuristic) // But exclude Futuristic
+    //        .WithCustomThemes(CustomThemeMode.AutoDiscover)); // Auto-discover custom
+    //});
 
     // 18. Minimal configuration (just 2 themes)
     //app.UseSwaggerUI(Theme.Dark, c =>
