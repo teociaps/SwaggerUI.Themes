@@ -76,7 +76,7 @@ public static class SwaggerUIBuilderExtensions
     }
 
     /// <summary>
-    /// Registers the Swagger UI middleware applying a CSS theme from an assembly.
+    /// Registers the Swagger UI middleware applying a CSS theme from an assembly with optional setup action.
     /// </summary>
     /// <param name="application">The application builder instance.</param>
     /// <param name="assembly">The assembly where the embedded CSS file is situated.</param>
@@ -132,7 +132,6 @@ public static class SwaggerUIBuilderExtensions
         SwaggerUIOptions options,
         BaseTheme theme)
     {
-        // Register theme endpoints
         ThemeSwitcher.RegisterThemeEndpoints(application, theme, options.ConfigObject.AdditionalItems);
 
         // Inject stylesheets
@@ -147,13 +146,8 @@ public static class SwaggerUIBuilderExtensions
         }
     }
 
-    private static Action<SwaggerUIOptions> ConfigureTheme(
-        IApplicationBuilder application,
-        BaseTheme theme)
-    {
-        // This is only used by the first overload
-        return opt => ConfigureThemeInternal(application, opt, theme);
-    }
+    private static Action<SwaggerUIOptions> ConfigureTheme(IApplicationBuilder application, BaseTheme theme) =>
+        opt => ConfigureThemeInternal(application, opt, theme); // This is only used by the first overload
 
     private static void InjectJavascriptInternal(
         IApplicationBuilder application,
@@ -171,8 +165,6 @@ public static class SwaggerUIBuilderExtensions
         BaseTheme theme)
     {
         var headContent = new StringBuilder();
-
-        // Get switcher options from cache
         var switcherOptions = options.GetThemeSwitcherOptions();
 
         ThemeBuilderHelpers.ConfigureThemeWithSwitcher(

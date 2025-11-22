@@ -28,14 +28,7 @@ public static class NSwagBuilderExtensions
         return application.UseSwaggerUi(settings =>
         {
             configureSettings?.Invoke(settings);
-
-            settings.CustomInlineStyles = ThemeSwitcher.LoadThemeContent(theme, settings.AdditionalSettings);
-
-            if (theme.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
-            {
-                InjectJavascript(application, settings);
-                ConfigureThemeSwitcher(application, settings, theme);
-            }
+            ConfigureThemeInternal(application, settings, theme);
         });
     }
 
@@ -44,7 +37,7 @@ public static class NSwagBuilderExtensions
     /// </summary>
     /// <param name="application">The application builder instance.</param>
     /// <param name="cssThemeContent">The CSS theme to apply.</param>
-    /// <param name="setupAction">An optional action to configure Swagger UI options.</param>
+    /// <param name="setupAction">An optional action to configure Swagger UI settings.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="cssThemeContent"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUi(
@@ -54,9 +47,11 @@ public static class NSwagBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(cssThemeContent);
 
+        const string CustomPath = $"{FileProvider.StylesPath}custom.css";
+        FileProvider.AddGetEndpoint(application, CustomPath, cssThemeContent);
         ThemeSwitcher.RegisterCustomTheme("custom.css", isStandalone: true);
 
-        setupAction += opt => opt.CustomInlineStyles = cssThemeContent;
+        setupAction += opt => opt.CustomStylesheetPath = CustomPath;
         return application.UseSwaggerUi(setupAction);
     }
 
@@ -66,7 +61,7 @@ public static class NSwagBuilderExtensions
     /// <param name="application">The application builder instance.</param>
     /// <param name="assembly">The assembly where the embedded CSS file is situated.</param>
     /// <param name="cssFilename">The CSS theme filename (e.g. "myCustomTheme.css").</param>
-    /// <param name="configureSettings">An optional action to configure Swagger UI options.</param>
+    /// <param name="configureSettings">An optional action to configure Swagger UI settings.</param>
     /// <returns>The <see cref="IApplicationBuilder"/> for chaining.</returns>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> or <paramref name="cssFilename"/> is null.</exception>
     public static IApplicationBuilder UseSwaggerUi(
@@ -82,8 +77,7 @@ public static class NSwagBuilderExtensions
         {
             configureSettings?.Invoke(settings);
 
-            var (themeContent, commonContent, loadJs, isStandalone, themeName) =
-                ThemeBuilderHelpers.LoadAssemblyTheme(assembly, cssFilename);
+            var (themeContent, commonContent, loadJs, isStandalone, themeName) = ThemeBuilderHelpers.LoadAssemblyTheme(assembly, cssFilename);
 
             // Create a dynamic BaseTheme instance for this CSS file
             // This allows it to be discovered and included in the theme switcher
@@ -95,26 +89,59 @@ public static class NSwagBuilderExtensions
                 ThemeSwitcher.RegisterTheme(dynamicTheme, cssFilename, isStandalone);
 
                 commonContent = AdvancedOptions.Apply(commonContent, settings.AdditionalSettings, MimeTypes.Text.Css);
-                themeContent = commonContent + Environment.NewLine + themeContent;
+
+                // NSwag limitation: can only set ONE CustomStylesheetPath
+                // So we combine common + theme CSS into a single file
+                var combinedContent = commonContent + Environment.NewLine + themeContent;
+
+                var themePath = $"{FileProvider.StylesPath}{cssFilename}";
+                FileProvider.AddGetEndpoint(application, themePath, combinedContent);
+                settings.CustomStylesheetPath = themePath;
 
                 if (loadJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
                 {
-                    InjectJavascript(application, settings);
+                    InjectJavascriptInternal(application, settings);
                     ConfigureThemeSwitcher(application, settings, dynamicTheme);
                 }
             }
-
-            settings.CustomInlineStyles = themeContent;
+            else
+            {
+                // Standalone theme - just the theme CSS
+                var themePath = $"{FileProvider.StylesPath}{cssFilename}";
+                FileProvider.AddGetEndpoint(application, themePath, themeContent);
+                settings.CustomStylesheetPath = themePath;
+            }
         });
     }
 
-    private static void InjectJavascript(IApplicationBuilder application, SwaggerUiSettings settings)
+    private static void ConfigureThemeInternal(
+        IApplicationBuilder application,
+        SwaggerUiSettings settings,
+        BaseTheme theme)
+    {
+        // Load and register combined theme content (common + theme CSS)
+        var themeContent = ThemeSwitcher.LoadThemeContent(theme, settings.AdditionalSettings);
+        var themePath = $"{FileProvider.StylesPath}{theme.FileName}";
+        FileProvider.AddGetEndpoint(application, themePath, themeContent);
+
+        settings.CustomStylesheetPath = themePath;
+
+        // Configure JS features if enabled
+        if (theme.LoadAdditionalJs && AdvancedOptions.AnyJsFeatureEnabled(settings.AdditionalSettings))
+        {
+            InjectJavascriptInternal(application, settings);
+            ConfigureThemeSwitcher(application, settings, theme);
+        }
+    }
+
+    private static void InjectJavascriptInternal(
+        IApplicationBuilder application,
+        SwaggerUiSettings settings)
     {
         var javascript = ThemeBuilderHelpers.GetConfiguredJavaScript(settings.AdditionalSettings);
         ThemeBuilderHelpers.RegisterJavaScriptEndpoint(application, javascript);
 
-        const string jsPath = FileProvider.ScriptsPath + FileProvider.JsFilename;
-        settings.CustomJavaScriptPath = jsPath;
+        settings.CustomJavaScriptPath = FileProvider.ScriptsPath + FileProvider.JsFilename;
     }
 
     private static void ConfigureThemeSwitcher(
@@ -139,6 +166,10 @@ public static class NSwagBuilderExtensions
                 headContent.AppendLine(ThemeSwitcher.CreateThemeLink(availableTheme, disabled: true));
             });
 
+        // Mark current theme
+        headContent.AppendLine(ThemeSwitcher.CreateCurrentThemeMarkerScript(theme));
+
+        // Append to settings
         settings.CustomHeadContent += headContent.ToString();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using AspNetCore.Swagger.Themes;
 using Sample.AspNetCore.SwaggerUI.Swashbuckle;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -19,10 +18,7 @@ if (app.Environment.IsDevelopment())
     // ========================================
 
     // 1. Simple predefined theme (no theme switcher)
-    //app.UseSwaggerUI(Theme.Dark, c =>
-    //{
-    //    c.DocumentTitle = "Sample API - Dark Theme";
-    //});
+    app.UseSwaggerUI(Theme.Dark, c => c.DocumentTitle = "Sample API - Dark Theme");
 
     // 2. Inline CSS theme
     //app.UseSwaggerUI("body { background-color: #1a1a2e; color: #eee; }", c =>
@@ -31,11 +27,11 @@ if (app.Environment.IsDevelopment())
     //});
 
     // 3. Custom theme from embedded resource
-    app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "mybrand.css", c =>
-    {
-        c.DocumentTitle = "Sample API - Custom Theme from Assembly";
-        c.EnableAllAdvancedOptions(ThemeSwitcherOptions.CustomOnly()); // Enables theme switcher + all UI features
-    });
+    //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "mybrand.css", c =>
+    //{
+    //    c.DocumentTitle = "Sample API - Custom Theme from Assembly";
+    //    c.EnableAllAdvancedOptions(); // Enables theme switcher + all UI features
+    //});
 
     // 4. Standalone theme (no dependencies on common.css or ui.js)
     //app.UseSwaggerUI(Assembly.GetExecutingAssembly(), "standalone.custom.css", c =>
@@ -70,16 +66,16 @@ if (app.Environment.IsDevelopment())
     //});
 
     // 8. Specific themes selection (mixed predefined + custom)
-    //app.UseSwaggerUI(CompanyThemes.CorporateBlue, c =>
+    //app.UseSwaggerUI(CompanyThemes.CompanyThemes.CorporateBlue, c =>
     //{
     //    c.DocumentTitle = "Sample API - Business Themes";
     //    c.EnableThemeSwitcher(new ThemeSwitcherOptions()
     //        .WithThemes(
     //            Theme.Dark,
     //            Theme.Light,
-    //            CompanyThemes.CorporateBlue,
-    //            CompanyThemes.TechGreen,
-    //            CompanyThemes.StartupPurple
+    //            CompanyThemes.CompanyThemes.CorporateBlue,
+    //            CompanyThemes.CompanyThemes.TechGreen,
+    //            CompanyThemes.CompanyThemes.StartupPurple
     //        ));
     //});
 
@@ -113,20 +109,20 @@ if (app.Environment.IsDevelopment())
     //});
 
     // 12. Professional company branding
-    //app.UseSwaggerUI(CompanyThemes.TechGreen, c =>
+    //app.UseSwaggerUI(CompanyThemes.CompanyThemes.TechGreen, c =>
     //{
     //    c.DocumentTitle = "Company API Documentation";
     //    c.EnableThemeSwitcher(new ThemeSwitcherOptions()
     //        .WithThemes(
-    //            CompanyThemes.CorporateBlue,
-    //            CompanyThemes.TechGreen,
-    //            CompanyThemes.StartupPurple
+    //            CompanyThemes.CompanyThemes.CorporateBlue,
+    //            CompanyThemes.CompanyThemes.TechGreen,
+    //            CompanyThemes.CompanyThemes.StartupPurple
     //        )
     //        .WithDisplayFormat("Company Theme: {name}"));
     //});
 
     // ========================================
-    // ⚙️ ADVANCED UI FEATURES (without theme switcher)
+    // ⚙️ ADVANCED UI FEATURES
     // ========================================
 
     // 13. Enable all advanced UI features
@@ -161,14 +157,14 @@ if (app.Environment.IsDevelopment())
     // ========================================
 
     // 16. ExplicitOnly mode (no auto-discovery)
-    //app.UseSwaggerUI(CompanyThemes.CorporateBlue, c =>
+    //app.UseSwaggerUI(CompanyThemes.CompanyThemes.CorporateBlue, c =>
     //{
     //    c.DocumentTitle = "Sample API - Explicit Themes";
     //    c.EnableThemeSwitcher(new ThemeSwitcherOptions()
     //        .WithThemes(
     //            Theme.Dark,
     //            Theme.Light,
-    //            CompanyThemes.CorporateBlue
+    //            CompanyThemes.CompanyThemes.CorporateBlue
     //        )
     //        .WithCustomThemes(CustomThemeMode.ExplicitOnly));
     //});
