@@ -1,7 +1,7 @@
 ﻿<div align="center">
 
 <p>
-<img height="80" src="build/icon.png" alt="SwaggerUI.Themes Logo">
+<img height="50" src="build/icon.png" alt="SwaggerUI.Themes Logo">
 </p>
 
 # SwaggerUI.Themes

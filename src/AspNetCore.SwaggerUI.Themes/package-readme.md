@@ -19,13 +19,11 @@ _**...and more!**_
 > ⚠️ **Version 3.0 Breaking Changes**  
 > Upgrading from v2.0.0? Please review the **[Migration Guide](https://github.com/teociaps/SwaggerUI.Themes/wiki/Migration-v3)** for important API changes.
 
-## Installation
+## 🚀 Quick Start
 
 ```bash
 dotnet add package AspNetCore.SwaggerUI.Themes
 ```
-
-## 🚀 Quick Start
 
 ```csharp
 // Apply a theme
