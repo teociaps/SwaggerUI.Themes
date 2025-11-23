@@ -38,10 +38,10 @@ internal static class OpenApiDocGenConfigurer
                 Implicit = new OpenApiOAuthFlow()
                 {
                     Scopes = new Dictionary<string, string>
-            {
-                { "read", "Read access to protected resources" },
-                { "write", "Write access to protected resources" }
-            },
+                    {
+                        { "read", "Read access to protected resources" },
+                        { "write", "Write access to protected resources" }
+                    },
                     AuthorizationUrl = "https://localhost:44333/core/connect/authorize",
                     TokenUrl = "https://localhost:44333/core/connect/token"
                 },

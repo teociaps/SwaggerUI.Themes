@@ -13,7 +13,7 @@ internal static class SwaggerGenConfigurer
         {
             Version = "v1",
             Title = "ToDo API",
-            Description = "An ASP.NET Core Web API for testing",
+            Description = "An ASP.NET Core Web API for managing ToDo items",
             TermsOfService = new Uri("https://example.com/terms"),
             Contact = new OpenApiContact
             {

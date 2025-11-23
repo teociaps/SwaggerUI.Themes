@@ -32,7 +32,7 @@
     --auth-container-border-bottom-color: #ebebeb;
     --auth-container-background-color: #ddd;
     --auth-container-errors-color: red;
-    --btn-authorize-background-color: transparent;
+    --auth-wrapper-background-color: #071f4b;
     --btn-authorize-border-color: #ecf0f1;
     --btn-authorize-font-color: #ecf0f1;
     --btn-authorize-svg-fill-color: #ecf0f1;
