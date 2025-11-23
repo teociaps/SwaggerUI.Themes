@@ -15,11 +15,17 @@
     </a>
 </p>
 
-### Beautiful, modern themes for Swagger/OpenAPI documentation in ASP.NET Core
+### Give your ASP.NET Core API documentation the look it deserves!
 
-Make your API documentation look great with themes that fit your style.
+**Switch themes at runtime** &nbsp;•&nbsp; **Unlock new capabilities** &nbsp;•&nbsp; **Create and choose your custom style**
+<br>
+_**...and more!**_
 
-**[Get Started](https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started)** • **[View Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** • **[Full Documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)**
+**[Get Started](https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started)** • **[View Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** • **[Full Documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)**
+
+<img width="800" src="assets/swaggerui-themes-demo.gif" alt="SwaggerUI.Themes Demo">
+
+_Note: GIF framerate is limited. Actual transitions are buttery smooth!_
 
 ---
 
@@ -52,19 +58,24 @@ dotnet add package NSwag.AspNetCore.Themes
 app.UseSwaggerUI(Theme.Dark);      // Swashbuckle
 // or
 app.UseSwaggerUi(Theme.Dark);      // NSwag
+
+// Enable runtime theme switcher!
+app.UseSwaggerUI(Theme.Dark, c => c.EnableThemeSwitcher());
 ```
 
 ## ✨ Features
+
+- 🔥 **[Theme Switcher](https://github.com/teociaps/SwaggerUI.Themes/wiki/Feature-Theme-Switcher)** - Switch built-in and custom themes dynamically without page reload
 
 - **[Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** - Choose from predefined themes ready to use
 
 - **[Custom Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Custom-Themes)** - Build your own themes with full control, or create standalone themes with zero dependencies
 
-- **[Advanced Features](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)** - Enhance your documentation with new capabilities
+- **[Advanced Features](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)** - Enhance your documentation with powerful UI capabilities
 
-**Discover more in the [Wiki](https://github.com/teociaps/SwaggerUI.Themes/wiki)!**
+- _...discover more in the [Wiki](https://github.com/teociaps/SwaggerUI.Themes/wiki/Features)!_
 
-## 💡 Basic Usage Examples
+## 📚 Basic Usage Examples
 
 ### Swashbuckle
 
@@ -73,10 +84,16 @@ using AspNetCore.Swagger.Themes;
 
 ...
 
-// Simple
+// Simple theme
 app.UseSwaggerUI(Theme.Dark);
 
-// Or with advanced options
+// With runtime theme switcher
+app.UseSwaggerUI(Theme.Dark, c =>
+{
+    c.EnableThemeSwitcher(); // Auto-discovers all custom themes!
+});
+
+// All advanced features
 app.UseSwaggerUI(Theme.Dark, c =>
 {
     c.EnableAllAdvancedOptions();
@@ -92,10 +109,16 @@ using AspNetCore.Swagger.Themes;
 
 ...
 
-// Simple
+// Simple theme
 app.UseSwaggerUi(Theme.Dark);
 
-// Or with advanced options
+// With runtime theme switcher
+app.UseSwaggerUi(Theme.Dark, c =>
+{
+    c.EnableThemeSwitcher(); // Auto-discovers all custom themes!
+});
+
+// All advanced features
 app.UseSwaggerUi(Theme.Dark, c =>
 {
     c.EnableAllAdvancedOptions();
@@ -104,22 +127,27 @@ app.UseSwaggerUi(Theme.Dark, c =>
 ...
 ```
 
-### Custom Theme
+### 💡 Build your own Custom Theme
 
 ```csharp
-public class MyTheme : Theme
+// Organize themes in folders
+// SwaggerThemes/Brands/mybrand.css
+
+public class MyBrandTheme : Theme
 {
-    protected MyTheme() : base("my-theme.css") { }
-    public static MyTheme Custom => new();
+    protected MyBrandTheme(string fileName) : base(fileName) { }
+    public static MyBrandTheme Custom => new("mybrand.css");
+    //... and others!
 }
 
 // Usage
-app.UseSwaggerUI(MyTheme.Custom); // Swashbuckle
-
-app.UseSwaggerUi(MyTheme.Custom); // NSwag
+app.UseSwaggerUI(MyBrandTheme.Custom, c =>
+{
+    c.EnableThemeSwitcher(); // Works with custom themes too!
+});
 ```
 
-**Learn more in the [Wiki](https://github.com/teociaps/SwaggerUI.Themes/wiki)!**
+_Learn advanced usages in the [Wiki](https://github.com/teociaps/SwaggerUI.Themes/wiki)!_
 
 ## 🤝 Contributing
 
