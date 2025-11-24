@@ -64,7 +64,8 @@ internal static class FileProvider
 
                 return Results.Content(content, contentType);
             })
-            .ExcludeFromDescription();
+            .ExcludeFromDescription()
+            .AllowAnonymous();
         }
         else
         {
