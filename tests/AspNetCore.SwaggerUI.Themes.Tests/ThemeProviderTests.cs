@@ -14,12 +14,12 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
     private readonly ThemeProviderWebApplicationFactory<Program> _themeProviderWebApplicationFactory;
 
     private readonly Dictionary<string, object> _advancedOptions = new()
-    {
-        { AdvancedOptions.PinnableTopbar, true },
-        { AdvancedOptions.StickyOperations, true },
-        { AdvancedOptions.BackToTop, true },
-        { AdvancedOptions.ExpandOrCollapseAllOperations, true }
-    };
+        {
+            { AdvancedOptions.PinnableTopbar, true },
+            { AdvancedOptions.StickyOperations, true },
+            { AdvancedOptions.BackToTop, true },
+            { AdvancedOptions.ExpandOrCollapseAllOperations, true }
+        };
 
     public ThemeProviderTests(ThemeProviderWebApplicationFactory<Program> themeProviderWebApplicationFactory)
     {

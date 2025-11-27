@@ -25,6 +25,8 @@ _**...and more!**_
 dotnet add package AspNetCore.SwaggerUI.Themes
 ```
 
+## Quick Start
+
 ```csharp
 // Apply a theme
 app.UseSwaggerUI(Theme.Dark);

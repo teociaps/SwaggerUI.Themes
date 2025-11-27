@@ -25,6 +25,8 @@ _**...and more!**_
 dotnet add package NSwag.AspNetCore.Themes
 ```
 
+## Quick Start
+
 ```csharp
 // Apply a theme
 app.UseSwaggerUi(Theme.Dark);
