@@ -2,45 +2,51 @@
 
 ## Our Pledge
 
-In the interest of fostering an open and welcoming environment, we as contributors and maintainers pledge to make participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+In the interest of fostering an open and welcoming community, we as contributors and maintainers pledge to make participation in this project and our community a harassment-free experience for everyone. We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
 
 ## Our Standards
 
-Examples of behavior that contributes to creating a positive environment include:
+Examples of behavior that contributes to a positive environment:
 
 - Using welcoming and inclusive language
 - Being respectful of differing viewpoints and experiences
 - Gracefully accepting constructive criticism
 - Focusing on what is best for the community
-- Showing empathy towards other community members
+- Showing empathy toward other community members
 
 Examples of unacceptable behavior by participants include:
 
-- The use of sexualized language or imagery and unwelcome sexual attention or advances
-- Trolling, insulting/derogatory comments, and personal or political attacks
-- Public or private harassment
-- Publishing others' private information, such as a physical or electronic address, without explicit permission
-- Other conduct which could reasonably be considered inappropriate in a professional setting
+- Violence, threats of violence, or violent language
+- Discriminatory jokes and language, or derogatory comments
+- Posting sexually explicit content or sexual attention
+- Deliberate intimidation, stalking, or harassment
+- Publishing private information without permission
+- Other conduct which could reasonably be considered abusive or inappropriate in a professional setting
 
 ## Our Responsibilities
 
-Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
+Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any behavior that violates this Code of Conduct.
 
-Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.
+Maintainers have the right and responsibility to remove, edit, or reject contributions, and to ban or otherwise restrict participants who behave inappropriately.
+
+## Reporting and Enforcement
+
+If you are subject to or witness unacceptable behavior, please report it. Reports will be handled with discretion and investigated promptly and fairly.
+
+Report incidents to: [@teociaps](mailto:teociaps.github@gmail.com) or open an issue marked as confidential on the project repository if available.
+
+When reporting, include as much detail as possible: what happened, when, where, and any supporting evidence (e.g., screenshots, links).
 
 ## Scope
 
-This Code of Conduct applies within all project spaces, and it also applies when an individual is representing the project or its community in public spaces. Examples of representing a project or community include using an official project e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event. Representation of a project may be further defined and clarified by project maintainers.
+This Code of Conduct applies within project spaces and in public spaces when an individual is representing the project (e.g., using an official project e-mail address, posting via an official social media account, or acting as an appointed representative).
 
-## Enforcement
+## Enforcement Process
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project owner [@teociaps](mailto:ciapparellimatteo@gmail.com). All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident.
+Reports will be reviewed and investigated by the project maintainers. The maintainers will determine actions they deem appropriate, which may include asking the participant to apologize, removing content, temporary suspension, or permanent banning from project spaces.
 
-Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project's leadership.
+The maintainers will strive to keep the reporter's identity confidential when requested.
 
 ## Attribution
 
-This Code of Conduct is adapted from the Contributor Covenant, version 1.4, available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
-
-For answers to common questions about this code of conduct, see https://www.contributor-covenant.org/faq
-
+This Code of Conduct is adapted from the Contributor Covenant v3.0 (https://www.contributor-covenant.org/version/3/0/code_of_conduct/). By participating in this project, you agree to abide by this code.

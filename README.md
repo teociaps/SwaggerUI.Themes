@@ -65,7 +65,7 @@ app.UseSwaggerUI(Theme.Dark, c => c.EnableThemeSwitcher());
 
 ## ✨ Features
 
-- 🔥 **[Theme Switcher](https://github.com/teociaps/SwaggerUI.Themes/wiki/Feature-Theme-Switcher)** - Switch built-in and custom themes dynamically without page reload
+- 🔥 **[Theme Switcher](https://github.com/teociaps/SwaggerUI.Themes/wiki/Feature-Dynamic-Theme-Switcher)** - Switch built-in and custom themes dynamically without page reload
 
 - **[Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** - Choose from predefined themes ready to use
 
