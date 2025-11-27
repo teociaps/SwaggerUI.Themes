@@ -1,64 +1,146 @@
-﻿<span align="center">
+﻿<div align="center">
 
 <p>
-<img height="50" src="\build\icon.png" align="center">
+<img height="80" src="build/icon.png" alt="SwaggerUI.Themes Logo">
 </p>
 
 # SwaggerUI.Themes
 
-</span>
-
-<p align="center">
+<p>
     <a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml">
-        <img alt="Build Passing" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg" />
+        <img alt="Build" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/build.yml/badge.svg" />
     </a>
     <a href="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml">
-        <img alt="Tests Passing" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml/badge.svg" />
+        <img alt="Tests" src="https://github.com/teociaps/SwaggerUI.Themes/actions/workflows/test.yml/badge.svg" />
     </a>
 </p>
 
-<h4 align="center">Customize your API documentation in ASP.NET Core applications!</h4>
+### Beautiful, modern themes for Swagger/OpenAPI documentation in ASP.NET Core
 
-<table align="center">
-    <tr>
-        <td>
-            Explore the <b><a href="https://github.com/teociaps/SwaggerUI.Themes/wiki" title="Wiki">Wiki</a></b> to learn more and <b><a href="https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started" title="Getting Started">get started</a></b>.
-        </td>
-    </tr>
-</table>
+Make your API documentation look great with themes that fit your style.
 
+**[Get Started](https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started)** • **[View Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** • **[Full Documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)**
 
-<hr>
+---
 
+| Package | Purpose | NuGet |
+|---------|---------|-------|
+| **AspNetCore.SwaggerUI.Themes** | For [Swashbuckle.AspNetCore][swashbuckle-link] | [![swashbuckle-nuget]][swashbuckle-nuget-link] |
+| **NSwag.AspNetCore.Themes** | For [NSwag.AspNetCore][nswag-link] | [![nswag-nuget]][nswag-nuget-link] |
 
-| Package | Purpose |
-| :------ | :------ |
-| [![Swashbuckle Nuget Version]](https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes/) | Customize the style for [Swashbuckle.AspNetCore.SwaggerUI] |
-| [![NSwag Nuget Version]](https://www.nuget.org/packages/NSwag.AspNetCore.Themes/) | Customize the style for [NSwag.AspNetCore] |
+---
 
+</div>
 
-## Features
-
-- **[Predefined Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)**: choose from a variety of themes to customize the Swagger documentation interface. Options include a default style that preserves the classic Swagger UI look, along with fresh, modern styles.
-
-- **[Custom Styles](https://github.com/teociaps/SwaggerUI.Themes/wiki/Custom-Styles)**: design your own Swagger UI style by either extending the classic or modern base styles or creating a completely new look.
-
-- **[Advanced Options](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)**: access expanded features with both classic and modern styles for an optimized API documentation experience.
+> [!WARNING]
+> **Version 3.0.0 Breaking Changes**
+>
+> Upgrading from v2.0.0? Please review the **[Migration Guide](https://github.com/teociaps/SwaggerUI.Themes/wiki/Migration-v3)** for important API changes.
 
 
-## Contributing
+## 🚀 Quick Start
 
-If you have any suggestions, bug reports, or contributions, feel free to open an [issue](https://github.com/teociaps/SwaggerUI.Themes/issues) or submit a [pull request](https://github.com/teociaps/SwaggerUI.Themes/pulls).
+```bash
+# Install package
+dotnet add package AspNetCore.SwaggerUI.Themes
+# or
+dotnet add package NSwag.AspNetCore.Themes
+```
 
+```csharp
+// Apply a theme - that's it!
+app.UseSwaggerUI(Theme.Dark);      // Swashbuckle
+// or
+app.UseSwaggerUi(Theme.Dark);      // NSwag
+```
 
-## Release
+## ✨ Features
 
-See the [release notes](https://github.com/teociaps/SwaggerUI.Themes/releases) for details.
+- **[Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** - Choose from predefined themes ready to use
 
+- **[Custom Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Custom-Themes)** - Build your own themes with full control, or create standalone themes with zero dependencies
 
+- **[Advanced Features](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)** - Enhance your documentation with new capabilities
 
-[Swashbuckle Nuget Version]: https://img.shields.io/nuget/v/AspNetCore.SwaggerUI.Themes?logo=nuget&label=AspNetCore.SwaggerUI.Themes&color=blue
-[NSwag Nuget Version]: https://img.shields.io/nuget/v/NSwag.AspNetCore.Themes?logo=nuget&label=NSwag.AspNetCore.Themes&color=blue
+**Discover more in the [Wiki](https://github.com/teociaps/SwaggerUI.Themes/wiki)!**
 
-[Swashbuckle.AspNetCore.SwaggerUI]: https://github.com/domaindrivendev/Swashbuckle.AspNetCore
-[NSwag.AspNetCore]: https://github.com/RicoSuter/NSwag?tab=readme-ov-file#aspnet-and-aspnet-core
+## 💡 Basic Usage Examples
+
+### Swashbuckle
+
+```csharp
+using AspNetCore.Swagger.Themes;
+
+...
+
+// Simple
+app.UseSwaggerUI(Theme.Dark);
+
+// Or with advanced options
+app.UseSwaggerUI(Theme.Dark, c =>
+{
+    c.EnableAllAdvancedOptions();
+});
+
+...
+```
+
+### NSwag
+
+```csharp
+using AspNetCore.Swagger.Themes;
+
+...
+
+// Simple
+app.UseSwaggerUi(Theme.Dark);
+
+// Or with advanced options
+app.UseSwaggerUi(Theme.Dark, c =>
+{
+    c.EnableAllAdvancedOptions();
+});
+
+...
+```
+
+### Custom Theme
+
+```csharp
+public class MyTheme : Theme
+{
+    protected MyTheme() : base("my-theme.css") { }
+    public static MyTheme Custom => new();
+}
+
+// Usage
+app.UseSwaggerUI(MyTheme.Custom); // Swashbuckle
+
+app.UseSwaggerUi(MyTheme.Custom); // NSwag
+```
+
+**Learn more in the [Wiki](https://github.com/teociaps/SwaggerUI.Themes/wiki)!**
+
+## 🤝 Contributing
+
+Contributions are welcome! See the [Contributing Guide](CONTRIBUTING.md) for details.
+
+## 📜 License
+
+MIT Licensed - see [LICENSE](LICENSE) for details.
+
+---
+
+<div align="center">
+
+**Made with ❤️ by [@teociaps](https://github.com/teociaps)**
+
+</div>
+
+<!-- Links -->
+[swashbuckle-nuget]: https://img.shields.io/nuget/v/AspNetCore.SwaggerUI.Themes?logo=nuget&label=Version&color=blue
+[swashbuckle-nuget-link]: https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes/
+[nswag-nuget]: https://img.shields.io/nuget/v/NSwag.AspNetCore.Themes?logo=nuget&label=Version&color=blue
+[nswag-nuget-link]: https://www.nuget.org/packages/NSwag.AspNetCore.Themes/
+[swashbuckle-link]: https://github.com/domaindrivendev/Swashbuckle.AspNetCore
+[nswag-link]: https://github.com/RicoSuter/NSwag

@@ -1,5 +1,5 @@
 ﻿/*
-    Modern UI
+    Swagger UI
 
     https://github.com/teociaps/SwaggerUI.Themes
 */
@@ -11,7 +11,7 @@ window.onpageshow = function () {
         if (document.getElementById("swagger-ui") != null) {
             clearInterval(swaggerUILoaded);
 
-            console.log('Hello modern Swagger UI!');
+            console.log('Hello Swagger UI!');
 
             setUpPinnableTopbar({$PINNABLE_TOPBAR});
 

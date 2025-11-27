@@ -1,0 +1,118 @@
+/*
+    Standalone Custom Style
+
+    https://github.com/teociaps/SwaggerUI.Themes
+*/
+
+/*
+    This is a fully independent theme that doesn't rely on common.css or ui.js
+    Perfect for completely custom designs
+*/
+
+:root {
+    --standalone-primary: #ff6b35;
+    --standalone-bg: #1a1a2e;
+    --standalone-surface: #16213e;
+    --standalone-text: #eaeaea;
+}
+
+body {
+    background-color: var(--standalone-bg) !important;
+    color: var(--standalone-text) !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+.swagger-ui {
+    color: var(--standalone-text) !important;
+}
+
+/* Topbar */
+.swagger-ui .topbar {
+    background-color: var(--standalone-surface) !important;
+    border-bottom: 2px solid var(--standalone-primary) !important;
+}
+
+/* Info section */
+.swagger-ui .info .title {
+    color: var(--standalone-primary) !important;
+}
+
+.swagger-ui .info a {
+    color: var(--standalone-primary) !important;
+}
+
+/* Operations */
+.swagger-ui .opblock {
+    background: var(--standalone-surface) !important;
+    border: 1px solid var(--standalone-primary) !important;
+    margin: 10px 0 !important;
+}
+
+.swagger-ui .opblock .opblock-summary-method {
+    background: var(--standalone-primary) !important;
+    color: #fff !important;
+}
+
+.swagger-ui .opblock.opblock-get {
+    border-color: #61affe !important;
+}
+
+.swagger-ui .opblock.opblock-get .opblock-summary-method {
+    background: #61affe !important;
+}
+
+.swagger-ui .opblock.opblock-post {
+    border-color: #49cc90 !important;
+}
+
+.swagger-ui .opblock.opblock-post .opblock-summary-method {
+    background: #49cc90 !important;
+}
+
+.swagger-ui .opblock.opblock-put {
+    border-color: #fca130 !important;
+}
+
+.swagger-ui .opblock.opblock-put .opblock-summary-method {
+    background: #fca130 !important;
+}
+
+.swagger-ui .opblock.opblock-delete {
+    border-color: #f93e3e !important;
+}
+
+.swagger-ui .opblock.opblock-delete .opblock-summary-method {
+    background: #f93e3e !important;
+}
+
+/* Models */
+.swagger-ui section.models {
+    background: var(--standalone-surface) !important;
+    border: 1px solid var(--standalone-primary) !important;
+}
+
+.swagger-ui .model-box {
+    background: var(--standalone-bg) !important;
+}
+
+/* Buttons */
+.swagger-ui .btn {
+    background: var(--standalone-primary) !important;
+    color: #fff !important;
+    border: 1px solid var(--standalone-primary) !important;
+}
+
+.swagger-ui .btn.execute {
+    background: var(--standalone-primary) !important;
+}
+
+/* Inputs */
+.swagger-ui input[type=text],
+.swagger-ui input[type=password],
+.swagger-ui input[type=email],
+.swagger-ui textarea,
+.swagger-ui select {
+    background: var(--standalone-bg) !important;
+    color: var(--standalone-text) !important;
+    border: 1px solid var(--standalone-primary) !important;
+}
