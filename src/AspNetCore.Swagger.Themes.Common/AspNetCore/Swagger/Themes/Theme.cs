@@ -43,14 +43,4 @@ public class Theme : BaseTheme
     /// Apply a desert tones theme to your Swagger UI.
     /// </summary>
     public static Theme Desert => new("desert.css", true);
-
-    /// <inheritdoc/>
-    protected override string GetThemeName()
-    {
-        var nameWithoutExtension = FileName
-            .Replace(".min.css", "", StringComparison.OrdinalIgnoreCase)
-            .Replace(".css", "", StringComparison.OrdinalIgnoreCase);
-
-        return char.ToUpper(nameWithoutExtension[0]) + nameWithoutExtension[1..];
-    }
 }

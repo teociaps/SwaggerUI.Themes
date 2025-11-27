@@ -8,21 +8,21 @@ This project and everyone participating in it are governed by our [Code of Condu
 
 ## How to Contribute
 
-1. **Fork the repository to your GitHub account.**
-2. Clone the forked repository to your local machine.
+1. **Fork the repository** to your GitHub account.
+2. **Clone** the forked repository to your local machine.
 3. Create a **new branch** for your contribution:
 
 	```bash
 	git checkout -b feature/my-feature
 	```
 	
-4. Make your changes and commit them:
+4. Make your changes and **commit** them:
 
 	```bash
 	git commit -m "Add new feature"
 	```
 
-5. Push the changes to your fork:
+5. **Push** the changes to your fork:
 
 	```bash
 	git push origin feature/my-feature
@@ -30,116 +30,213 @@ This project and everyone participating in it are governed by our [Code of Condu
 
 6. Open a **pull request (PR)** against the **main** branch of the original repository.
 
-## Working with Styles and Scripts
+## Project Structure
 
-When contributing changes to CSS or JavaScript files for themes, please follow these guidelines to ensure both original and minified versions are properly maintained.
+Understanding the project layout helps you navigate the codebase:
+
+- **`src/AspNetCore.Swagger.Themes.Common/`** - Core theme system shared between packages
+- **`src/AspNetCore.SwaggerUI.Themes/`** - Swashbuckle.AspNetCore integration
+- **`src/NSwag.AspNetCore.Themes/`** - NSwag.AspNetCore integration
+- **`samples/`** - Example applications demonstrating usage
+- **`tests/`** - Unit and integration tests
+
+## Working with Themes
+
+### Adding or Modifying Themes
+
+Themes are defined as CSS files with optional JavaScript for advanced features. When working with themes:
+
+1. **Original files** - Make your changes in the non-minified `.css` or `.js` files
+2. **Minified versions** - Must be manually updated (see Minification Process below)
+3. **Headers** - Minified files require specific comment headers for testing
 
 ### Minification Process
 
-The project includes both original and minified versions of assets. The minified versions are used at runtime for optimal performance, while original files serve as fallbacks.
+The project uses minified versions at runtime for performance. After editing CSS or JavaScript:
 
-#### CSS Files
+#### For CSS Files
 
 1. Navigate to [CSS Minifier](https://www.toptal.com/developers/cssminifier)
-2. For each modified CSS file (e.g., `common.css`, `dark.css`, etc.):
-   - Open the original CSS file and copy its entire content
-   - Paste the content into the online minifier
-   - Click **"Minify"** to generate the compressed version
-   - Copy the minified output
-   - **Add the compact header** at the beginning of the minified content (see format below)
-   - Paste the result into the corresponding `.min.css` file (e.g., `common.min.css`)
-   - **Important**: Verify that placeholders are preserved:
-     - For `common.css` and `modern.common.css`, ensure `#STICKY_OPERATIONS` is still present in the minified output
+2. Copy the **entire content** of your modified CSS file
+3. Paste into the minifier and click **"Minify"**
+4. Copy the minified output
+5. Add the **compact header** at the very beginning (format below)
+6. Paste into the corresponding `.min.css` file
+7. **Verify placeholders** are preserved (e.g., `#STICKY_OPERATIONS` in `common.css`)
 
-#### JavaScript Files
+#### For JavaScript Files
 
 1. Navigate to [JavaScript Minifier](https://www.toptal.com/developers/javascript-minifier)
-2. For each modified JavaScript file (e.g., `modern.js`):
-   - Open the original JavaScript file and copy its entire content
-   - Paste the content into the online minifier
-   - Click **"Minify"** to generate the compressed version
-   - Copy the minified output
-   - **Add the compact header** at the beginning of the minified content (see format below)
-   - Paste the result into the corresponding `.min.js` file (e.g., `modern.min.js`)
-   - **Important**: Verify that all placeholders are preserved in the minified output:
-     - `{$PINNABLE_TOPBAR}`
-     - `{$BACK_TO_TOP}`
-     - `{$EXPAND_COLLAPSE_ALL_OPERATIONS}`
+2. Copy the **entire content** of your modified JavaScript file
+3. Paste into the minifier and click **"Minify"**
+4. Copy the minified output
+5. Add the **compact header** at the very beginning (format below)
+6. Paste into the corresponding `.min.js` file
+7. **Verify all placeholders** are preserved:
+   - `{$PINNABLE_TOPBAR}`
+   - `{$BACK_TO_TOP}`
+   - `{$EXPAND_COLLAPSE_ALL_OPERATIONS}`
+   - `{$THEME_SWITCHER}`
 
-#### Minified File Header Format
+#### Minified Header Format
 
-All minified files must start with a compact comment header for test compatibility. The format is:
+All minified files must start with this compact comment:
 
 ```
-/*StyleName*/[minified content here...]
+/*Name*/[minified content]
 ```
 
-**Examples**:
-- `dark.min.css` → `/*Dark*/body{color:...`
-- `modern.dark.min.css` → `/*Modern Dark*/body{color:...`
-- `common.min.css` → `/*Common Style*/body{color:...`
-- `modern.min.js` → `/*Modern UI*/const rootElement=...`
+**Examples:**
+- `dark.min.css` → `/*Dark Theme*/body{...`
+- `common.min.css` → `/*Common*/body{...`
+- `ui.min.js` → `/*Swagger UI*/const ...`
 
-#### Committing Changes
+> **Why?** Tests verify headers are present and correctly formatted. This ensures minification was done properly.
 
-When committing style or script changes, always include both the original and minified versions:
+#### Placeholder Preservation
+
+Placeholders like `{$THEME_SWITCHER}` are replaced at runtime based on user settings. Minification **must preserve** these exact strings, or features will break.
+
+### Committing Theme Changes
+
+Always commit both original **and** minified versions:
 
 ```bash
 git add src/AspNetCore.Swagger.Themes.Common/AspNetCore/Swagger/Themes/Styles/*.css
 git add src/AspNetCore.Swagger.Themes.Common/AspNetCore/Swagger/Themes/Scripts/*.js
-git commit -m "Update theme styles: [description of changes]"
+git commit -m "Add new ocean theme"
 ```
 
-### Why Placeholders Matter
+## Testing Your Changes
 
-The placeholders (`#STICKY_OPERATIONS`, `{$PINNABLE_TOPBAR}`, etc.) are dynamically replaced at runtime based on user configuration. It is critical that minification preserves these exact strings to maintain functionality.
+Before submitting a pull request:
 
-### Testing Your Changes
+### 1. Build the Solution
 
-Before submitting your pull request:
+```bash
+dotnet build -c Release
+```
 
-1. Build the project:
-   ```bash
-   dotnet build -c Release
-   ```
+Ensure there are no compilation errors.
 
-2. Run the tests to ensure minified headers are correct:
-   ```bash
-   dotnet test
-   ```
+### 2. Run Tests
 
-3. Test with the sample applications:
-   ```bash
-   dotnet run --project samples/Sample.AspNetCore.SwaggerUI.Swashbuckle
-   ```
+```bash
+dotnet test
+```
 
-4. Verify that:
-   - Themes render correctly
-   - Advanced features work as expected (pinnable topbar, back-to-top button, etc.)
-   - No console errors appear in the browser's developer tools
-   - Tests pass
+All tests must pass, including:
+- Minified header format tests
+- Theme discovery tests
+- Integration tests
+
+### 3. Test with Sample Applications
+
+Run both sample projects to verify functionality:
+
+```bash
+# Swashbuckle sample
+dotnet run --project samples/Sample.AspNetCore.SwaggerUI.Swashbuckle
+
+# NSwag sample
+dotnet run --project samples/Sample.AspNetCore.SwaggerUI.NSwag
+```
+
+### 4. Manual Verification
+
+Open the sample app in your browser and verify:
+
+- ✅ Themes render correctly
+- ✅ Theme switcher dropdown appears and works (if enabled)
+- ✅ Custom themes are discovered automatically
+- ✅ Advanced features work (pinnable topbar, back-to-top, etc.)
+- ✅ No console errors in browser developer tools
+- ✅ Standalone themes load without extra dependencies
 
 ## Pull Request Guidelines
-- Ensure your code adheres to the existing coding standards.
-- Include relevant documentation and test cases for your changes.
-- For style/script changes, include both original and minified versions with proper headers.
-- Keep your pull request focused. If you are addressing multiple issues, submit separate pull requests for each.
-- Be responsive to comments and feedback on your pull request.
 
-## Reporting Bugs and Issues
-If you find a bug or have a question, please open an issue on GitHub. When reporting a bug, provide as much detail as possible, including:
+- **Follow existing code style** - Match the patterns you see in the codebase
+- **Include tests** - Add or update tests for your changes
+- **Update documentation** - If adding features, update relevant docs
+- **Keep PRs focused** - One feature or fix per PR (submit separate PRs for multiple changes)
+- **Provide context** - Explain *why* the change is needed, not just *what* changed
+- **Be responsive** - Address feedback and questions promptly
 
-- A clear and concise description of the bug.
-- Steps to reproduce the issue.
-- Expected behavior and actual behavior.
-- Screenshots or code snippets, if applicable.
+### Good PR Practices
 
-## Feature Requests
-We welcome suggestions for new features or improvements. Please open an issue to propose your ideas.
+- Use descriptive titles: `feat: add sunset theme` not `update css`
+- Reference issues: `Fixes #123` or `Closes #456`
+- Include screenshots for visual changes
+- Test across .NET 8, 9, and 10 if possible
+
+## Reporting Bugs
+
+Found a bug? Please open an issue with:
+
+- **Clear description** of the problem
+- **Steps to reproduce** the issue
+- **Expected vs. actual behavior**
+- **Environment details:**
+  - Which package (Swashbuckle or NSwag)
+  - .NET version
+  - Browser (if UI-related)
+- **Screenshots or code snippets** if applicable
+
+## Suggesting Features
+
+We welcome feature suggestions! When proposing a feature:
+
+- **Describe the use case** - What problem does it solve?
+- **Explain the benefit** - How does it improve the project?
+- **Consider backward compatibility** - Will it break existing code?
+- **Offer to help** - Can you contribute the implementation?
+
+## Development Tips
+
+### Quick Testing Loop
+
+For rapid iteration during development:
+
+1. Make your changes
+2. Build: `dotnet build`
+3. Run sample: `dotnet run --project samples/Sample.AspNetCore.SwaggerUI.Swashbuckle`
+4. Refresh browser (F5) (clear the browser cache if necessary) to see changes
+
+### Organizing Custom Themes
+
+When adding example custom themes, use subfolders for clarity:
+
+```
+samples/YourSample/SwaggerThemes/
+├── CompanyThemes/
+│   └── corporate-blue.css
+└── SeasonalThemes/
+    └── holiday-red.css
+```
+
+This demonstrates best practices for users organizing their own themes.
+
+### Standalone vs. Regular Themes
+
+- **Regular themes** - Depend on `common.css` and may use JavaScript features
+- **Standalone themes** - Prefix with `standalone.` (e.g., `standalone.custom.css`) for zero dependencies
+
+Choose based on whether you need shared styles or prefer total independence.
+
+## Questions?
+
+Not sure about something? Feel free to:
+
+- Open an issue for clarification
+- Ask in your pull request
+- Reference existing code patterns
 
 ## License
-By contributing to this project, you agree that your contributions will be licensed under the [License](LICENSE) file.
 
-Thank you for your contributions!
+By contributing, you agree that your contributions will be licensed under the same [MIT License](LICENSE) that covers the project.
 
-**_@teociaps_**
+---
+
+Thank you for making SwaggerUI.Themes better! 🎨
+
+**[@teociaps](https://github.com/teociaps)**

@@ -1,0 +1,124 @@
+/* Corporate Blue Theme - Professional Business */
+
+:root {
+    --primary-color: #0066cc;
+    --primary-dark: #004999;
+    --primary-light: #3385d6;
+    --secondary-color: #5c7080;
+    --background-dark: #1a2332;
+    --background-light: #2c3e50;
+    --text-primary: #ecf0f1;
+    --text-secondary: #bdc3c7;
+    --border-color: #34495e;
+    --success-color: #27ae60;
+    --error-color: #e74c3c;
+}
+
+.swagger-ui {
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+}
+
+.swagger-ui .topbar {
+    background-color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-dark);
+}
+
+.swagger-ui .topbar .download-url-wrapper input[type=text] {
+    background-color: var(--background-light);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.swagger-ui .info .title {
+    color: var(--primary-light);
+}
+
+.swagger-ui .info .base-url {
+    color: var(--text-secondary);
+}
+
+.swagger-ui .scheme-container {
+    background-color: var(--background-light);
+    border-color: var(--border-color);
+}
+
+.swagger-ui .opblock {
+    border-color: var(--border-color);
+    background-color: var(--background-light);
+}
+
+.swagger-ui .opblock.opblock-get {
+    background-color: rgba(0, 102, 204, 0.1);
+    border-color: var(--primary-color);
+}
+
+.swagger-ui .opblock.opblock-get .opblock-summary {
+    border-color: var(--primary-color);
+}
+
+.swagger-ui .opblock.opblock-post {
+    background-color: rgba(39, 174, 96, 0.1);
+    border-color: var(--success-color);
+}
+
+.swagger-ui .opblock.opblock-post .opblock-summary {
+    border-color: var(--success-color);
+}
+
+.swagger-ui .opblock.opblock-put {
+    background-color: rgba(243, 156, 18, 0.1);
+    border-color: #f39c12;
+}
+
+.swagger-ui .opblock.opblock-delete {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-color: var(--error-color);
+}
+
+.swagger-ui .opblock-summary-method {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+.swagger-ui .opblock-summary-path {
+    color: var(--text-primary);
+}
+
+.swagger-ui .btn {
+    background-color: var(--primary-color);
+    border-color: var(--primary-dark);
+    color: white;
+}
+
+.swagger-ui .btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.swagger-ui table thead tr th {
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.swagger-ui table tbody tr td {
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+.swagger-ui .response-col_status {
+    color: var(--success-color);
+}
+
+.swagger-ui .model-box {
+    background-color: var(--background-light);
+    border-color: var(--border-color);
+}
+
+.swagger-ui .model {
+    color: var(--text-primary);
+}
+
+.swagger-ui section.models {
+    border-color: var(--border-color);
+}

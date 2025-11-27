@@ -1,0 +1,129 @@
+/* Tech Green Theme - Modern Technology */
+
+:root {
+    --primary-color: #00c853;
+    --primary-dark: #009624;
+    --primary-light: #5efc82;
+    --secondary-color: #607d8b;
+    --background-dark: #0d1b0e;
+    --background-light: #1a3a1f;
+    --text-primary: #e8f5e9;
+    --text-secondary: #a5d6a7;
+    --border-color: #2e7d32;
+    --success-color: #66bb6a;
+    --error-color: #ef5350;
+}
+
+.swagger-ui {
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+}
+
+.swagger-ui .topbar {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    border-bottom: 2px solid var(--primary-light);
+}
+
+.swagger-ui .topbar .download-url-wrapper input[type=text] {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-light);
+    color: var(--text-primary);
+}
+
+.swagger-ui .info .title {
+    color: var(--primary-light);
+    text-shadow: 0 0 10px rgba(0, 200, 83, 0.5);
+}
+
+.swagger-ui .info .base-url {
+    color: var(--text-secondary);
+}
+
+.swagger-ui .scheme-container {
+    background-color: var(--background-light);
+    border-color: var(--border-color);
+}
+
+.swagger-ui .opblock {
+    border-color: var(--border-color);
+    background-color: var(--background-light);
+    box-shadow: 0 2px 4px rgba(0, 200, 83, 0.1);
+}
+
+.swagger-ui .opblock.opblock-get {
+    background-color: rgba(0, 200, 83, 0.1);
+    border-left: 4px solid var(--primary-color);
+}
+
+.swagger-ui .opblock.opblock-post {
+    background-color: rgba(102, 187, 106, 0.1);
+    border-left: 4px solid var(--success-color);
+}
+
+.swagger-ui .opblock.opblock-put {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-left: 4px solid #ffc107;
+}
+
+.swagger-ui .opblock.opblock-delete {
+    background-color: rgba(239, 83, 80, 0.1);
+    border-left: 4px solid var(--error-color);
+}
+
+.swagger-ui .opblock-summary-method {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.swagger-ui .opblock-summary-path {
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+}
+
+.swagger-ui .btn {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    border: none;
+    color: #000;
+    font-weight: 600;
+}
+
+.swagger-ui .btn:hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    box-shadow: 0 4px 8px rgba(0, 200, 83, 0.3);
+}
+
+.swagger-ui table thead tr th {
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    background-color: rgba(0, 200, 83, 0.1);
+}
+
+.swagger-ui table tbody tr td {
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+.swagger-ui .response-col_status {
+    color: var(--primary-light);
+    font-weight: 600;
+}
+
+.swagger-ui .model-box {
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.swagger-ui .model {
+    color: var(--text-primary);
+}
+
+.swagger-ui section.models {
+    border-color: var(--border-color);
+}
+
+.swagger-ui .loading-container .loading:after {
+    border-color: var(--primary-color) transparent transparent;
+}

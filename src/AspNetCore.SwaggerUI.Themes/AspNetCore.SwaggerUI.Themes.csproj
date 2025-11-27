@@ -5,7 +5,7 @@
 
   <!-- Official Version -->
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <MajorVersion>2</MajorVersion>
+    <MajorVersion>3</MajorVersion>
     <MinorVersion>0</MinorVersion>
     <PatchVersion>0</PatchVersion>
     <VersionSuffix></VersionSuffix>
@@ -15,16 +15,16 @@
   <PropertyGroup>
     <PackageId>AspNetCore.SwaggerUI.Themes</PackageId>
     <Description>
-      Change theme to your Swagger API documentation in ASP.NET Core applications.
+      Modernize your ASP.NET Core Swagger UI with runtime theme switching, deep customization, and new functional UI features.
     </Description>
     <PackageTags>
-      extension;aspnetcore;swagger;swagger-ui;themes;ui;dark-theme;modern
+      swagger;swagger-ui;swaggerui;swashbuckle;aspnetcore;webapi;openapi;extension;modern-ui;theme;dark-mode;dark-theme;runtime-theming;theme-switcher;theme-changer;custom-themes
     </PackageTags>
     <IncludeBuildOutput>true</IncludeBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
 
   <ItemGroup>

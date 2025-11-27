@@ -1,0 +1,45 @@
+/* Ocean Blue Theme - Summer Vacation */
+
+:root {
+    --primary-color: #0277bd;
+    --primary-dark: #01579b;
+    --primary-light: #58a5f0;
+    --secondary-color: #00acc1;
+    --background-dark: #051923;
+    --background-light: #003459;
+    --text-primary: #e1f5fe;
+    --text-secondary: #81d4fa;
+    --border-color: #006064;
+    --success-color: #00bfa5;
+    --wave-color: #4fc3f7;
+}
+
+.swagger-ui {
+    background: linear-gradient(180deg, var(--background-dark) 0%, var(--background-light) 100%);
+    color: var(--text-primary);
+}
+
+.swagger-ui .topbar {
+    background: linear-gradient(135deg, #01579b 0%, #0277bd 50%, #4fc3f7 100%);
+    border-bottom: 2px solid var(--wave-color);
+}
+
+.swagger-ui .info .title {
+    color: var(--wave-color);
+}
+
+.swagger-ui .opblock.opblock-get {
+    background-color: rgba(2, 119, 189, 0.1);
+    border-color: var(--primary-color);
+}
+
+.swagger-ui .opblock-summary-method {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+}
+
+.swagger-ui .btn {
+    background-color: var(--secondary-color);
+    border-color: var(--primary-color);
+    color: white;
+}

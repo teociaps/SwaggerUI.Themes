@@ -6,18 +6,20 @@
 
 # NSwag.AspNetCore.Themes
 
-### Beautiful, modern themes for NSwag Swagger UI in ASP.NET Core
+### Give your ASP.NET Core API documentation the look it deserves!
 
-Make your API documentation look great with themes that fit your style.
+**Switch themes at runtime** &nbsp;•&nbsp; **Unlock new capabilities** &nbsp;•&nbsp; **Create and choose your custom style**
+<br>
+_**...and more!**_
 
-**[Get Started](https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started)** • **[View Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** • **[Documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)**
+**[Get Started](https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started)** • **[View Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** • **[Full Documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)**
 
 </div>
 
 > ⚠️ **Version 3.0 Breaking Changes**  
 > Upgrading from v2.0.0? Please review the **[Migration Guide](https://github.com/teociaps/SwaggerUI.Themes/wiki/Migration-v3)** for important API changes.
 
-## Installation
+## 🚀 Quick Start
 
 ```bash
 dotnet add package NSwag.AspNetCore.Themes
@@ -26,20 +28,28 @@ dotnet add package NSwag.AspNetCore.Themes
 ## Quick Start
 
 ```csharp
+// Apply a theme
 app.UseSwaggerUi(Theme.Dark);
+
+// Or enable runtime theme switcher!
+app.UseSwaggerUi(Theme.Dark, c => c.EnableThemeSwitcher());
 ```
 
 > **Note**: The `UseSwaggerUi()` method is provided by NSwag.AspNetCore. This package adds convenient overloads to apply themes seamlessly.
 
-## Features
+## ✨ Features
 
-- **[Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** - Predefined themes ready to use
+- 🔥 **[Theme Switcher](https://github.com/teociaps/SwaggerUI.Themes/wiki/Feature-Dynamic-Theme-Switcher)** - Switch built-in and custom themes dynamically without page reload
 
-- **[Advanced Features](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)** - Unlock new capabilities to enhance your Swagger UI
+- **[Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** - Choose from predefined themes ready to use
 
-- **[Custom Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Custom-Themes)** - Create your own themes with full control or build standalone themes
+- **[Custom Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Custom-Themes)** - Build your own themes with full control, or create standalone themes with zero dependencies
 
-## Usage
+- **[Advanced Features](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)** - Enhance your documentation with powerful UI capabilities
+
+- _...discover more in the [Wiki](https://github.com/teociaps/SwaggerUI.Themes/wiki/Features)!_
+
+## 📚 Basic Usage Examples
 
 ```csharp
 using AspNetCore.Swagger.Themes;
@@ -49,14 +59,23 @@ using AspNetCore.Swagger.Themes;
 // Use a built-in theme
 app.UseSwaggerUi(Theme.Dark);
 
-// Or with advanced features
+// Enable theme switcher with auto-discovery
+app.UseSwaggerUi(Theme.Dark, c =>
+{
+    c.EnableThemeSwitcher();
+});
+
+// Or with all advanced features
 app.UseSwaggerUi(Theme.Dark, c =>
 {
     c.EnableAllAdvancedOptions();
 });
 
 // Or use your custom theme from assembly
-app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "my-theme.css");
+app.UseSwaggerUi(Assembly.GetExecutingAssembly(), "my-theme.css", c =>
+{
+    c.EnableThemeSwitcher(); // Works with custom themes too!
+});
 
 ...
 ```
