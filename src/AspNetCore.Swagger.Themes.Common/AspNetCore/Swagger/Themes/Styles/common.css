@@ -1006,6 +1006,7 @@ body {
     padding: 0 20px;
     width: 100%;
     pointer-events: none;
+    z-index: 1000;
 }
 
 #scroll-to-top-btn {
