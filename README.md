@@ -39,9 +39,9 @@ _Note: GIF framerate is limited. Actual transitions are buttery smooth!_
 </div>
 
 > [!WARNING]
-> **Version 3.0.0 Breaking Changes**
+> **Version 3.x Breaking Changes**
 >
-> Upgrading from v2.0.0? Please review the **[Migration Guide](https://github.com/teociaps/SwaggerUI.Themes/wiki/Migration-v3)** for important API changes.
+> Upgrading from v2.x? Please review the **[Migration Guide](https://github.com/teociaps/SwaggerUI.Themes/wiki/Migration-v3)** for important API changes.
 
 
 ## 🚀 Quick Start

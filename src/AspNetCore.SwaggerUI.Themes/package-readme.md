@@ -1,20 +1,12 @@
-﻿<div align="center">
-
-<p>
-<img height="50" src="https://raw.githubusercontent.com/teociaps/SwaggerUI.Themes/refs/heads/main/build/icon.png" alt="SwaggerUI.Themes Logo">
-</p>
-
-# AspNetCore.SwaggerUI.Themes
+﻿# AspNetCore.SwaggerUI.Themes
 
 ### Give your ASP.NET Core API documentation the look it deserves!
 
-**Switch themes at runtime** &nbsp;•&nbsp; **Unlock new capabilities** &nbsp;•&nbsp; **Create and choose your custom style**
-<br>
-_**...and more!**_
+**Switch themes at runtime** &nbsp;•&nbsp; **Unlock new capabilities** &nbsp;•&nbsp; **Create and choose your custom style** • _**...and more!**_
 
 **[Get Started](https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started)** • **[View Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** • **[Full Documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)**
 
-</div>
+
 
 > ⚠️ **Version 3.0 Breaking Changes**  
 > Upgrading from v2.0.0? Please review the **[Migration Guide](https://github.com/teociaps/SwaggerUI.Themes/wiki/Migration-v3)** for important API changes.

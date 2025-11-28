@@ -1,5 +1,5 @@
 ﻿+===================================================================================+
-|             AspNetCore.SwaggerUI.Themes • RELEASE NOTES - v3.0.0                  |
+|                 AspNetCore.SwaggerUI.Themes • RELEASE NOTES - v3                  |
 +===================================================================================+
 
 BREAKING CHANGES
@@ -53,14 +53,5 @@ DOCUMENTATION
 Full docs:    https://github.com/teociaps/SwaggerUI.Themes/wiki
 Migration:    https://github.com/teociaps/SwaggerUI.Themes/wiki/Migration-v3
 Repository:   https://github.com/teociaps/SwaggerUI.Themes
-
-Other Changes:
-- .NET 10 support; .NET 6 & 7 discontinued
-- Unified theme system with modern defaults
-- Standalone theme support (zero dependencies)
-- Minification control via useMinified parameter
-- Advanced features available on all themes
-- 50% smaller package footprint
-- Enhanced performance and clarity
 
 =====================================================================================
