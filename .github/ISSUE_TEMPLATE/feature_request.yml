@@ -1,0 +1,105 @@
+name: "? Feature Request"
+description: "Suggest a new feature or enhancement for SwaggerUI.Themes or SwaggerUI.Extensions"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a feature! Please provide details to help us understand your idea.
+
+  - type: dropdown
+    id: feature_type
+    attributes:
+      label: "Feature Type"
+      description: "What category is your feature request for?"
+      options:
+        - "Theme (visual/styling enhancement)"
+        - "Extension (functional capability)"
+        - "Documentation"
+        - "Developer Experience"
+        - "Other"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package_scope
+    attributes:
+      label: "Package Scope"
+      description: "Which packages should this feature apply to?"
+      options:
+        - "Swashbuckle only (AspNetCore.SwaggerUI.*)"
+        - "NSwag only (NSwag.AspNetCore.*)"
+        - "Both Swashbuckle and NSwag"
+        - "Common/Shared"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problem Statement"
+      description: "What problem does this feature solve? What is the use case?"
+      placeholder: |
+        Current situation: ...
+        Problem: ...
+        Why this matters: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Proposed Solution"
+      description: "Describe how you envision this feature working"
+      placeholder: |
+        Describe the ideal behavior/UI/API
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternative Solutions"
+      description: "Are there any alternative approaches? (optional)"
+      placeholder: "Have you considered other ways to solve this?"
+
+  - type: textarea
+    id: example_usage
+    attributes:
+      label: "Example Usage"
+      description: "How would users interact with this feature? (optional)"
+      render: csharp
+      placeholder: |
+        // Example code showing how the feature would be used
+        app.UseSwaggerUI(Theme.Dark, c =>
+        {
+            c.MyNewFeature();
+        });
+
+  - type: textarea
+    id: design_considerations
+    attributes:
+      label: "Design Considerations"
+      description: "Any thoughts on API design, backward compatibility, or performance? (optional)"
+      placeholder: "Backward compatibility impact, performance considerations, naming suggestions, etc."
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Verification"
+      options:
+        - label: "I have searched existing feature requests and found no duplicates"
+          required: true
+        - label: "This feature aligns with the project scope"
+          required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: "Any other information or references? (optional)"
+      placeholder: |
+        - Related issues: #123
+        - Similar features in other projects: ...
+        - References: ...

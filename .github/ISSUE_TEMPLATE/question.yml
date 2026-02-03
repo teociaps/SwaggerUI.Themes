@@ -1,0 +1,67 @@
+name: "? Question/Discussion"
+description: "Ask a question or start a discussion about using the packages"
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about how to use SwaggerUI.Themes or SwaggerUI.Extensions? Please ask away!
+
+  - type: dropdown
+    id: package_type
+    attributes:
+      label: "Package"
+      description: "Which package is your question about?"
+      options:
+        - "AspNetCore.SwaggerUI.Themes"
+        - "NSwag.AspNetCore.Themes"
+        - "AspNetCore.SwaggerUI.Extensions"
+        - "NSwag.AspNetCore.Extensions"
+        - "General/Not sure"
+    validations:
+      required: true
+
+  - type: input
+    id: dotnet_version
+    attributes:
+      label: ".NET Version"
+      description: "Which .NET version are you using?"
+      placeholder: "e.g., 8.0, 9.0, 10.0"
+
+  - type: input
+    id: package_version
+    attributes:
+      label: "Package Version"
+      description: "Which version of the package are you using?"
+      placeholder: "e.g., 3.0.0"
+
+  - type: textarea
+    id: question
+    attributes:
+      label: "Your Question"
+      description: "What would you like to know?"
+      placeholder: "Ask your question here..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Context"
+      description: "What are you trying to achieve? Include any relevant code."
+      render: csharp
+      placeholder: |
+        // Your code/setup here
+
+  - type: textarea
+    id: what_you_tried
+    attributes:
+      label: "What Have You Tried?"
+      description: "What solutions have you already attempted?"
+      placeholder: "Describe any troubleshooting steps you've already taken"
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: "Additional Information"
+      description: "Any other details that might be helpful? (optional)"

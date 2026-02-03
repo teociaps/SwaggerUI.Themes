@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11205.157 d18.0
+VisualStudioVersion = 18.0.11205.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.SwaggerUI.Themes", "src\AspNetCore.SwaggerUI.Themes\AspNetCore.SwaggerUI.Themes.csproj", "{5FC2CEDA-5475-4096-BDEC-1C9BFC933FB8}"
 EndProject
@@ -28,6 +28,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSwag.AspNetCore.Themes", "src\NSwag.AspNetCore.Themes\NSwag.AspNetCore.Themes.csproj", "{38614F76-C962-4CDC-9C9D-25469B92CDE2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Swagger.Themes.Common", "src\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj", "{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.SwaggerUI.Extensions", "src\AspNetCore.SwaggerUI.Extensions\AspNetCore.SwaggerUI.Extensions.csproj", "{8E498417-7FF6-E0E3-9BC1-AB5197733AFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSwag.AspNetCore.Extensions", "src\NSwag.AspNetCore.Extensions\NSwag.AspNetCore.Extensions.csproj", "{605058F0-1D5E-C122-1ABD-B73D053665B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Swagger.Extensions.Tests", "tests\AspNetCore.Swagger.Extensions.Tests\AspNetCore.Swagger.Extensions.Tests.csproj", "{ECD67BCE-D96A-B1D4-48F1-95AF9F6A49E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.AspNetCore.SwaggerUI.Extensions", "samples\Sample.AspNetCore.SwaggerUI.Extensions\Sample.AspNetCore.SwaggerUI.Extensions.csproj", "{B90ED39A-C413-8F86-152F-7D2EB7AAB349}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.NSwag.AspNetCore.Extensions", "samples\Sample.NSwag.AspNetCore.Extensions\Sample.NSwag.AspNetCore.Extensions.csproj", "{9050F5CA-0F00-25EA-236F-8659C3AD917F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +69,26 @@ Global
 		{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E498417-7FF6-E0E3-9BC1-AB5197733AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E498417-7FF6-E0E3-9BC1-AB5197733AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E498417-7FF6-E0E3-9BC1-AB5197733AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E498417-7FF6-E0E3-9BC1-AB5197733AFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{605058F0-1D5E-C122-1ABD-B73D053665B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{605058F0-1D5E-C122-1ABD-B73D053665B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{605058F0-1D5E-C122-1ABD-B73D053665B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{605058F0-1D5E-C122-1ABD-B73D053665B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECD67BCE-D96A-B1D4-48F1-95AF9F6A49E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECD67BCE-D96A-B1D4-48F1-95AF9F6A49E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECD67BCE-D96A-B1D4-48F1-95AF9F6A49E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECD67BCE-D96A-B1D4-48F1-95AF9F6A49E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B90ED39A-C413-8F86-152F-7D2EB7AAB349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B90ED39A-C413-8F86-152F-7D2EB7AAB349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B90ED39A-C413-8F86-152F-7D2EB7AAB349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B90ED39A-C413-8F86-152F-7D2EB7AAB349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9050F5CA-0F00-25EA-236F-8659C3AD917F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9050F5CA-0F00-25EA-236F-8659C3AD917F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9050F5CA-0F00-25EA-236F-8659C3AD917F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9050F5CA-0F00-25EA-236F-8659C3AD917F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +100,11 @@ Global
 		{E8C376AC-9933-4ECF-92D8-66BC706FD6D0} = {FF08B180-6923-46E0-8426-99391CFB47CD}
 		{38614F76-C962-4CDC-9C9D-25469B92CDE2} = {19896985-FCB0-4EA0-8E5F-FF3902AC13FC}
 		{DCD47D0E-ADD5-4B6A-BDAA-DD6559EB384D} = {19896985-FCB0-4EA0-8E5F-FF3902AC13FC}
+		{8E498417-7FF6-E0E3-9BC1-AB5197733AFB} = {19896985-FCB0-4EA0-8E5F-FF3902AC13FC}
+		{605058F0-1D5E-C122-1ABD-B73D053665B7} = {19896985-FCB0-4EA0-8E5F-FF3902AC13FC}
+		{ECD67BCE-D96A-B1D4-48F1-95AF9F6A49E1} = {B89F6FD2-68B6-4A70-A070-FF22FE42DDE4}
+		{B90ED39A-C413-8F86-152F-7D2EB7AAB349} = {FF08B180-6923-46E0-8426-99391CFB47CD}
+		{9050F5CA-0F00-25EA-236F-8659C3AD917F} = {FF08B180-6923-46E0-8426-99391CFB47CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {660A434B-79DE-4C3F-892C-333338978C59}

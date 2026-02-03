@@ -1,1 +1,8 @@
-blank_issues_enabled: true
+﻿blank_issues_enabled: false
+contact_links:
+  - name: "❓ Ask a Question"
+    url: "https://github.com/teociaps/SwaggerUI.Themes/discussions"
+    about: "Have a question or want to discuss? Use GitHub Discussions!"
+  - name: "📚 View Documentation"
+    url: "https://github.com/teociaps/SwaggerUI.Themes/wiki"
+    about: "Check the wiki for comprehensive documentation and guides"

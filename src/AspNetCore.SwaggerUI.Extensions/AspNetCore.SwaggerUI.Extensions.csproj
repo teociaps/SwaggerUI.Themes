@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\build\Common.Core.props" />
+  <Import Project="..\..\build\NuGet.props" />
+
+  <!-- Official Version -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <MajorVersion>1</MajorVersion>
+    <MinorVersion>0</MinorVersion>
+    <PatchVersion>0</PatchVersion>
+    <VersionSuffix></VersionSuffix>
+    <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>AspNetCore.SwaggerUI.Extensions</PackageId>
+    <Description>
+      Enhance your ASP.NET Core Swagger UI with functional extensions like API counter and more. Extends Swashbuckle.AspNetCore with additional capabilities.
+    </Description>
+    <PackageTags>
+      swagger;swagger-ui;swaggerui;swashbuckle;aspnetcore;webapi;openapi;extension;api-counter;operation-count;tag-extensions
+    </PackageTags>
+    <IncludeBuildOutput>true</IncludeBuildOutput>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+  </ItemGroup>
+
+</Project>
