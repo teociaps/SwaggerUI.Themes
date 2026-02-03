@@ -5,7 +5,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddOpenApiDocument(OpenApiDocGenConfigurer.Configure);
+builder.Services.AddOpenApiDocument(c =>
+{
+    OpenApiDocGenConfigurer.Configure(c);
+
+    // 📊 API Counter: Server-side operation count
+    c.AppendOperationCountToTags();
+    // Or with custom template:
+    // c.AppendOperationCountToTags(" [{0} endpoints]");
+});
 
 var app = builder.Build();
 
