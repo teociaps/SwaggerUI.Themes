@@ -12,7 +12,7 @@
     <Revision>$(Today)-$(Floored)</Revision>
     <MajorVersion>3</MajorVersion>
     <MinorVersion>0</MinorVersion>
-    <PatchVersion>1</PatchVersion>
+    <PatchVersion>2</PatchVersion>
     <VersionSuffix>-$(Revision)</VersionSuffix>
     <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
   </PropertyGroup>
