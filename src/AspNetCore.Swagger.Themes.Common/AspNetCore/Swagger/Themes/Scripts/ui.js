@@ -109,47 +109,113 @@ function setUpExpandAndCollapseOperationsButtons(enabled) {
     if (enabled === false)
         return;
 
-    const opBlockSections = document.querySelectorAll('.opblock-tag-section');
+    const MAX_ATTEMPTS = 60;
+    const RETRY_DELAY_MS = 200;
+    let attempts = 0;
 
-    // Iterate over each operation group
-    opBlockSections.forEach(opBlockSection => {
+    const rootSwagger = document.getElementById('swagger-ui') || document.querySelector('.swagger-ui');
+
+    function attachToSection(opBlockSection) {
+        if (!opBlockSection || opBlockSection.dataset.expandCollapseAttached === 'true')
+            return;
+
         const opBlockSectionHeader = opBlockSection.querySelector('h3');
-        const expandOperationButton = opBlockSectionHeader.querySelector('button.expand-operation');
+        const expandOperationButton = opBlockSectionHeader?.querySelector('button.expand-operation');
 
-        // Create expand or collapse button, if needed
-        if (expandOperationButton) {
-            const expandOrCollapseButton = document.createElement('button');
-            expandOrCollapseButton.setAttribute('title', 'Expand/Collapse all the operations');
-            expandOrCollapseButton.classList.add('expand-collapse-all-btn');
-            expandOrCollapseButton.innerHTML = 'Expand/Collapse All';
+        // Create expand or collapse button, if header exists
+        if (opBlockSectionHeader) {
+            // Avoid duplicate button
+            if (!opBlockSectionHeader.querySelector('.expand-collapse-all-btn')) {
+                const expandOrCollapseButton = document.createElement('button');
+                expandOrCollapseButton.setAttribute('title', 'Expand/Collapse all the operations');
+                expandOrCollapseButton.classList.add('expand-collapse-all-btn');
+                expandOrCollapseButton.innerHTML = 'Expand/Collapse All';
 
-            opBlockSectionHeader.insertBefore(expandOrCollapseButton, expandOperationButton);
-
-            expandOrCollapseButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const opBlocks = opBlockSection.querySelectorAll('.opblock .opblock-control-arrow');
-                const allExpanded = Array.from(opBlocks).every(opBlock => opBlock.getAttribute('aria-expanded') === 'true');
-
-                if (allExpanded) {
-                    // Collapse all (click to collapse)
-                    opBlocks.forEach(opBlock => {
-                        if (opBlock.getAttribute('aria-expanded') === 'true') {
-                            opBlock.click(); // Collapse
-                        }
-                    });
+                // Insert before existing expand control if possible, otherwise append
+                if (expandOperationButton) {
+                    expandOperationButton.before(expandOrCollapseButton);
                 } else {
-                    // Expand all (click to expand)
-                    opBlocks.forEach(opBlock => {
-                        if (opBlock.getAttribute('aria-expanded') === 'false') {
-                            opBlock.click(); // Expand
-                        }
-                    });
+                    opBlockSectionHeader.appendChild(expandOrCollapseButton);
                 }
-            });
+
+                expandOrCollapseButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const opBlocks = opBlockSection.querySelectorAll('.opblock .opblock-control-arrow');
+                    if (!opBlocks || opBlocks.length === 0) {
+                        // Nothing to do
+                        return;
+                    }
+
+                    const allExpanded = Array.from(opBlocks).every(opBlock => opBlock.getAttribute('aria-expanded') === 'true');
+
+                    if (allExpanded) {
+                        // Collapse all
+                        opBlocks.forEach(opBlock => {
+                            if (opBlock.getAttribute('aria-expanded') === 'true') {
+                                opBlock.click();
+                            }
+                        });
+                    } else {
+                        // Expand all
+                        opBlocks.forEach(opBlock => {
+                            if (opBlock.getAttribute('aria-expanded') === 'false') {
+                                opBlock.click();
+                            }
+                        });
+                    }
+                });
+            }
         }
-    });
+
+        // mark as processed to prevent duplicates
+        opBlockSection.dataset.expandCollapseAttached = 'true';
+    }
+
+    function processAllSections() {
+        const opBlockSections = document.querySelectorAll('.opblock-tag-section');
+        if (!opBlockSections || opBlockSections.length === 0) return false;
+
+        opBlockSections.forEach(section => attachToSection(section));
+        return true;
+    }
+
+    function waitAndProcess() {
+        attempts++;
+        const found = processAllSections();
+
+        if (found) {
+            // also observe for new sections added later (incremental/rendering)
+            try {
+                const containerToObserve = rootSwagger || document.body;
+                const observer = new MutationObserver(mutations => {
+                    for (const m of mutations) {
+                        if (m.addedNodes && m.addedNodes.length > 0) {
+                            // try to attach to any new sections
+                            processAllSections();
+                        }
+                    }
+                });
+
+                observer.observe(containerToObserve, { childList: true, subtree: true });
+            } catch (e) {
+                // ignore observation errors
+            }
+
+            return;
+        }
+
+        if (attempts < MAX_ATTEMPTS) {
+            setTimeout(waitAndProcess, RETRY_DELAY_MS);
+        } else {
+            // Give up after multiple attempts
+            return;
+        }
+    }
+
+    // Initial kick-off
+    waitAndProcess();
 }
 
 function setUpThemeSwitcher(enabled) {
@@ -172,7 +238,7 @@ function setUpThemeSwitcher(enabled) {
             return response.json();
         })
         .then(data => {
-            if (!data || !data.themes || data.themes.length < 2) {
+            if (!data?.themes || data.themes.length < 2) {
                 console.warn('[ThemeSwitcher] Not enough themes available for switcher');
                 return;
             }
@@ -185,35 +251,6 @@ function setUpThemeSwitcher(enabled) {
         .catch(error => {
             console.error('[ThemeSwitcher] Error loading themes:', error);
         });
-
-    function detectCurrentTheme(themes) {
-        // Check for data-theme attribute first (most reliable)
-        const activeLink = document.querySelector('link[rel="stylesheet"]:not([disabled])[data-theme]');
-        if (activeLink && activeLink.dataset.theme) {
-            return activeLink.dataset.theme;
-        }
-
-        // Fallback: check href patterns
-        const styleElements = document.querySelectorAll('link[rel="stylesheet"]:not([disabled])');
-
-        for (const element of styleElements) {
-            const theme = themes.find(t => {
-                if (element.href) {
-                    return element.href.includes(t.cssPath) ||
-                           element.href.endsWith(t.cssPath) ||
-                           element.href.includes(t.name.toLowerCase());
-                }
-                return false;
-            });
-
-            if (theme) {
-                return theme.name;
-            }
-        }
-
-        // Fallback to first theme
-        return themes.length > 0 ? themes[0].name : null;
-    }
 
     function restoreSavedTheme(themes) {
         const saved = localStorage.getItem(STORAGE_KEY);
@@ -256,7 +293,7 @@ function setUpThemeSwitcher(enabled) {
         // Insert before pin button if it exists
         const pinButton = document.getElementById('pin-topbar-btn');
         if (pinButton) {
-            topbarWrapper.insertBefore(select, pinButton);
+            pinButton.before(select);
         } else {
             topbarWrapper.appendChild(select);
         }
@@ -278,12 +315,12 @@ function setUpThemeSwitcher(enabled) {
         allStyleLinks.forEach(link => {
             // Check if this is a theme stylesheet (has data-theme or matches a known theme path)
             const isThemeStylesheet = link.dataset.theme ||
-                                     allThemePaths.some(path => link.href && link.href.endsWith(path));
+                allThemePaths.some(path => link.href?.endsWith(path));
 
             if (isThemeStylesheet) {
                 // Use exact path matching to avoid substring issues
                 const isTargetTheme = (link.dataset.theme === themeName) ||
-                                     (link.href && link.href.endsWith(theme.cssPath));
+                    (link.href?.endsWith(theme.cssPath));
 
                 if (isTargetTheme) {
                     link.disabled = false;
@@ -310,15 +347,42 @@ function setUpThemeSwitcher(enabled) {
             dropdown.value = themeName;
         }
     }
-
-    function formatThemeName(name, format) {
-        const formatted = name
-            .replace(/([A-Z])/g, ' $1')
-            .trim()
-            .split(/[\s_-]+/)
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ');
-
-        return format.replace('{name}', formatted);
+}
+function detectCurrentTheme(themes) {
+    // Check for data-theme attribute first (most reliable)
+    const activeLink = document.querySelector('link[rel="stylesheet"]:not([disabled])[data-theme]');
+    if (activeLink?.dataset.theme) {
+        return activeLink.dataset.theme;
     }
+
+    // Fallback: check href patterns
+    const styleElements = document.querySelectorAll('link[rel="stylesheet"]:not([disabled])');
+
+    for (const element of styleElements) {
+        const theme = themes.find(t => {
+            if (element.href) {
+                return element.href.includes(t.cssPath) ||
+                    element.href.endsWith(t.cssPath) ||
+                    element.href.includes(t.name.toLowerCase());
+            }
+            return false;
+        });
+
+        if (theme) {
+            return theme.name;
+        }
+    }
+
+    // Fallback to first theme
+    return themes.length > 0 ? themes[0].name : null;
+}
+function formatThemeName(name, format) {
+    const formatted = name
+        .replaceAll(/([A-Z])/g, ' $1')
+        .trim()
+        .split(/[\s_-]+/)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+
+    return format.replace('{name}', formatted);
 }

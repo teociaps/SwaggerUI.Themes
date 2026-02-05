@@ -18,7 +18,7 @@ if (app.Environment.IsDevelopment())
     // ========================================
 
     // 1. Simple predefined theme (no theme switcher)
-    app.UseSwaggerUi(Theme.Dark, c => c.DocumentTitle = "Sample API - Dark Theme");
+    //app.UseSwaggerUi(Theme.Dark, c => c.DocumentTitle = "Sample API - Dark Theme");
 
     // 2. Inline CSS theme
     //app.UseSwaggerUi("body { background-color: #1a1a2e; color: #eee; }", c =>
@@ -126,11 +126,11 @@ if (app.Environment.IsDevelopment())
     // ========================================
 
     // 13. Enable all advanced UI features
-    //app.UseSwaggerUi(Theme.Dark, c =>
-    //{
-    //    c.DocumentTitle = "Sample API - All Features";
-    //    c.EnableAllAdvancedOptions(); // Pinnable topbar, back-to-top, sticky ops, expand/collapse, theme switcher
-    //});
+    app.UseSwaggerUi(Theme.Dark, c =>
+    {
+        c.DocumentTitle = "Sample API - All Features";
+        c.EnableAllAdvancedOptions();
+    });
 
     // 14. Individual advanced features
     //app.UseSwaggerUi(Theme.Light, c =>

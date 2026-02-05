@@ -6,18 +6,14 @@
 
 **[Get Started](https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started)** • **[View Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** • **[Full Documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)**
 
-
-
-> ⚠️ **Version 3.0 Breaking Changes**  
-> Upgrading from v2.0.0? Please review the **[Migration Guide](https://github.com/teociaps/SwaggerUI.Themes/wiki/Migration-v3)** for important API changes.
+> ⚠️ **Version 3.x Breaking Changes**  
+> Upgrading from v2.x? Please review the **[Migration Guide](https://github.com/teociaps/SwaggerUI.Themes/wiki/Migration-v3)** for important API changes.
 
 ## 🚀 Quick Start
 
 ```bash
 dotnet add package AspNetCore.SwaggerUI.Themes
 ```
-
-## Quick Start
 
 ```csharp
 // Apply a theme
