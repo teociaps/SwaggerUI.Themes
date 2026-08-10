@@ -3,8 +3,14 @@ param (
     [string]$Configuration = "Release",
     [string]$PackageOutput = "$(pwd)/artifacts",
     [string]$NuGetSourceUrl = "https://api.nuget.org/v3/index.json",
-    [string]$NuGetApiKey
+    [string]$NuGetApiKey,
+    [string]$Filter
 )
+
+# Validate the package family filter
+if ($Filter -ne "Themes" -and $Filter -ne "Extensions") {
+    throw "Invalid -Filter value '${Filter}'. Must be 'Themes' or 'Extensions'."
+}
 
 # Ensure the output directory exists
 if (-not (Test-Path -Path $PackageOutput)) {
@@ -12,7 +18,7 @@ if (-not (Test-Path -Path $PackageOutput)) {
 }
 
 # Iterate over each project to pack
-Get-ChildItem -Path src -Filter *.Themes -Directory | ForEach-Object {
+Get-ChildItem -Path src -Filter "*.$Filter" -Directory | ForEach-Object {
     $projectPath = $_.FullName
     $projectName = $_.Name
     $csprojPath = Join-Path -Path $projectPath -ChildPath "${projectName}.csproj"

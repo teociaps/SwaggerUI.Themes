@@ -31,6 +31,20 @@ jobs:
           9.0.x
           10.0.x
 
+    - name: Determine package family from release tag
+      id: family
+      shell: bash
+      run: |
+        TAG="${{ github.event.release.tag_name }}"
+        if [[ "$TAG" == themes-v* ]]; then
+          echo "filter=Themes" >> "$GITHUB_OUTPUT"
+        elif [[ "$TAG" == extensions-v* ]]; then
+          echo "filter=Extensions" >> "$GITHUB_OUTPUT"
+        else
+          echo "::error::Release tag '$TAG' does not match themes-v* or extensions-v* — cannot determine package family to deploy." >&2
+          exit 1
+        fi
+
     - name: Pack & Push to NuGet
       shell: pwsh
-      run: ./deploy.ps1 -Configuration ${{ env.CONFIGURATION }} -PackageOutput ${{ env.PACKAGE_OUTPUT }} -NuGetSourceUrl ${{ env.NUGET_SOURCE_URL }} -NuGetApiKey ${{ secrets.NUGET_API_KEY }}
+      run: ./deploy.ps1 -Configuration ${{ env.CONFIGURATION }} -PackageOutput ${{ env.PACKAGE_OUTPUT }} -NuGetSourceUrl ${{ env.NUGET_SOURCE_URL }} -NuGetApiKey ${{ secrets.NUGET_API_KEY }} -Filter ${{ steps.family.outputs.filter }}
