@@ -23,11 +23,12 @@ internal static class FileProvider
     internal const string ThemeMetadataPath = "/themes/metadata.json";
     internal const string JsFilename = "ui.min.js";
 
-    // Track registered endpoints to prevent duplicates and act as the shared dispatch table for the single middleware
-    private static readonly ConcurrentDictionary<string, (string Content, string ContentType)> s_registeredEndpoints = new(StringComparer.OrdinalIgnoreCase);
+    // Track registered endpoint paths to prevent duplicate registration across the process
+    private static readonly ConcurrentDictionary<string, byte> s_registeredEndpoints = new(StringComparer.OrdinalIgnoreCase);
 
-    // Tracks which IApplicationBuilder instances already have the dispatch middleware registered
-    private static readonly ConditionalWeakTable<IApplicationBuilder, object> s_dispatchRegisteredApps = new();
+    // Per-app dispatch table backing the single middleware registered for classic IApplicationBuilder hosts.
+    // WebApplication hosts are served through routing (MapGet) instead, so they never need an entry here.
+    private static readonly ConditionalWeakTable<IApplicationBuilder, ConcurrentDictionary<string, (string Content, string ContentType)>> s_appDispatchTables = new();
 
     private static FrozenSet<string> s_frozenEndpoints;
 
@@ -120,16 +121,35 @@ internal static class FileProvider
     /// </summary>
     internal static void AddGetEndpoint(IApplicationBuilder app, string path, string content, string contentType = MimeTypes.Text.Css)
     {
-        if (!s_registeredEndpoints.TryAdd(path, (content, contentType)))
+        if (!s_registeredEndpoints.TryAdd(path, 0))
             return;
 
-        // Register the single dispatch middleware only the first time this app instance is seen.
-        // Every subsequent call just adds an entry to the shared dispatch table above.
-        s_dispatchRegisteredApps.GetValue(app, static application =>
+        if (app is WebApplication webApp)
         {
+            // WebApplication hosts are served through ASP.NET Core's routing tree, which already
+            // gives O(1)-ish lookup regardless of how many themes are registered, and MapGet lets
+            // us bypass any global fallback authorization policy via AllowAnonymous.
+            webApp.MapGet(path, (HttpContext context) =>
+            {
+                SetCacheHeaders(context);
+                return Results.Content(content, contentType);
+            })
+            .ExcludeFromDescription()
+            .AllowAnonymous();
+
+            return;
+        }
+
+        // Register the single dispatch middleware only the first time this app instance is seen.
+        // Every subsequent call just adds an entry to this app's own dispatch table, so requests
+        // are only ever served for paths that this specific app instance registered.
+        var dispatchTable = s_appDispatchTables.GetValue(app, static application =>
+        {
+            var table = new ConcurrentDictionary<string, (string Content, string ContentType)>(StringComparer.OrdinalIgnoreCase);
+
             application.Use(async (context, next) =>
             {
-                if (s_registeredEndpoints.TryGetValue(context.Request.Path.Value ?? string.Empty, out var endpoint))
+                if (table.TryGetValue(context.Request.Path.Value ?? string.Empty, out var endpoint))
                 {
                     SetCacheHeaders(context);
                     context.Response.ContentType = endpoint.ContentType;
@@ -141,8 +161,10 @@ internal static class FileProvider
                 }
             });
 
-            return new object();
+            return table;
         });
+
+        dispatchTable[path] = (content, contentType);
 
         static void SetCacheHeaders(HttpContext context)
         {

@@ -1,13 +1,22 @@
 using AspNetCore.Swagger.Themes.Tests.Utilities;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Shouldly;
+using System.Net;
 using System.Reflection;
+using System.Text.Encodings.Web;
 using static AspNetCore.Swagger.Themes.FileProvider;
 
 namespace AspNetCore.Swagger.Themes.Tests;
 
 /// <summary>
-/// Tests for ThemeProvider functionality using WebApplicationFactory.
-/// Tests for non-WebApplication scenarios are in FileProviderMiddlewareTests.
+/// Tests for ThemeProvider functionality using a WebApplication host (via WebApplicationFactory
+/// or a locally hosted TestServer). Tests for non-WebApplication scenarios are in FileProviderMiddlewareTests.
 /// </summary>
 public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFactory<Program>>
 {
@@ -175,6 +184,91 @@ public class ThemeProviderTests : IClassFixture<ThemeProviderWebApplicationFacto
         // Assert
         response.StatusCode.ShouldBe(System.Net.HttpStatusCode.OK);
         (await response.Content.ReadAsStringAsync()).ShouldBeEquivalentTo(styleText);
+    }
+
+    [Fact]
+    public async Task AddGetEndpoint_ShouldResolveEachRegisteredPath_WhenWebApplication()
+    {
+        // Arrange - the shared test WebApplication (see Program.cs) registers one path per
+        // theme via AddGetEndpoint at startup, all served through the app's routing table.
+        var registeredThemes = new ThemeTestData();
+
+        // Act & Assert - each theme's style path resolves independently through the same WebApplication instance
+        foreach (var theme in registeredThemes)
+        {
+            var fullPath = StylesPath + theme.FileName;
+            var expectedContent = GetResourceText(theme.FileName, theme.GetType());
+
+            var response = await _themeProviderWebApplicationFactory.Client.GetAsync(fullPath);
+
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+            response.Content.Headers.ContentType.MediaType.ShouldBe(MimeTypes.Text.Css);
+            (await response.Content.ReadAsStringAsync()).ShouldBeEquivalentTo(expectedContent);
+        }
+
+        // An unregistered path still falls through to the app's default 404 handling
+        var missingResponse = await _themeProviderWebApplicationFactory.Client.GetAsync(
+            $"{StylesPath}unregistered-{Guid.NewGuid():N}.css");
+
+        missingResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task AddGetEndpoint_ShouldBypassGlobalFallbackAuthorizationPolicy_WhenWebApplication()
+    {
+        // Arrange - a WebApplication secured with a global fallback policy requiring an
+        // authenticated user, mirroring a consumer who secures everything by default
+        // before calling UseSwaggerUI().
+        var builder = WebApplication.CreateBuilder();
+        builder.WebHost.UseTestServer();
+        builder.Services
+            .AddAuthentication(DenyAllAuthenticationHandler.SchemeName)
+            .AddScheme<AuthenticationSchemeOptions, DenyAllAuthenticationHandler>(DenyAllAuthenticationHandler.SchemeName, null);
+        builder.Services.AddAuthorization(options =>
+            options.FallbackPolicy = new AuthorizationPolicyBuilder(DenyAllAuthenticationHandler.SchemeName)
+                .RequireAuthenticatedUser()
+                .Build());
+
+        await using var app = builder.Build();
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        const string ThemePath = "/styles/auth-bypass-theme.css";
+        const string ThemeContent = "body { }";
+        AddGetEndpoint(app, ThemePath, ThemeContent);
+
+        // A control endpoint mapped without AllowAnonymous proves the fallback policy is actually enforced
+        app.MapGet("/secured-control", () => "secured");
+
+        await app.StartAsync();
+        var client = app.GetTestClient();
+
+        // Act
+        var themeResponse = await client.GetAsync(ThemePath);
+        var controlResponse = await client.GetAsync("/secured-control");
+
+        // Assert - the theme asset bypasses the fallback policy via AllowAnonymous; the control endpoint doesn't
+        themeResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+        (await themeResponse.Content.ReadAsStringAsync()).ShouldBe(ThemeContent);
+
+        controlResponse.StatusCode.ShouldNotBe(HttpStatusCode.OK);
+
+        await app.StopAsync();
+    }
+
+    /// <summary>
+    /// Authentication handler that never authenticates the current request, used to
+    /// exercise a global fallback authorization policy without depending on a real scheme.
+    /// </summary>
+    private sealed class DenyAllAuthenticationHandler(
+        IOptionsMonitor<AuthenticationSchemeOptions> options,
+        ILoggerFactory logger,
+        UrlEncoder encoder) : AuthenticationHandler<AuthenticationSchemeOptions>(options, logger, encoder)
+    {
+        public const string SchemeName = "DenyAll";
+
+        protected override Task<AuthenticateResult> HandleAuthenticateAsync() =>
+            Task.FromResult(AuthenticateResult.NoResult());
     }
 
     [Fact]

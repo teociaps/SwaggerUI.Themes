@@ -1,6 +1,5 @@
 using AspNetCore.Swagger.Themes.Tests.Utilities;
 using Shouldly;
-using System.Net;
 using static AspNetCore.Swagger.Themes.FileProvider;
 
 namespace AspNetCore.Swagger.Themes.Tests;
@@ -9,16 +8,8 @@ namespace AspNetCore.Swagger.Themes.Tests;
 /// Tests for FileProvider with non-WebApplication scenarios (middleware-based).
 /// These tests are isolated to avoid conflicts with WebApplication endpoint registrations.
 /// </summary>
-public class FileProviderMiddlewareTests : IClassFixture<ThemeProviderWebApplicationFactory<Program>>
+public class FileProviderMiddlewareTests
 {
-    private readonly ThemeProviderWebApplicationFactory<Program> _themeProviderWebApplicationFactory;
-
-    public FileProviderMiddlewareTests(ThemeProviderWebApplicationFactory<Program> themeProviderWebApplicationFactory)
-    {
-        _themeProviderWebApplicationFactory = themeProviderWebApplicationFactory;
-        _themeProviderWebApplicationFactory.CreateClient();
-    }
-
     private readonly Dictionary<string, object> _advancedOptions = new()
     {
         { AdvancedOptions.PinnableTopbar, true },
@@ -167,30 +158,26 @@ public class FileProviderMiddlewareTests : IClassFixture<ThemeProviderWebApplica
     }
 
     [Fact]
-    public async Task AddGetEndpoint_ShouldResolveEachPathIndependently_WhenWebApplication()
+    public async Task AddGetEndpoint_ShouldNotServePathRegisteredByAnotherAppInstance()
     {
-        // Arrange - the shared test WebApplication (see Program.cs) registers one path per
-        // theme via AddGetEndpoint at startup, all served through the same dispatch middleware.
-        var registeredThemes = new ThemeTestData();
+        // Arrange - two independent apps, each registering its own, distinct path
+        var appA = new MockApplicationBuilder();
+        var appB = new MockApplicationBuilder();
+        var prefix = $"/test-middleware-isolation-{Guid.NewGuid():N}";
+        var pathOnlyRegisteredByA = $"{prefix}/a.css";
+        var pathOnlyRegisteredByB = $"{prefix}/b.css";
 
-        // Act & Assert - each theme's style path resolves through the same WebApplication instance
-        foreach (var theme in registeredThemes)
-        {
-            var fullPath = StylesPath + theme.FileName;
-            var expectedContent = GetResourceText(theme.FileName, theme.GetType());
+        AddGetEndpoint(appA, pathOnlyRegisteredByA, "content-A");
+        AddGetEndpoint(appB, pathOnlyRegisteredByB, "content-B");
 
-            var response = await _themeProviderWebApplicationFactory.Client.GetAsync(fullPath);
+        var builtA = appA.Build();
 
-            response.StatusCode.ShouldBe(HttpStatusCode.OK);
-            response.Content.Headers.ContentType.MediaType.ShouldBe(MimeTypes.Text.Css);
-            (await response.Content.ReadAsStringAsync()).ShouldBeEquivalentTo(expectedContent);
-        }
+        // Act - request appA for a path only appB ever registered
+        var context = MockApplicationBuilder.CreateHttpContext(pathOnlyRegisteredByB);
+        await builtA.Invoke(context);
 
-        // An unregistered path still falls through to the app's default 404 handling
-        var missingResponse = await _themeProviderWebApplicationFactory.Client.GetAsync(
-            $"{StylesPath}unregistered-{Guid.NewGuid():N}.css");
-
-        missingResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+        // Assert - appA never registered this path, so it must not serve appB's content
+        context.Response.StatusCode.ShouldBe(404);
     }
 
     [Fact]
