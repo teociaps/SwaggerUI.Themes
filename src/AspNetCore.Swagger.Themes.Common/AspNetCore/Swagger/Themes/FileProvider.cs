@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Concurrent;
 using System.Collections.Frozen;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace AspNetCore.Swagger.Themes;
@@ -22,8 +23,11 @@ internal static class FileProvider
     internal const string ThemeMetadataPath = "/themes/metadata.json";
     internal const string JsFilename = "ui.min.js";
 
-    // Track registered endpoints to prevent duplicates
-    private static readonly ConcurrentDictionary<string, byte> s_registeredEndpoints = new(StringComparer.OrdinalIgnoreCase);
+    // Track registered endpoints to prevent duplicates and act as the shared dispatch table for the single middleware
+    private static readonly ConcurrentDictionary<string, (string Content, string ContentType)> s_registeredEndpoints = new(StringComparer.OrdinalIgnoreCase);
+
+    // Tracks which IApplicationBuilder instances already have the dispatch middleware registered
+    private static readonly ConditionalWeakTable<IApplicationBuilder, object> s_dispatchRegisteredApps = new();
 
     private static FrozenSet<string> s_frozenEndpoints;
 
@@ -116,35 +120,29 @@ internal static class FileProvider
     /// </summary>
     internal static void AddGetEndpoint(IApplicationBuilder app, string path, string content, string contentType = MimeTypes.Text.Css)
     {
-        if (!s_registeredEndpoints.TryAdd(path, 0))
+        if (!s_registeredEndpoints.TryAdd(path, (content, contentType)))
             return;
 
-        if (app is WebApplication webApp)
+        // Register the single dispatch middleware only the first time this app instance is seen.
+        // Every subsequent call just adds an entry to the shared dispatch table above.
+        s_dispatchRegisteredApps.GetValue(app, static application =>
         {
-            webApp.MapGet(path, (HttpContext context) =>
+            application.Use(async (context, next) =>
             {
-                SetCacheHeaders(context);
-                return Results.Content(content, contentType);
-            })
-            .ExcludeFromDescription()
-            .AllowAnonymous();
-        }
-        else
-        {
-            app.Use(async (context, next) =>
-            {
-                if (context.Request.Path.Equals(path, StringComparison.OrdinalIgnoreCase))
+                if (s_registeredEndpoints.TryGetValue(context.Request.Path.Value ?? string.Empty, out var endpoint))
                 {
                     SetCacheHeaders(context);
-                    context.Response.ContentType = contentType;
-                    await context.Response.WriteAsync(content);
+                    context.Response.ContentType = endpoint.ContentType;
+                    await context.Response.WriteAsync(endpoint.Content);
                 }
                 else
                 {
                     await next();
                 }
             });
-        }
+
+            return new object();
+        });
 
         static void SetCacheHeaders(HttpContext context)
         {

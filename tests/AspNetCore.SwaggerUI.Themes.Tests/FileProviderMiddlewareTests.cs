@@ -1,5 +1,6 @@
 using AspNetCore.Swagger.Themes.Tests.Utilities;
 using Shouldly;
+using System.Net;
 using static AspNetCore.Swagger.Themes.FileProvider;
 
 namespace AspNetCore.Swagger.Themes.Tests;
@@ -8,8 +9,16 @@ namespace AspNetCore.Swagger.Themes.Tests;
 /// Tests for FileProvider with non-WebApplication scenarios (middleware-based).
 /// These tests are isolated to avoid conflicts with WebApplication endpoint registrations.
 /// </summary>
-public class FileProviderMiddlewareTests
+public class FileProviderMiddlewareTests : IClassFixture<ThemeProviderWebApplicationFactory<Program>>
 {
+    private readonly ThemeProviderWebApplicationFactory<Program> _themeProviderWebApplicationFactory;
+
+    public FileProviderMiddlewareTests(ThemeProviderWebApplicationFactory<Program> themeProviderWebApplicationFactory)
+    {
+        _themeProviderWebApplicationFactory = themeProviderWebApplicationFactory;
+        _themeProviderWebApplicationFactory.CreateClient();
+    }
+
     private readonly Dictionary<string, object> _advancedOptions = new()
     {
         { AdvancedOptions.PinnableTopbar, true },
@@ -113,6 +122,75 @@ public class FileProviderMiddlewareTests
         using var reader = new StreamReader(context.Response.Body);
         var responseBody = await reader.ReadToEndAsync();
         responseBody.ShouldBe(content);
+    }
+
+    [Fact]
+    public async Task AddGetEndpoint_ShouldResolveEachPathIndependently_WhenMultiplePathsRegisteredOnSameApp()
+    {
+        // Arrange
+        var mockAppBuilder = new MockApplicationBuilder();
+        var prefix = $"/test-middleware-multi-{Guid.NewGuid():N}";
+        var registrations = Enumerable.Range(0, 6)
+            .Select(i => (
+                Path: $"{prefix}/{i}.css",
+                Content: $"body {{ /* asset {i} */ }}",
+                ContentType: i % 2 == 0 ? MimeTypes.Text.Css : MimeTypes.Text.Javascript))
+            .ToList();
+
+        foreach (var (path, content, contentType) in registrations)
+        {
+            AddGetEndpoint(mockAppBuilder, path, content, contentType);
+        }
+
+        var app = mockAppBuilder.Build();
+
+        // Act & Assert - each registered path resolves to its own content and content-type
+        foreach (var (path, content, contentType) in registrations)
+        {
+            var context = MockApplicationBuilder.CreateHttpContext(path);
+            await app.Invoke(context);
+            await context.Response.Body.FlushAsync();
+
+            context.Response.StatusCode.ShouldBe(200);
+            context.Response.ContentType.ShouldBe(contentType);
+
+            context.Response.Body.Seek(0, SeekOrigin.Begin);
+            using var reader = new StreamReader(context.Response.Body);
+            (await reader.ReadToEndAsync()).ShouldBe(content);
+        }
+
+        // An unregistered path still falls through to the terminal 404
+        var missingContext = MockApplicationBuilder.CreateHttpContext($"{prefix}/unregistered.css");
+        await app.Invoke(missingContext);
+
+        missingContext.Response.StatusCode.ShouldBe(404);
+    }
+
+    [Fact]
+    public async Task AddGetEndpoint_ShouldResolveEachPathIndependently_WhenWebApplication()
+    {
+        // Arrange - the shared test WebApplication (see Program.cs) registers one path per
+        // theme via AddGetEndpoint at startup, all served through the same dispatch middleware.
+        var registeredThemes = new ThemeTestData();
+
+        // Act & Assert - each theme's style path resolves through the same WebApplication instance
+        foreach (var theme in registeredThemes)
+        {
+            var fullPath = StylesPath + theme.FileName;
+            var expectedContent = GetResourceText(theme.FileName, theme.GetType());
+
+            var response = await _themeProviderWebApplicationFactory.Client.GetAsync(fullPath);
+
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+            response.Content.Headers.ContentType.MediaType.ShouldBe(MimeTypes.Text.Css);
+            (await response.Content.ReadAsStringAsync()).ShouldBeEquivalentTo(expectedContent);
+        }
+
+        // An unregistered path still falls through to the app's default 404 handling
+        var missingResponse = await _themeProviderWebApplicationFactory.Client.GetAsync(
+            $"{StylesPath}unregistered-{Guid.NewGuid():N}.css");
+
+        missingResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
 
     [Fact]
