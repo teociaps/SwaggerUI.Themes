@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using System.Collections.Concurrent;
 using System.Collections.Frozen;
 using System.Reflection;
 
@@ -15,9 +16,9 @@ internal static class ThemeSwitcher
         Theme.Dark, Theme.Light, Theme.Forest, Theme.DeepSea, Theme.Desert, Theme.Futuristic
     }.ToFrozenSet<BaseTheme>();
 
-    private static readonly Dictionary<string, RegisteredTheme> s_registeredThemes = new(StringComparer.OrdinalIgnoreCase);
+    private static readonly ConcurrentDictionary<string, RegisteredTheme> s_registeredThemes = new(StringComparer.OrdinalIgnoreCase);
     private static FrozenDictionary<string, RegisteredTheme> s_frozenThemes;
-    private static readonly HashSet<Type> s_scannedTypes = [];
+    private static readonly ConcurrentDictionary<Type, byte> s_scannedTypes = new();
 
     /// <summary>
     /// Configures theme switcher for a given theme and options.
@@ -64,14 +65,11 @@ internal static class ThemeSwitcher
     {
         var themeName = theme.GetThemeName();
 
-        if (s_registeredThemes.ContainsKey(themeName))
-            return;
-
-        s_registeredThemes[themeName] = new RegisteredTheme(
+        s_registeredThemes.TryAdd(themeName, new RegisteredTheme(
             theme,
             FileProvider.StylesPath + cssPath,
             isStandalone
-        );
+        ));
     }
 
     /// <summary>
@@ -82,14 +80,11 @@ internal static class ThemeSwitcher
         var themeName = ExtractThemeName(cssFilename);
         var cssPath = FileProvider.StylesPath + cssFilename;
 
-        if (s_registeredThemes.ContainsKey(themeName))
-            return;
-
-        s_registeredThemes[themeName] = new RegisteredTheme(
+        s_registeredThemes.TryAdd(themeName, new RegisteredTheme(
             null,
             cssPath,
             isStandalone
-        );
+        ));
     }
 
     /// <summary>
@@ -188,7 +183,7 @@ internal static class ThemeSwitcher
     /// </summary>
     private static void ScanTypeForThemes(Type type)
     {
-        if (!s_scannedTypes.Add(type))
+        if (!s_scannedTypes.TryAdd(type, 0))
             return;
 
         var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Static)

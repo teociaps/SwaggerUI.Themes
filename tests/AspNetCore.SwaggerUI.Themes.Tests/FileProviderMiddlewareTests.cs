@@ -114,4 +114,31 @@ public class FileProviderMiddlewareTests
         var responseBody = await reader.ReadToEndAsync();
         responseBody.ShouldBe(content);
     }
+
+    [Fact]
+    public async Task AddGetEndpoint_WhenCalledConcurrently_RegistersEveryEndpointExactlyOnce()
+    {
+        // Arrange
+        const int EndpointCount = 50;
+        var prefix = $"/test-middleware-concurrent-{Guid.NewGuid():N}";
+        var registrations = Enumerable.Range(0, EndpointCount)
+            .Select(i => (Path: $"{prefix}/{i}.css", AppBuilder: new MockApplicationBuilder()))
+            .ToList();
+
+        // Act - each registration uses its own builder so the middleware pipeline itself
+        // isn't mutated concurrently; only the shared static endpoint registry is stressed.
+        await Should.NotThrowAsync(() => Task.WhenAll(
+            registrations.Select(r => Task.Run(() =>
+                AddGetEndpoint(r.AppBuilder, r.Path, $"body {{ /* {r.Path} */ }}")))));
+
+        // Assert
+        foreach (var (path, appBuilder) in registrations)
+        {
+            var app = appBuilder.Build();
+            var context = MockApplicationBuilder.CreateHttpContext(path);
+            await app.Invoke(context);
+
+            context.Response.StatusCode.ShouldBe(200);
+        }
+    }
 }

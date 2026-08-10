@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Concurrent;
 using System.Collections.Frozen;
 using System.Reflection;
 using System.Text.Json;
@@ -22,7 +23,7 @@ internal static class FileProvider
     internal const string JsFilename = "ui.min.js";
 
     // Track registered endpoints to prevent duplicates
-    private static readonly HashSet<string> s_registeredEndpoints = new(StringComparer.OrdinalIgnoreCase);
+    private static readonly ConcurrentDictionary<string, byte> s_registeredEndpoints = new(StringComparer.OrdinalIgnoreCase);
 
     private static FrozenSet<string> s_frozenEndpoints;
 
@@ -115,7 +116,7 @@ internal static class FileProvider
     /// </summary>
     internal static void AddGetEndpoint(IApplicationBuilder app, string path, string content, string contentType = MimeTypes.Text.Css)
     {
-        if (!s_registeredEndpoints.Add(path))
+        if (!s_registeredEndpoints.TryAdd(path, 0))
             return;
 
         if (app is WebApplication webApp)
@@ -161,7 +162,7 @@ internal static class FileProvider
         string currentThemeName,
         string displayFormat)
     {
-        if (s_registeredEndpoints.Contains(ThemeMetadataPath))
+        if (s_registeredEndpoints.ContainsKey(ThemeMetadataPath))
             return;
 
         var themeList = themes.Select(rt => new
@@ -199,7 +200,7 @@ internal static class FileProvider
     /// Freezes collections after startup for better read performance.
     /// </summary>
     internal static void FreezeCollections() =>
-        s_frozenEndpoints ??= s_registeredEndpoints.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+        s_frozenEndpoints ??= s_registeredEndpoints.Keys.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Checks if a theme name is predefined.
