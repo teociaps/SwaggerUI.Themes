@@ -7,8 +7,9 @@ param (
     [string]$Filter
 )
 
-# Validate the package family filter
-if ($Filter -ne "Themes" -and $Filter -ne "Extensions") {
+# Validate the package family filter (case-sensitive: "themes" must not silently
+# slip through and produce a glob that matches nothing on case-sensitive filesystems)
+if ($Filter -cne "Themes" -and $Filter -cne "Extensions") {
     throw "Invalid -Filter value '${Filter}'. Must be 'Themes' or 'Extensions'."
 }
 

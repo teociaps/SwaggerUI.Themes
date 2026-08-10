@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches: [main]
-    tags: ['v*.*.*']
+    tags: ['themes-v*.*.*', 'extensions-v*.*.*']
     paths-ignore: ['**/*.md', '**/*.png', '**/*.txt']
   pull_request:
     branches: [main]

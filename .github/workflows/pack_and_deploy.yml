@@ -34,8 +34,9 @@ jobs:
     - name: Determine package family from release tag
       id: family
       shell: bash
+      env:
+        TAG: ${{ github.event.release.tag_name }}
       run: |
-        TAG="${{ github.event.release.tag_name }}"
         if [[ "$TAG" == themes-v* ]]; then
           echo "filter=Themes" >> "$GITHUB_OUTPUT"
         elif [[ "$TAG" == extensions-v* ]]; then
