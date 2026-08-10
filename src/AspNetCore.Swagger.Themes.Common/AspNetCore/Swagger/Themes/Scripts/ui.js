@@ -28,30 +28,55 @@ function setUpPinnableTopbar(enabled) {
     if (enabled === false)
         return;
 
+    const PINNABLE_TOPBAR_STORAGE_KEY = 'swaggerui-pinnable-topbar-preference';
+
     const topbarWrapper = document.querySelector('.topbar-wrapper');
 
     const pinTopbarBtn = document.createElement('button');
     pinTopbarBtn.setAttribute('id', 'pin-topbar-btn');
-    pinTopbarBtn.addEventListener('click', () => pinOrUnpinTopbar(pinTopbarBtn))
+    pinTopbarBtn.addEventListener('click', () => pinOrUnpinTopbar(pinTopbarBtn, true))
 
     topbarWrapper.appendChild(pinTopbarBtn);
 
-    pinOrUnpinTopbar(pinTopbarBtn);
-}
+    // Pre-apply the saved (or default) pinned state directly, so there's no flash
+    // of unpinned state on page load. No saved preference defaults to pinned, matching
+    // the topbar's original always-pinned-on-load behavior.
+    const savedState = localStorage.getItem(PINNABLE_TOPBAR_STORAGE_KEY);
+    const isPinned = savedState !== null ? savedState === 'pinned' : true;
 
-function pinOrUnpinTopbar(pinTopbarBtn) {
-    if (pinTopbarBtn.parentNode.parentNode.parentNode.classList.contains('pinned')) {
-        pinTopbarBtn.parentNode.parentNode.parentNode.classList.remove('pinned');
-        setUnpinnedIconTo(pinTopbarBtn);
-        pinTopbarBtn.setAttribute('title', 'Pin topbar');
-    }
-    else {
+    if (isPinned) {
         pinTopbarBtn.parentNode.parentNode.parentNode.classList.add('pinned');
         setPinnedIconTo(pinTopbarBtn);
         pinTopbarBtn.setAttribute('title', 'Unpin topbar');
     }
+    else {
+        pinTopbarBtn.parentNode.parentNode.parentNode.classList.remove('pinned');
+        setUnpinnedIconTo(pinTopbarBtn);
+        pinTopbarBtn.setAttribute('title', 'Pin topbar');
+    }
 
-    pinTopbarBtn?.blur();
+    function pinOrUnpinTopbar(pinTopbarBtn, saveToStorage) {
+        let pinned;
+
+        if (pinTopbarBtn.parentNode.parentNode.parentNode.classList.contains('pinned')) {
+            pinTopbarBtn.parentNode.parentNode.parentNode.classList.remove('pinned');
+            setUnpinnedIconTo(pinTopbarBtn);
+            pinTopbarBtn.setAttribute('title', 'Pin topbar');
+            pinned = false;
+        }
+        else {
+            pinTopbarBtn.parentNode.parentNode.parentNode.classList.add('pinned');
+            setPinnedIconTo(pinTopbarBtn);
+            pinTopbarBtn.setAttribute('title', 'Unpin topbar');
+            pinned = true;
+        }
+
+        if (saveToStorage) {
+            localStorage.setItem(PINNABLE_TOPBAR_STORAGE_KEY, pinned ? 'pinned' : 'unpinned');
+        }
+
+        pinTopbarBtn?.blur();
+    }
 }
 
 function setPinnedIconTo(element) {
