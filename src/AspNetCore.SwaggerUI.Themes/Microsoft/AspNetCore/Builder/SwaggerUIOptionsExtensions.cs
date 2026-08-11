@@ -58,6 +58,20 @@ public static class SwaggerUIOptionsExtensions
             options.ConfigObject.AdditionalItems.EnablePinnableTopbar();
 
         /// <summary>
+        /// Enables the operation filter box, optionally making it pinnable.
+        /// </summary>
+        /// <param name="pinned">
+        /// If <see langword="true"/>, the filter box can be pinned in place.
+        /// </param>
+        public void EnableFilter(bool pinned)
+        {
+            options.EnableFilter();
+
+            if (pinned)
+                options.ConfigObject.AdditionalItems.EnablePinnableFilterBar();
+        }
+
+        /// <summary>
         /// Shows a button to scroll back to the top of the page.
         /// </summary>
         public void ShowBackToTopButton() =>
