@@ -95,6 +95,15 @@ body {
         .swagger-ui .topbar.pinned {
             position: sticky;
             top: 10px;
+            --pinned-topbar-offset: 4.2rem;
+        }
+
+        /* The filter bar and the sticky operation tag headers live in a different branch of the
+           DOM than the topbar, so they can't inherit --pinned-topbar-offset directly from
+           .topbar.pinned. Re-declare it here, on their closest common ancestor, so it only
+           carries a nonzero value while the topbar is actually pinned. */
+        .swagger-ui:has(> .topbar.pinned) {
+            --pinned-topbar-offset: 4.2rem;
         }
 
             .swagger-ui .topbar.pinned::before {
@@ -402,8 +411,8 @@ body {
         background: var(--opblock-tag-pinned-background-color-hover, #f1f1f1);
     }
 
-.swagger-ui:has(> .topbar.pinned) .opblock-tag-section.is-open .opblock-tag {
-    top: 4.2rem;
+.swagger-ui .opblock-tag-section.is-open .opblock-tag {
+    top: calc(var(--pinned-topbar-offset, 0px) + var(--pinned-filter-offset, 0px));
 }
 
 .swagger-ui .opblock {
@@ -648,6 +657,29 @@ body {
 /* Other of operations */
 .swagger-ui .filter .operation-filter-input {
     border: 2px solid var(--filter-operation-filter-input-border-color, #d8dde7);
+}
+
+    /* .filter's own wrapper elements (.filter-container and its parent) are exactly as tall as
+       the filter bar itself, so making .filter position:sticky would have no visible effect:
+       a sticky box is bounded by its containing block, and that block would offer no extra room
+       for it to remain "stuck" while the page scrolls. The next ancestor up spans the full page
+       content (info box, filter, operations list, models, ...) as siblings, so that's the element
+       that actually needs position: sticky. It has no stable class of its own in Swagger UI's
+       markup, so it's targeted structurally via its known descendants instead. */
+    .swagger-ui div:has(> .filter-container > .filter.pinned) {
+        position: sticky;
+        top: var(--pinned-topbar-offset, 0px);
+        z-index: 5;
+        background: var(--body-background-color, #fafafa);
+        --pinned-filter-offset: 6.8rem;
+    }
+
+/* The sticky operation tag headers live in a different branch of the DOM than the filter bar,
+   so they can't inherit --pinned-filter-offset directly from the rule above. Re-declare it here,
+   on their closest common ancestor, so it only carries a nonzero value while the filter bar is
+   actually pinned. */
+.swagger-ui:has(.filter.pinned) {
+    --pinned-filter-offset: 6.8rem;
 }
 
 .swagger-ui .download-url-wrapper .failed,

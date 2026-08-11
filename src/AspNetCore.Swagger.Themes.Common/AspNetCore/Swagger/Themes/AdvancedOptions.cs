@@ -6,6 +6,7 @@
 internal static class AdvancedOptions
 {
     internal const string PinnableTopbar = nameof(PinnableTopbar);
+    internal const string PinnableFilterBar = nameof(PinnableFilterBar);
     internal const string BackToTop = nameof(BackToTop);
     internal const string StickyOperations = nameof(StickyOperations);
     internal const string ExpandOrCollapseAllOperations = nameof(ExpandOrCollapseAllOperations);
@@ -18,12 +19,14 @@ internal static class AdvancedOptions
 
     // JS placeholders
     internal const string PinnableTopbarJsPH = "{$PINNABLE_TOPBAR}";
+    internal const string PinnableFilterBarJsPH = "{$PINNABLE_FILTER_BAR}";
     internal const string BackToTopJsPH = "{$BACK_TO_TOP}";
     internal const string ExpandOrCollapseAllOperationsJsPH = "{$EXPAND_COLLAPSE_ALL_OPERATIONS}";
     internal const string ThemeSwitcherJsPH = "{$THEME_SWITCHER}";
 
     private static readonly string[][] s_jsDependentFeatures = [
         [PinnableTopbar, PinnableTopbarJsPH],
+        [PinnableFilterBar, PinnableFilterBarJsPH],
         [BackToTop, BackToTopJsPH],
         [ExpandOrCollapseAllOperations, ExpandOrCollapseAllOperationsJsPH],
         [ThemeSwitcher, ThemeSwitcherJsPH]
@@ -33,6 +36,8 @@ internal static class AdvancedOptions
     {
         options.TryAdd(PinnableTopbar, true);
     }
+
+    internal static void EnablePinnableFilterBar(this IDictionary<string, object> options) => options.TryAdd(PinnableFilterBar, true);
 
     internal static void EnableBackToTop(this IDictionary<string, object> options)
     {

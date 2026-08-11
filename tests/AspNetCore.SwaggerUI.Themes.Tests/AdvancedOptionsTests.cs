@@ -21,6 +21,20 @@ public class AdvancedOptionsTests
     }
 
     [Fact]
+    public void EnablePinnableFilterBar_AddsCorrectOption()
+    {
+        // Arrange
+        var options = new Dictionary<string, object>();
+
+        // Act
+        options.EnablePinnableFilterBar();
+
+        // Assert
+        options.ShouldContainKey(AdvancedOptions.PinnableFilterBar);
+        options[AdvancedOptions.PinnableFilterBar].ShouldBe(true);
+    }
+
+    [Fact]
     public void EnableBackToTop_AddsCorrectOption()
     {
         // Arrange
@@ -114,12 +128,14 @@ public class AdvancedOptionsTests
         // Arrange
         const string JsContent = $"""
             const pinnableTopbapFeature = {AdvancedOptions.PinnableTopbarJsPH};
+            const pinnableFilterBarFeature = {AdvancedOptions.PinnableFilterBarJsPH};
             const backToTopFeature = {AdvancedOptions.BackToTopJsPH};
             const expandOrCollapseOpsFeature = {AdvancedOptions.ExpandOrCollapseAllOperationsJsPH};
         """;
         var options = new Dictionary<string, object>
         {
             { AdvancedOptions.PinnableTopbar, true },
+            { AdvancedOptions.PinnableFilterBar, true },
             { AdvancedOptions.BackToTop, true },
             { AdvancedOptions.ExpandOrCollapseAllOperations, true }
         };
@@ -129,6 +145,7 @@ public class AdvancedOptionsTests
 
         const string ExpectedJsConent = """
             const pinnableTopbapFeature = true;
+            const pinnableFilterBarFeature = true;
             const backToTopFeature = true;
             const expandOrCollapseOpsFeature = true;
         """;
@@ -136,6 +153,7 @@ public class AdvancedOptionsTests
         // Assert
         result.ShouldBe(ExpectedJsConent);
         result.ShouldNotContain(AdvancedOptions.PinnableTopbarJsPH);
+        result.ShouldNotContain(AdvancedOptions.PinnableFilterBarJsPH);
     }
 
     [Fact]

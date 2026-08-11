@@ -15,6 +15,8 @@ window.onpageshow = function () {
 
             setUpPinnableTopbar({$PINNABLE_TOPBAR});
 
+            setUpPinnableFilterBar({$PINNABLE_FILTER_BAR});
+
             setUpScrollToTopButton({$BACK_TO_TOP});
 
             setUpExpandAndCollapseOperationsButtons({$EXPAND_COLLAPSE_ALL_OPERATIONS});
@@ -63,6 +65,51 @@ function setUpPinnableTopbar(enabled) {
 
         if (saveToStorage) {
             localStorage.setItem(PINNABLE_TOPBAR_STORAGE_KEY, pinned ? 'pinned' : 'unpinned');
+        }
+    }
+}
+
+function setUpPinnableFilterBar(enabled) {
+    if (enabled === false)
+        return;
+
+    const PINNABLE_FILTER_BAR_STORAGE_KEY = 'swaggerui-pinnable-filterbar-preference';
+
+    const filterWrapper = document.querySelector('.filter');
+    if (!filterWrapper)
+        return;
+
+    const pinFilterBarBtn = document.createElement('button');
+    pinFilterBarBtn.setAttribute('id', 'pin-filterbar-btn');
+    pinFilterBarBtn.addEventListener('click', () => {
+        const currentlyPinned = pinFilterBarBtn.parentNode.classList.contains('pinned');
+        applyPinnedState(pinFilterBarBtn, !currentlyPinned, true);
+        pinFilterBarBtn?.blur();
+    })
+
+    filterWrapper.appendChild(pinFilterBarBtn);
+
+    // Apply the saved (or default) pinned state directly, so there's no flash
+    // of unpinned state on page load. No saved preference defaults to unpinned,
+    // since this is a new opt-in feature with no prior shipped behavior to preserve.
+    const savedState = localStorage.getItem(PINNABLE_FILTER_BAR_STORAGE_KEY);
+    const isPinned = savedState === 'pinned';
+    applyPinnedState(pinFilterBarBtn, isPinned, false);
+
+    function applyPinnedState(pinFilterBarBtn, pinned, saveToStorage) {
+        if (pinned) {
+            pinFilterBarBtn.parentNode.classList.add('pinned');
+            setPinnedIconTo(pinFilterBarBtn);
+            pinFilterBarBtn.setAttribute('title', 'Unpin filter bar');
+        }
+        else {
+            pinFilterBarBtn.parentNode.classList.remove('pinned');
+            setUnpinnedIconTo(pinFilterBarBtn);
+            pinFilterBarBtn.setAttribute('title', 'Pin filter bar');
+        }
+
+        if (saveToStorage) {
+            localStorage.setItem(PINNABLE_FILTER_BAR_STORAGE_KEY, pinned ? 'pinned' : 'unpinned');
         }
     }
 }
