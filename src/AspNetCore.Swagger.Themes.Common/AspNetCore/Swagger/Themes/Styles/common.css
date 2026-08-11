@@ -6,6 +6,15 @@
 
 @charset "UTF-8";
 
+:root {
+    /* Rendered heights of the pinned topbar/filter bar, used to stack sticky elements below
+       them without overlap. Declared once here so the two DOM-branch-specific copies below
+       (needed because of how .topbar.pinned/.filter.pinned relate to the elements that read
+       them) can't drift out of sync. */
+    --topbar-pinned-height: 4.2rem;
+    --filterbar-pinned-height: 7.2rem;
+}
+
 *::-webkit-scrollbar {
     width: 16px;
 }
@@ -95,7 +104,7 @@ body {
         .swagger-ui .topbar.pinned {
             position: sticky;
             top: 10px;
-            --pinned-topbar-offset: 4.2rem;
+            --pinned-topbar-offset: var(--topbar-pinned-height);
         }
 
         /* The filter bar and the sticky operation tag headers live in a different branch of the
@@ -103,7 +112,7 @@ body {
            .topbar.pinned. Re-declare it here, on their closest common ancestor, so it only
            carries a nonzero value while the topbar is actually pinned. */
         .swagger-ui:has(> .topbar.pinned) {
-            --pinned-topbar-offset: 4.2rem;
+            --pinned-topbar-offset: var(--topbar-pinned-height);
         }
 
             .swagger-ui .topbar.pinned::before {
@@ -659,19 +668,22 @@ body {
     border: 2px solid var(--filter-operation-filter-input-border-color, #d8dde7);
 }
 
-    /* .filter's own wrapper elements (.filter-container and its parent) are exactly as tall as
-       the filter bar itself, so making .filter position:sticky would have no visible effect:
-       a sticky box is bounded by its containing block, and that block would offer no extra room
-       for it to remain "stuck" while the page scrolls. The next ancestor up spans the full page
-       content (info box, filter, operations list, models, ...) as siblings, so that's the element
-       that actually needs position: sticky. It has no stable class of its own in Swagger UI's
-       markup, so it's targeted structurally via its known descendants instead. */
+    /* .filter's own wrapper (.filter-container) is exactly as tall as the filter bar itself
+       (its only child), so making .filter, or .filter-container, position:sticky would have no
+       visible effect: a sticky box is bounded by its own containing block, and that block would
+       offer no extra room for it to remain "stuck" while the page scrolls. What actually needs
+       position: sticky is .filter-container's own parent, matched here by this selector (the
+       ">" combinators pin it down to exactly that element): unlike .filter-container, that div's
+       *own* parent, one level further up, spans the full page content (info box, filter,
+       operations list, models, ...) as siblings, which gives this element room to stick. It has
+       no stable class of its own in Swagger UI's markup, so it's targeted structurally via its
+       known descendants instead. */
     .swagger-ui div:has(> .filter-container > .filter.pinned) {
         position: sticky;
         top: var(--pinned-topbar-offset, 0px);
         z-index: 5;
         background: var(--body-background-color, #fafafa);
-        --pinned-filter-offset: 6.8rem;
+        --pinned-filter-offset: var(--filterbar-pinned-height);
     }
 
 /* The sticky operation tag headers live in a different branch of the DOM than the filter bar,
@@ -679,8 +691,41 @@ body {
    on their closest common ancestor, so it only carries a nonzero value while the filter bar is
    actually pinned. */
 .swagger-ui:has(.filter.pinned) {
-    --pinned-filter-offset: 6.8rem;
+    --pinned-filter-offset: var(--filterbar-pinned-height);
 }
+
+    .swagger-ui .filter #pin-filterbar-btn svg {
+        fill: var(--filterbar-pin-icon-color, #707070);
+    }
+
+    .swagger-ui .filter #pin-filterbar-btn {
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        margin: .2rem;
+        padding: .2rem;
+        transition: all .2s;
+        rotate: z 359deg;
+    }
+
+        .swagger-ui .filter #pin-filterbar-btn:hover,
+        .swagger-ui .filter #pin-filterbar-btn:focus-within {
+            scale: 1.05;
+            animation: pintobbar 1.2s infinite;
+        }
+
+        .swagger-ui .filter #pin-filterbar-btn:active {
+            scale: 0.95;
+        }
+
+    .swagger-ui .filter.pinned #pin-filterbar-btn {
+        rotate: z 0deg;
+    }
+
+        .swagger-ui .filter.pinned #pin-filterbar-btn:hover,
+        .swagger-ui .filter.pinned #pin-filterbar-btn:focus-within {
+            animation: unpintobbar 1.2s infinite;
+        }
 
 .swagger-ui .download-url-wrapper .failed,
 .swagger-ui .filter .failed {

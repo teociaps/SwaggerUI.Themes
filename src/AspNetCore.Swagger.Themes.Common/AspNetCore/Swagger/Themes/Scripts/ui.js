@@ -30,86 +30,82 @@ function setUpPinnableTopbar(enabled) {
     if (enabled === false)
         return;
 
-    const PINNABLE_TOPBAR_STORAGE_KEY = 'swaggerui-pinnable-topbar-preference';
-
-    const topbarWrapper = document.querySelector('.topbar-wrapper');
-
-    const pinTopbarBtn = document.createElement('button');
-    pinTopbarBtn.setAttribute('id', 'pin-topbar-btn');
-    pinTopbarBtn.addEventListener('click', () => {
-        const currentlyPinned = pinTopbarBtn.parentNode.parentNode.parentNode.classList.contains('pinned');
-        applyPinnedState(pinTopbarBtn, !currentlyPinned, true);
-        pinTopbarBtn?.blur();
-    })
-
-    topbarWrapper.appendChild(pinTopbarBtn);
-
-    // Apply the saved (or default) pinned state directly, so there's no flash
-    // of unpinned state on page load. No saved preference defaults to pinned, matching
-    // the topbar's original always-pinned-on-load behavior.
-    const savedState = localStorage.getItem(PINNABLE_TOPBAR_STORAGE_KEY);
-    const isPinned = savedState !== null ? savedState === 'pinned' : true;
-    applyPinnedState(pinTopbarBtn, isPinned, false);
-
-    function applyPinnedState(pinTopbarBtn, pinned, saveToStorage) {
-        if (pinned) {
-            pinTopbarBtn.parentNode.parentNode.parentNode.classList.add('pinned');
-            setPinnedIconTo(pinTopbarBtn);
-            pinTopbarBtn.setAttribute('title', 'Unpin topbar');
-        }
-        else {
-            pinTopbarBtn.parentNode.parentNode.parentNode.classList.remove('pinned');
-            setUnpinnedIconTo(pinTopbarBtn);
-            pinTopbarBtn.setAttribute('title', 'Pin topbar');
-        }
-
-        if (saveToStorage) {
-            localStorage.setItem(PINNABLE_TOPBAR_STORAGE_KEY, pinned ? 'pinned' : 'unpinned');
-        }
-    }
+    setUpPinnableToggle({
+        buttonId: 'pin-topbar-btn',
+        container: document.querySelector('.topbar-wrapper'),
+        // 3 parentNode hops up from the button (appended to .topbar-wrapper) reaches .topbar.
+        pinnedAncestorDepth: 3,
+        storageKey: 'swaggerui-pinnable-topbar-preference',
+        pinTitle: 'Pin topbar',
+        unpinTitle: 'Unpin topbar',
+        // No saved preference defaults to pinned, matching the topbar's original
+        // always-pinned-on-load behavior.
+        defaultPinned: true
+    });
 }
 
 function setUpPinnableFilterBar(enabled) {
     if (enabled === false)
         return;
 
-    const PINNABLE_FILTER_BAR_STORAGE_KEY = 'swaggerui-pinnable-filterbar-preference';
+    setUpPinnableToggle({
+        buttonId: 'pin-filterbar-btn',
+        container: document.querySelector('.filter'),
+        // 1 parentNode hop up from the button (appended directly to .filter) reaches .filter itself.
+        pinnedAncestorDepth: 1,
+        storageKey: 'swaggerui-pinnable-filterbar-preference',
+        pinTitle: 'Pin filter bar',
+        unpinTitle: 'Unpin filter bar',
+        // This is a new opt-in feature with no prior shipped behavior to preserve, so it
+        // defaults to unpinned when there's no saved preference.
+        defaultPinned: false
+    });
+}
 
-    const filterWrapper = document.querySelector('.filter');
-    if (!filterWrapper)
+// Shared behavior behind every pinnable element (topbar, filter bar, ...): injects a pin
+// button into `container`, toggles a 'pinned' class on the ancestor `pinnedAncestorDepth`
+// parentNodes up from that button, and persists the choice to localStorage.
+function setUpPinnableToggle({ buttonId, container, pinnedAncestorDepth, storageKey, pinTitle, unpinTitle, defaultPinned }) {
+    if (!container)
         return;
 
-    const pinFilterBarBtn = document.createElement('button');
-    pinFilterBarBtn.setAttribute('id', 'pin-filterbar-btn');
-    pinFilterBarBtn.addEventListener('click', () => {
-        const currentlyPinned = pinFilterBarBtn.parentNode.classList.contains('pinned');
-        applyPinnedState(pinFilterBarBtn, !currentlyPinned, true);
-        pinFilterBarBtn?.blur();
+    const pinBtn = document.createElement('button');
+    pinBtn.setAttribute('id', buttonId);
+    pinBtn.addEventListener('click', () => {
+        const currentlyPinned = pinnedAncestorOf(pinBtn).classList.contains('pinned');
+        applyPinnedState(!currentlyPinned, true);
+        pinBtn?.blur();
     })
 
-    filterWrapper.appendChild(pinFilterBarBtn);
+    container.appendChild(pinBtn);
 
-    // Apply the saved (or default) pinned state directly, so there's no flash
-    // of unpinned state on page load. No saved preference defaults to unpinned,
-    // since this is a new opt-in feature with no prior shipped behavior to preserve.
-    const savedState = localStorage.getItem(PINNABLE_FILTER_BAR_STORAGE_KEY);
-    const isPinned = savedState === 'pinned';
-    applyPinnedState(pinFilterBarBtn, isPinned, false);
+    // Apply the saved (or default) pinned state directly, so there's no flash of the wrong
+    // state on page load.
+    const savedState = localStorage.getItem(storageKey);
+    const isPinned = savedState !== null ? savedState === 'pinned' : defaultPinned;
+    applyPinnedState(isPinned, false);
 
-    function applyPinnedState(pinFilterBarBtn, pinned, saveToStorage) {
+    function pinnedAncestorOf(button) {
+        let ancestor = button;
+        for (let i = 0; i < pinnedAncestorDepth; i++)
+            ancestor = ancestor.parentNode;
+        return ancestor;
+    }
+
+    function applyPinnedState(pinned, saveToStorage) {
         if (pinned) {
-            pinFilterBarBtn.parentNode.classList.add('pinned');
-            setPinnedIconTo(pinFilterBarBtn);
-            pinFilterBarBtn.setAttribute('title', 'Unpin filter bar');
+            pinnedAncestorOf(pinBtn).classList.add('pinned');
+            setPinnedIconTo(pinBtn);
+            pinBtn.setAttribute('title', unpinTitle);
         }
         else {
-            pinFilterBarBtn.parentNode.classList.remove('pinned');
-            setUnpinnedIconTo(pinFilterBarBtn);
-            pinFilterBarBtn.setAttribute('title', 'Pin filter bar');
+            pinnedAncestorOf(pinBtn).classList.remove('pinned');
+            setUnpinnedIconTo(pinBtn);
+            pinBtn.setAttribute('title', pinTitle);
         }
 
         if (saveToStorage) {
-            localStorage.setItem(PINNABLE_FILTER_BAR_STORAGE_KEY, pinned ? 'pinned' : 'unpinned');
+            localStorage.setItem(storageKey, pinned ? 'pinned' : 'unpinned');
         }
     }
 }

@@ -37,7 +37,10 @@ internal static class AdvancedOptions
         options.TryAdd(PinnableTopbar, true);
     }
 
-    internal static void EnablePinnableFilterBar(this IDictionary<string, object> options) => options.TryAdd(PinnableFilterBar, true);
+    internal static void EnablePinnableFilterBar(this IDictionary<string, object> options)
+    {
+        options.TryAdd(PinnableFilterBar, true);
+    }
 
     internal static void EnableBackToTop(this IDictionary<string, object> options)
     {
