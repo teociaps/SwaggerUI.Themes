@@ -114,7 +114,7 @@ builder.Services.AddOpenApiDocument(c =>
 
 - **[Custom Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Custom-Themes)** - Build your own themes with full control, or create standalone themes with zero dependencies
 
-- **[Advanced Features](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)** - Enhance your documentation with powerful UI capabilities
+- **[Advanced Features](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)** - Enhance your documentation with powerful UI capabilities, including a [pinnable filter bar](https://github.com/teociaps/SwaggerUI.Themes/wiki/Feature-Pinnable-Filter-Bar) via `EnableFilter(pinned: true)`
 
 ### Extensions
 - **API Counter** - Automatically display operation counts in tag descriptions for better API surface area visibility

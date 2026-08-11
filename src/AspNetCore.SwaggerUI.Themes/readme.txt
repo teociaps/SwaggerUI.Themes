@@ -7,6 +7,7 @@ NEW FEATURES
 - Pinnable Filter Bar: Pin the operation filter box in place, just like the topbar
     Enable it with: c.EnableFilter(pinned: true);
 
+
 IMPROVEMENTS
 -------------------------------------------------------------------------------------
 - Pinnable topbar now remembers its pinned/unpinned state across page reloads
