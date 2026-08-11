@@ -81,6 +81,11 @@ app.UseSwaggerUi(Theme.Dark);      // NSwag
 
 // Enable runtime theme switcher!
 app.UseSwaggerUI(Theme.Dark, c => c.EnableThemeSwitcher());
+
+// Enable a pinnable filter box
+app.UseSwaggerUI(Theme.Dark, c => c.EnableFilter(pinned: true));      // Swashbuckle
+// or
+app.UseSwaggerUi(Theme.Dark, c => c.EnableFilter(pinned: true));      // NSwag
 ```
 
 ### Extensions Quick Start
