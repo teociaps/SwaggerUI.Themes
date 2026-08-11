@@ -62,11 +62,11 @@ public static class SwaggerUiSettingsExtensions
         /// </summary>
         /// <remarks>
         /// Sets the raw <c>filter</c> key consumed directly by the swagger-ui bundle's own
-        /// <c>SwaggerUIBundle({...})</c> initializer, the same key Swashbuckle's typed
-        /// <c>EnableFilter()</c> produces.
+        /// <c>SwaggerUIBundle({...})</c> initializer, as opposed to the other options here
+        /// which drive this library's own theme JS.
         /// </remarks>
         public void EnableFilter() =>
-            settings.AdditionalSettings["filter"] = true;
+            settings.AdditionalSettings.TryAdd("filter", true);
 
         /// <summary>
         /// Enables the operation filter box, optionally making it pinnable.
