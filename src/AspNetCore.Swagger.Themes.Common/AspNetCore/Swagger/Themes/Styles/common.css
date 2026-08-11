@@ -140,7 +140,10 @@ body {
                 fill: var(--topbar-pin-icon-color, white);
             }
 
-            .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn {
+            /* Base/hover/active button styling is shared with the filter bar's pin button
+               (#pin-filterbar-btn below); only the icon fill color differs between the two. */
+            .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn,
+            .swagger-ui .filter #pin-filterbar-btn {
                 cursor: pointer;
                 background: transparent;
                 border: none;
@@ -151,12 +154,15 @@ body {
             }
 
                 .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:hover,
-                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:focus-within {
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:focus-within,
+                .swagger-ui .filter #pin-filterbar-btn:hover,
+                .swagger-ui .filter #pin-filterbar-btn:focus-within {
                     scale: 1.05;
                     animation: pintobbar 1.2s infinite;
                 }
 
-                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:active {
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:active,
+                .swagger-ui .filter #pin-filterbar-btn:active {
                     scale: 0.95;
                 }
 
@@ -167,13 +173,21 @@ body {
             backdrop-filter: blur(20px);
         }
 
-            .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn {
-                translate: 0 5px;
+            /* rotate is shared with the filter bar's pinned pin button (#pin-filterbar-btn
+               below); translate is topbar-specific, nudging the button into the pinned layout. */
+            .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn,
+            .swagger-ui .filter.pinned #pin-filterbar-btn {
                 rotate: z 0deg;
             }
 
+                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn {
+                    translate: 0 5px;
+                }
+
                 .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn:hover,
-                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn:focus-within {
+                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn:focus-within,
+                .swagger-ui .filter.pinned #pin-filterbar-btn:hover,
+                .swagger-ui .filter.pinned #pin-filterbar-btn:focus-within {
                     animation: unpintobbar 1.2s infinite;
                 }
 
@@ -698,34 +712,8 @@ body {
         fill: var(--filterbar-pin-icon-color, #707070);
     }
 
-    .swagger-ui .filter #pin-filterbar-btn {
-        cursor: pointer;
-        background: transparent;
-        border: none;
-        margin: .2rem;
-        padding: .2rem;
-        transition: all .2s;
-        rotate: z 359deg;
-    }
-
-        .swagger-ui .filter #pin-filterbar-btn:hover,
-        .swagger-ui .filter #pin-filterbar-btn:focus-within {
-            scale: 1.05;
-            animation: pintobbar 1.2s infinite;
-        }
-
-        .swagger-ui .filter #pin-filterbar-btn:active {
-            scale: 0.95;
-        }
-
-    .swagger-ui .filter.pinned #pin-filterbar-btn {
-        rotate: z 0deg;
-    }
-
-        .swagger-ui .filter.pinned #pin-filterbar-btn:hover,
-        .swagger-ui .filter.pinned #pin-filterbar-btn:focus-within {
-            animation: unpintobbar 1.2s infinite;
-        }
+    /* Base, hover/focus, active, and pinned button styling is shared with the topbar's pin
+       button (#pin-topbar-btn) — see the .topbar .topbar-wrapper #pin-topbar-btn rules above. */
 
 .swagger-ui .download-url-wrapper .failed,
 .swagger-ui .filter .failed {
