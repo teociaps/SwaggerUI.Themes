@@ -1,23 +1,23 @@
-Thank you for installing AspNetCore.SwaggerUI.Extensions!
+﻿+===================================================================================+
+|              AspNetCore.SwaggerUI.Extensions • RELEASE NOTES - v1.0               |
++===================================================================================+
+
+NEW FEATURES
+-------------------------------------------------------------------------------------
+- API Counter: Automatically append operation counts to tag descriptions
+    Enable it with: c.AppendOperationCountToTags();
+
 
 QUICK START
------------
-Add operation counts to your Swagger tags:
+-------------------------------------------------------------------------------------
+API Counter:
+  builder.Services.AddSwaggerGen(c => c.AppendOperationCountToTags());
 
-    builder.Services.AddSwaggerGen(c =>
-    {
-        c.AppendOperationCountToTags();
-    });
 
 DOCUMENTATION
--------------
-Full documentation: https://github.com/teociaps/SwaggerUI.Themes/wiki
+-------------------------------------------------------------------------------------
 
-RELATED PACKAGES
-----------------
-- AspNetCore.SwaggerUI.Themes - For runtime theme switching
-- NSwag.AspNetCore.Extensions - For NSwag users
+Full docs:    https://github.com/teociaps/SwaggerUI.Themes/wiki
+Repository:   https://github.com/teociaps/SwaggerUI.Themes
 
-SUPPORT
--------
-Report issues: https://github.com/teociaps/SwaggerUI.Themes/issues
+=====================================================================================

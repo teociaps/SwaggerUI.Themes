@@ -1,44 +1,49 @@
-# NSwag.AspNetCore.Extensions
+﻿# NSwag.AspNetCore.Extensions
 
-Enhance your ASP.NET Core Swagger UI with functional extensions that go beyond theming.
+### Enhance your ASP.NET Core Swagger UI with functional extensions that go beyond theming!
 
-## Features
+**Automatic operation counts** &nbsp;•&nbsp; **Zero-config setup** • _**...and more coming soon!**_
 
-- **API Counter** - Automatically display operation counts in tag descriptions
-- More extensions coming soon!
+**[Get Started](https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started)** • **[Full Documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)**
 
-## Installation
+## 🚀 Quick Start
 
 ```bash
 dotnet add package NSwag.AspNetCore.Extensions
 ```
 
-## Quick Start
-
-### API Counter
-
-Add operation counts to your Swagger tags:
-
 ```csharp
 builder.Services.AddOpenApiDocument(c =>
 {
     c.AppendOperationCountToTags();
-    // Or with custom template:
+});
+```
+
+> **Note**: `AddOpenApiDocument()` is provided by NSwag.AspNetCore. This package adds convenient extension methods on top of it.
+
+## ✨ Features
+
+- **API Counter** - Automatically display operation counts in tag descriptions
+- _...more extensions coming soon!_
+
+## 📚 Basic Usage Examples
+
+```csharp
+builder.Services.AddOpenApiDocument(c =>
+{
+    // Append operation count to tag descriptions
+    c.AppendOperationCountToTags();
+
+    // Or with a custom template
     c.AppendOperationCountToTags(" [{0} endpoints]");
 });
 ```
 
-This will append the operation count to each tag's description, helping users understand the API surface area at a glance.
-
-## Documentation
-
-For more information and advanced usage, visit the [Wiki](https://github.com/teociaps/SwaggerUI.Themes/wiki).
-
 ## Related Packages
 
-- **NSwag.AspNetCore.Themes** - Runtime theme switching and customization for NSwag
-- **AspNetCore.SwaggerUI.Extensions** - Extensions for Swashbuckle users
+- **[NSwag.AspNetCore.Themes](https://www.nuget.org/packages/NSwag.AspNetCore.Themes/)** - Runtime theme switching and customization for NSwag
+- **[AspNetCore.SwaggerUI.Extensions](https://www.nuget.org/packages/AspNetCore.SwaggerUI.Extensions/)** - Extensions for Swashbuckle users
 
-## License
+---
 
-MIT Licensed - see [LICENSE](https://github.com/teociaps/SwaggerUI.Themes/blob/main/LICENSE) for details.
+#### Discover all the features and customization options in the [documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)!
