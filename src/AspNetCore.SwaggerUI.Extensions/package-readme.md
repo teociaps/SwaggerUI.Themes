@@ -42,7 +42,6 @@ builder.Services.AddSwaggerGen(c =>
 ## Related Packages
 
 - **[AspNetCore.SwaggerUI.Themes](https://www.nuget.org/packages/AspNetCore.SwaggerUI.Themes/)** - Runtime theme switching and customization for Swashbuckle
-- **[NSwag.AspNetCore.Extensions](https://www.nuget.org/packages/NSwag.AspNetCore.Extensions/)** - Extensions for NSwag users
 
 ---
 

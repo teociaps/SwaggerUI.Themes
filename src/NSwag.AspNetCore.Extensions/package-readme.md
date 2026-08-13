@@ -42,7 +42,6 @@ builder.Services.AddOpenApiDocument(c =>
 ## Related Packages
 
 - **[NSwag.AspNetCore.Themes](https://www.nuget.org/packages/NSwag.AspNetCore.Themes/)** - Runtime theme switching and customization for NSwag
-- **[AspNetCore.SwaggerUI.Extensions](https://www.nuget.org/packages/AspNetCore.SwaggerUI.Extensions/)** - Extensions for Swashbuckle users
 
 ---
 
