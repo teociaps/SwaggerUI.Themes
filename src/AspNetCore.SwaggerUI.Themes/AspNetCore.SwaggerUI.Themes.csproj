@@ -6,8 +6,8 @@
   <!-- Official Version -->
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <MajorVersion>3</MajorVersion>
-    <MinorVersion>0</MinorVersion>
-    <PatchVersion>2</PatchVersion>
+    <MinorVersion>1</MinorVersion>
+    <PatchVersion>0</PatchVersion>
     <VersionSuffix></VersionSuffix>
     <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
   </PropertyGroup>

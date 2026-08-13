@@ -11,8 +11,8 @@
     <Today>$([System.DateTime]::Today.ToString("yyMMdd"))</Today>
     <Revision>$(Today)-$(Floored)</Revision>
     <MajorVersion>3</MajorVersion>
-    <MinorVersion>0</MinorVersion>
-    <PatchVersion>2</PatchVersion>
+    <MinorVersion>1</MinorVersion>
+    <PatchVersion>0</PatchVersion>
     <VersionSuffix>-$(Revision)</VersionSuffix>
     <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
   </PropertyGroup>
