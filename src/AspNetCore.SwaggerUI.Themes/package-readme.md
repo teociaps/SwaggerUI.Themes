@@ -23,7 +23,7 @@ app.UseSwaggerUI(Theme.Dark);
 app.UseSwaggerUI(Theme.Dark, c => c.EnableThemeSwitcher());
 
 // Or enable a pinnable filter box
-app.UseSwaggerUI(Theme.Dark, c => c.EnableFilter(pinned: true));
+app.UseSwaggerUI(Theme.Dark, c => c.EnableFilter(pinnable: true));
 ```
 
 > **Note**: The `UseSwaggerUI()` method is provided by Swashbuckle.AspNetCore. This package adds convenient overloads to apply themes seamlessly.
@@ -36,7 +36,7 @@ app.UseSwaggerUI(Theme.Dark, c => c.EnableFilter(pinned: true));
 
 - **[Custom Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Custom-Themes)** - Build your own themes with full control, or create standalone themes with zero dependencies
 
-- **[Advanced Features](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)** - Enhance your documentation with powerful UI capabilities, including a [pinnable filter bar](https://github.com/teociaps/SwaggerUI.Themes/wiki/Feature-Pinnable-Filter-Bar) via `EnableFilter(pinned: true)`
+- **[Advanced Features](https://github.com/teociaps/SwaggerUI.Themes/wiki/Advanced-Options)** - Enhance your documentation with powerful UI capabilities
 
 - _...discover more in the [Wiki](https://github.com/teociaps/SwaggerUI.Themes/wiki/Features)!_
 

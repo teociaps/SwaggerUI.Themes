@@ -8,7 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     SwaggerGenConfigurer.Configure(c);
-    
+
     // 📊 API Counter: Server-side operation count
     c.AppendOperationCountToTags();
     // Or with custom template:
@@ -195,6 +195,13 @@ if (app.Environment.IsDevelopment())
     //    c.EnableThemeSwitcher(new ThemeSwitcherOptions()
     //        .WithThemes(Theme.Dark, Theme.Light)
     //        .WithCustomThemes(CustomThemeMode.None));
+    //});
+
+    // 19. Pinnable filter bar
+    //app.UseSwaggerUI(Theme.Dark, c =>
+    //{
+    //    c.DocumentTitle = "Sample API - Pinnable Filter Bar";
+    //    c.EnableFilter(pinnable: true);
     //});
 }
 

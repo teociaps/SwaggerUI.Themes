@@ -11,8 +11,8 @@
        them without overlap. Declared once here so the two DOM-branch-specific copies below
        (needed because of how .topbar.pinned/.filter.pinned relate to the elements that read
        them) can't drift out of sync. */
-    --topbar-pinned-height: 4.2rem;
-    --filterbar-pinned-height: 7.2rem;
+    --topbar-pinned-height: 4rem;
+    --filterbar-pinned-height: 5rem;
 }
 
 *::-webkit-scrollbar {
@@ -678,9 +678,38 @@ body {
     }
 
 /* Other of operations */
+/* The pin button is appended as a sibling of .filter-container (swagger-ui-dist's own,
+   unstyled, full-width wrapper around the filter input) directly inside .filter. It's
+   absolutely positioned over the input's right end (like an input-embedded icon), with
+   position: relative here making .filter its containing block; align-items keeps its
+   static position vertically centered. */
+.swagger-ui .filter {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+    .swagger-ui .filter .filter-container {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .swagger-ui .filter #pin-filterbar-btn {
+        position: absolute;
+        right: 1.5rem;
+    }
+
 .swagger-ui .filter .operation-filter-input {
     border: 2px solid var(--filter-operation-filter-input-border-color, #d8dde7);
 }
+
+    /* Only while the pinned filter bar has actually reached its sticky top (the 'stuck'
+       class is toggled by ui.js — CSS can't detect that state): fake a bottom edge for the
+       sticky bar by stacking two hard shadows below the input — a background-colored fill,
+       then a 1px line in the operations' border color. */
+    .swagger-ui .filter.pinned.stuck .operation-filter-input {
+        box-shadow: 0 19px 0 0 var(--body-background-color, #fafafa), 0 20px 0 0 var(--opblock-tag-section-border-color, #dddddd);
+    }
 
     /* .filter's own wrapper (.filter-container) is exactly as tall as the filter bar itself
        (its only child), so making .filter, or .filter-container, position:sticky would have no

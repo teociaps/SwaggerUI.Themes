@@ -60,14 +60,14 @@ public static class SwaggerUIOptionsExtensions
         /// <summary>
         /// Enables the operation filter box, optionally making it pinnable.
         /// </summary>
-        /// <param name="pinned">
+        /// <param name="pinnable">
         /// If <see langword="true"/>, the filter box can be pinned in place.
         /// </param>
-        public void EnableFilter(bool pinned)
+        public void EnableFilter(bool pinnable)
         {
             options.EnableFilter();
 
-            if (pinned)
+            if (pinnable)
                 options.ConfigObject.AdditionalItems.EnablePinnableFilterBar();
         }
 

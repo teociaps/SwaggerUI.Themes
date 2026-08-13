@@ -48,24 +48,50 @@ function setUpPinnableFilterBar(enabled) {
     if (enabled === false)
         return;
 
+    const filterBar = document.querySelector('.filter');
+    if (!filterBar)
+        return;
+
+    // CSS alone can't tell whether a sticky element has actually reached its sticky top, so
+    // toggle a 'stuck' class here (styled in common.css) by comparing the sticky wrapper's
+    // viewport position against its computed sticky offset. The wrapper is 2 parentElement
+    // hops up from .filter (.filter -> .filter-container -> sticky div, see common.css).
+    const stickyWrapper = filterBar.parentElement?.parentElement;
+
+    function updateStuckState() {
+        if (!stickyWrapper)
+            return;
+
+        // getComputedStyle().top is 'auto' (NaN) while unpinned, so the comparison alone
+        // could never be true then; the explicit pinned check just makes that intent clear.
+        const stuck = filterBar.classList.contains('pinned')
+            && stickyWrapper.getBoundingClientRect().top <= parseFloat(getComputedStyle(stickyWrapper).top) + 1;
+        filterBar.classList.toggle('stuck', stuck);
+    }
+
+    window.addEventListener('scroll', updateStuckState, { passive: true });
+    window.addEventListener('resize', updateStuckState);
+
     setUpPinnableToggle({
         buttonId: 'pin-filterbar-btn',
-        container: document.querySelector('.filter'),
+        container: filterBar,
         // 1 parentNode hop up from the button (appended directly to .filter) reaches .filter itself.
         pinnedAncestorDepth: 1,
         storageKey: 'swaggerui-pinnable-filterbar-preference',
         pinTitle: 'Pin filter bar',
         unpinTitle: 'Unpin filter bar',
-        // This is a new opt-in feature with no prior shipped behavior to preserve, so it
-        // defaults to unpinned when there's no saved preference.
-        defaultPinned: false
+        defaultPinned: false,
+        // Re-evaluate on every pin/unpin so unpinning mid-scroll clears the 'stuck' class
+        // immediately instead of waiting for the next scroll event.
+        onPinnedStateApplied: updateStuckState
     });
 }
 
 // Shared behavior behind every pinnable element (topbar, filter bar, ...): injects a pin
 // button into `container`, toggles a 'pinned' class on the ancestor `pinnedAncestorDepth`
-// parentNodes up from that button, and persists the choice to localStorage.
-function setUpPinnableToggle({ buttonId, container, pinnedAncestorDepth, storageKey, pinTitle, unpinTitle, defaultPinned }) {
+// parentNodes up from that button, persists the choice to localStorage, and notifies the
+// optional `onPinnedStateApplied` callback after every applied state (initial load included).
+function setUpPinnableToggle({ buttonId, container, pinnedAncestorDepth, storageKey, pinTitle, unpinTitle, defaultPinned, onPinnedStateApplied }) {
     if (!container)
         return;
 
@@ -107,6 +133,8 @@ function setUpPinnableToggle({ buttonId, container, pinnedAncestorDepth, storage
         if (saveToStorage) {
             localStorage.setItem(storageKey, pinned ? 'pinned' : 'unpinned');
         }
+
+        onPinnedStateApplied?.();
     }
 }
 

@@ -195,6 +195,13 @@ if (app.Environment.IsDevelopment())
     //        .WithThemes(Theme.Dark, Theme.Light)
     //        .WithCustomThemes(CustomThemeMode.None));
     //});
+
+    // 19. Pinnable filter bar
+    //app.UseSwaggerUi(Theme.Dark, c =>
+    //{
+    //    c.DocumentTitle = "Sample API - Pinnable Filter Bar";
+    //    c.EnableFilter(pinnable: true);
+    //});
 }
 
 app.UseHttpsRedirection();
