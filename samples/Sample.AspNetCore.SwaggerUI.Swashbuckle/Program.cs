@@ -8,11 +8,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     SwaggerGenConfigurer.Configure(c);
-
-    // 📊 API Counter: Server-side operation count
-    c.AppendOperationCountToTags();
-    // Or with custom template:
-    // c.AppendOperationCountToTags(" [{0} endpoints]");
 });
 
 var app = builder.Build();
