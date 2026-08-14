@@ -7,7 +7,7 @@ on:
       - completed
   pull_request:
     branches: [main]
-    types: [opened, reopened, edited]
+    types: [opened, reopened, edited, synchronize]
     paths-ignore: ['**/*.md', '**/*.png', '**/*.txt']
 
 env:
