@@ -31,4 +31,8 @@ jobs:
           10.0.x
 
     - name: Test
-      run: dotnet test ${{ env.TEST_PROJECTS_PATH }} --configuration ${{ env.CONFIGURATION }}
+      shell: bash
+      run: |
+        for project in ${{ env.TEST_PROJECTS_PATH }}; do
+          dotnet test "$project" --configuration ${{ env.CONFIGURATION }}
+        done
