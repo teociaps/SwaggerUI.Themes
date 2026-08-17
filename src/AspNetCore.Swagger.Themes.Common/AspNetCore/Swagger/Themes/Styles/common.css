@@ -283,6 +283,15 @@ body {
     color: var(--topbar-download-url-button-color, #fff);
 }
 
+/* Swashbuckle.AspNetCore 10.x's swagger-ui-dist ships its own native dark-mode toggle in the
+   topbar. It layers swagger-ui's own bundled dark CSS on top of whatever theme is active here,
+   visibly clashing with it - hide it since this library's own theme (and, when enabled, its
+   EnableThemeSwitcher) already cover light/dark. Harmless no-op on older Swashbuckle versions
+   that don't render this element at all. */
+.swagger-ui .topbar .dark-mode-toggle {
+    display: none;
+}
+
 #theme-switcher-select {
     background: var(--select-background-icon, #f7f7f7 url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="%23000" fill-rule="evenodd" d="M13.418 7.859a.695.695 0 0 1 .978 0 .68.68 0 0 1 0 .969l-3.908 3.83a.697.697 0 0 1-.979 0l-3.908-3.83a.68.68 0 0 1 0-.969.695.695 0 0 1 .978 0L10 11l3.418-3.141z"/></svg>') right 10px center no-repeat);
     border: 2px solid var(--topbar-select-border-color, #62a03f);
