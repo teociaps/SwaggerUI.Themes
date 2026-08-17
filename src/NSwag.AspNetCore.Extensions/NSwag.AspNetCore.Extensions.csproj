@@ -25,7 +25,7 @@
   <PropertyGroup>
     <PackageId>NSwag.AspNetCore.Extensions</PackageId>
     <Description>
-      Enhance your ASP.NET Core Swagger UI with functional extensions like API counter and more. Extends NSwag.AspNetCore with additional capabilities.
+      Enhance your ASP.NET Core Swagger UI with additional capabilities.
     </Description>
     <PackageTags>
       swagger;swagger-ui;swaggerui;nswag;aspnetcore;webapi;openapi;extension;api-counter;operation-count;tag-extensions

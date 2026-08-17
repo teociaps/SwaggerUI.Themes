@@ -1,4 +1,8 @@
+#if NET10_0_OR_GREATER
+using Microsoft.OpenApi;
+#else
 using Microsoft.OpenApi.Models;
+#endif
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace AspNetCore.Swagger.Extensions.Filters;
@@ -68,7 +72,11 @@ public sealed class AppendOperationCountToTagDescriptionFilter : IDocumentFilter
             return;
 
         // Ensure Tags collection exists
+#if NET10_0_OR_GREATER
+        swaggerDoc.Tags ??= new HashSet<OpenApiTag>();
+#else
         swaggerDoc.Tags ??= [];
+#endif
 
         // Create tags if they don't exist
         foreach (var tagName in tagOperationCount.Keys)

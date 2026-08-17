@@ -25,7 +25,7 @@
   <PropertyGroup>
     <PackageId>AspNetCore.SwaggerUI.Extensions</PackageId>
     <Description>
-      Enhance your ASP.NET Core Swagger UI with functional extensions like API counter and more. Extends Swashbuckle.AspNetCore with additional capabilities.
+      Enhance your ASP.NET Core Swagger UI with additional capabilities.
     </Description>
     <PackageTags>
       swagger;swagger-ui;swaggerui;swashbuckle;aspnetcore;webapi;openapi;extension;api-counter;operation-count;tag-extensions
@@ -33,8 +33,14 @@
     <IncludeBuildOutput>true</IncludeBuildOutput>
   </PropertyGroup>
 
+  <!-- Upper-bounded ranges: Microsoft.OpenApi had a breaking rewrite between the v1.x line
+       (Swashbuckle.AspNetCore 9.x) and the v2.x line (Swashbuckle.AspNetCore 10.x) - Models
+       namespace removed, OpenApiDocument.Tags/OpenApiOperation.Tags collection types changed.
+       AppendOperationCountToTagDescriptionFilter is multi-targeted for both; the bounds stop
+       NuGet from silently floating a TFM onto whichever line it wasn't compiled against. -->
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="[9.0.6,10.0.0)" Condition="'$(TargetFramework)' != 'net10.0'" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="[10.2.3,11.0.0)" Condition="'$(TargetFramework)' == 'net10.0'" />
   </ItemGroup>
 
 </Project>

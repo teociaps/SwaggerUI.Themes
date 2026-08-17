@@ -1,6 +1,10 @@
 using AspNetCore.Swagger.Extensions.Filters;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+#if NET10_0_OR_GREATER
+using Microsoft.OpenApi;
+#else
 using Microsoft.OpenApi.Models;
+#endif
 using Shouldly;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text.Json;
@@ -60,7 +64,10 @@ public class AppendOperationCountToTagDescriptionFilterTests
         filter.Apply(document, context);
 
         // Assert
-        document.Tags.ShouldBeEmpty();
+        // Tags is left untouched when there's nothing to append - its default depends on the
+        // Microsoft.OpenApi version (empty collection pre-v2, null from v2 onward), and either
+        // is correct here since the filter never had a reason to allocate one.
+        (document.Tags is null || document.Tags.Count == 0).ShouldBeTrue();
     }
 
     [Fact]
@@ -104,10 +111,17 @@ public class AppendOperationCountToTagDescriptionFilterTests
         // Arrange
         var filter = new AppendOperationCountToTagDescriptionFilter();
         var document = CreateDocumentWithTags();
+#if NET10_0_OR_GREATER
+        document.Tags = new HashSet<OpenApiTag>
+        {
+            new() { Name = "Users", Description = "User management" }
+        };
+#else
         document.Tags = new List<OpenApiTag>
         {
             new() { Name = "Users", Description = "User management" }
         };
+#endif
         var context = CreateContext();
 
         // Act
@@ -130,18 +144,33 @@ public class AppendOperationCountToTagDescriptionFilterTests
             {
                 ["/users"] = new OpenApiPathItem
                 {
+#if NET10_0_OR_GREATER
+                    Operations = new Dictionary<HttpMethod, OpenApiOperation>
+                    {
+                        [HttpMethod.Get] = new() { Tags = new HashSet<OpenApiTagReference> { new("Users", null) } },
+                        [HttpMethod.Post] = new() { Tags = new HashSet<OpenApiTagReference> { new("Users", null) } }
+                    }
+#else
                     Operations = new Dictionary<OperationType, OpenApiOperation>
                     {
                         [OperationType.Get] = new() { Tags = new List<OpenApiTag> { new() { Name = "Users" } } },
                         [OperationType.Post] = new() { Tags = new List<OpenApiTag> { new() { Name = "Users" } } }
                     }
+#endif
                 },
                 ["/products"] = new OpenApiPathItem
                 {
+#if NET10_0_OR_GREATER
+                    Operations = new Dictionary<HttpMethod, OpenApiOperation>
+                    {
+                        [HttpMethod.Get] = new() { Tags = new HashSet<OpenApiTagReference> { new("Products", null) } }
+                    }
+#else
                     Operations = new Dictionary<OperationType, OpenApiOperation>
                     {
                         [OperationType.Get] = new() { Tags = new List<OpenApiTag> { new() { Name = "Products" } } }
                     }
+#endif
                 }
             }
         };
@@ -172,6 +201,19 @@ public class AppendOperationCountToTagDescriptionFilterTests
             {
                 ["/users"] = new OpenApiPathItem
                 {
+#if NET10_0_OR_GREATER
+                    Operations = new Dictionary<HttpMethod, OpenApiOperation>
+                    {
+                        [HttpMethod.Get] = new()
+                        {
+                            Tags = new HashSet<OpenApiTagReference> { new("Users", null) }
+                        },
+                        [HttpMethod.Post] = new()
+                        {
+                            Tags = new HashSet<OpenApiTagReference> { new("Users", null) }
+                        }
+                    }
+#else
                     Operations = new Dictionary<OperationType, OpenApiOperation>
                     {
                         [OperationType.Get] = new()
@@ -183,6 +225,7 @@ public class AppendOperationCountToTagDescriptionFilterTests
                             Tags = new List<OpenApiTag> { new() { Name = "Users" } }
                         }
                     }
+#endif
                 }
             }
         };
