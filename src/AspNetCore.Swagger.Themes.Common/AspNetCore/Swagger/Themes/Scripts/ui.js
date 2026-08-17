@@ -13,6 +13,8 @@ window.onpageshow = function () {
 
             console.log('Hello Swagger UI!');
 
+            suppressNativeDarkModeClass();
+
             setUpPinnableTopbar({$PINNABLE_TOPBAR});
 
             setUpPinnableFilterBar({$PINNABLE_FILTER_BAR});
@@ -44,14 +46,51 @@ function setUpPinnableTopbar(enabled) {
     });
 }
 
+// Swashbuckle.AspNetCore 10.x's swagger-ui-dist ships its own dark-mode toggle, hidden via CSS
+// (see common.css) because it layers swagger-ui's own dark styling on top of this library's
+// theme. Hiding the button doesn't stop the toggle's React component from mounting though: it
+// still auto-applies a 'dark-mode' class to <html> based on prefers-color-scheme regardless of
+// the button's visibility. A MutationObserver strips it back off whenever it appears, since
+// there's no reliable synchronous point to catch it once and be done - the toggle component can
+// mount before or after this script runs.
+function suppressNativeDarkModeClass() {
+    // Only remove (and thus only mutate the attribute) when the class is actually present, so
+    // this can never trigger the observer with a mutation of its own.
+    const strip = () => {
+        if (rootElement.classList.contains('dark-mode'))
+            rootElement.classList.remove('dark-mode');
+    };
+    strip();
+    new MutationObserver(strip).observe(rootElement, { attributes: true, attributeFilter: ['class'] });
+}
+
 function setUpPinnableFilterBar(enabled) {
     if (enabled === false)
         return;
 
-    const filterBar = document.querySelector('.filter');
-    if (!filterBar)
-        return;
+    // Unlike #swagger-ui itself, .filter only renders once the OpenAPI document has been
+    // fetched and parsed - it commonly doesn't exist yet at the moment #swagger-ui does, so a
+    // single lookup here would silently and permanently no-op. Poll for it with the same
+    // bounded-retry pattern used by setUpExpandAndCollapseOperationsButtons below.
+    const MAX_ATTEMPTS = 60;
+    const RETRY_DELAY_MS = 200;
+    let attempts = 0;
 
+    (function waitForFilterBar() {
+        attempts++;
+        const filterBar = document.querySelector('.filter');
+
+        if (filterBar) {
+            initPinnableFilterBar(filterBar);
+            return;
+        }
+
+        if (attempts < MAX_ATTEMPTS)
+            setTimeout(waitForFilterBar, RETRY_DELAY_MS);
+    })();
+}
+
+function initPinnableFilterBar(filterBar) {
     // CSS alone can't tell whether a sticky element has actually reached its sticky top, so
     // toggle a 'stuck' class here (styled in common.css) by comparing the sticky wrapper's
     // viewport position against its computed sticky offset. The wrapper is 2 parentElement
