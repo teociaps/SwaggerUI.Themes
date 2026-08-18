@@ -52,7 +52,7 @@ Enhance your Swagger UI with additional functional capabilities beyond theming.
 </div>
 
 > [!WARNING]
-> **Version 3.x Breaking Changes**
+> **Version 3.x Breaking Changes** (Theme packages only)
 >
 > Upgrading from v2.x? Please review the **[Migration Guide](https://github.com/teociaps/SwaggerUI.Themes/wiki/Migration-v3)** for important API changes.
 

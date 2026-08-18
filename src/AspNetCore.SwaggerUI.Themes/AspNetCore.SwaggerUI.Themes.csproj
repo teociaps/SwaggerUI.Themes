@@ -1,16 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\build\Common.Core.props" />
+  <Import Project="..\..\build\Versioning.Themes.props" />
   <Import Project="..\..\build\NuGet.props" />
-
-  <!-- Official Version -->
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <MajorVersion>3</MajorVersion>
-    <MinorVersion>1</MinorVersion>
-    <PatchVersion>0</PatchVersion>
-    <VersionSuffix></VersionSuffix>
-    <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
-  </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>AspNetCore.SwaggerUI.Themes</PackageId>

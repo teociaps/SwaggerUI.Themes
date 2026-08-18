@@ -1,31 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\build\Common.Core.props" />
+  <Import Project="..\..\build\Versioning.Extensions.props" />
   <Import Project="..\..\build\NuGet.props" />
-
-  <!-- Official Version -->
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <MajorVersion>1</MajorVersion>
-    <MinorVersion>0</MinorVersion>
-    <PatchVersion>0</PatchVersion>
-    <VersionSuffix></VersionSuffix>
-    <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
-  </PropertyGroup>
-
-  <!-- Local Development: overrides Versioning.props' shared Debug fallback, which tracks the
-       Themes packages' version (currently 3.x) and would otherwise leak into this package. -->
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <MajorVersion>1</MajorVersion>
-    <MinorVersion>0</MinorVersion>
-    <PatchVersion>0</PatchVersion>
-    <VersionSuffix>-$(Revision)</VersionSuffix>
-    <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(VersionSuffix)</Version>
-  </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>AspNetCore.SwaggerUI.Extensions</PackageId>
     <Description>
-      Enhance your ASP.NET Core Swagger UI with additional capabilities.
+      Enhance your ASP.NET Core Swagger UI with functional extensions like API Counter.
     </Description>
     <PackageTags>
       swagger;swagger-ui;swaggerui;swashbuckle;aspnetcore;webapi;openapi;extension;api-counter;operation-count;tag-extensions
