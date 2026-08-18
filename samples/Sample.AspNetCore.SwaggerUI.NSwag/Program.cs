@@ -129,11 +129,11 @@ if (app.Environment.IsDevelopment())
     // ========================================
 
     // 13. Enable all advanced UI features
-    app.UseSwaggerUi(Theme.Dark, c =>
-    {
-        c.DocumentTitle = "Sample API - All Features";
-        c.EnableAllAdvancedOptions();
-    });
+    //app.UseSwaggerUi(Theme.Dark, c =>
+    //{
+    //    c.DocumentTitle = "Sample API - All Features";
+    //    c.EnableAllAdvancedOptions();
+    //});
 
     // 14. Individual advanced features
     //app.UseSwaggerUi(Theme.Light, c =>
@@ -192,11 +192,12 @@ if (app.Environment.IsDevelopment())
     //});
 
     // 19. Pinnable filter bar
-    //app.UseSwaggerUi(Theme.Dark, c =>
-    //{
-    //    c.DocumentTitle = "Sample API - Pinnable Filter Bar";
-    //    c.EnableFilter(pinnable: true);
-    //});
+    app.UseSwaggerUi(Theme.Dark, c =>
+    {
+        c.DocumentTitle = "Sample API - Pinnable Filter Bar";
+        c.EnableAllAdvancedOptions();
+        c.EnableFilter(pinnable: true);
+    });
 }
 
 app.UseHttpsRedirection();

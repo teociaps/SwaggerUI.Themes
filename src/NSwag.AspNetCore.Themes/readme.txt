@@ -29,7 +29,8 @@ Pinnable filter bar:
 DOCUMENTATION
 -------------------------------------------------------------------------------------
 
-Full docs:    https://github.com/teociaps/SwaggerUI.Themes/wiki
-Repository:   https://github.com/teociaps/SwaggerUI.Themes
+Full docs:       https://github.com/teociaps/SwaggerUI.Themes/wiki
+Troubleshooting: https://github.com/teociaps/SwaggerUI.Themes/wiki/Troubleshooting
+Repository:      https://github.com/teociaps/SwaggerUI.Themes
 
 =====================================================================================

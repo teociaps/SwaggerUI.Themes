@@ -21,7 +21,7 @@
 <br>
 _**...and more!**_
 
-**[Get Started](https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started)** • **[View Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** • **[Full Documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)**
+**[Get Started](https://github.com/teociaps/SwaggerUI.Themes/wiki/Getting-Started)** • **[View Built-in Themes](https://github.com/teociaps/SwaggerUI.Themes/wiki/Predefined-Themes)** • **[Troubleshooting](https://github.com/teociaps/SwaggerUI.Themes/wiki/Troubleshooting)** • **[Full Documentation](https://github.com/teociaps/SwaggerUI.Themes/wiki)**
 
 <img width="800" src="assets/swaggerui-themes-demo.gif" alt="SwaggerUI.Themes Demo">
 
