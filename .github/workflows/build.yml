@@ -3,11 +3,11 @@ name: Build
 on:
   push:
     branches: [main]
-    tags: ['v*.*.*']
+    tags: ['themes-v*.*.*', 'extensions-v*.*.*']
     paths-ignore: ['**/*.md', '**/*.png', '**/*.txt']
   pull_request:
     branches: [main]
-    types: [opened, reopened, edited]
+    types: [opened, reopened, edited, synchronize]
     paths-ignore: ['**/*.md', '**/*.png', '**/*.txt']
 
 env:

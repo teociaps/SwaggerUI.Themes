@@ -20,13 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Condition=" '$(TargetFramework)' == 'net10.0' " Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
+    <PackageReference Condition=" '$(TargetFramework)' == 'net10.0' " Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.10" />
 
     <PackageReference Condition=" '$(TargetFramework)' == 'net9.0' " Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.11" />
 
     <PackageReference Condition=" '$(TargetFramework)' == 'net8.0' " Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.11" />
 
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
 
     <PackageReference Include="xunit" Version="2.9.3" />
@@ -34,15 +34,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="6.0.4">
+    <PackageReference Include="coverlet.collector" Version="10.0.1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
 
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\AspNetCore.Swagger.Themes.Common\AspNetCore.Swagger.Themes.Common.csproj" />
+    <ProjectReference Include="..\..\src\AspNetCore.SwaggerUI.Themes\AspNetCore.SwaggerUI.Themes.csproj" />
   </ItemGroup>
 
 </Project>

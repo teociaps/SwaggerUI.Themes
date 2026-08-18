@@ -13,7 +13,11 @@ window.onpageshow = function () {
 
             console.log('Hello Swagger UI!');
 
+            suppressNativeDarkModeClass();
+
             setUpPinnableTopbar({$PINNABLE_TOPBAR});
+
+            setUpPinnableFilterBar({$PINNABLE_FILTER_BAR});
 
             setUpScrollToTopButton({$BACK_TO_TOP});
 
@@ -28,30 +32,149 @@ function setUpPinnableTopbar(enabled) {
     if (enabled === false)
         return;
 
-    const topbarWrapper = document.querySelector('.topbar-wrapper');
-
-    const pinTopbarBtn = document.createElement('button');
-    pinTopbarBtn.setAttribute('id', 'pin-topbar-btn');
-    pinTopbarBtn.addEventListener('click', () => pinOrUnpinTopbar(pinTopbarBtn))
-
-    topbarWrapper.appendChild(pinTopbarBtn);
-
-    pinOrUnpinTopbar(pinTopbarBtn);
+    setUpPinnableToggle({
+        buttonId: 'pin-topbar-btn',
+        container: document.querySelector('.topbar-wrapper'),
+        // 3 parentNode hops up from the button (appended to .topbar-wrapper) reaches .topbar.
+        pinnedAncestorDepth: 3,
+        storageKey: 'swaggerui-pinnable-topbar-preference',
+        pinTitle: 'Pin topbar',
+        unpinTitle: 'Unpin topbar',
+        // No saved preference defaults to pinned, matching the topbar's original
+        // always-pinned-on-load behavior.
+        defaultPinned: true
+    });
 }
 
-function pinOrUnpinTopbar(pinTopbarBtn) {
-    if (pinTopbarBtn.parentNode.parentNode.parentNode.classList.contains('pinned')) {
-        pinTopbarBtn.parentNode.parentNode.parentNode.classList.remove('pinned');
-        setUnpinnedIconTo(pinTopbarBtn);
-        pinTopbarBtn.setAttribute('title', 'Pin topbar');
-    }
-    else {
-        pinTopbarBtn.parentNode.parentNode.parentNode.classList.add('pinned');
-        setPinnedIconTo(pinTopbarBtn);
-        pinTopbarBtn.setAttribute('title', 'Unpin topbar');
+// Swashbuckle.AspNetCore 10.x's swagger-ui-dist ships its own dark-mode toggle, hidden via CSS
+// (see common.css) because it layers swagger-ui's own dark styling on top of this library's
+// theme. Hiding the button doesn't stop the toggle's React component from mounting though: it
+// still auto-applies a 'dark-mode' class to <html> based on prefers-color-scheme regardless of
+// the button's visibility. A MutationObserver strips it back off whenever it appears, since
+// there's no reliable synchronous point to catch it once and be done - the toggle component can
+// mount before or after this script runs.
+function suppressNativeDarkModeClass() {
+    // Only remove (and thus only mutate the attribute) when the class is actually present, so
+    // this can never trigger the observer with a mutation of its own.
+    const strip = () => {
+        if (rootElement.classList.contains('dark-mode'))
+            rootElement.classList.remove('dark-mode');
+    };
+    strip();
+    new MutationObserver(strip).observe(rootElement, { attributes: true, attributeFilter: ['class'] });
+}
+
+function setUpPinnableFilterBar(enabled) {
+    if (enabled === false)
+        return;
+
+    // Unlike #swagger-ui itself, .filter only renders once the OpenAPI document has been
+    // fetched and parsed - it commonly doesn't exist yet at the moment #swagger-ui does, so a
+    // single lookup here would silently and permanently no-op. Poll for it with the same
+    // bounded-retry pattern used by setUpExpandAndCollapseOperationsButtons below.
+    const MAX_ATTEMPTS = 60;
+    const RETRY_DELAY_MS = 200;
+    let attempts = 0;
+
+    (function waitForFilterBar() {
+        attempts++;
+        const filterBar = document.querySelector('.filter');
+
+        if (filterBar) {
+            initPinnableFilterBar(filterBar);
+            return;
+        }
+
+        if (attempts < MAX_ATTEMPTS)
+            setTimeout(waitForFilterBar, RETRY_DELAY_MS);
+    })();
+}
+
+function initPinnableFilterBar(filterBar) {
+    // CSS alone can't tell whether a sticky element has actually reached its sticky top, so
+    // toggle a 'stuck' class here (styled in common.css) by comparing the sticky wrapper's
+    // viewport position against its computed sticky offset. The wrapper is 2 parentElement
+    // hops up from .filter (.filter -> .filter-container -> sticky div, see common.css).
+    const stickyWrapper = filterBar.parentElement?.parentElement;
+
+    function updateStuckState() {
+        if (!stickyWrapper)
+            return;
+
+        // getComputedStyle().top is 'auto' (NaN) while unpinned, so the comparison alone
+        // could never be true then; the explicit pinned check just makes that intent clear.
+        const stuck = filterBar.classList.contains('pinned')
+            && stickyWrapper.getBoundingClientRect().top <= parseFloat(getComputedStyle(stickyWrapper).top) + 1;
+        filterBar.classList.toggle('stuck', stuck);
     }
 
-    pinTopbarBtn?.blur();
+    window.addEventListener('scroll', updateStuckState, { passive: true });
+    window.addEventListener('resize', updateStuckState);
+
+    setUpPinnableToggle({
+        buttonId: 'pin-filterbar-btn',
+        container: filterBar,
+        // 1 parentNode hop up from the button (appended directly to .filter) reaches .filter itself.
+        pinnedAncestorDepth: 1,
+        storageKey: 'swaggerui-pinnable-filterbar-preference',
+        pinTitle: 'Pin filter bar',
+        unpinTitle: 'Unpin filter bar',
+        defaultPinned: false,
+        // Re-evaluate on every pin/unpin so unpinning mid-scroll clears the 'stuck' class
+        // immediately instead of waiting for the next scroll event.
+        onPinnedStateApplied: updateStuckState
+    });
+}
+
+// Shared behavior behind every pinnable element (topbar, filter bar, ...): injects a pin
+// button into `container`, toggles a 'pinned' class on the ancestor `pinnedAncestorDepth`
+// parentNodes up from that button, persists the choice to localStorage, and notifies the
+// optional `onPinnedStateApplied` callback after every applied state (initial load included).
+function setUpPinnableToggle({ buttonId, container, pinnedAncestorDepth, storageKey, pinTitle, unpinTitle, defaultPinned, onPinnedStateApplied }) {
+    if (!container)
+        return;
+
+    const pinBtn = document.createElement('button');
+    pinBtn.setAttribute('id', buttonId);
+    pinBtn.addEventListener('click', () => {
+        const currentlyPinned = pinnedAncestorOf(pinBtn).classList.contains('pinned');
+        applyPinnedState(!currentlyPinned, true);
+        pinBtn?.blur();
+    })
+
+    container.appendChild(pinBtn);
+
+    // Apply the saved (or default) pinned state directly, so there's no flash of the wrong
+    // state on page load.
+    const savedState = localStorage.getItem(storageKey);
+    const isPinned = savedState !== null ? savedState === 'pinned' : defaultPinned;
+    applyPinnedState(isPinned, false);
+
+    function pinnedAncestorOf(button) {
+        let ancestor = button;
+        for (let i = 0; i < pinnedAncestorDepth; i++)
+            ancestor = ancestor.parentNode;
+        return ancestor;
+    }
+
+    function applyPinnedState(pinned, saveToStorage) {
+        if (pinned) {
+            pinnedAncestorOf(pinBtn).classList.add('pinned');
+            setPinnedIconTo(pinBtn);
+            pinBtn.setAttribute('title', unpinTitle);
+        }
+        else {
+            pinnedAncestorOf(pinBtn).classList.remove('pinned');
+            setUnpinnedIconTo(pinBtn);
+            pinBtn.setAttribute('title', pinTitle);
+        }
+
+        if (saveToStorage) {
+            localStorage.setItem(storageKey, pinned ? 'pinned' : 'unpinned');
+        }
+
+        onPinnedStateApplied?.();
+    }
 }
 
 function setPinnedIconTo(element) {

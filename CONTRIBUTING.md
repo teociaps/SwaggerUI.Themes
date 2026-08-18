@@ -35,12 +35,18 @@ This project and everyone participating in it are governed by our [Code of Condu
 Understanding the project layout helps you navigate the codebase:
 
 - **`src/AspNetCore.Swagger.Themes.Common/`** - Core theme system shared between packages
-- **`src/AspNetCore.SwaggerUI.Themes/`** - Swashbuckle.AspNetCore integration
-- **`src/NSwag.AspNetCore.Themes/`** - NSwag.AspNetCore integration
+- **`src/AspNetCore.SwaggerUI.Themes/`** - Swashbuckle.AspNetCore theme integration
+- **`src/NSwag.AspNetCore.Themes/`** - NSwag.AspNetCore theme integration
+- **`src/AspNetCore.SwaggerUI.Extensions/`** - Swashbuckle.AspNetCore functional extensions
+- **`src/NSwag.AspNetCore.Extensions/`** - NSwag.AspNetCore functional extensions
 - **`samples/`** - Example applications demonstrating usage
 - **`tests/`** - Unit and integration tests
 
-## Working with Themes
+---
+
+## Contributing Themes
+
+Themes customize the visual appearance of Swagger UI. When contributing a new theme:
 
 ### Adding or Modifying Themes
 
@@ -107,6 +113,82 @@ git add src/AspNetCore.Swagger.Themes.Common/AspNetCore/Swagger/Themes/Scripts/*
 git commit -m "Add new ocean theme"
 ```
 
+### Theme Organization
+
+When adding example custom themes, use subfolders for clarity:
+
+```
+samples/YourSample/SwaggerThemes/
+├── CompanyThemes/
+│   └── corporate-blue.css
+└── SeasonalThemes/
+    └── holiday-red.css
+```
+
+This demonstrates best practices for users organizing their own themes.
+
+### Standalone vs. Regular Themes
+
+- **Regular themes** - Depend on `common.css` and may use JavaScript features
+- **Standalone themes** - Prefix with `standalone.` (e.g., `standalone.custom.css`) for zero dependencies
+
+Choose based on whether you need shared styles or prefer total independence.
+
+---
+
+## Contributing Extensions
+
+Extensions add functional capabilities to Swagger UI beyond theming. When contributing a new extension:
+
+### Planning an Extension
+
+Before implementing, consider:
+
+1. **Scope** - Is it a focused feature or part of a larger system?
+2. **Compatibility** - Does it work with both Swashbuckle and NSwag?
+3. **Integration points** - Where should it hook into the pipeline?
+4. **User value** - What problem does it solve for users?
+
+### Implementation Guidelines
+
+Extensions should be implemented for both integrations:
+
+- **Swashbuckle implementation** - `src/AspNetCore.SwaggerUI.Extensions/`
+  - Add service extension methods in `Microsoft.Extensions.DependencyInjection/`
+  - Add filters in `AspNetCore/Swagger/Extensions/Filters/`
+
+- **NSwag implementation** - `src/NSwag.AspNetCore.Extensions/`
+  - Add service extension methods in `Microsoft.Extensions.DependencyInjection/`
+  - Add processors in `AspNetCore/Swagger/Extensions/Processors/`
+
+### Extension Structure Example
+
+```
+src/AspNetCore.SwaggerUI.Extensions/
+├── Microsoft/Extensions/DependencyInjection/
+│   └── SwaggerGenOptionsExtensions.cs      // Service configuration
+├── AspNetCore/Swagger/Extensions/
+│   └── Filters/
+│       └── MyFeatureFilter.cs              // Swagger/OpenAPI filter
+└── package-readme.md                       // NuGet package documentation
+
+src/NSwag.AspNetCore.Extensions/
+├── Microsoft/Extensions/DependencyInjection/
+│   └── AspNetCoreOpenApiDocumentGeneratorSettingsExtensions.cs
+├── AspNetCore/Swagger/Extensions/
+│   └── Processors/
+│       └── MyFeatureProcessor.cs           // NSwag processor
+└── package-readme.md
+```
+
+### Testing Extensions
+
+1. Add tests in the appropriate test project
+2. Test with both sample applications
+3. Verify the extension works independently and alongside other extensions
+
+---
+
 ## Testing Your Changes
 
 Before submitting a pull request:
@@ -126,8 +208,9 @@ dotnet test
 ```
 
 All tests must pass, including:
-- Minified header format tests
-- Theme discovery tests
+- Minified header format tests (for themes)
+- Theme discovery tests (for themes)
+- Extension functionality tests (for extensions)
 - Integration tests
 
 ### 3. Test with Sample Applications
@@ -140,15 +223,22 @@ dotnet run --project samples/Sample.AspNetCore.SwaggerUI.Swashbuckle
 
 # NSwag sample
 dotnet run --project samples/Sample.AspNetCore.SwaggerUI.NSwag
+
+# Swashbuckle Extensions sample
+dotnet run --project samples/Sample.AspNetCore.SwaggerUI.Extensions
+
+# NSwag Extensions sample
+dotnet run --project samples/Sample.NSwag.AspNetCore.Extensions
 ```
 
 ### 4. Manual Verification
 
 Open the sample app in your browser and verify:
 
-- ✅ Themes render correctly
-- ✅ Theme switcher dropdown appears and works (if enabled)
-- ✅ Custom themes are discovered automatically
+- ✅ Themes render correctly (if theme changes)
+- ✅ Theme switcher dropdown appears and works (if theme changes)
+- ✅ Custom themes are discovered automatically (if theme changes)
+- ✅ Extensions work as expected (if extension changes)
 - ✅ Advanced features work (pinnable topbar, back-to-top, etc.)
 - ✅ No console errors in browser developer tools
 - ✅ Standalone themes load without extra dependencies
@@ -164,9 +254,10 @@ Open the sample app in your browser and verify:
 
 ### Good PR Practices
 
-- Use descriptive titles: `feat: add sunset theme` not `update css`
+- Use descriptive titles: `feat: add sunset theme` or `feat: add api metadata extension`
 - Reference issues: `Fixes #123` or `Closes #456`
-- Include screenshots for visual changes
+- Include screenshots for visual changes (themes)
+- Include before/after examples for functional changes (extensions)
 - Test across .NET 8, 9, and 10 if possible
 
 ## Reporting Bugs
@@ -177,19 +268,25 @@ Found a bug? Please open an issue with:
 - **Steps to reproduce** the issue
 - **Expected vs. actual behavior**
 - **Environment details:**
-  - Which package (Swashbuckle or NSwag)
+  - Which package (Themes or Extensions)
+  - Which integration (Swashbuckle or NSwag)
   - .NET version
   - Browser (if UI-related)
 - **Screenshots or code snippets** if applicable
+
+See the bug report template for a structured approach.
 
 ## Suggesting Features
 
 We welcome feature suggestions! When proposing a feature:
 
 - **Describe the use case** - What problem does it solve?
+- **Specify the scope** - Is it for Themes, Extensions, or both?
 - **Explain the benefit** - How does it improve the project?
 - **Consider backward compatibility** - Will it break existing code?
 - **Offer to help** - Can you contribute the implementation?
+
+See the feature request template for a structured approach.
 
 ## Development Tips
 
@@ -215,13 +312,6 @@ samples/YourSample/SwaggerThemes/
 ```
 
 This demonstrates best practices for users organizing their own themes.
-
-### Standalone vs. Regular Themes
-
-- **Regular themes** - Depend on `common.css` and may use JavaScript features
-- **Standalone themes** - Prefix with `standalone.` (e.g., `standalone.custom.css`) for zero dependencies
-
-Choose based on whether you need shared styles or prefer total independence.
 
 ## Questions?
 

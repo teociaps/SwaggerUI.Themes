@@ -6,6 +6,15 @@
 
 @charset "UTF-8";
 
+:root {
+    /* Rendered heights of the pinned topbar/filter bar, used to stack sticky elements below
+       them without overlap. Declared once here so the two DOM-branch-specific copies below
+       (needed because of how .topbar.pinned/.filter.pinned relate to the elements that read
+       them) can't drift out of sync. */
+    --topbar-pinned-height: 4rem;
+    --filterbar-pinned-height: 5rem;
+}
+
 *::-webkit-scrollbar {
     width: 16px;
 }
@@ -95,6 +104,15 @@ body {
         .swagger-ui .topbar.pinned {
             position: sticky;
             top: 10px;
+            --pinned-topbar-offset: var(--topbar-pinned-height);
+        }
+
+        /* The filter bar and the sticky operation tag headers live in a different branch of the
+           DOM than the topbar, so they can't inherit --pinned-topbar-offset directly from
+           .topbar.pinned. Re-declare it here, on their closest common ancestor, so it only
+           carries a nonzero value while the topbar is actually pinned. */
+        .swagger-ui:has(> .topbar.pinned) {
+            --pinned-topbar-offset: var(--topbar-pinned-height);
         }
 
             .swagger-ui .topbar.pinned::before {
@@ -122,7 +140,10 @@ body {
                 fill: var(--topbar-pin-icon-color, white);
             }
 
-            .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn {
+            /* Base/hover/active button styling is shared with the filter bar's pin button
+               (#pin-filterbar-btn below); only the icon fill color differs between the two. */
+            .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn,
+            .swagger-ui .filter #pin-filterbar-btn {
                 cursor: pointer;
                 background: transparent;
                 border: none;
@@ -133,12 +154,15 @@ body {
             }
 
                 .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:hover,
-                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:focus-within {
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:focus-within,
+                .swagger-ui .filter #pin-filterbar-btn:hover,
+                .swagger-ui .filter #pin-filterbar-btn:focus-within {
                     scale: 1.05;
                     animation: pintobbar 1.2s infinite;
                 }
 
-                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:active {
+                .swagger-ui .topbar .topbar-wrapper #pin-topbar-btn:active,
+                .swagger-ui .filter #pin-filterbar-btn:active {
                     scale: 0.95;
                 }
 
@@ -149,13 +173,21 @@ body {
             backdrop-filter: blur(20px);
         }
 
-            .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn {
-                translate: 0 5px;
+            /* rotate is shared with the filter bar's pinned pin button (#pin-filterbar-btn
+               below); translate is topbar-specific, nudging the button into the pinned layout. */
+            .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn,
+            .swagger-ui .filter.pinned #pin-filterbar-btn {
                 rotate: z 0deg;
             }
 
+                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn {
+                    translate: 0 5px;
+                }
+
                 .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn:hover,
-                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn:focus-within {
+                .swagger-ui .topbar.pinned .topbar-wrapper #pin-topbar-btn:focus-within,
+                .swagger-ui .filter.pinned #pin-filterbar-btn:hover,
+                .swagger-ui .filter.pinned #pin-filterbar-btn:focus-within {
                     animation: unpintobbar 1.2s infinite;
                 }
 
@@ -249,6 +281,15 @@ body {
 .swagger-ui .topbar .download-url-wrapper .download-url-button {
     background: var(--topbar-download-url-button-background-color, #62a03f);
     color: var(--topbar-download-url-button-color, #fff);
+}
+
+/* Swashbuckle.AspNetCore 10.x's swagger-ui-dist ships its own native dark-mode toggle in the
+   topbar. It layers swagger-ui's own bundled dark CSS on top of whatever theme is active here,
+   visibly clashing with it - hide it since this library's own theme (and, when enabled, its
+   EnableThemeSwitcher) already cover light/dark. Harmless no-op on older Swashbuckle versions
+   that don't render this element at all. */
+.swagger-ui .topbar .dark-mode-toggle {
+    display: none;
 }
 
 #theme-switcher-select {
@@ -402,8 +443,8 @@ body {
         background: var(--opblock-tag-pinned-background-color-hover, #f1f1f1);
     }
 
-.swagger-ui:has(> .topbar.pinned) .opblock-tag-section.is-open .opblock-tag {
-    top: 4.2rem;
+.swagger-ui .opblock-tag-section.is-open .opblock-tag {
+    top: calc(var(--pinned-topbar-offset, 0px) + var(--pinned-filter-offset, 0px));
 }
 
 .swagger-ui .opblock {
@@ -646,9 +687,71 @@ body {
     }
 
 /* Other of operations */
+/* The pin button is appended as a sibling of .filter-container (swagger-ui-dist's own,
+   unstyled, full-width wrapper around the filter input) directly inside .filter. It's
+   absolutely positioned over the input's right end (like an input-embedded icon), with
+   position: relative here making .filter its containing block; align-items keeps its
+   static position vertically centered. */
+.swagger-ui .filter {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+    .swagger-ui .filter .filter-container {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .swagger-ui .filter #pin-filterbar-btn {
+        position: absolute;
+        right: 1.5rem;
+    }
+
 .swagger-ui .filter .operation-filter-input {
     border: 2px solid var(--filter-operation-filter-input-border-color, #d8dde7);
 }
+
+    /* Only while the pinned filter bar has actually reached its sticky top (the 'stuck'
+       class is toggled by ui.js — CSS can't detect that state): fake a bottom edge for the
+       sticky bar by stacking two hard shadows below the input — a background-colored fill,
+       then a 1px line in the operations' border color. */
+    .swagger-ui .filter.pinned.stuck .operation-filter-input {
+        box-shadow: 0 19px 0 0 var(--body-background-color, #fafafa), 0 20px 0 0 var(--opblock-tag-section-border-color, #dddddd);
+    }
+
+    /* .filter's own wrapper (.filter-container) is exactly as tall as the filter bar itself
+       (its only child), so making .filter, or .filter-container, position:sticky would have no
+       visible effect: a sticky box is bounded by its own containing block, and that block would
+       offer no extra room for it to remain "stuck" while the page scrolls. What actually needs
+       position: sticky is .filter-container's own parent, matched here by this selector (the
+       ">" combinators pin it down to exactly that element): unlike .filter-container, that div's
+       *own* parent, one level further up, spans the full page content (info box, filter,
+       operations list, models, ...) as siblings, which gives this element room to stick. It has
+       no stable class of its own in Swagger UI's markup, so it's targeted structurally via its
+       known descendants instead. */
+    .swagger-ui div:has(> .filter-container > .filter.pinned) {
+        position: sticky;
+        top: var(--pinned-topbar-offset, 0px);
+        z-index: 5;
+        background: var(--body-background-color, #fafafa);
+        --pinned-filter-offset: var(--filterbar-pinned-height);
+    }
+
+/* The sticky operation tag headers live in a different branch of the DOM than the filter bar,
+   so they can't inherit --pinned-filter-offset directly from the rule above. Re-declare it here,
+   on their closest common ancestor, so it only carries a nonzero value while the filter bar is
+   actually pinned. */
+.swagger-ui:has(.filter.pinned) {
+    --pinned-filter-offset: var(--filterbar-pinned-height);
+}
+
+    .swagger-ui .filter #pin-filterbar-btn svg {
+        fill: var(--filterbar-pin-icon-color, #707070);
+    }
+
+    /* Base, hover/focus, active, and pinned button styling is shared with the topbar's pin
+       button (#pin-topbar-btn) — see the .topbar .topbar-wrapper #pin-topbar-btn rules above. */
 
 .swagger-ui .download-url-wrapper .failed,
 .swagger-ui .filter .failed {

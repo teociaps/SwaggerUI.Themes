@@ -114,4 +114,96 @@ public class FileProviderMiddlewareTests
         var responseBody = await reader.ReadToEndAsync();
         responseBody.ShouldBe(content);
     }
+
+    [Fact]
+    public async Task AddGetEndpoint_ShouldResolveEachPathIndependently_WhenMultiplePathsRegisteredOnSameApp()
+    {
+        // Arrange
+        var mockAppBuilder = new MockApplicationBuilder();
+        var prefix = $"/test-middleware-multi-{Guid.NewGuid():N}";
+        var registrations = Enumerable.Range(0, 6)
+            .Select(i => (
+                Path: $"{prefix}/{i}.css",
+                Content: $"body {{ /* asset {i} */ }}",
+                ContentType: i % 2 == 0 ? MimeTypes.Text.Css : MimeTypes.Text.Javascript))
+            .ToList();
+
+        foreach (var (path, content, contentType) in registrations)
+        {
+            AddGetEndpoint(mockAppBuilder, path, content, contentType);
+        }
+
+        var app = mockAppBuilder.Build();
+
+        // Act & Assert - each registered path resolves to its own content and content-type
+        foreach (var (path, content, contentType) in registrations)
+        {
+            var context = MockApplicationBuilder.CreateHttpContext(path);
+            await app.Invoke(context);
+            await context.Response.Body.FlushAsync();
+
+            context.Response.StatusCode.ShouldBe(200);
+            context.Response.ContentType.ShouldBe(contentType);
+
+            context.Response.Body.Seek(0, SeekOrigin.Begin);
+            using var reader = new StreamReader(context.Response.Body);
+            (await reader.ReadToEndAsync()).ShouldBe(content);
+        }
+
+        // An unregistered path still falls through to the terminal 404
+        var missingContext = MockApplicationBuilder.CreateHttpContext($"{prefix}/unregistered.css");
+        await app.Invoke(missingContext);
+
+        missingContext.Response.StatusCode.ShouldBe(404);
+    }
+
+    [Fact]
+    public async Task AddGetEndpoint_ShouldNotServePathRegisteredByAnotherAppInstance()
+    {
+        // Arrange - two independent apps, each registering its own, distinct path
+        var appA = new MockApplicationBuilder();
+        var appB = new MockApplicationBuilder();
+        var prefix = $"/test-middleware-isolation-{Guid.NewGuid():N}";
+        var pathOnlyRegisteredByA = $"{prefix}/a.css";
+        var pathOnlyRegisteredByB = $"{prefix}/b.css";
+
+        AddGetEndpoint(appA, pathOnlyRegisteredByA, "content-A");
+        AddGetEndpoint(appB, pathOnlyRegisteredByB, "content-B");
+
+        var builtA = appA.Build();
+
+        // Act - request appA for a path only appB ever registered
+        var context = MockApplicationBuilder.CreateHttpContext(pathOnlyRegisteredByB);
+        await builtA.Invoke(context);
+
+        // Assert - appA never registered this path, so it must not serve appB's content
+        context.Response.StatusCode.ShouldBe(404);
+    }
+
+    [Fact]
+    public async Task AddGetEndpoint_WhenCalledConcurrently_RegistersEveryEndpointExactlyOnce()
+    {
+        // Arrange
+        const int EndpointCount = 50;
+        var prefix = $"/test-middleware-concurrent-{Guid.NewGuid():N}";
+        var registrations = Enumerable.Range(0, EndpointCount)
+            .Select(i => (Path: $"{prefix}/{i}.css", AppBuilder: new MockApplicationBuilder()))
+            .ToList();
+
+        // Act - each registration uses its own builder so the middleware pipeline itself
+        // isn't mutated concurrently; only the shared static endpoint registry is stressed.
+        await Should.NotThrowAsync(() => Task.WhenAll(
+            registrations.Select(r => Task.Run(() =>
+                AddGetEndpoint(r.AppBuilder, r.Path, $"body {{ /* {r.Path} */ }}")))));
+
+        // Assert
+        foreach (var (path, appBuilder) in registrations)
+        {
+            var app = appBuilder.Build();
+            var context = MockApplicationBuilder.CreateHttpContext(path);
+            await app.Invoke(context);
+
+            context.Response.StatusCode.ShouldBe(200);
+        }
+    }
 }

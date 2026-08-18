@@ -21,6 +21,9 @@ app.UseSwaggerUI(Theme.Dark);
 
 // Or enable runtime theme switcher!
 app.UseSwaggerUI(Theme.Dark, c => c.EnableThemeSwitcher());
+
+// Or enable a pinnable filter box
+app.UseSwaggerUI(Theme.Dark, c => c.EnableFilter(pinnable: true));
 ```
 
 > **Note**: The `UseSwaggerUI()` method is provided by Swashbuckle.AspNetCore. This package adds convenient overloads to apply themes seamlessly.

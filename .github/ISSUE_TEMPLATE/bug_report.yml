@@ -1,0 +1,147 @@
+name: "?? Bug Report"
+description: "Report a bug or issue with SwaggerUI.Themes or SwaggerUI.Extensions"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue! Please fill out the information below to help us investigate.
+
+  - type: dropdown
+    id: package_type
+    attributes:
+      label: "Package Type"
+      description: "Which type of package are you reporting an issue with?"
+      options:
+        - "Theme (AspNetCore.SwaggerUI.Themes)"
+        - "Theme (NSwag.AspNetCore.Themes)"
+        - "Extension (AspNetCore.SwaggerUI.Extensions)"
+        - "Extension (NSwag.AspNetCore.Extensions)"
+        - "Common (AspNetCore.Swagger.Themes.Common)"
+        - "Unsure"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: integration
+    attributes:
+      label: "Integration Framework"
+      description: "Which Swagger integration are you using?"
+      options:
+        - "Swashbuckle.AspNetCore"
+        - "NSwag.AspNetCore"
+        - "Both"
+        - "Not applicable"
+    validations:
+      required: true
+
+  - type: input
+    id: dotnet_version
+    attributes:
+      label: ".NET Version"
+      description: "Which .NET version are you using? (e.g., 8.0, 9.0, 10.0)"
+      placeholder: "e.g., 8.0"
+    validations:
+      required: true
+
+  - type: input
+    id: package_version
+    attributes:
+      label: "Package Version"
+      description: "Which version of the package are you using?"
+      placeholder: "e.g., 3.0.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "Clear and concise description of the bug"
+      placeholder: "What happened?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Step-by-step instructions to reproduce the issue"
+      placeholder: |
+        1. Configure the package with...
+        2. Navigate to...
+        3. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "Expected Behavior"
+      description: "What should happen?"
+      placeholder: "Describe the expected behavior"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: "Actual Behavior"
+      description: "What actually happens?"
+      placeholder: "Describe what actually happens"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: "Browser (if UI-related)"
+      description: "Which browser are you using? (Only relevant for theme/UI issues)"
+      options:
+        - "Chrome"
+        - "Firefox"
+        - "Safari"
+        - "Edge"
+        - "Other"
+        - "Not applicable"
+
+  - type: textarea
+    id: code_snippet
+    attributes:
+      label: "Code Snippet"
+      description: "Relevant code that demonstrates the issue (optional)"
+      render: csharp
+      placeholder: |
+        // Your code here
+        app.UseSwaggerUI(Theme.Dark);
+
+  - type: textarea
+    id: error_logs
+    attributes:
+      label: "Error Logs or Stack Trace"
+      description: "Any relevant error messages or stack traces (optional)"
+      render: plain_text
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots"
+      description: "Screenshots showing the issue (optional, for UI-related issues)"
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context"
+      description: "Any other information that might be helpful"
+      placeholder: "Add any other context about the problem here"
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Verification"
+      options:
+        - label: "I have searched existing issues and found no duplicates"
+          required: true
+        - label: "I have provided clear reproduction steps"
+          required: true
+        - label: "I have included relevant error messages or logs"

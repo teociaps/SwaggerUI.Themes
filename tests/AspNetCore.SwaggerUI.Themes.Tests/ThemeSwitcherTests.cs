@@ -484,5 +484,33 @@ public class ThemeSwitcherTests
 
     #endregion Integration Scenarios
 
+    #region Concurrency Tests
+
+    [Fact]
+    public async Task RegisterTheme_WhenCalledConcurrently_RegistersEveryThemeExactlyOnce()
+    {
+        // Arrange
+        const int ThemeCount = 50;
+        var prefix = $"concurrent-{Guid.NewGuid():N}-";
+        var themes = Enumerable.Range(0, ThemeCount)
+            .Select(i => new TestCustomTheme($"{prefix}{i}.css"))
+            .ToList();
+
+        // Act
+        await Should.NotThrowAsync(() => Task.WhenAll(
+            themes.Select(theme => Task.Run(() => ThemeSwitcher.RegisterTheme(theme, theme.FileName, isStandalone: false)))));
+
+        // Assert
+        var registeredNames = ThemeSwitcher.GetFilteredThemes(ThemeSwitcherOptions.CustomOnly())
+            .Select(rt => rt.Name)
+            .Where(name => name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        registeredNames.Count.ShouldBe(ThemeCount);
+        registeredNames.Distinct(StringComparer.OrdinalIgnoreCase).Count().ShouldBe(ThemeCount);
+    }
+
+    #endregion Concurrency Tests
+
     private class TestCustomTheme(string fileName) : Theme(fileName);
 }

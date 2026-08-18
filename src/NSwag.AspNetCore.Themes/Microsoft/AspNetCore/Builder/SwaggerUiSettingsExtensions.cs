@@ -58,6 +58,31 @@ public static class SwaggerUiSettingsExtensions
             settings.AdditionalSettings.EnablePinnableTopbar();
 
         /// <summary>
+        /// Enables the operation filter box.
+        /// </summary>
+        /// <remarks>
+        /// Sets the raw <c>filter</c> key consumed directly by the swagger-ui bundle's own
+        /// <c>SwaggerUIBundle({...})</c> initializer, as opposed to the other options here
+        /// which drive this library's own theme JS.
+        /// </remarks>
+        public void EnableFilter() =>
+            settings.AdditionalSettings.TryAdd("filter", true);
+
+        /// <summary>
+        /// Enables the operation filter box, optionally making it pinnable.
+        /// </summary>
+        /// <param name="pinnable">
+        /// If <see langword="true"/>, the filter box can be pinned in place.
+        /// </param>
+        public void EnableFilter(bool pinnable)
+        {
+            settings.EnableFilter();
+
+            if (pinnable)
+                settings.AdditionalSettings.EnablePinnableFilterBar();
+        }
+
+        /// <summary>
         /// Shows a button to scroll back to the top of the page.
         /// </summary>
         public void ShowBackToTopButton() =>

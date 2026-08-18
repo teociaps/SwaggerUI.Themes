@@ -5,7 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(SwaggerGenConfigurer.Configure);
+builder.Services.AddSwaggerGen(c =>
+{
+    SwaggerGenConfigurer.Configure(c);
+});
 
 var app = builder.Build();
 
@@ -126,11 +129,11 @@ if (app.Environment.IsDevelopment())
     // ========================================
 
     // 13. Enable all advanced UI features
-    app.UseSwaggerUI(Theme.Dark, c =>
-    {
-        c.DocumentTitle = "Sample API - All Features";
-        c.EnableAllAdvancedOptions();
-    });
+    //app.UseSwaggerUI(Theme.Dark, c =>
+    //{
+    //    c.DocumentTitle = "Sample API - All Features";
+    //    c.EnableAllAdvancedOptions();
+    //});
 
     // 14. Individual advanced features
     //app.UseSwaggerUI(Theme.Light, c =>
@@ -188,6 +191,14 @@ if (app.Environment.IsDevelopment())
     //        .WithThemes(Theme.Dark, Theme.Light)
     //        .WithCustomThemes(CustomThemeMode.None));
     //});
+
+    // 19. Pinnable filter bar
+    app.UseSwaggerUI(Theme.Dark, c =>
+    {
+        c.DocumentTitle = "Sample API - Pinnable Filter Bar";
+        c.EnableAllAdvancedOptions();
+        c.EnableFilter(pinnable: true);
+    });
 }
 
 app.UseHttpsRedirection();

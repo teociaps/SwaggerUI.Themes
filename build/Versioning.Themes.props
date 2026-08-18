@@ -1,0 +1,12 @@
+<Project>
+
+  <!-- Version for the Theme packages (AspNetCore.SwaggerUI.Themes, NSwag.AspNetCore.Themes).
+       Set once here, unconditionally - Versioning.props (imported after this file) computes
+       Debug/Release suffixes generically from whatever Major/Minor/PatchVersion is already set. -->
+  <PropertyGroup>
+    <MajorVersion>3</MajorVersion>
+    <MinorVersion>1</MinorVersion>
+    <PatchVersion>0</PatchVersion>
+  </PropertyGroup>
+
+</Project>
